@@ -17,16 +17,20 @@ class Game {
   }
   
   static void Main (string[] args) {
+
+    // A welcome message is printed to the console
     Console.WriteLine("Welcome to the World of Zuul!");
     
+    // We call the InitRegistry method
     InitRegistry();
+
     context.GetCurrent().Welcome();
     
     while (context.IsDone()==false) {
-      Console.Write("> ");
-      string? line = Console.ReadLine();
-      if (line!=null) registry.Dispatch(line);
+        Console.Write("> ");
+        string? line = Console.ReadLine();
+        if (line!=null) registry.Dispatch(line);
     }
     Console.WriteLine("Game Over 😥");
-  }
+    }
 }
