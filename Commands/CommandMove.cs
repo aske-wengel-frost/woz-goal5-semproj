@@ -12,6 +12,7 @@ namespace cs.Commands
         {
             if (GuardEq(parameters, 1))
             {
+                // We dont have 1 parameter!
                 Console.WriteLine("Hmmm....Jeg ved ikke hvor det er");
                 return;
 
