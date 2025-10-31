@@ -6,8 +6,9 @@ using cs;
 class StoryHandler {
   Space current;
   bool done = false;
-  
-  public Dictionary<string, Scene> Scenes{ get; set; }
+
+    private Scene currentScene { get; set; }
+    public Dictionary<string, Scene> Scenes{ get; set; }
 
   public StoryHandler (Space node) {
     current = node;
@@ -37,8 +38,14 @@ class StoryHandler {
       current.Welcome();
     }
   }
-  
-  public void MakeDone ()
+
+    public void SwitchScene(string sceneName)
+    {
+        Scene scene = Scenes[sceneName];
+        currentScene = scene;
+    }
+
+    public void MakeDone ()
   {
     done = true;
   }

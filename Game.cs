@@ -1,6 +1,8 @@
 /* Main class for launching the game
  */
 
+using cs.Commands;
+
 class Game {
   static World    world    = new World();
   static StoryHandler  StoryHandler  = new StoryHandler(world.GetEntry());
@@ -14,7 +16,8 @@ class Game {
     registry.Register("bye", cmdExit);
     registry.Register("go", new CommandGo());
     registry.Register("help", new CommandHelp(registry));
-  }
+    registry.Register("move", new CommandMove());
+    }
   
   static void Main (string[] args) {
     
