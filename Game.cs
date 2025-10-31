@@ -17,6 +17,8 @@ class Game {
   }
   
   static void Main (string[] args) {
+    
+    context.Start();
 
     // A welcome message is printed to the console
     Console.WriteLine("Welcome to the World of Zuul!");
