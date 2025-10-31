@@ -1,11 +1,11 @@
-/* Context class to hold all context relevant to a session.
+/* StoryHandler class to hold all context relevant to a session.
  */
 
-class Context {
+class StoryHandler {
   Space current;
   bool done = false;
   
-  public Context (Space node) {
+  public StoryHandler (Space node) {
     current = node;
   }
   
@@ -13,6 +13,7 @@ class Context {
     return current;
   }
   
+    //If the next space is null, prints message and starts the game over
   public void Transition (string direction) {
     Space next = current.FollowEdge(direction);
     if (next==null) {

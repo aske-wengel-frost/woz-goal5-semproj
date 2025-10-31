@@ -3,7 +3,7 @@
 
 class Game {
   static World    world    = new World();
-  static Context  context  = new Context(world.GetEntry());
+  static StoryHandler  context  = new StoryHandler(world.GetEntry());
   static ICommand fallback = new CommandUnknown();
   static Registry registry = new Registry(context, fallback);
   

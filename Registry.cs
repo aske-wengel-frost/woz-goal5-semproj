@@ -2,11 +2,11 @@
  */
 
 class Registry {
-  Context context;
+  StoryHandler context;
   ICommand fallback;
   Dictionary<string, ICommand> commands = new Dictionary<string, ICommand>();
   
-  public Registry (Context context, ICommand fallback) {
+  public Registry (StoryHandler context, ICommand fallback) {
     this.context = context;
     this.fallback = fallback;
   }
