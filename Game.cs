@@ -3,9 +3,9 @@
 
 class Game {
   static World    world    = new World();
-  static StoryHandler  context  = new StoryHandler(world.GetEntry());
+  static StoryHandler  StoryHandler  = new StoryHandler(world.GetEntry());
   static ICommand fallback = new CommandUnknown();
-  static Registry registry = new Registry(context, fallback);
+  static Registry registry = new Registry(StoryHandler, fallback);
   
   private static void InitRegistry () {
     ICommand cmdExit = new CommandExit();
@@ -18,7 +18,7 @@ class Game {
   
   static void Main (string[] args) {
     
-    context.Start();
+    StoryHandler.Start();
 
     // A welcome message is printed to the console
     Console.WriteLine("Welcome to the World of Zuul!");
@@ -26,9 +26,9 @@ class Game {
     // We call the InitRegistry method
     InitRegistry();
 
-    context.GetCurrent().Welcome();
+    StoryHandler.GetCurrent().Welcome();
     
-    while (context.IsDone()==false) {
+    while (StoryHandler.IsDone()==false) {
         Console.Write("> ");
         string? line = Console.ReadLine();
         if (line!=null) registry.Dispatch(line);

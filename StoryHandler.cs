@@ -1,4 +1,4 @@
-/* StoryHandler class to hold all context relevant to a session.
+/* StoryHandler class to hold all StoryHandler relevant to a session.
  */
 
 using cs;

@@ -2,12 +2,12 @@
  */
 
 class Registry {
-  StoryHandler context;
+  StoryHandler StoryHandler;
   ICommand fallback;
   Dictionary<string, ICommand> commands = new Dictionary<string, ICommand>();
   
-  public Registry (StoryHandler context, ICommand fallback) {
-    this.context = context;
+  public Registry (StoryHandler StoryHandler, ICommand fallback) {
+    this.StoryHandler = StoryHandler;
     this.fallback = fallback;
   }
   
@@ -19,7 +19,7 @@ class Registry {
     string[] elements = line.Split(" ");
     string command = elements[0];
     string[] parameters = GetParameters(elements);
-    (commands.ContainsKey(command) ? GetCommand(command) : fallback).Execute(context, command, parameters);
+    (commands.ContainsKey(command) ? GetCommand(command) : fallback).Execute(StoryHandler, command, parameters);
   }
   
   public ICommand GetCommand (string commandName) {

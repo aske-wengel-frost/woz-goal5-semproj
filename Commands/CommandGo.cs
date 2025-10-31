@@ -6,11 +6,11 @@ class CommandGo : BaseCommand, ICommand {
     description = "Follow an exit";
   }
   
-  public void Execute (Context context, string command, string[] parameters) {
+  public void Execute (StoryHandler StoryHandler, string command, string[] parameters) {
     if (GuardEq(parameters, 1)) {
       Console.WriteLine("I don't seem to know where that is 🤔");
       return;
     }
-    context.Transition(parameters[0]);
+    StoryHandler.Transition(parameters[0]);
   }
 }
