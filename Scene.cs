@@ -9,7 +9,7 @@ namespace cs
     public class Scene
     {
         public int ID { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; }
         public Area Area { get; set;  }
         public string? DialogueText { get; set; }
         public List<SceneChoice> Choices { get; set; }
