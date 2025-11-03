@@ -10,11 +10,11 @@ namespace cs
     public class SceneChoice
     {
         public string? Description { get; set; }
-        public int SceneId { get; set; }
+        public string SceneName { get; set; }
         public Scene? SceneObj { get; set; }
-        public SceneChoice(int sceneId, string description)
+        public SceneChoice(string sceneName, string description)
         {
-            SceneId = sceneId;
+            SceneName = sceneName;
             Description = description;
         }
     }
