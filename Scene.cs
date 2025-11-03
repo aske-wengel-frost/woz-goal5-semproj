@@ -8,17 +8,18 @@ namespace cs
 {
     public class Scene
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
         public string? Name { get; set; }
-        //Area
+        public Area Area { get; set;  }
         public string? DialogueText { get; set; }
-        //SceneChoice list
-
-        public Scene(int id, string name, string dialogueText)
+        public List<SceneChoice> Choices { get; set; }
+        public Scene(int id, string name, string dialogueText, Area area, List<SceneChoice> choices)
         {
-            Id = id;
+            ID = id;
             Name = name;
             DialogueText = dialogueText;
+            Area = area;
+            Choices = choices;
         }
 
         /// <summary>
@@ -26,24 +27,14 @@ namespace cs
         /// </summary>
         /// <param name="obj">scene object to compare</param>
         /// <returns>returns true if 2 scenes have same ID</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (obj is Scene) 
+            if (obj is Scene)
             {
                 Scene tmpScene = (Scene)obj;
-                if (this.Id == tmpScene.Id)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                if (this.ID == tmpScene.ID) { return true; }
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
 }
