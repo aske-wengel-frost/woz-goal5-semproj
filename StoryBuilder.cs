@@ -8,7 +8,7 @@
 
     class StoryBuilder
     {
-        public Dictionary<string, Scene> Scenes { get; set; }
+        public Dictionary<int, Scene> Scenes { get; set; }
 
         public StoryBuilder()
         {
@@ -18,7 +18,7 @@
         public bool AddScene(Scene scene)
         {
             // Adds the scene object and sets the key in the dictionary to the name of the Scene
-            Scenes.Add(scene.Name, scene);
+            Scenes.Add(scene.ID, scene);
 
             return true;
         }
@@ -36,7 +36,7 @@
                 foreach(SceneChoice sceneChoice in scene.Choices)
                 {
                     // try to resolve the name of the scene with a scene object
-                    if (Scenes.TryGetValue(sceneChoice.SceneName, out Scene OutScene))
+                    if (Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
                     {
                         // set the scene object on the scenechoice object to the found instance
                         sceneChoice.SceneObj = OutScene;
@@ -52,7 +52,7 @@
         public Scene GetEntryScene()
         {
             // Some criteria, for now it will be the scene with name "Entrance"
-            return Scenes["Entrance"];
+            return Scenes[1];
         }
 
         /// <summary>
@@ -60,9 +60,9 @@
         /// </summary>
         /// <param name="name"></param>
         /// <returns>The found Scene object</returns>
-        public Scene FindScene(string name)
+        public Scene FindScene(int ID)
         {
-            Scene? tmpScene = Scenes[name];
+            Scene? tmpScene = Scenes[ID];
 
             return tmpScene;
         }
