@@ -4,7 +4,7 @@
 using System;
 using System.Collections.Generic;
 
-class Item
+public class Item
 {
     // Just simple properties for the Item class that use Getters and Setters 
     public int ID { get; set; }
