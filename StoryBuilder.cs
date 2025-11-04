@@ -56,9 +56,4 @@ class StoryBuilder
     {
         return story[id];
     }
-
-    internal void AddScene(int v1, Area area, string v2, List<SceneChoice> sceneChoices)
-    {
-        throw new NotImplementedException();
-    }
 }
