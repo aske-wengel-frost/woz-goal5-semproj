@@ -1,6 +1,4 @@
-﻿using NAudio.Utils;
-using NAudio.Wave;
-using System;
+﻿using System;
 using System.Data;
 using System.Diagnostics;
 using System.Formats.Asn1;
@@ -34,46 +32,6 @@ class Program
     static int top;
     static bool thread1;
     static bool thread2;
-    //static AudioFileReader typing = new AudioFileReader("wsl.localhost\\Ubuntu\\home\\magse\\oop\\ShakingTerminal\\typing.mp3");
-    //static AudioFileReader singleStroke = new AudioFileReader("wsl.localhost\\Ubuntu\\home\\magse\\oop\\ShakingTerminal\\singestroke.mp3");
-    //static WaveOutEvent audioOutput1 = new WaveOutEvent();
-    //static WaveOutEvent audioOutput2 = new WaveOutEvent();
-
-    static void Main()
-    {
-        //audioOutput1.Init(typing);
-        //audioOutput2.Init(singleStroke);
-        Console.Clear();
-        print("Vi ville være i stand til at skrive på terminalen lidt mere æstetisk.");
-        ReadInput();
-        Console.Clear();
-        print("Du kan bestemme om den næste tekst skal blive skrevet på samme linje.", false);
-        print("Eller på næste linje.");
-        print("Din Mor.");
-        ReadInput();
-        Console.Clear();
-        print("Du kan justere hastigheden for hvor hurtigt teksten bliver skreveet", charDelay: 20);
-        print("Din Mor.", charDelay: 1000);
-        ReadInput();
-        Console.Clear();
-        print("Du kan bestemme om teskten skal have en lille pause efter et . ? eller !", punctDelay: 5);
-        ReadInput();
-        Console.Clear();
-        print("Du kan ændre på tekstens farve.", color: ConsoleColor.Blue);
-        print("Eller teksten baggrundsfarve", backgroundColor: ConsoleColor.Blue);
-        ReadInput();
-        Console.Clear();
-        print("Du kan ændre på hvordan terminalen skal skrive teksten på ved brug af ANSI escape code.", Ansi: 5);
-        print("Eller på teksten skrift type", style: Style.SansSerif);
-        ReadInput();
-        Console.Clear();
-        print("Du kan også have terminalen til at lave en lille animation i ANSI escape code.", Animation1: true);
-        print("Eller skrift typen", Animation2: true);
-        print("Eller begge", Animation1: true, Animation2: true);
-        ReadInput();
-        stopAnimation = false;
-        Console.Clear();    
-    }
 
     enum Style { Normal, Bold, Italic, BoldItalic, Script, BoldScript, Fraktur, DoubleStruck, BoldFraktur, SansSerif, BoldSansSerif, ItalicSansSerif, BoldItalicSansSerif, Monospace }
 
@@ -98,11 +56,6 @@ class Program
                     thread1 = true;
                     if (lowertypeDictionary.ContainsKey(style) || uppertypeDictionary.ContainsKey(style) || Animation2 || Animation1)
                     {
-                        //if (audioOutput1.PlaybackState != PlaybackState.Playing)
-                        //{
-                            //typing.Position = 0;
-                            //audioOutput1.Play();
-                        //}
                         if (Animation1 || Animation2)
                         {
                             if (Animation1)
@@ -151,10 +104,7 @@ class Program
                     {
                         if (c == '.' || c == '!' || c == '?')
                         {
-                            //audioOutput1.Stop();
                             multiplier = punctDelay;
-                            //singleStroke.Position = 0;
-                            //audioOutput2.Play();
                         }
                     }
                     Task.Delay(charDelay * multiplier).Wait();
@@ -199,7 +149,6 @@ class Program
 
     static string ReadInput()
     {
-        //audioOutput1.Stop();
         string inputBuffer = "";
         while (true)
         {
@@ -211,11 +160,6 @@ class Program
                 {
                     if (!thread2)
                     {
-                        //if (audioOutput2.PlaybackState != PlaybackState.Playing)
-                        //{ 
-                            //singleStroke.Position = 0;
-                            //audioOutput2.Play();
-                        //}
                         if (key.Key == ConsoleKey.Enter)
                         {
                             thread1 = false;
