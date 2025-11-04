@@ -1,12 +1,14 @@
 /* Main class for launching the game
  */
-
+using cs;
 using cs.Commands;
+
 
 class Game {
   static World    world    = new World();
   static StoryHandler  StoryHandler  = new StoryHandler(world.GetEntry());
   static ICommand fallback = new CommandUnknown();
+
   static Registry registry = new Registry(StoryHandler, fallback);
   
   private static void InitRegistry () {

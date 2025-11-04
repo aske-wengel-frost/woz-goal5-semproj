@@ -3,10 +3,32 @@
 
 using cs;
 
-class StoryHandler {
+class StoryHandler : IUIHandler {
   Space current;
   bool done = false;
 
+
+    #region IUIHandler Members
+    public void DrawScene(Scene scene)
+    {
+
+    }
+
+    public string GetUserInput(String input)
+    {
+        return "";
+    }
+
+    public void ClearScreen()
+    {
+
+    }
+
+    public void DrawError()
+    {
+
+    }
+    #endregion
     private Scene currentScene { get; set; }
     public Dictionary<string, Scene> Scenes{ get; set; }
 
