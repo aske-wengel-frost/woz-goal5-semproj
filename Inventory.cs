@@ -6,7 +6,7 @@ namespace cs
     using System;
     using System.Collections.Generic;
 
-    class Inventory
+    public class Inventory
     {
         private List<Item> items;
 
