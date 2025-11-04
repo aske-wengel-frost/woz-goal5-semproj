@@ -1,5 +1,3 @@
-using cs;
-
 namespace cs.UI
 {
     public class UITerm : UII

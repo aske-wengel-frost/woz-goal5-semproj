@@ -1,8 +1,14 @@
 /* Command for exiting program
  */
 
-class CommandExit : BaseCommand, ICommand {
-  public void Execute (StoryHandler StoryHandler, string command, string[] parameters) {
-    StoryHandler.MakeDone();
-  }
+namespace cs.Commands
+{
+    class CommandExit : BaseCommand, ICommand
+    {
+        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        {
+            StoryHandler.MakeDone();
+        }
+    }
+
 }

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace cs.Commands
+﻿namespace cs.Commands
 {
+    using System;
+
     class CommandMove : BaseCommand, ICommand
     {
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
@@ -19,7 +15,7 @@ namespace cs.Commands
             }
             else
             {
-                StoryHandler.SwitchScene(parameters[0]);
+                StoryHandler.PerformChoice(parameters[0]);
             }
         }
     }

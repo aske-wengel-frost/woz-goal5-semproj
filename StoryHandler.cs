@@ -1,133 +1,96 @@
 /* StoryHandler class to hold all StoryHandler relevant to a session.
  */
+namespace cs
+{
+    using UI;
 
-using cs;
-using cs.UI;
-
-class StoryHandler {
-    Space current;
-    bool done = false;
-
-
-
-  public Dictionary<string, Scene> Scenes { get; set; }
-  public Dictionary<int, Area> Areas { get; set; }
-  private Scene? currentScene { get; set; }
-  StoryBuilder StoryBuilder { get; set; }
-
-  public UII UIHandler { get; set; }
-
-
-  // New constructor with respect to our design. 
-  // With respect to dependency of our UIHandler.
-  public StoryHandler(UII uiHandler, Space node)
-  {
-    UIHandler = uiHandler;
-    StoryBuilder = new StoryBuilder();
-    current = node;
-    }
-
-
-
-  /// <summary>
-  /// Sets current scene to intial scene, and draws it.
-  /// </summary>
-  public void Start()
-  {
-        //currentScene = StoryBuilder.getIntiialScene();
-        //UIHandler.DrawScene(currentScene, this);
-        this.LoadScenes();
-
-  }
-  /// <summary>
-  /// Checks wether userinput corresponds to any choice, and proceeeds if true, otherwise, DrawError is called.
-  /// </summary>
-  /// <param name="usrInp"></param>
-  public void PerformChoice(string usrInp)
-  {
-    int usrInpValue = Int32.Parse(usrInp);
-    Scene sceneProxy = StoryBuilder.FindScene(usrInpValue);
-    if (currentScene!.Choices.Exists(_ => _.SceneObj == sceneProxy))
+    public class StoryHandler
     {
-      currentScene = sceneProxy;
-      UIHandler.DrawScene(currentScene, this);
-    }
-    else { UIHandler.DrawError("Scene does not exist.."); }
+        Space current;
+        bool done = false;
+
+        private Scene? currentScene { get; set; }
+        StoryBuilder StoryBuilder { get; set; }
+
+        public UII UIHandler { get; set; }
 
 
-  }
-
-    public Space GetCurrent()
-    {
-        return current;
-    }
-
-    //If the next space is null, prints message and starts the game over
-    public void Transition(string direction)
-    {
-        Space next = current.FollowEdge(direction);
-        if (next == null)
+        // New constructor with respect to our design. 
+        // With respect to dependency of our UIHandler.
+        public StoryHandler(UII uiHandler, Space node)
         {
-            Console.WriteLine("You are confused, and walk in a circle looking for '" + direction + "'. In the end you give up 😩");
+            UIHandler = uiHandler;
+            StoryBuilder = new StoryBuilder();
+            current = node;
         }
-        else
+
+        public Space GetCurrent()
         {
-            current.Goodbye();
-            current = next;
-            current.Welcome();
+            return current;
         }
+
+        //If the next space is null, prints message and starts the game over
+        public void Transition(string direction)
+        {
+            Space next = current.FollowEdge(direction);
+            if (next == null)
+            {
+                Console.WriteLine("You are confused, and walk in a circle looking for '" + direction + "'. In the end you give up 😩");
+            }
+            else
+            {
+                current.Goodbye();
+                current = next;
+                current.Welcome();
+            }
+        }
+
+        /// <summary>
+        /// Sets current scene to intial scene, and draws it.
+        /// </summary>
+        public void Start()
+        {
+            //currentScene = StoryBuilder.getIntiialScene();
+            //UIHandler.DrawScene(currentScene, this);
+            StoryBuilder.LoadScenes();
+            currentScene = StoryBuilder.getIntiialScene();
+
+        }
+        /// <summary>
+        /// Checks wether userinput corresponds to any choice, and proceeeds if true, otherwise, DrawError is called.
+        /// </summary>
+        /// <param name="usrInp"></param>
+        public void PerformChoice(string usrInp)
+        {
+            int usrInpValue = Int32.Parse(usrInp);
+            Scene sceneProxy = StoryBuilder.FindScene(usrInpValue);
+            if (currentScene!.Choices.Exists(_ => _.SceneObj == sceneProxy))
+            {
+                currentScene = sceneProxy;
+                UIHandler.DrawScene(currentScene, this);
+            }
+            else { UIHandler.DrawError("Scene does not exist.."); }
+
+
+        }
+
+
+        // public void SwitchScene(string sceneName)
+        // {
+        //   Scene scene = Scenes[sceneName];
+        //   currentScene = scene;
+        // }
+
+        public void MakeDone()
+        {
+            done = true;
+        }
+
+        public bool IsDone()
+        {
+            return done;
+        }
+
     }
-
-    // public void SwitchScene(string sceneName)
-    // {
-    //   Scene scene = Scenes[sceneName];
-    //   currentScene = scene;
-    // }
-
-    public void MakeDone ()
-    {
-        done = true;
-    }
-  
-    public bool IsDone () 
-    {
-        return done;
-    }
-
-
-  /// <summary>
-  /// Creates scenes and adds them to the Scenes dictionary
-  /// </summary>
-  public void LoadScenes()
-  {
-    Areas = new Dictionary<int, Area>
-    {
-      {0, new Area(0, "Dinmors indgang")},
-      {1, new Area(1, "Dinmors køkken")},
-      {2, new Area(2, "Dinmors badeværelse")},
-      {3, new Area(3, "Dinmors kælder🤓")},
-    };
-
-    string jegErVedAtVæreTrætNu = "112431243124312431243124312431243124312431243124312431243jj12431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243124312431243243";
-    
-        
-        StoryBuilder.AddScene(new Scene(0, "Start 1", jegErVedAtVæreTrætNu, Areas[0],
-            new List<SceneChoice> {
-            new SceneChoice(2, "Smid kniven, og kast dig ind i badeværelset."),
-            new SceneChoice(3, "Arbejde på dine daglige steps, og gå ned ad trapperne til kælderen.")
-            }));
-
-    StoryBuilder.AddScene(new Scene(1, "Start 2", jegErVedAtVæreTrætNu, Areas[1],
-        new List<SceneChoice> {
-            new SceneChoice(2, "Smid kniven, og kast dig ind i badeværelset."),
-            new SceneChoice(3, "Arbejde på dine daglige steps, og gå ned ad trapperne til kælderen.")
-        }));
-
-    // Add the target scenes
-    StoryBuilder.AddScene(new Scene(2, "Badeværelset", "Du er nu i badeværelset.", Areas[2], new List<SceneChoice>()));
-    StoryBuilder.AddScene(new Scene(3, "Kælderen", "Du går ned i kælderen.", Areas[3], new List<SceneChoice>()));
-
-    StoryBuilder.LinkScenes();
-  }
 }
 

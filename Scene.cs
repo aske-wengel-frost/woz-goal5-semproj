@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace cs
+﻿namespace cs
 {
+    using System;
+
     public class Scene
     {
         public int ID { get; set; }
