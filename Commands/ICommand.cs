@@ -2,7 +2,7 @@
  */
 
 interface ICommand {
-  void Execute (StoryHandler context, string command, string[] parameters);
+  void Execute (StoryHandler StoryHandler, string command, string[] parameters);
   string GetDescription ();
 }
 

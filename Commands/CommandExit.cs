@@ -2,7 +2,8 @@
  */
 
 class CommandExit : BaseCommand, ICommand {
-  public void Execute (StoryHandler context, string command, string[] parameters) {
-    context.MakeDone();
+
+  public void Execute (StoryHandler StoryHandler, string command, string[] parameters) {
+    StoryHandler.MakeDone();
   }
 }

@@ -9,7 +9,8 @@ class CommandHelp : BaseCommand, ICommand {
     this.description = "Display a help message";
   }
   
-  public void Execute (StoryHandler context, string command, string[] parameters) {
+
+  public void Execute (StoryHandler StoryHandler, string command, string[] parameters) {
     string[] commandNames = registry.GetCommandNames();
     Array.Sort(commandNames);
     
