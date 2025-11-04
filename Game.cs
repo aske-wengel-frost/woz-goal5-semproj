@@ -3,41 +3,65 @@
 using cs;
 using cs.Commands;
 
+namespace cs
+{
+    using UI;
+    using Commands;
 
-class Game {
-  static World    world    = new World();
-  static StoryHandler  StoryHandler  = new StoryHandler(world.GetEntry());
-  static ICommand fallback = new CommandUnknown();
+    public class Game
+    {
 
-  static Registry registry = new Registry(StoryHandler, fallback);
-  
-  private static void InitRegistry () {
-    ICommand cmdExit = new CommandExit();
-    registry.Register("exit", cmdExit);
-    registry.Register("quit", cmdExit);
-    registry.Register("bye", cmdExit);
-    registry.Register("go", new CommandGo());
-    registry.Register("help", new CommandHelp(registry));
-    registry.Register("move", new CommandMove());
-    }
-  
-  static void Main (string[] args) {
-    
-    StoryHandler.Start();
+        static public StoryHandler storyHandler { get; set; }
+        static public UII UIHandler { get; set; }
 
-    // A welcome message is printed to the console
-    Console.WriteLine("Welcome to the World of Zuul!");
-    
-    // We call the InitRegistry method
-    InitRegistry();
+        static World world = new World();
+        static ICommand fallback = new CommandUnknown();
+        static Registry registry {get; set;}
 
-    StoryHandler.GetCurrent().Welcome();
-    
-    while (StoryHandler.IsDone()==false) {
-        Console.Write("> ");
-        string? line = Console.ReadLine();
-        if (line!=null) registry.Dispatch(line);
-    }
-    Console.WriteLine("Game Over 😥");
+        private static void InitRegistry()
+        {
+            ICommand cmdExit = new CommandExit();
+            registry.Register("exit", cmdExit);
+            registry.Register("quit", cmdExit);
+            registry.Register("bye", cmdExit);
+            registry.Register("go", new CommandGo());
+            registry.Register("help", new CommandHelp(registry));
+            registry.Register("move", new CommandMove());
+        }
+
+        static void Main(string[] args)
+        {
+            UIHandler = new UITerm();
+            storyHandler = new StoryHandler(UIHandler, world.GetEntry());
+            registry = new Registry(storyHandler, fallback);
+
+            // A welcome message is printed to the console
+            Console.WriteLine("Welcome to the World of Zuul!");
+
+            // We call the InitRegistry method
+            InitRegistry();
+
+            storyHandler.GetCurrent().Welcome();
+
+            storyHandler.Start();
+
+            while (storyHandler.IsDone() == false)
+            {
+                Console.Write("> ");
+                string? line = Console.ReadLine();
+                if (line != null) registry.Dispatch(line);
+            }
+            Console.WriteLine("Game Over 😥");
+
+            //storyHandler.LoadScenes();
+            //storyHandler.Start();
+            //while (true)
+            //{
+            //    string? input = UIHandler.GetUserInput();
+            //    UIHandler.ClearUI();
+            //    storyHandler.PerformChoice(input);
+
+            //}
+        }
     }
 }
