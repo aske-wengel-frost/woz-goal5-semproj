@@ -2,7 +2,7 @@
  */
 
 class CommandExit : BaseCommand, ICommand {
-  public void Execute (Context context, string command, string[] parameters) {
+  public void Execute (StoryHandler context, string command, string[] parameters) {
     context.MakeDone();
   }
 }

@@ -9,6 +9,7 @@ namespace cs
 {
     internal interface IUIHandler
     {
+
         public void DrawScene(Scene scene);
         public string GetUserInput(String input);
         public void ClearScreen();

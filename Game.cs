@@ -1,13 +1,40 @@
 /* Main class for launching the game
  */
 
+using cs;
+
 class Game {
   static World    world    = new World();
   static StoryHandler  context  = new StoryHandler(world.GetEntry());
   static ICommand fallback = new CommandUnknown();
   static Registry registry = new Registry(context, fallback);
-  
-  private static void InitRegistry () {
+
+    #region IUIHandler Members
+    public void DrawScene(Scene scene)
+    {
+        for (int i = 0; i < 80; i++)
+        {
+            Console.Write("#");
+        }
+    }
+
+    public string GetUserInput(String input)
+    {
+        return "";
+    }
+
+    public void ClearScreen()
+    {
+        Console.Clear();
+    }
+
+    public void DrawError()
+    {
+        Console.WriteLine("An error has occurred. The game will restart.");
+    }
+    #endregion
+
+    private static void InitRegistry () {
     ICommand cmdExit = new CommandExit();
     registry.Register("exit", cmdExit);
     registry.Register("quit", cmdExit);
