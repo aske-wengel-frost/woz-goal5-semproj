@@ -3,32 +3,11 @@
 
 using cs;
 
-class StoryHandler : IUIHandler {
+class StoryHandler {
   Space current;
   bool done = false;
+    static IUIHandler Ui = new UITerminal();
 
-
-    #region IUIHandler Members
-    public void DrawScene(Scene scene)
-    {
-
-    }
-
-    public string GetUserInput(String input)
-    {
-        return "";
-    }
-
-    public void ClearScreen()
-    {
-
-    }
-
-    public void DrawError()
-    {
-
-    }
-    #endregion
     private Scene currentScene { get; set; }
     public Dictionary<string, Scene> Scenes{ get; set; }
 
@@ -65,6 +44,7 @@ class StoryHandler : IUIHandler {
     {
         Scene scene = Scenes[sceneName];
         currentScene = scene;
+        Ui.DrawScene(scene);
     }
 
     public void MakeDone ()

@@ -61,7 +61,7 @@ class Inventory
     public void SetItem(Item item)
     {
         items.Add(item);
-        Console.WriteLine($"Item: {item.Name}. Placed in the scene at position {ID}"); // Print debugger message
+        Console.WriteLine($"Item: {item.Name}. Placed in the scene at position {item.ID}"); // Print debugger message
     }
 
     public void ShowInventory()

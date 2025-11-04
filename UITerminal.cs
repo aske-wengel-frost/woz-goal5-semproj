@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 
 namespace cs
 {
-    internal class UITerminal : IUIHandler
+    class UITerminal : IUIHandler
     {
+        /// <summary>
+        /// Draws the scene in the terminal
+        /// </summary>
+        /// <param name="scene">The scene you want to have drawn</param>
         public void DrawScene(Scene scene)
         {
             for (int i = 0; i < 80; i++)
             {
                 Console.Write("#");
             }
+            Console.WriteLine();
+            Console.WriteLine($"Du er gået til: {scene.Name}");
+            Console.WriteLine($" {scene.DialogueText}");
         }
 
         public string GetUserInput(String input)
@@ -28,7 +35,9 @@ namespace cs
 
         public void DrawError()
         {
-            Console.WriteLine("An error has occurred. The game will restart.");
+            Console.WriteLine("Der er opstået en fejl");
         }
+
+
     }
 }
