@@ -1,100 +1,761 @@
 {
   "0": {
     "ID": 0,
-    "Name": "Start 1",
+    "Name": "Starten 1",
     "Area": {
       "ID": 0,
-      "Name": "Dinmors indgang"
+      "Name": "Indk\u00F8rsel"
     },
     "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
     "Choices": [
       {
-        "Description": "Smid kniven, og kast dig ind i badev\u00E6relset.",
-        "SceneId": 2,
+        "Description": "G\u00E5 ind af hoved\u00F8ren",
+        "SceneId": 1,
         "SceneObj": {
-          "ID": 2,
-          "Name": "Badev\u00E6relset",
+          "ID": 1,
+          "Name": "Starten 2",
           "Area": {
-            "ID": 2,
-            "Name": "Dinmors badev\u00E6relse"
+            "ID": 1,
+            "Name": "Entr\u00E9"
           },
-          "DialogueText": "Du er nu i badev\u00E6relset.",
-          "Choices": []
+          "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+          "Choices": [
+            {
+              "Description": "G\u00E5 ind i stuen og hils p\u00E5 din mand",
+              "SceneId": 4,
+              "SceneObj": {
+                "ID": 4,
+                "Name": "Starten 5",
+                "Area": {
+                  "ID": 3,
+                  "Name": "Stue"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "G\u00E5 p\u00E5 toilettet",
+                    "SceneId": 2,
+                    "SceneObj": {
+                      "ID": 2,
+                      "Name": "Starten 3",
+                      "Area": {
+                        "ID": 5,
+                        "Name": "Tarresse"
+                      },
+                      "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                      "Choices": [
+                        {
+                          "Description": "G\u00E5 ud i haven",
+                          "SceneId": 5,
+                          "SceneObj": {
+                            "ID": 5,
+                            "Name": "Starten 6",
+                            "Area": {
+                              "ID": 7,
+                              "Name": "Haven"
+                            },
+                            "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                            "Choices": [
+                              {
+                                "Description": "END",
+                                "SceneId": 7,
+                                "SceneObj": {
+                                  "ID": 7,
+                                  "Name": "END",
+                                  "Area": {
+                                    "ID": 0,
+                                    "Name": "Indk\u00F8rsel"
+                                  },
+                                  "DialogueText": "!!!END!!!",
+                                  "Choices": []
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Description": "G\u00E5 ind i k\u00F8kken alrummet",
+                          "SceneId": 6,
+                          "SceneObj": {
+                            "ID": 6,
+                            "Name": "Starten 7",
+                            "Area": {
+                              "ID": 2,
+                              "Name": "K\u00F8kken alrum"
+                            },
+                            "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                            "Choices": [
+                              {
+                                "Description": "END",
+                                "SceneId": 7,
+                                "SceneObj": {
+                                  "ID": 7,
+                                  "Name": "END",
+                                  "Area": {
+                                    "ID": 0,
+                                    "Name": "Indk\u00F8rsel"
+                                  },
+                                  "DialogueText": "!!!END!!!",
+                                  "Choices": []
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Description": "G\u00E5 direkte til dit v\u00E6relse",
+              "SceneId": 3,
+              "SceneObj": {
+                "ID": 3,
+                "Name": "Starten 4",
+                "Area": {
+                  "ID": 4,
+                  "Name": "Sovev\u00E6relse"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "\u00C5ben d\u00F8ren og g\u00E5 ud i stuen",
+                    "SceneId": 2,
+                    "SceneObj": {
+                      "ID": 2,
+                      "Name": "Starten 3",
+                      "Area": {
+                        "ID": 5,
+                        "Name": "Tarresse"
+                      },
+                      "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                      "Choices": [
+                        {
+                          "Description": "G\u00E5 ud i haven",
+                          "SceneId": 5,
+                          "SceneObj": {
+                            "ID": 5,
+                            "Name": "Starten 6",
+                            "Area": {
+                              "ID": 7,
+                              "Name": "Haven"
+                            },
+                            "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                            "Choices": [
+                              {
+                                "Description": "END",
+                                "SceneId": 7,
+                                "SceneObj": {
+                                  "ID": 7,
+                                  "Name": "END",
+                                  "Area": {
+                                    "ID": 0,
+                                    "Name": "Indk\u00F8rsel"
+                                  },
+                                  "DialogueText": "!!!END!!!",
+                                  "Choices": []
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        {
+                          "Description": "G\u00E5 ind i k\u00F8kken alrummet",
+                          "SceneId": 6,
+                          "SceneObj": {
+                            "ID": 6,
+                            "Name": "Starten 7",
+                            "Area": {
+                              "ID": 2,
+                              "Name": "K\u00F8kken alrum"
+                            },
+                            "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                            "Choices": [
+                              {
+                                "Description": "END",
+                                "SceneId": 7,
+                                "SceneObj": {
+                                  "ID": 7,
+                                  "Name": "END",
+                                  "Area": {
+                                    "ID": 0,
+                                    "Name": "Indk\u00F8rsel"
+                                  },
+                                  "DialogueText": "!!!END!!!",
+                                  "Choices": []
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       },
       {
-        "Description": "Arbejde p\u00E5 dine daglige steps, og g\u00E5 ned ad trapperne til k\u00E6lderen.",
-        "SceneId": 3,
+        "Description": "Smid dine ting foran d\u00F8ren og g\u00E5 om p\u00E5 terassen",
+        "SceneId": 2,
         "SceneObj": {
-          "ID": 3,
-          "Name": "K\u00E6lderen",
+          "ID": 2,
+          "Name": "Starten 3",
           "Area": {
-            "ID": 3,
-            "Name": "Dinmors k\u00E6lder\uD83E\uDD13"
+            "ID": 5,
+            "Name": "Tarresse"
           },
-          "DialogueText": "Du g\u00E5r ned i k\u00E6lderen.",
-          "Choices": []
+          "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+          "Choices": [
+            {
+              "Description": "G\u00E5 ud i haven",
+              "SceneId": 5,
+              "SceneObj": {
+                "ID": 5,
+                "Name": "Starten 6",
+                "Area": {
+                  "ID": 7,
+                  "Name": "Haven"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "END",
+                    "SceneId": 7,
+                    "SceneObj": {
+                      "ID": 7,
+                      "Name": "END",
+                      "Area": {
+                        "ID": 0,
+                        "Name": "Indk\u00F8rsel"
+                      },
+                      "DialogueText": "!!!END!!!",
+                      "Choices": []
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Description": "G\u00E5 ind i k\u00F8kken alrummet",
+              "SceneId": 6,
+              "SceneObj": {
+                "ID": 6,
+                "Name": "Starten 7",
+                "Area": {
+                  "ID": 2,
+                  "Name": "K\u00F8kken alrum"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "END",
+                    "SceneId": 7,
+                    "SceneObj": {
+                      "ID": 7,
+                      "Name": "END",
+                      "Area": {
+                        "ID": 0,
+                        "Name": "Indk\u00F8rsel"
+                      },
+                      "DialogueText": "!!!END!!!",
+                      "Choices": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       }
     ]
   },
   "1": {
     "ID": 1,
-    "Name": "Start 2",
+    "Name": "Starten 2",
     "Area": {
       "ID": 1,
-      "Name": "Dinmors k\u00F8kken"
+      "Name": "Entr\u00E9"
     },
     "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
     "Choices": [
       {
-        "Description": "Smid kniven, og kast dig ind i badev\u00E6relset.",
-        "SceneId": 2,
+        "Description": "G\u00E5 ind i stuen og hils p\u00E5 din mand",
+        "SceneId": 4,
         "SceneObj": {
-          "ID": 2,
-          "Name": "Badev\u00E6relset",
+          "ID": 4,
+          "Name": "Starten 5",
           "Area": {
-            "ID": 2,
-            "Name": "Dinmors badev\u00E6relse"
+            "ID": 3,
+            "Name": "Stue"
           },
-          "DialogueText": "Du er nu i badev\u00E6relset.",
-          "Choices": []
+          "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+          "Choices": [
+            {
+              "Description": "G\u00E5 p\u00E5 toilettet",
+              "SceneId": 2,
+              "SceneObj": {
+                "ID": 2,
+                "Name": "Starten 3",
+                "Area": {
+                  "ID": 5,
+                  "Name": "Tarresse"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "G\u00E5 ud i haven",
+                    "SceneId": 5,
+                    "SceneObj": {
+                      "ID": 5,
+                      "Name": "Starten 6",
+                      "Area": {
+                        "ID": 7,
+                        "Name": "Haven"
+                      },
+                      "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                      "Choices": [
+                        {
+                          "Description": "END",
+                          "SceneId": 7,
+                          "SceneObj": {
+                            "ID": 7,
+                            "Name": "END",
+                            "Area": {
+                              "ID": 0,
+                              "Name": "Indk\u00F8rsel"
+                            },
+                            "DialogueText": "!!!END!!!",
+                            "Choices": []
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "Description": "G\u00E5 ind i k\u00F8kken alrummet",
+                    "SceneId": 6,
+                    "SceneObj": {
+                      "ID": 6,
+                      "Name": "Starten 7",
+                      "Area": {
+                        "ID": 2,
+                        "Name": "K\u00F8kken alrum"
+                      },
+                      "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                      "Choices": [
+                        {
+                          "Description": "END",
+                          "SceneId": 7,
+                          "SceneObj": {
+                            "ID": 7,
+                            "Name": "END",
+                            "Area": {
+                              "ID": 0,
+                              "Name": "Indk\u00F8rsel"
+                            },
+                            "DialogueText": "!!!END!!!",
+                            "Choices": []
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       },
       {
-        "Description": "Arbejde p\u00E5 dine daglige steps, og g\u00E5 ned ad trapperne til k\u00E6lderen.",
+        "Description": "G\u00E5 direkte til dit v\u00E6relse",
         "SceneId": 3,
         "SceneObj": {
           "ID": 3,
-          "Name": "K\u00E6lderen",
+          "Name": "Starten 4",
           "Area": {
-            "ID": 3,
-            "Name": "Dinmors k\u00E6lder\uD83E\uDD13"
+            "ID": 4,
+            "Name": "Sovev\u00E6relse"
           },
-          "DialogueText": "Du g\u00E5r ned i k\u00E6lderen.",
-          "Choices": []
+          "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+          "Choices": [
+            {
+              "Description": "\u00C5ben d\u00F8ren og g\u00E5 ud i stuen",
+              "SceneId": 2,
+              "SceneObj": {
+                "ID": 2,
+                "Name": "Starten 3",
+                "Area": {
+                  "ID": 5,
+                  "Name": "Tarresse"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "G\u00E5 ud i haven",
+                    "SceneId": 5,
+                    "SceneObj": {
+                      "ID": 5,
+                      "Name": "Starten 6",
+                      "Area": {
+                        "ID": 7,
+                        "Name": "Haven"
+                      },
+                      "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                      "Choices": [
+                        {
+                          "Description": "END",
+                          "SceneId": 7,
+                          "SceneObj": {
+                            "ID": 7,
+                            "Name": "END",
+                            "Area": {
+                              "ID": 0,
+                              "Name": "Indk\u00F8rsel"
+                            },
+                            "DialogueText": "!!!END!!!",
+                            "Choices": []
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "Description": "G\u00E5 ind i k\u00F8kken alrummet",
+                    "SceneId": 6,
+                    "SceneObj": {
+                      "ID": 6,
+                      "Name": "Starten 7",
+                      "Area": {
+                        "ID": 2,
+                        "Name": "K\u00F8kken alrum"
+                      },
+                      "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                      "Choices": [
+                        {
+                          "Description": "END",
+                          "SceneId": 7,
+                          "SceneObj": {
+                            "ID": 7,
+                            "Name": "END",
+                            "Area": {
+                              "ID": 0,
+                              "Name": "Indk\u00F8rsel"
+                            },
+                            "DialogueText": "!!!END!!!",
+                            "Choices": []
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
         }
       }
     ]
   },
   "2": {
     "ID": 2,
-    "Name": "Badev\u00E6relset",
+    "Name": "Starten 3",
     "Area": {
-      "ID": 2,
-      "Name": "Dinmors badev\u00E6relse"
+      "ID": 5,
+      "Name": "Tarresse"
     },
-    "DialogueText": "Du er nu i badev\u00E6relset.",
-    "Choices": []
+    "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+    "Choices": [
+      {
+        "Description": "G\u00E5 ud i haven",
+        "SceneId": 5,
+        "SceneObj": {
+          "ID": 5,
+          "Name": "Starten 6",
+          "Area": {
+            "ID": 7,
+            "Name": "Haven"
+          },
+          "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+          "Choices": [
+            {
+              "Description": "END",
+              "SceneId": 7,
+              "SceneObj": {
+                "ID": 7,
+                "Name": "END",
+                "Area": {
+                  "ID": 0,
+                  "Name": "Indk\u00F8rsel"
+                },
+                "DialogueText": "!!!END!!!",
+                "Choices": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "Description": "G\u00E5 ind i k\u00F8kken alrummet",
+        "SceneId": 6,
+        "SceneObj": {
+          "ID": 6,
+          "Name": "Starten 7",
+          "Area": {
+            "ID": 2,
+            "Name": "K\u00F8kken alrum"
+          },
+          "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+          "Choices": [
+            {
+              "Description": "END",
+              "SceneId": 7,
+              "SceneObj": {
+                "ID": 7,
+                "Name": "END",
+                "Area": {
+                  "ID": 0,
+                  "Name": "Indk\u00F8rsel"
+                },
+                "DialogueText": "!!!END!!!",
+                "Choices": []
+              }
+            }
+          ]
+        }
+      }
+    ]
   },
   "3": {
     "ID": 3,
-    "Name": "K\u00E6lderen",
+    "Name": "Starten 4",
+    "Area": {
+      "ID": 4,
+      "Name": "Sovev\u00E6relse"
+    },
+    "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+    "Choices": [
+      {
+        "Description": "\u00C5ben d\u00F8ren og g\u00E5 ud i stuen",
+        "SceneId": 2,
+        "SceneObj": {
+          "ID": 2,
+          "Name": "Starten 3",
+          "Area": {
+            "ID": 5,
+            "Name": "Tarresse"
+          },
+          "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+          "Choices": [
+            {
+              "Description": "G\u00E5 ud i haven",
+              "SceneId": 5,
+              "SceneObj": {
+                "ID": 5,
+                "Name": "Starten 6",
+                "Area": {
+                  "ID": 7,
+                  "Name": "Haven"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "END",
+                    "SceneId": 7,
+                    "SceneObj": {
+                      "ID": 7,
+                      "Name": "END",
+                      "Area": {
+                        "ID": 0,
+                        "Name": "Indk\u00F8rsel"
+                      },
+                      "DialogueText": "!!!END!!!",
+                      "Choices": []
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Description": "G\u00E5 ind i k\u00F8kken alrummet",
+              "SceneId": 6,
+              "SceneObj": {
+                "ID": 6,
+                "Name": "Starten 7",
+                "Area": {
+                  "ID": 2,
+                  "Name": "K\u00F8kken alrum"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "END",
+                    "SceneId": 7,
+                    "SceneObj": {
+                      "ID": 7,
+                      "Name": "END",
+                      "Area": {
+                        "ID": 0,
+                        "Name": "Indk\u00F8rsel"
+                      },
+                      "DialogueText": "!!!END!!!",
+                      "Choices": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "4": {
+    "ID": 4,
+    "Name": "Starten 5",
     "Area": {
       "ID": 3,
-      "Name": "Dinmors k\u00E6lder\uD83E\uDD13"
+      "Name": "Stue"
     },
-    "DialogueText": "Du g\u00E5r ned i k\u00E6lderen.",
+    "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+    "Choices": [
+      {
+        "Description": "G\u00E5 p\u00E5 toilettet",
+        "SceneId": 2,
+        "SceneObj": {
+          "ID": 2,
+          "Name": "Starten 3",
+          "Area": {
+            "ID": 5,
+            "Name": "Tarresse"
+          },
+          "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+          "Choices": [
+            {
+              "Description": "G\u00E5 ud i haven",
+              "SceneId": 5,
+              "SceneObj": {
+                "ID": 5,
+                "Name": "Starten 6",
+                "Area": {
+                  "ID": 7,
+                  "Name": "Haven"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "END",
+                    "SceneId": 7,
+                    "SceneObj": {
+                      "ID": 7,
+                      "Name": "END",
+                      "Area": {
+                        "ID": 0,
+                        "Name": "Indk\u00F8rsel"
+                      },
+                      "DialogueText": "!!!END!!!",
+                      "Choices": []
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "Description": "G\u00E5 ind i k\u00F8kken alrummet",
+              "SceneId": 6,
+              "SceneObj": {
+                "ID": 6,
+                "Name": "Starten 7",
+                "Area": {
+                  "ID": 2,
+                  "Name": "K\u00F8kken alrum"
+                },
+                "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+                "Choices": [
+                  {
+                    "Description": "END",
+                    "SceneId": 7,
+                    "SceneObj": {
+                      "ID": 7,
+                      "Name": "END",
+                      "Area": {
+                        "ID": 0,
+                        "Name": "Indk\u00F8rsel"
+                      },
+                      "DialogueText": "!!!END!!!",
+                      "Choices": []
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "5": {
+    "ID": 5,
+    "Name": "Starten 6",
+    "Area": {
+      "ID": 7,
+      "Name": "Haven"
+    },
+    "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+    "Choices": [
+      {
+        "Description": "END",
+        "SceneId": 7,
+        "SceneObj": {
+          "ID": 7,
+          "Name": "END",
+          "Area": {
+            "ID": 0,
+            "Name": "Indk\u00F8rsel"
+          },
+          "DialogueText": "!!!END!!!",
+          "Choices": []
+        }
+      }
+    ]
+  },
+  "6": {
+    "ID": 6,
+    "Name": "Starten 7",
+    "Area": {
+      "ID": 2,
+      "Name": "K\u00F8kken alrum"
+    },
+    "DialogueText": "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst v\u00E6re lang s\u00E5dan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe",
+    "Choices": [
+      {
+        "Description": "END",
+        "SceneId": 7,
+        "SceneObj": {
+          "ID": 7,
+          "Name": "END",
+          "Area": {
+            "ID": 0,
+            "Name": "Indk\u00F8rsel"
+          },
+          "DialogueText": "!!!END!!!",
+          "Choices": []
+        }
+      }
+    ]
+  },
+  "7": {
+    "ID": 7,
+    "Name": "END",
+    "Area": {
+      "ID": 0,
+      "Name": "Indk\u00F8rsel"
+    },
+    "DialogueText": "!!!END!!!",
     "Choices": []
   }
 }

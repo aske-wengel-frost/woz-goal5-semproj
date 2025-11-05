@@ -43,17 +43,19 @@ namespace cs
         /// <param name="usrInp"></param>
         public void PerformChoice(string usrInp)
         {
-            int usrInpValue = Int32.Parse(usrInp);
-            Scene sceneProxy = StoryBuilder.FindScene(usrInpValue);
-            if (currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
+            Int32.TryParse(usrInp, out int usrInpValue);
+
+            Scene? sceneProxy = StoryBuilder.FindScene(usrInpValue);
+
+            if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
             {
                 currentScene = sceneProxy;
-                //_UIHandler.DrawScene(currentScene, this);
                 _UIHandler.DrawScene(currentScene);
             }
-            else { _UIHandler.DrawError("Scene does not exist.."); }
-
-
+            else 
+            { 
+                _UIHandler.DrawError("Hmm det kan jeg vidst ikke gøre..."); 
+            }
         }
 
         public void MakeDone()
