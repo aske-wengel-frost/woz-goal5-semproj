@@ -121,7 +121,7 @@
         /// </summary>
         /// <param name="scene"></param>
         /// <returns></returns>
-        public static string exportScene(Scene scene)
+        public static string ExportScene(Scene scene)
         {
             return JsonSerializer.Serialize(scene);
         }
