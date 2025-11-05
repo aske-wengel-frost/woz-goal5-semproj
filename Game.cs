@@ -33,9 +33,7 @@ namespace cs
             storyHandler = new StoryHandler(UIHandler);
             registry = new Registry(storyHandler, fallback);
 
-            // A welcome message is printed to the console
-            //Console.WriteLine("Welcome to the World of Zuul!");
-
+            // Welcome message
             Console.WriteLine("=========================================================================================================");
             Console.WriteLine("Detté spil er udviklet for at skabe opmærksomhed omkring psykisk vold mod kvinder.");
             Console.WriteLine("Gennem fortællinger, valg og scenarier får du mulighed for at opleve, hvordan psykisk vold kan opstå,");
@@ -64,15 +62,6 @@ namespace cs
             }
             Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
-            //storyHandler.LoadScenes();
-            //storyHandler.Start();
-            //while (true)
-            //{
-            //    string? input = UIHandler.GetUserInput();
-            //    UIHandler.ClearUI();
-            //    storyHandler.PerformChoice(input);
-
-            //}
         }
     }
 }
