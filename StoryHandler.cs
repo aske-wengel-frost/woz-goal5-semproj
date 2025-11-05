@@ -15,6 +15,7 @@ namespace cs
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
+        // Godt eksempel på dependeny injection
         public StoryHandler(IUIHandler uiHandler)
         {
             _UIHandler = uiHandler;

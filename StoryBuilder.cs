@@ -5,6 +5,9 @@
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
+    /// <summary>
+    /// This class controls everything to do with building and loading a story (Collection of scenes)
+    /// </summary>
     class StoryBuilder
     {
         public Dictionary<int, Scene> Scenes { get; set; }
@@ -12,6 +15,7 @@
 
         private string scenesFilePath;
 
+        // default path for json is set as default value of parameter in constructor
         public StoryBuilder(string scenesFilePath = "./dat.json")
         {
             this.scenesFilePath = scenesFilePath;
