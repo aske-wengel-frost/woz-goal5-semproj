@@ -1,8 +1,9 @@
 ﻿namespace cs
 {
     using System;
+    using System.Text.Json;
     using System.Collections.Generic;
-
+    using System.Runtime.Serialization;
 
     class StoryBuilder
     {
@@ -99,6 +100,18 @@
             this.AddScene(new Scene(3, "Kælderen", "Du går ned i kælderen.", Areas[3], new List<SceneChoice>()));
 
             this.LinkScenes();
+
+        }
+
+        public static Dictionary<int, Scene> LoadScenesFromFile(string fp)
+        {
+            string dat = File.ReadAllText(fp);
+            return JsonSerializer.Deserialize<Dictionary<int, Scene>>(dat);
+        }
+
+        public static string exportScene(Scene scene)
+        {
+            return JsonSerializer.Serialize(scene);
         }
 
     }
