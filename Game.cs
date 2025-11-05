@@ -13,7 +13,7 @@ namespace cs
     {
 
         static public StoryHandler storyHandler { get; set; }
-        static public UII UIHandler { get; set; }
+        static public IUIHandler UIHandler { get; set; }
 
         static World world = new World();
         static ICommand fallback = new CommandUnknown();
@@ -32,7 +32,7 @@ namespace cs
 
         static void Main(string[] args)
         {
-            UIHandler = new UITerm();
+            UIHandler = new UITerminal();
             storyHandler = new StoryHandler(UIHandler, world.GetEntry());
             registry = new Registry(storyHandler, fallback);
 

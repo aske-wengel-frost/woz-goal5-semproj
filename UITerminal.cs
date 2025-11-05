@@ -14,13 +14,19 @@
         /// <param name="scene">The scene you want to have drawn</param>
         public void DrawScene(Scene scene)
         {
-            for (int i = 0; i < 80; i++)
-            {
-                Console.Write("#");
+            this.ClearScreen();
+            //for (int i = 0; i < 80; i++)
+            //{
+            //    Console.Write("=");
+            //}
+            Console.WriteLine($"---------=========[ {scene.Name} ]=========---------");
+            Console.WriteLine($"{scene.DialogueText}");
+
+            Console.WriteLine("\nWhat are you gonna do now?:");
+            foreach (SceneChoice sceneChoice in scene.Choices)
+            { 
+                Console.WriteLine($" -> {sceneChoice.Description} : [{sceneChoice.SceneId}]"); 
             }
-            Console.WriteLine();
-            Console.WriteLine($"Du er gået til: {scene.Name}");
-            Console.WriteLine($" {scene.DialogueText}");
         }
 
         public string GetUserInput(String input)
@@ -38,6 +44,11 @@
             Console.WriteLine("Der er opstået en fejl");
         }
 
-
+        public void DrawError(string errorMsg)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(errorMsg);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
     }
 }
