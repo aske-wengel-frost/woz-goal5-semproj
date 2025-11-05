@@ -10,8 +10,13 @@
         public Dictionary<int, Scene> Scenes { get; set; }
         public Dictionary<int, Area> Areas { get; set; }
 
-        public StoryBuilder()
+        private string scenesFilePath;
+
+        public StoryBuilder(string scenesFilePath = "./dat.json")
         {
+            this.scenesFilePath = scenesFilePath;
+
+            // initialize Scenes and Areas
             Scenes = new Dictionary<int, Scene>();
             Areas = new Dictionary<int, Area>();
         }
@@ -105,25 +110,42 @@
 
 
         /// <summary>
-        /// Creates a dictionary of scenes from given json-file.
+        /// Imports dictionary of scenes from given json-file.
         /// </summary>
-        /// <param name="fp"></param>
-        /// <returns>A Dictionary </returns>
-        public void LoadScenesFromFile(string fp)
+        /// <param name="filePath">The filepath to the json file containing the scenes</param>
+        /// <returns>returns>
+        public void LoadScenesFromFile()
         {
-            string dat = File.ReadAllText(fp);
-            this.Scenes = JsonSerializer.Deserialize<Dictionary<int, Scene>>(dat);
+            // First check if a file already exists in the directory
+            if (!File.Exists(this.scenesFilePath))
+            {
+                // If it does not exist we generate it with a empty dictionary of scenes.
+                string dat = JsonSerializer.Serialize<Dictionary<int, Scene>>(new Dictionary<int, Scene>());
+                
+                // Creates the file and appends the json
+                File.AppendAllText(this.scenesFilePath, dat);
+            }
+            
+            // Read the text of the file
+            string tmpJsonStr = File.ReadAllText(this.scenesFilePath);
+
+            // We load the deserialized scenes into the scenes property
+            // Maby handle a null value here.
+            this.Scenes = JsonSerializer.Deserialize<Dictionary<int, Scene>>(tmpJsonStr);
         }
 
 
         /// <summary>
-        /// Serializes a Scene object into json.
+        /// Serializes a Dictoinary of scenes to json, and saves in a file
         /// </summary>
-        /// <param name="scene"></param>
+        /// <param name="scenes">The dictionary of scenes for export</param>
+        /// <param name="filePath">The filepath including filename where teh file will be saved</param>
         /// <returns></returns>
-        public static string ExportScene(Scene scene)
+        public void ExportScenesToFile(Dictionary<int, Scene> scenes, string filePath)
         {
-            return JsonSerializer.Serialize(scene);
+            string jsonStr = JsonSerializer.Serialize(scenes);
+
+            File.WriteAllText(filePath, jsonStr);
         }
 
     }

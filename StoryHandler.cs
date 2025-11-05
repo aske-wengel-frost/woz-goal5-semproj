@@ -46,14 +46,12 @@ namespace cs
         }
 
         /// <summary>
-        /// Sets current scene to intial scene, and draws it.
+        /// Entry point for the story, this loads the scenes, gets the initial scene and draws the fi
         /// </summary>
         public void Start()
         {
-            //currentScene = StoryBuilder.getIntiialScene();
             //UIHandler.DrawScene(currentScene, this);
-            // StoryBuilder.LoadScenes();
-            StoryBuilder.LoadScenesFromFile(@"./dat.json");
+            StoryBuilder.LoadScenesFromFile();
             currentScene = StoryBuilder.getIntiialScene();
 
         }
