@@ -15,7 +15,6 @@ namespace cs
         static public StoryHandler storyHandler { get; set; }
         static public IUIHandler UIHandler { get; set; }
 
-        static World world = new World();
         static ICommand fallback = new CommandUnknown();
         static Registry registry {get; set;}
 
@@ -25,7 +24,6 @@ namespace cs
             registry.Register("exit", cmdExit);
             registry.Register("quit", cmdExit);
             registry.Register("bye", cmdExit);
-            registry.Register("go", new CommandGo());
             registry.Register("help", new CommandHelp(registry));
             registry.Register("move", new CommandMove());
         }
@@ -33,7 +31,7 @@ namespace cs
         static void Main(string[] args)
         {
             UIHandler = new UITerminal();
-            storyHandler = new StoryHandler(UIHandler, world.GetEntry());
+            storyHandler = new StoryHandler(UIHandler);
             registry = new Registry(storyHandler, fallback);
 
             // A welcome message is printed to the console
@@ -53,23 +51,19 @@ namespace cs
             string? playerName = Console.ReadLine();
             Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne.");
 
-
-
-
             // We call the InitRegistry method
             InitRegistry();
 
-            storyHandler.GetCurrent().Welcome();
-
             storyHandler.Start();
 
+            // Game loop
             while (storyHandler.IsDone() == false)
             {
                 Console.Write("> ");
                 string? line = Console.ReadLine();
                 if (line != null) registry.Dispatch(line);
             }
-            Console.WriteLine("Game Over 😥");
+            Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
             //storyHandler.LoadScenes();
             //storyHandler.Start();
