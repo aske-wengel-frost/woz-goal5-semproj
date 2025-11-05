@@ -6,7 +6,6 @@ using System.Transactions;
 
 namespace cs
 {
-    using UI;
     using Commands;
 
     public class Game
