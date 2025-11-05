@@ -7,7 +7,7 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    internal interface IUIHandler
+    public interface IUIHandler
     {
         public void DrawScene(Scene scene);
         public string GetUserInput(String input);
