@@ -9,7 +9,7 @@
             if (GuardEq(parameters, 1))
             {
                 // We dont have 1 parameter!
-                Console.WriteLine("Hmmm....Jeg ved ikke hvor det er");
+                Console.WriteLine("For mange argumenter!");
                 return;
 
             }

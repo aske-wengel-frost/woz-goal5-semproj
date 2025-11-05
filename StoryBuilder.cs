@@ -65,11 +65,14 @@
         /// </summary>
         /// <param name="name"></param>
         /// <returns>The found Scene object</returns>
-        public Scene FindScene(int ID)
+        public Scene? FindScene(int ID)
         {
-            Scene? tmpScene = Scenes[ID];
+            if(Scenes.ContainsKey(ID))
+            {
+                return Scenes[ID];
+            }
 
-            return tmpScene;
+            return null;
         }
 
         /// <summary>
@@ -109,6 +112,86 @@
         }
 
 
+        public void LoadScenes_Oli()
+        {
+            Areas = new Dictionary<int, Area>
+            {
+              {0, new Area(0, "Indkørsel")},
+              {1, new Area(1, "Entré")},
+              {2, new Area(2, "Køkken alrum")},
+              {3, new Area(3, "Stue")},
+              {4, new Area(4, "Soveværelse")},
+              {5, new Area(5, "Tarresse")},
+              {6, new Area(6, "Badeværelset")},
+              {7, new Area(7, "Haven")},
+            };
+
+            string dummyDialougeText = "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst være lang sådan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe";
+
+            // Scene: Start 1 Location: Indkørsel
+            this.AddScene(new Scene(0, "Starten 1", dummyDialougeText, Areas[0],
+                new List<SceneChoice> {
+                    new SceneChoice(1, "Gå ind af hovedøren"),
+                    new SceneChoice(2, "Smid dine ting foran døren og gå om på terassen")
+                }));
+
+            // Scene 2: Starten 2; Location: Entré
+            this.AddScene(new Scene(1, "Starten 2", dummyDialougeText, Areas[1],
+                new List<SceneChoice> {
+                    new SceneChoice(4, "Gå ind i stuen og hils på din mand"),
+                    new SceneChoice(3, "Gå direkte til dit værelse")
+                }));
+
+            // Scene 3: Starten 3; Location: Terrassen
+            this.AddScene(new Scene(2, "Starten 3", dummyDialougeText, Areas[5],
+                new List<SceneChoice> {
+                    new SceneChoice(5, "Gå ud i haven"),
+                    new SceneChoice(6, "Gå ind i køkken alrummet")
+                }));
+
+
+
+
+            // Scene 4: Starten 4; Location: Soveværelse
+            this.AddScene(new Scene(3, "Starten 4", dummyDialougeText, Areas[4],
+                new List<SceneChoice> {
+                    new SceneChoice(2, "Åben døren og gå ud i stuen"),
+                }));
+
+            // Scene 5: Starten 5; Location: Stue
+            this.AddScene(new Scene(4, "Starten 5", dummyDialougeText, Areas[3],
+                new List<SceneChoice> {
+                    new SceneChoice(2, "Gå på toilettet"),
+                }));
+
+
+            // Scene 6: Starten 6; Location: Haven
+            this.AddScene(new Scene(5, "Starten 6", dummyDialougeText, Areas[7],
+                new List<SceneChoice> {
+                    new SceneChoice(7, "END"),
+                }));
+
+            // Scene 7: Starten 7; Location: Køkken alrum
+            this.AddScene(new Scene(6, "Starten 7", dummyDialougeText, Areas[2],
+                new List<SceneChoice> {
+                    new SceneChoice(7, "END"),
+                }));
+
+
+
+
+            // DUMMY END SCENE
+            this.AddScene(new Scene(7, "END", "!!!END!!!", Areas[0],
+                new List<SceneChoice> {
+                    new SceneChoice(0, "GO BACK TO START"),
+                }));
+
+            this.LinkScenes();
+
+        }
+
+
+
         /// <summary>
         /// Imports dictionary of scenes from given json-file.
         /// </summary>
@@ -139,12 +222,11 @@
         /// <summary>
         /// Serializes a Dictoinary of scenes to json, and saves in a file
         /// </summary>
-        /// <param name="scenes">The dictionary of scenes for export</param>
         /// <param name="filePath">The filepath including filename where teh file will be saved</param>
         /// <returns></returns>
-        public void ExportScenesToFile(Dictionary<int, Scene> scenes, string filePath)
+        public void ExportScenesToFile(string filePath = "./EXPORTED.json")
         {
-            string jsonStr = JsonSerializer.Serialize(scenes);
+            string jsonStr = JsonSerializer.Serialize(Scenes);
 
             File.WriteAllText(filePath, jsonStr);
         }
