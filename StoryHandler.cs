@@ -27,9 +27,7 @@ namespace cs
         public void Start()
         {
             // Loads the story
-            //StoryBuilder.LoadScenesFromFile();
-            StoryBuilder.LoadScenes_Oli();
-            //StoryBuilder.ExportScenesToFile();
+            StoryBuilder.LoadScenesFromFile();
 
             // Sets the current scene
             currentScene = StoryBuilder.getIntiialScene();

@@ -178,13 +178,8 @@
                 }));
 
 
-
-
-            // DUMMY END SCENE
-            this.AddScene(new Scene(7, "END", "!!!END!!!", Areas[0],
-                new List<SceneChoice> {
-                    new SceneChoice(0, "GO BACK TO START"),
-                }));
+            //DUMMY END SCENE
+            this.AddScene(new Scene(7, "END", "!!!END!!!", Areas[0],new List<SceneChoice> {}));
 
             this.LinkScenes();
 
