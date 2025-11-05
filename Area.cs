@@ -5,15 +5,22 @@ namespace cs
         public int ID { get; set; }
         public string Name { get; set; }
 
-        public List<Item> item;
+        public List<Item> Items { get; set; }
 
         // Constructor for Area initialization
-        public Area(int ID, string name)
+        public Area(int ID, string name, List<Item>? itmes = null ) // Area can contain a List of itmes and gives it a default value.  
         {
             this.ID = ID;
-            this.Name = name;
-            item = new List<Item>();
-
+            this.Name = name; 
+            //If the developer has given items, we use it else we make a empty List. 
+            if ( itmes != null )
+            {
+                Items = itmes;
+            }
+            else
+            {
+                Items = new List<Item>();
+            }
         }
 
         // A way to view the given area details
@@ -21,5 +28,5 @@ namespace cs
         {
             return $"Area ID: {ID}, Name: {Name}";
         }
-    }
+    }   
 }

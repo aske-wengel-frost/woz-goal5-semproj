@@ -12,6 +12,7 @@ namespace cs
 
         public IUIHandler _UIHandler { get; set; }
 
+        public Player player { get; set; } //Make a player property.  
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.

@@ -86,7 +86,7 @@
         {
             Areas = new Dictionary<int, Area>
             {
-              {0, new Area(0, "Dinmors indgang")},
+              {0, new Area(0, "Dinmors indgang", new List<Item> {new Item (0, "mobile", "...")})},
               {1, new Area(1, "Dinmors køkken")},
               {2, new Area(2, "Dinmors badeværelse")},
               {3, new Area(3, "Dinmors kælder🤓")},
