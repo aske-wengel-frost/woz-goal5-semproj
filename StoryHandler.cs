@@ -12,14 +12,14 @@ namespace cs
         private Scene? currentScene { get; set; }
         StoryBuilder StoryBuilder { get; set; }
 
-        public UII UIHandler { get; set; }
+        public IUIHandler _UIHandler { get; set; }
 
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
-        public StoryHandler(UII uiHandler, Space node)
+        public StoryHandler(IUIHandler uiHandler, Space node)
         {
-            UIHandler = uiHandler;
+            _UIHandler = uiHandler;
             StoryBuilder = new StoryBuilder();
             current = node;
         }
@@ -50,9 +50,15 @@ namespace cs
         /// </summary>
         public void Start()
         {
-            //UIHandler.DrawScene(currentScene, this);
+            
+            // Loads the story
             StoryBuilder.LoadScenesFromFile();
+
+            // Sets the current scene
             currentScene = StoryBuilder.getIntiialScene();
+
+            // Draws the initial scene
+            _UIHandler.DrawScene(currentScene);
 
         }
         /// <summary>
@@ -66,19 +72,13 @@ namespace cs
             if (currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
             {
                 currentScene = sceneProxy;
-                UIHandler.DrawScene(currentScene, this);
+                //_UIHandler.DrawScene(currentScene, this);
+                _UIHandler.DrawScene(currentScene);
             }
-            else { UIHandler.DrawError("Scene does not exist.."); }
+            else { _UIHandler.DrawError("Scene does not exist.."); }
 
 
         }
-
-
-        // public void SwitchScene(string sceneName)
-        // {
-        //   Scene scene = Scenes[sceneName];
-        //   currentScene = scene;
-        // }
 
         public void MakeDone()
         {
