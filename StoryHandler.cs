@@ -52,7 +52,8 @@ namespace cs
         {
             //currentScene = StoryBuilder.getIntiialScene();
             //UIHandler.DrawScene(currentScene, this);
-            StoryBuilder.LoadScenes();
+            // StoryBuilder.LoadScenes();
+            StoryBuilder.LoadScenesFromFile(@"./dat.json");
             currentScene = StoryBuilder.getIntiialScene();
 
         }
@@ -64,7 +65,7 @@ namespace cs
         {
             int usrInpValue = Int32.Parse(usrInp);
             Scene sceneProxy = StoryBuilder.FindScene(usrInpValue);
-            if (currentScene!.Choices.Exists(_ => _.SceneObj == sceneProxy))
+            if (currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
             {
                 currentScene = sceneProxy;
                 UIHandler.DrawScene(currentScene, this);

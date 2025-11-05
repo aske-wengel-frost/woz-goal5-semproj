@@ -103,12 +103,24 @@
 
         }
 
-        public static Dictionary<int, Scene> LoadScenesFromFile(string fp)
+
+        /// <summary>
+        /// Creates a dictionary of scenes from given json-file.
+        /// </summary>
+        /// <param name="fp"></param>
+        /// <returns>A Dictionary </returns>
+        public void LoadScenesFromFile(string fp)
         {
             string dat = File.ReadAllText(fp);
-            return JsonSerializer.Deserialize<Dictionary<int, Scene>>(dat);
+            this.Scenes = JsonSerializer.Deserialize<Dictionary<int, Scene>>(dat);
         }
 
+
+        /// <summary>
+        /// Serializes a Scene object into json.
+        /// </summary>
+        /// <param name="scene"></param>
+        /// <returns></returns>
         public static string exportScene(Scene scene)
         {
             return JsonSerializer.Serialize(scene);
