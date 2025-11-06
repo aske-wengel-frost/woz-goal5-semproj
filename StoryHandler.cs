@@ -12,6 +12,8 @@ namespace cs
 
         public IUIHandler _UIHandler { get; set; }
 
+        // Added a private field to hold the Player instance - Elmin
+        private Player player;
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
@@ -68,6 +70,34 @@ namespace cs
             return done;
         }
 
+        // Method to get the current scene of the story
+        public Scene GetCurrentScene()
+        {
+            return currentScene;
+        }
+
+        // Method to get the player object
+        public Player GetPlayer()
+        {
+            return player;
+        }
+
+        // Method to go back to the previous scene
+        public bool GoBack()
+        {
+            // Logic to go back to the previous scene
+            // Note to Self: maybe a "sceneHistory" list to hold the scenes??
+            // sceneHistory.RemoveAt(sceneHistory.Count - 1);
+
+            /* if (sceneHistory.Count > 0)
+            {
+                Scene previousScene = sceneHistory[sceneHistory.Count - 1];
+                currentScene = previousScene;
+                UIHandler.DrawScene(currentScene);
+                return true;
+            }*/
+            return false;
+        }
     }
 }
 

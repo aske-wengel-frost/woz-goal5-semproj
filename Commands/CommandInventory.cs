@@ -11,8 +11,19 @@ namespace cs.Commands
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            // Implement inventory display logic here
-            // Note to self: Might want to access StoryHandler's player inventory
+            // Method to show the player's inventory
+            Player player = StoryHandler.GetPlayer();
+            if (player != null)
+            {
+                Console.WriteLine("\n=== Your Inventory ===");
+                player.Inventory.ShowInventory();
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("You currently have no items"); // Debugger print
+                Console.ResetColor();
+            }
         }
     }
 }

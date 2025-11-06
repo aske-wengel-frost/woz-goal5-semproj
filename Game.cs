@@ -30,6 +30,8 @@ namespace cs
             registry.Register("look", new CommandLook());
             registry.Register("inventory", new CommandInventory());
             registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
+            registry.Register("take", new CommandTake());
+            registry.Register("use", new CommandUse());
         }
 
         static void Main(string[] args)

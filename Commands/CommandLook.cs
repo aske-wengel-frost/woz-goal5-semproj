@@ -11,8 +11,14 @@ namespace cs.Commands
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            // Implementing logic to look around in the current scene
-            // Note Self: Access StoryHandler's current scene details
+            // Method to look at the player's current location (scene)
+            Scene currentScene = StoryHandler.GetCurrentScene();
+            if (currentScene != null)
+            {
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine($"\n You are currently in: {currentScene.Area.Name}");
+                Console.ResetColor();
+            }
         }
     }
 }

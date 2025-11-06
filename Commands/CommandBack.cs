@@ -11,8 +11,14 @@ namespace cs.Commands
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            // Implement logic to go back to the previous scene
-            // Note to self: Might want to access StoryHandler's scene history
+            // Check to see if the player can go back to the previous scene
+            bool success = StoryHandler.GoBack();
+            if (!success)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("You can't go back from this area."); // Message if bool is false
+                Console.ResetColor();
+            }
         }
     }
 }
