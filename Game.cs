@@ -34,7 +34,7 @@ namespace cs
             registry = new Registry(storyHandler, fallback);
 
             // Welcome message
-            Console.WriteLine("=========================================================================================================");
+            Console.WriteLine("---------=======================================================================================---------");
             Console.WriteLine("Detté spil er udviklet for at skabe opmærksomhed omkring psykisk vold mod kvinder.");
             Console.WriteLine("Gennem fortællinger, valg og scenarier får du mulighed for at opleve, hvordan psykisk vold kan opstå,");
             Console.WriteLine("udvikle sig og påvirke et menneske - både synligt og usynligt.");
@@ -42,7 +42,7 @@ namespace cs
             Console.WriteLine("Du er ikke alene, der findes hjælp - både i og uden for spillet. ");
             Console.WriteLine("Lev uden volds Hotline: 1888");
             Console.WriteLine();
-            Console.WriteLine("=========================================================================================================");
+            Console.WriteLine("---------=======================================================================================---------");
             Console.WriteLine();
             Console.Write("Indtast dit navn: ");
             string? playerName = Console.ReadLine();
@@ -53,7 +53,7 @@ namespace cs
 
             storyHandler.Start();
 
-            // Game loop
+            // Game loop  
             while (storyHandler.IsDone() == false)
             {
                 Console.Write("> ");
