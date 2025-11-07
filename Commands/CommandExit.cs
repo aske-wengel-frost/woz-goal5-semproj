@@ -8,7 +8,7 @@ namespace cs.Commands
     {
         public CommandExit()
         {
-            this.description = "Exit the game";
+            this.description = "Exit spillet";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)

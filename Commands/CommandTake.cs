@@ -6,7 +6,7 @@ namespace cs.Commands
     {
         public CommandTake()
         {
-            this.description = "Take the viewed item(s)";
+            this.description = "Tag en givende item(s)";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)

@@ -6,7 +6,7 @@ namespace cs.Commands
     {
         public CommandInventory()
         {
-            this.description = "Show the player's inventory";
+            this.description = "Viser player's inventory";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
@@ -15,13 +15,13 @@ namespace cs.Commands
             Player player = StoryHandler.GetPlayer();
             if (player != null)
             {
-                Console.WriteLine("\n=== Your Inventory ===");
+                Console.WriteLine("\n=== Din Inventory ===");
                 player.Inventory.ShowInventory();
             }
             else
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("You currently have no items"); // Debugger print
+                Console.WriteLine("Du har ingen items"); // Debugger print
                 Console.ResetColor();
             }
         }

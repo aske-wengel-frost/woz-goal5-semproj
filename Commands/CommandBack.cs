@@ -6,7 +6,7 @@ namespace cs.Commands
     {
         public CommandBack()
         {
-            this.description = "Go back to the previous scene";
+            this.description = "Gå tilbage til tidligere scene";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
@@ -16,7 +16,7 @@ namespace cs.Commands
             if (!success)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("You can't go back from this area."); // Message if bool is false
+                Console.WriteLine("Du kan ikke gå tilbage herfra"); // Message if bool is false
                 Console.ResetColor();
             }
         }
