@@ -20,11 +20,18 @@ namespace cs
         private static void InitRegistry()
         {
             ICommand cmdExit = new CommandExit();
-            registry.Register("exit", cmdExit);
-            registry.Register("quit", cmdExit);
-            registry.Register("bye", cmdExit);
             registry.Register("help", new CommandHelp(registry));
+            registry.Register("exit", cmdExit);
             registry.Register("move", new CommandMove());
+            registry.Register("quit", cmdExit);
+
+            // New Commands for the help() function
+            registry.Register("back", new CommandBack());
+            registry.Register("look", new CommandLook());
+            registry.Register("inventory", new CommandInventory());
+            registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
+            registry.Register("take", new CommandTake());
+            registry.Register("use", new CommandUse());
         }
 
         static void Main(string[] args)
