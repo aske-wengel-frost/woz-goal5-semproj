@@ -21,7 +21,7 @@
 
             Console.Write($"---------===================[");
             textDisplay.Display(scene.Name, "]===================---------");
-            Console.WriteLine(SpliceText(scene.DialogueText, 60 + scene.Name.Length));
+            textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7);
             //Console.WriteLine($"{scene.DialogueText}");
             Console.Write($"---------=====================");
             foreach (char c in scene.Name)
@@ -29,11 +29,11 @@
                 Console.Write("=");
             }
             Console.WriteLine("=====================---------");
-
-            Console.WriteLine("\nHer er dine valgmuligheder:");
+            Console.WriteLine("");
+            textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
             foreach (SceneChoice sceneChoice in scene.Choices)
             { 
-                Console.WriteLine($"[{sceneChoice.SceneId}] > {sceneChoice.Description}"); 
+                textDisplay.Display($"[{sceneChoice.SceneId}] > {sceneChoice.Description}", punctDelay: 5); 
             }
         }
 

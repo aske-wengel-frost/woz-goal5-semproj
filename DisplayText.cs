@@ -22,10 +22,11 @@ namespace cs
         /// <param name="ANSI">An integer that determines how the text should be displayed in ANSI espace code</param>
         /// <param name="TextStyle">An enum type that determines the text style of the text to be displayed on the terminal</param>
 
-        public static void Display(string text, string text2, bool newLine = true, int charDelay = 100, int punctDelay = 1, ConsoleColor color = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, int ANSI = 10, Style TextStyle = Style.Normal)
+        public static void Display(string text, string text2 = null, int split = 0, bool newLine = true, int charDelay = 100, int punctDelay = 1, ConsoleColor color = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, int ANSI = 10, Style TextStyle = Style.Normal)
         {
             // The "Console.OutputEncoding = System.Text.Encoding.UTF8;" basically makes the Consoles STDIN able to interpret the unicode of the text styles.
             Console.OutputEncoding = System.Text.Encoding.UTF8;
+            int count = 0;
 
             //Basically a for loop that iterates between eách character in the text 
             foreach (char character in text)
@@ -34,6 +35,12 @@ namespace cs
                 Console.ForegroundColor = color;
                 Console.BackgroundColor = backgroundColor;
                 
+                if (count >= split && split >= 1)
+                {
+                    Console.WriteLine("");
+                    count = 0;
+                }
+
                 //Checks if a key has been pressed and writes the whole text to the terminal at once.
                 if (Console.KeyAvailable)
                 {
@@ -65,6 +72,12 @@ namespace cs
                         Console.Write("\x1b[" + ANSI + "m" + character + "\x1b[0m");
                     }
                 }
+                else
+                {
+                    Console.Write("Invalid text style type");
+                    break;
+                }
+
                 if (text2 != null)
                 {
                     int x = Console.CursorLeft;
@@ -72,14 +85,10 @@ namespace cs
                     Console.Write(text2);
                     Console.SetCursorPosition(x,y);
                 }
-                else
-                {
-                    Console.Write("Invalid text style type");
-                    break;
-                }
 
                 //This is the code that gives the delay between each display of each character to the terminal. It consist of a sort of "if statement". If the character is a punctuation mark then have the delay to be the charDelay multiplied by the punctDelay. Otherwise have the delay to be just the charDelay
-                Task.Delay((character == '.' || character == '?' || character == '!') ? (charDelay * punctDelay) : (charDelay)).Wait();
+                Task.Delay((character == '.' || character == '?' || character == '!' || character == ':') ? (charDelay * punctDelay) : (charDelay)).Wait();
+                count++;
             }
 
             //These if and else statement just determines if the next text should be displayed on the same line or on a new 
