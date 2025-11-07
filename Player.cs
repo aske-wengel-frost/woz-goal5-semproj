@@ -8,7 +8,7 @@ namespace cs
         public Inventory Inventory { get; set; }
 
         // We initialize score=0, creates new Inventory for Player, assigns Player a name
-        public Player(string name, List<Item> inventory)
+        public Player(string name)
         {
             Name = name;
             Score = 0;

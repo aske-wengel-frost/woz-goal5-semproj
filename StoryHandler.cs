@@ -12,8 +12,7 @@ namespace cs
 
         public IUIHandler _UIHandler { get; set; }
 
-        // Added a private field to hold the Player instance - Elmin
-        private Player player;
+        public Player player { get; set; } //Make a player property.  
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.

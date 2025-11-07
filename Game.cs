@@ -53,6 +53,7 @@ namespace cs
             Console.WriteLine();
             Console.Write("Indtast dit navn: ");
             string? playerName = Console.ReadLine();
+            storyHandler.player = new Player (playerName); //Create the player in storyHandler. 
             Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne.");
 
             // We call the InitRegistry method
