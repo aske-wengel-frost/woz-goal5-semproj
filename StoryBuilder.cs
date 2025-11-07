@@ -78,11 +78,59 @@
 
             return null;
         }
+        
+        public void LoadScenesNew()
+        {
+            Areas = new Dictionary<int, Area>
+            {
+                {0, new Area(0, "Entré")},
+                {1, new Area(1, "Badeværelse")},
+                {2, new Area(2,"Soveværelse")},
+                {3, new Area(3,"Stue")},
+                {4, new Area(4,"Køkken")},
+            };
+            string Køkken1 = "Du står i køkkenet og laver morgenmad. Du hører din kæreste vågne, og lidt efter kommer han ind i køkkenet.";
+            string Soveværelse1 = "Du har lagt dig på sengen, din kæreste står i døren og siger 'Det hele er din skyld'. Du føler dig fortvivlet og fanget.";
+            string Stue1 = "Du vil gerne se nyhederne, men din kæreste syntes det er spild af tid.";
+            string Badeværelse1 = "Du træder ind i badet. Du vasker uroen og hans kritiske kommentarer væk med det varme vand. Kort efter hører du din kæreste træde ind.";
+            
+            this.AddScene(new Scene(0, "Køkken 1", Køkken1, Areas[4],
+                new List<SceneChoice>
+                {
+                    new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
+                    new SceneChoice(2, "Du spørger om han vil have en kop kaffe."),
+                    new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
+                }));
+                
+            this.AddScene(new Scene(1, "Soveværelse 1", Soveværelse1, Areas[2],
+                new List<SceneChoice>
+                {
+                    new SceneChoice(3, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
+                    new SceneChoice(0, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"),
+                    new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
+                }));
+            
+            this.AddScene(new Scene(2, "Stue 1", Stue1, Areas[3],
+                new List<SceneChoice>
+                {
+                    new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
+                    new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
+                }));
+            
+            this.AddScene(new Scene(3, "Badeværelse 1", Badeværelse1, Areas[1],
+                new List<SceneChoice>
+                {
+                    new SceneChoice(0, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),
+                    new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke før du udbryder ‘Vil du sige noget!?’."),
+                    new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
+                }));
+            this.LinkScenes();
+        }
 
         /// <summary>
         /// Creates scenes and adds them to the Scenes dictionary
         /// </summary>
-        public void LoadScenes()
+       public void LoadScenes()
         {
             Areas = new Dictionary<int, Area>
             {

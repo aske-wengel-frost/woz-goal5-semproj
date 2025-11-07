@@ -15,7 +15,7 @@ namespace cs
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
-        // Godt eksempel på dependeny injection
+        // Godt eksempel pï¿½ dependeny injection
         public StoryHandler(IUIHandler uiHandler)
         {
             _UIHandler = uiHandler;
@@ -28,7 +28,9 @@ namespace cs
         public void Start()
         {
             // Loads the story
-            StoryBuilder.LoadScenesFromFile();
+            //StoryBuilder.LoadScenesFromFile();
+            StoryBuilder.LoadScenesNew();
+            //StoryBuilder.ExportScenesToFile();
 
             // Sets the current scene
             currentScene = StoryBuilder.getIntiialScene();
@@ -54,7 +56,7 @@ namespace cs
             }
             else 
             { 
-                _UIHandler.DrawError("Hmm det kan jeg vidst ikke gøre..."); 
+                _UIHandler.DrawError("Hmm det kan jeg vidst ikke gï¿½re..."); 
             }
         }
 

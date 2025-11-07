@@ -40,7 +40,7 @@ namespace cs
             Console.WriteLine("udvikle sig og påvirke et menneske - både synligt og usynligt.");
             Console.WriteLine();
             Console.WriteLine("Du er ikke alene, der findes hjælp - både i og uden for spillet. ");
-            Console.WriteLine("Lev uden volds Hotline: 1888");
+            Console.WriteLine("Lev Uden Volds Hotline: 1888");
             Console.WriteLine();
             Console.WriteLine("---------=======================================================================================---------");
             Console.WriteLine();
