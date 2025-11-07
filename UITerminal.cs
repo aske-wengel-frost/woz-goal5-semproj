@@ -28,7 +28,7 @@
             }
             Console.WriteLine("=====================---------");
 
-            Console.WriteLine("\nHer er dine valgmuligheder");
+            Console.WriteLine("\nHer er dine valgmuligheder:");
             foreach (SceneChoice sceneChoice in scene.Choices)
             { 
                 Console.WriteLine($"[{sceneChoice.SceneId}] > {sceneChoice.Description}"); 
@@ -40,6 +40,9 @@
             return input;
         }
 
+        /// <summary>
+        /// Clears the terminal screen
+        /// </summary>
         public void ClearScreen()
         {
             Console.Clear();
@@ -57,6 +60,12 @@
             Console.ForegroundColor = ConsoleColor.White;
         }
 
+        /// <summary>
+        /// Splices text into multiple lines based on a given line length
+        /// </summary>
+        /// <param name="text">The given dialogue text we want spliced</param>
+        /// <param name="lineLength">The amount of chars we want every line to be</param>
+        /// <returns>Returns the spliced text</returns>
         private string SpliceText(string text, int lineLength)
         {
             return Regex.Replace(text, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
