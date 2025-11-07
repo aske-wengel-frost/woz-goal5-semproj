@@ -8,7 +8,7 @@ namespace cs
         static Dictionary<Style, int> lowertypeDictionary = new Dictionary<Style, int> { { Style.Normal, 0 }, { Style.Bold, 0x1D41A }, { Style.Italic, 0x1D44E }, { Style.BoldItalic, 0x1D482 }, { Style.Script, 0x1D4B6 }, { Style.BoldScript, 0x1D4EA }, { Style.Fraktur, 0x1D51E }, { Style.DoubleStruck, 0x1D552 }, { Style.BoldFraktur, 0x1D586 }, { Style.SansSerif, 0x1D5BA }, { Style.BoldSansSerif, 0x1D5EE }, { Style.ItalicSansSerif, 0x1D622 }, { Style.BoldItalicSansSerif, 0x1D656 }, { Style.Monospace, 0x1D68A } };
         static Dictionary<Style, int> uppertypeDictionary = new Dictionary<Style, int> { { Style.Normal, 0 }, { Style.Bold, 0x1D400 }, { Style.Italic, 0x1D434 }, { Style.BoldItalic, 0x1D468 }, { Style.Script, 0x1D49C }, { Style.BoldScript, 0x1D4D0 }, { Style.Fraktur, 0x1D504 }, { Style.DoubleStruck, 0x1D538 }, { Style.BoldFraktur, 0x1D56C }, { Style.SansSerif, 0x1D5A0 }, { Style.BoldSansSerif, 0x1D5D4 }, { Style.ItalicSansSerif, 0x1D608 }, { Style.BoldItalicSansSerif, 0x1D63C }, { Style.Monospace, 0x1D670 } };
         public enum Style { Normal, Bold, Italic, BoldItalic, Script, BoldScript, Fraktur, DoubleStruck, BoldFraktur, SansSerif, BoldSansSerif, ItalicSansSerif, BoldItalicSansSerif, Monospace }
-        // The initialization of the Enum types of the text styles and the Dictionaries that hold the corresponding unicode hexadecimal for each taext styles.  
+        // The initialization of the Enum types of the text styles and the Dictionaries that hold the corresponding unicode hexadecimal for each text styles.  
 
         /// <summary>
         /// A class that is capable of displaying text in the terminal in a more Storywise fashion
@@ -33,7 +33,13 @@ namespace cs
                 // Code that tells the Console class the color and background color of the text, that was given by the parameter of the method
                 Console.ForegroundColor = color;
                 Console.BackgroundColor = backgroundColor;
-
+                
+                //Checks if a key has been pressed and writes the whole text to the terminal at once.
+                if (Console.KeyAvailable)
+                {
+                    Console.ReadKey(true);
+                    charDelay = 0;
+                }
                 //An if statement that checks if the given Enum text style type is present in the Dictionary and an else statement that will display an error message.
                 if (lowertypeDictionary.ContainsKey(TextStyle) || uppertypeDictionary.ContainsKey(TextStyle))
                 {
