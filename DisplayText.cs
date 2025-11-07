@@ -24,17 +24,18 @@ namespace cs
 
         public static void Display(string text, string text2 = null, int split = 0, bool newLine = true, int charDelay = 100, int punctDelay = 1, ConsoleColor color = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, int ANSI = 10, Style TextStyle = Style.Normal)
         {
-            // The "Console.OutputEncoding = System.Text.Encoding.UTF8;" basically makes the Consoles STDIN able to interpret the unicode of the text styles.
+            //The "Console.OutputEncoding = System.Text.Encoding.UTF8;" basically makes the Consoles STDIN able to interpret the unicode of the text styles.
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             int count = 0;
 
             //Basically a for loop that iterates between eách character in the text 
             foreach (char character in text)
             {
-                // Code that tells the Console class the color and background color of the text, that was given by the parameter of the method
+                //Code that tells the Console class the color and background color of the text, that was given by the parameter of the method
                 Console.ForegroundColor = color;
                 Console.BackgroundColor = backgroundColor;
                 
+                //This if statement makes the characters printed on a new line 
                 if (count >= split && split >= 1)
                 {
                     Console.WriteLine("");
@@ -77,7 +78,8 @@ namespace cs
                     Console.Write("Invalid text style type");
                     break;
                 }
-
+                
+                //This statement makes sure, if there is a text that the desired original text should be printed in between.
                 if (text2 != null)
                 {
                     int x = Console.CursorLeft;
