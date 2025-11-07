@@ -22,7 +22,7 @@ namespace cs
         /// <param name="ANSI">An integer that determines how the text should be displayed in ANSI espace code</param>
         /// <param name="TextStyle">An enum type that determines the text style of the text to be displayed on the terminal</param>
 
-        public static void Display(string text, bool newLine = true, int charDelay = 100, int punctDelay = 1, ConsoleColor color = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, int ANSI = 10, Style TextStyle = Style.Normal)
+        public static void Display(string text, string text2, bool newLine = true, int charDelay = 100, int punctDelay = 1, ConsoleColor color = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, int ANSI = 10, Style TextStyle = Style.Normal)
         {
             // The "Console.OutputEncoding = System.Text.Encoding.UTF8;" basically makes the Consoles STDIN able to interpret the unicode of the text styles.
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -64,6 +64,13 @@ namespace cs
                     {
                         Console.Write("\x1b[" + ANSI + "m" + character + "\x1b[0m");
                     }
+                }
+                if (text2 != null)
+                {
+                    int x = Console.CursorLeft;
+                    int y = Console.CursorTop;
+                    Console.Write(text2);
+                    Console.SetCursorPosition(x,y);
                 }
                 else
                 {

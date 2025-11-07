@@ -7,6 +7,7 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using cs;
 
     class UITerminal : IUIHandler
     {
@@ -18,7 +19,8 @@
         {
             ClearScreen();
 
-            Console.WriteLine($"---------===================[ {scene.Name} ]===================---------");
+            Console.Write($"---------===================[");
+            textDisplay.Display(scene.Name, "]===================---------");
             Console.WriteLine(SpliceText(scene.DialogueText, 60 + scene.Name.Length));
             //Console.WriteLine($"{scene.DialogueText}");
             Console.Write($"---------=====================");
