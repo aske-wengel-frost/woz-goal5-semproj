@@ -6,7 +6,7 @@ namespace cs.Commands
     {
         public CommandLook()
         {
-             this.description = "Look around in the current scene";
+             this.description = "Kig rundt i din current scene";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
@@ -16,7 +16,7 @@ namespace cs.Commands
             if (currentScene != null)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"\n You are currently in: {currentScene.Area.Name}");
+                Console.WriteLine($"\n Du befinder dig i: {currentScene.Area.Name}");
                 Console.ResetColor();
             }
         }

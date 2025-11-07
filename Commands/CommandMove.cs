@@ -6,7 +6,7 @@
     {
         public CommandMove()
         {
-            this.description = "Move to a different scene by entering the scene number";
+            this.description = "Bevæge til en anden scene ved at skrive scene numemr";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
