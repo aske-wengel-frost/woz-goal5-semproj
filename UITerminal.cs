@@ -20,7 +20,7 @@
             ClearScreen();
 
             Console.Write($"---------===================[");
-            textDisplay.Display(scene.Name, "]===================---------");
+            textDisplay.Display(scene.Name, "]=====================---------");
             textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7);
             //Console.WriteLine($"{scene.DialogueText}");
             Console.Write($"---------=====================");
