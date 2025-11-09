@@ -98,7 +98,7 @@
                 new List<SceneChoice>
                 {
                     new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
-                    new SceneChoice(2, "Du spørger om han vil have en kop kaffe."),
+                    new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
                     new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
                 }));
                 
@@ -114,14 +114,14 @@
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
-                    new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
+                    new SceneChoice(1, "Du rejser dig og går, og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
                 }));
             
             this.AddScene(new Scene(3, "Badeværelse 1", Badeværelse1, Areas[1],
                 new List<SceneChoice>
                 {
                     new SceneChoice(0, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),
-                    new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke før du udbryder ‘Vil du sige noget!?’."),
+                    new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."),
                     new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
                 }));
             this.LinkScenes();
