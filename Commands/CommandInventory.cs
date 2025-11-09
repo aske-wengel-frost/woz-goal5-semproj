@@ -15,7 +15,7 @@ namespace cs.Commands
             Player player = StoryHandler.GetPlayer();
             if (player != null)
             {
-                Console.WriteLine("\n=== Din Inventory ===");
+                Console.WriteLine("\n=== Dit Inventory ===");
                 player.Inventory.ShowInventory();
             }
             else

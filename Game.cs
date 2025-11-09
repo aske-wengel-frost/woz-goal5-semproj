@@ -10,7 +10,6 @@ namespace cs
 
     public class Game
     {
-
         static public StoryHandler storyHandler { get; set; }
         static public IUIHandler UIHandler { get; set; }
 

@@ -87,7 +87,7 @@
                 {1, new Area(1, "Badeværelse")},
                 {2, new Area(2,"Soveværelse")},
                 {3, new Area(3,"Stue")},
-                {4, new Area(4,"Køkken")},
+                {4, new Area(4,"Køkken", new List<Item> {new Item(1, "Mobil", "En mobiltelefon")})},
             };
             string Køkken1 = "Du står i køkkenet og laver morgenmad. Du hører din kæreste vågne, og lidt efter kommer han ind i køkkenet.";
             string Soveværelse1 = "Du har lagt dig på sengen, din kæreste står i døren og siger 'Det hele er din skyld'. Du føler dig fortvivlet og fanget.";
