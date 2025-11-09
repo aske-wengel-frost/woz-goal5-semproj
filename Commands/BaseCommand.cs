@@ -3,7 +3,7 @@
 namespace cs.Commands
 {
 
-    class BaseCommand
+    public class BaseCommand
     {
         protected string description = "Undocumented";
 

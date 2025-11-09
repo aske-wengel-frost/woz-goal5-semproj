@@ -1,20 +1,26 @@
 ﻿namespace cs
 {
     using System;
+    using System.Text.Json.Serialization;
 
     public class Scene
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public Area Area { get; set;  }
+        public int AreaId { get; set; }
+
+        private Area area;
+        [JsonIgnore]
+        public Area Area { get {return area; } set { AreaId = value != null ? value.ID : 0; area = value; } }
         public string? DialogueText { get; set; }
         public List<SceneChoice> Choices { get; set; }
-        public Scene(int id, string name, string dialogueText, Area area, List<SceneChoice> choices)
+        public Scene(int id, string name, string dialogueText, List<SceneChoice> choices, Area area = null)
         {
             ID = id;
             Name = name;
             DialogueText = dialogueText;
             Area = area;
+            AreaId = area != null ? area.ID : 0;
             Choices = choices;
         }
 

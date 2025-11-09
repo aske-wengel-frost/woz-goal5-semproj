@@ -8,7 +8,7 @@ namespace cs
         bool done = false;
 
         private Scene? currentScene { get; set; }
-        StoryBuilder StoryBuilder { get; set; }
+        public StoryBuilder StoryBuilder { get; set; }
 
         public IUIHandler _UIHandler { get; set; }
 
@@ -29,8 +29,10 @@ namespace cs
         public void Start()
         {
             // Loads the story
-            //StoryBuilder.LoadScenesFromFile();
-            StoryBuilder.LoadScenesNew();
+            StoryBuilder.LoadAreas();
+            StoryBuilder.LoadScenesFromFile();
+            StoryBuilder.LinkScenes();
+            //StoryBuilder.LoadScenesNew();
             //StoryBuilder.ExportScenesToFile();
 
             // Sets the current scene

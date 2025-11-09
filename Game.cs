@@ -23,6 +23,7 @@ namespace cs
             registry.Register("exit", cmdExit);
             registry.Register("move", new CommandMove());
             registry.Register("quit", cmdExit);
+            registry.Register("export", new CommandExportStory());
 
             // New Commands for the help() function
             registry.Register("back", new CommandBack());

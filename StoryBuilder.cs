@@ -8,7 +8,7 @@
     /// <summary>
     /// This class controls everything to do with building and loading a story (Collection of scenes)
     /// </summary>
-    class StoryBuilder
+    public class StoryBuilder
     {
         public Dictionary<int, Scene> Scenes { get; set; }
         public Dictionary<int, Area> Areas { get; set; }
@@ -42,6 +42,20 @@
             // Loop through all scenes
             foreach (Scene scene in Scenes.Values)
             {
+                // only if area object is not instanciated
+                if(scene.Area == null)
+                {
+                    // link the Areas of the loaded scenes
+                    foreach (Area area in Areas.Values)
+                    {
+                        if (area.ID == scene.AreaId)
+                        {
+                            scene.Area = area;
+                            break;
+                        }
+                    }
+                }
+
                 // Loop through all scenechoices in theese scenes
                 foreach (SceneChoice sceneChoice in scene.Choices)
                 {
@@ -79,6 +93,18 @@
             return null;
         }
         
+        public void LoadAreas()
+        {
+            Areas = new Dictionary<int, Area>
+            {
+                {0, new Area(0, "Entré")},
+                {1, new Area(1, "Badeværelse")},
+                {2, new Area(2,"Soveværelse")},
+                {3, new Area(3,"Stue")},
+                {4, new Area(4,"Køkken", new List<Item> {new Item(1, "Mobil", "En mobiltelefon")})},
+            };
+        }
+
         public void LoadScenesNew()
         {
             Areas = new Dictionary<int, Area>
@@ -94,150 +120,38 @@
             string Stue1 = "Du vil gerne se nyhederne, men din kæreste syntes det er spild af tid.";
             string Badeværelse1 = "Du træder ind i badet. Du vasker uroen og hans kritiske kommentarer væk med det varme vand. Kort efter hører du din kæreste træde ind.";
             
-            this.AddScene(new Scene(0, "Køkken 1", Køkken1, Areas[4],
+            this.AddScene(new Scene(0, "Køkken 1", Køkken1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
                     new SceneChoice(2, "Du spørger om han vil have en kop kaffe."),
                     new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
-                }));
+                }, Areas[4]));
                 
-            this.AddScene(new Scene(1, "Soveværelse 1", Soveværelse1, Areas[2],
+            this.AddScene(new Scene(1, "Soveværelse 1", Soveværelse1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
                     new SceneChoice(0, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"),
                     new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
-                }));
+                }, Areas[2]));
             
-            this.AddScene(new Scene(2, "Stue 1", Stue1, Areas[3],
+            this.AddScene(new Scene(2, "Stue 1", Stue1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
                     new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
-                }));
+                }, Areas[3]));
             
-            this.AddScene(new Scene(3, "Badeværelse 1", Badeværelse1, Areas[1],
+            this.AddScene(new Scene(3, "Badeværelse 1", Badeværelse1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(0, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),
                     new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke før du udbryder ‘Vil du sige noget!?’."),
                     new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
-                }));
+                }, Areas[1]));
             this.LinkScenes();
         }
-
-        /// <summary>
-        /// Creates scenes and adds them to the Scenes dictionary
-        /// </summary>
-       public void LoadScenes()
-        {
-            Areas = new Dictionary<int, Area>
-            {
-              {0, new Area(0, "Dinmors indgang", new List<Item> {new Item (0, "mobile", "...")})},
-              {1, new Area(1, "Dinmors køkken")},
-              {2, new Area(2, "Dinmors badeværelse")},
-              {3, new Area(3, "Dinmors kælder🤓")},
-            };
-
-            string dummyDialougeText = "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst være lang sådan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe";
-
-
-            this.AddScene(new Scene(0, "Start 1", dummyDialougeText, Areas[0],
-                new List<SceneChoice> {
-            new SceneChoice(2, "Smid kniven, og kast dig ind i badeværelset."),
-            new SceneChoice(3, "Arbejde på dine daglige steps, og gå ned ad trapperne til kælderen.")
-                }));
-
-            this.AddScene(new Scene(1, "Start 2", dummyDialougeText, Areas[1],
-                new List<SceneChoice> {
-            new SceneChoice(2, "Smid kniven, og kast dig ind i badeværelset."),
-            new SceneChoice(3, "Arbejde på dine daglige steps, og gå ned ad trapperne til kælderen.")
-                }));
-
-            // Add the target scenes
-            this.AddScene(new Scene(2, "Badeværelset", "Du er nu i badeværelset.", Areas[2], new List<SceneChoice>()));
-            this.AddScene(new Scene(3, "Kælderen", "Du går ned i kælderen.", Areas[3], new List<SceneChoice>()));
-
-            this.LinkScenes();
-
-        }
-
-
-        public void LoadScenes_Oli()
-        {
-            Areas = new Dictionary<int, Area>
-            {
-              {0, new Area(0, "Indkørsel")},
-              {1, new Area(1, "Entré")},
-              {2, new Area(2, "Køkken alrum")},
-              {3, new Area(3, "Stue")},
-              {4, new Area(4, "Soveværelse")},
-              {5, new Area(5, "Tarresse")},
-              {6, new Area(6, "Badeværelset")},
-              {7, new Area(7, "Haven")},
-            };
-
-            string dummyDialougeText = "Dette er noget tekst som er den del af denne sygt nice historie som vi har skrvete, WOW det er en god historie var? og shit hvor skal denne tekst være lang sådan man virkelig kan se at der er gjordt noget ud af denne blockbuster storyline vi har lavet her. tak for idag husk og like og subscribe";
-
-            // Scene: Start 1 Location: Indkørsel
-            this.AddScene(new Scene(0, "Starten 1", dummyDialougeText, Areas[0],
-                new List<SceneChoice> {
-                    new SceneChoice(1, "Gå ind af hovedøren"),
-                    new SceneChoice(2, "Smid dine ting foran døren og gå om på terassen")
-                }));
-
-            // Scene 2: Starten 2; Location: Entré
-            this.AddScene(new Scene(1, "Starten 2", dummyDialougeText, Areas[1],
-                new List<SceneChoice> {
-                    new SceneChoice(4, "Gå ind i stuen og hils på din mand"),
-                    new SceneChoice(3, "Gå direkte til dit værelse")
-                }));
-
-            // Scene 3: Starten 3; Location: Terrassen
-            this.AddScene(new Scene(2, "Starten 3", dummyDialougeText, Areas[5],
-                new List<SceneChoice> {
-                    new SceneChoice(5, "Gå ud i haven"),
-                    new SceneChoice(6, "Gå ind i køkken alrummet")
-                }));
-
-
-
-
-            // Scene 4: Starten 4; Location: Soveværelse
-            this.AddScene(new Scene(3, "Starten 4", dummyDialougeText, Areas[4],
-                new List<SceneChoice> {
-                    new SceneChoice(2, "Åben døren og gå ud i stuen"),
-                }));
-
-            // Scene 5: Starten 5; Location: Stue
-            this.AddScene(new Scene(4, "Starten 5", dummyDialougeText, Areas[3],
-                new List<SceneChoice> {
-                    new SceneChoice(2, "Gå på toilettet"),
-                }));
-
-
-            // Scene 6: Starten 6; Location: Haven
-            this.AddScene(new Scene(5, "Starten 6", dummyDialougeText, Areas[7],
-                new List<SceneChoice> {
-                    new SceneChoice(7, "END"),
-                }));
-
-            // Scene 7: Starten 7; Location: Køkken alrum
-            this.AddScene(new Scene(6, "Starten 7", dummyDialougeText, Areas[2],
-                new List<SceneChoice> {
-                    new SceneChoice(7, "END"),
-                }));
-
-
-            //DUMMY END SCENE
-            this.AddScene(new Scene(7, "END", "!!!END!!!", Areas[0],new List<SceneChoice> {}));
-
-            this.LinkScenes();
-
-        }
-
-
 
         /// <summary>
         /// Imports dictionary of scenes from given json-file.
@@ -264,7 +178,6 @@
             // Maby handle a null value here.
             this.Scenes = JsonSerializer.Deserialize<Dictionary<int, Scene>>(tmpJsonStr);
         }
-
 
         /// <summary>
         /// Serializes a Dictoinary of scenes to json, and saves in a file
