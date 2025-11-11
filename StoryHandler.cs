@@ -59,7 +59,7 @@ namespace cs
             }
             else 
             { 
-                _UIHandler.DrawError("Hmm det kan jeg vidst ikke g�re..."); 
+                _UIHandler.DrawError("Hmm det kan jeg vidst ikke gøre..."); 
             }
         }
 
