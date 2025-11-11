@@ -124,7 +124,7 @@
                 new List<SceneChoice>
                 {
                     new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
-                    new SceneChoice(2, "Du spørger om han vil have en kop kaffe."),
+                    new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
                     new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
                 }, Areas[4]));
                 
@@ -147,7 +147,7 @@
                 new List<SceneChoice>
                 {
                     new SceneChoice(0, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),
-                    new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke før du udbryder ‘Vil du sige noget!?’."),
+                    new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."),
                     new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
                 }, Areas[1]));
             this.LinkScenes();
