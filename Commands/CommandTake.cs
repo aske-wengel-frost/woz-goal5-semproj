@@ -11,15 +11,24 @@ namespace cs.Commands
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            // Method to take the viewed item in the current scene
+            // Attempts to take the item with the specified name from the first parameter
+            Item? item = StoryHandler.GetCurrentScene().Area.TakeItem(parameters[0]);
 
-            Item item = StoryHandler.GetCurrentScene().Area.Items.Where(x => x.Name == parameters[0]).FirstOrDefault();
+            // Check if the item exists
+            if(item == null)
+            {
+                StoryHandler._UIHandler.DrawError("Denne genstand findes vidst ikke...");
+                return;
+            }
 
+            // Add the item to the players inventory
             StoryHandler.player.Inventory.AddItem(item);
 
+            // Remove the item from the Area
             StoryHandler.GetCurrentScene().Area.Items.Remove(item);
 
-            StoryHandler._UIHandler.DrawError($"Took item: {item.Name} [{item.Description}]");
+            // Notify player of picked up item
+            StoryHandler._UIHandler.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
 
         }
     }

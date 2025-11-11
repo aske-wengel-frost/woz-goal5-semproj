@@ -59,7 +59,13 @@
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(errorMsg);
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ResetColor();
+        }
+        public void DrawInfo(string infoMsg)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(infoMsg);
+            Console.ResetColor();
         }
 
         /// <summary>

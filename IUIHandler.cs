@@ -13,5 +13,7 @@
         public string GetUserInput(String input);
         public void ClearScreen();
         public void DrawError(string errorMsg);
+
+        public void DrawInfo(string infoMsg);
     }
 }

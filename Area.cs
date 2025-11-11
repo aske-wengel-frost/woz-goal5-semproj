@@ -23,6 +23,11 @@ namespace cs
             }
         }
 
+        public Item? TakeItem(string itemName)
+        {
+            return Items?.Where(x => x.Name == itemName).FirstOrDefault();
+        }
+
         // A way to view the given area details
         public override string ToString()
         {

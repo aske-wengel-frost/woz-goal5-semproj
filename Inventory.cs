@@ -22,7 +22,7 @@ namespace cs
             if (item != null)
             {
                 items.Add(item);
-                Console.WriteLine($"Item: {item.Name} Added to Inventory"); //Debugger message to check
+                //Console.WriteLine($"Item: {item.Name} Added to Inventory"); //Debugger message to check
             }
         }
 
