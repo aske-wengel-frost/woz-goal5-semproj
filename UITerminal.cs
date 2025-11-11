@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.Dynamic;
     using System.Linq;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -11,17 +12,20 @@
 
     class UITerminal : IUIHandler
     {
+        int EffectDelay { get; set; }
+
         /// <summary>
         /// Draws the scene in the terminal
         /// </summary>
         /// <param name="scene">The scene you want to have drawn</param>
         public void DrawScene(Scene scene)
         {
+            this.EffectDelay = 10;
             ClearScreen();
 
             Console.Write($"---------===================[");
-            textDisplay.Display(scene.Name, "]=====================---------");
-            textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7);
+            textDisplay.Display(scene.Name, "]=====================---------", charDelay: EffectDelay);
+            textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7, charDelay: EffectDelay);
             //Console.WriteLine($"{scene.DialogueText}");
             Console.Write($"---------=====================");
             foreach (char c in scene.Name)
@@ -30,10 +34,10 @@
             }
             Console.WriteLine("=====================---------");
             Console.WriteLine("");
-            textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
+            textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4, charDelay: EffectDelay);
             foreach (SceneChoice sceneChoice in scene.Choices)
-            { 
-                textDisplay.Display($"[{sceneChoice.SceneId}] > {sceneChoice.Description}", punctDelay: 5); 
+            {
+                textDisplay.Display($"[{sceneChoice.SceneId}] > {sceneChoice.Description}", punctDelay: 5, charDelay: EffectDelay);
             }
         }
 
