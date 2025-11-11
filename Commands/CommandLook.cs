@@ -15,9 +15,13 @@ namespace cs.Commands
             Scene currentScene = StoryHandler.GetCurrentScene();
             if (currentScene != null)
             {
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine($"\n Du befinder dig i: {currentScene.Area.Name}");
-                Console.ResetColor();
+                Console.WriteLine($"Du befinder dig i: {currentScene.Area.Name}");
+                Console.Write($"Genstande:");
+                foreach(Item it in StoryHandler.GetCurrentScene().Area.Items )
+                {
+                    Console.Write($" {it.Name},");
+                }
+                Console.WriteLine();
             }
         }
     }
