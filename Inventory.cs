@@ -59,6 +59,18 @@ namespace cs
             return null;
         }
 
+        public Item GetItemName(string name)
+        {
+            /// Foreach loop that check names with case insensitivity
+            foreach (Item item in items)
+            {
+                if (item.Name.ToLower() == name.ToLower())
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
 
         public void SetItem(Item item)
         {
