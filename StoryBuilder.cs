@@ -119,15 +119,23 @@
             string Soveværelse1 = "Du har lagt dig på sengen, din kæreste står i døren og siger 'Det hele er din skyld'. Du føler dig fortvivlet og fanget.";
             string Stue1 = "Du vil gerne se nyhederne, men din kæreste syntes det er spild af tid.";
             string Badeværelse1 = "Du træder ind i badet. Du vasker uroen og hans kritiske kommentarer væk med det varme vand. Kort efter hører du din kæreste træde ind.";
-            
+
+            // Use item method test
             this.AddScene(new Scene(0, "Køkken 1", Køkken1,
-                new List<SceneChoice>
-                {
-                    new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
-                    new SceneChoice(2, "Du spørger om han vil have en kop kaffe."),
-                    new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
-                }, Areas[4]));
-                
+               new List<SceneChoice>
+               {
+                    new SceneChoice(1, "Gå til stuen"),
+                    new SceneChoice(2, "Ring til Politiet", 1)
+               }, Areas[4]));
+
+            /* this.AddScene(new Scene(0, "Køkken 1", Køkken1,
+                 new List<SceneChoice>
+                 {
+                     new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
+                     new SceneChoice(2, "Du spørger om han vil have en kop kaffe."),
+                     new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
+                 }, Areas[4]));*/
+
             this.AddScene(new Scene(1, "Soveværelse 1", Soveværelse1,
                 new List<SceneChoice>
                 {
