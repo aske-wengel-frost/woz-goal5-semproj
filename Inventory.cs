@@ -59,6 +59,9 @@ namespace cs
             return null;
         }
 
+        /// <summary>
+        /// Method to get an item by its Name
+        /// </summary>
         public Item GetItemName(string name)
         {
             /// Foreach loop that check names with case insensitivity
