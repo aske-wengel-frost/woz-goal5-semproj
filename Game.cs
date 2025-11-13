@@ -68,7 +68,17 @@ namespace cs
             {
                 Console.Write("> ");
                 string? line = Console.ReadLine();
-                if (line != null) registry.Dispatch(line);
+
+                // 1. Check if the line is empty, null, or just whitespace
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                // 2. Convert the line to lowercase
+                string processedLine = line.ToLowerInvariant();
+
+                // 3. Send the processed line to dispatch system
+                registry.Dispatch(processedLine);
             }
             Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
