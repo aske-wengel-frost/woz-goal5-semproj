@@ -5,6 +5,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Dynamic;
     using System.Linq;
+    using System.Runtime.ExceptionServices;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
@@ -12,6 +13,8 @@
 
     class UITerminal : IUIHandler
     {
+        private TerminalMap map { get; set; } = new TerminalMap();
+
         int EffectDelay { get; set; }
 
         /// <summary>
@@ -40,6 +43,7 @@
                 textDisplay.Display($"[{sceneChoice.SceneId}] > {sceneChoice.Description}", punctDelay: 5, charDelay: EffectDelay);
             }
         }
+
 
         public string GetUserInput(String input)
         {
@@ -81,6 +85,11 @@
         private string SpliceText(string text, int lineLength)
         {
             return Regex.Replace(text, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
+        }
+
+        public void RefreshMap(Dictionary<int, Area> areas)
+        {
+            map.DrawMap(areas);
         }
     }
 }

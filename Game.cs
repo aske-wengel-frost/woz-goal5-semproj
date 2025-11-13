@@ -32,6 +32,7 @@ namespace cs
             registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
             registry.Register("take", new CommandTake());
             registry.Register("use", new CommandUse());
+            registry.Register("map", new CommandMap());
         }
 
         static void Main(string[] args)
