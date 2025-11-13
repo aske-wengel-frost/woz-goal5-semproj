@@ -8,9 +8,9 @@
 
     public class TerminalMap
     {
-        public int Height { get; set; } = 35;
+        public int Height { get; set; } = 24;
 
-        public int Width { get; set; } = 100;
+        public int Width { get; set; } = 68;
 
         public char[,] DrawBuffer { get; set; }
 
@@ -18,7 +18,7 @@
         public TerminalMap()
         {
             // Init size of drawbuffer, make it 2 bigger in both width and height to accomidate borders.
-            DrawBuffer = new char[Height + 2, Width + 2];
+            DrawBuffer = new char[Height, Width];
 
             this.initBuffer();
         }
@@ -34,25 +34,8 @@
                 }
             }
 
-            // Add top and bottom border
-            for (int i = 0; i < DrawBuffer.GetLength(1); i++)
-            {
-                DrawBuffer[0, i] = '=';
-            }
-            for (int i = 0; i < DrawBuffer.GetLength(1); i++)
-            {
-                DrawBuffer[Height + 1, i] = '=';
-            }
 
-            // Add sides
-            for (int i = 0; i < DrawBuffer.GetLength(0); i++)
-            {
-                //left side
-                DrawBuffer[i, 0] = '|';
-
-                // right side
-                DrawBuffer[i, Width + 1] = '|';
-            }
+            this.InsertBox(0, 0, Height, Width);
 
             // Insert the header:
             string headerText = "[ Map ]";
@@ -66,9 +49,10 @@
             foreach (Area area in areas.Values)
             {
                 // Inserts a box into the buffer
-                InsertBox(area.xStart, area.yStart, area.height, area.width);
+                //InsertBox(area.xStart, area.yStart, area.height, area.width);
+                InsertArea(area.xStart, area.yStart, area.height, area.width, area.Name);
             }
-            this.InsertText(95, 35, "Helloo");
+            this.InsertText(94, 34, "Helloo");
 
             // loop over all areas and print map
             for (int row = 0; row < DrawBuffer.GetLength(0); row++)
@@ -94,12 +78,12 @@
                 return;
             }
 
-            for (int i = Y; i <= Height + Y; i++)
+            for (int i = Y; i < Height + Y; i++)
             {
                 // if it is the top or bottom line we draw
-                if (i == Y || i == Y + Height)
+                if (i == Y || i == Y + Height - 1)
                 {
-                    for (int j = X; j <= Width + X; j++)
+                    for (int j = X; j < Width + X; j++)
                     {
                         this.DrawBuffer[i, j] = '=';
                     }
@@ -108,15 +92,26 @@
                 {
                     // else we draw the sides:
                     this.DrawBuffer[i, X] = '|';
-                    this.DrawBuffer[i, X + Width] = '|';
+                    this.DrawBuffer[i, X + Width - 1] = '|';
                 }
             }
 
         }
 
+        private void InsertArea(int X, int Y, int Height, int Width, string name = " ")
+        {
+            this.InsertBox(X, Y, Height, Width);
+
+            // Calculate text offset
+            int xOffset = Width / 2 - name.Length / 2;
+            int yOffset = Height / 2;
+
+            this.InsertText(X + xOffset, Y + yOffset, name);
+        }
+
         private void InsertText(int X, int Y, string text)
         {
-            if (GuardSize(X, Y, 0, text.Length))
+            if (GuardSize(X, Y, 1, text.Length))
             {
                 return;
             }
