@@ -6,7 +6,7 @@ namespace cs.Commands
     {
         public CommandInventory()
         {
-            this.description = "Viser player's inventory";
+            this.description = "Viser player's inventar";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)

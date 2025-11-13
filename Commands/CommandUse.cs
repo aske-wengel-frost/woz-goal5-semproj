@@ -6,7 +6,7 @@ namespace cs.Commands
     {
         public CommandUse()
         {
-            this.description = "Brug en item";
+            this.description = "Brug et item(s)";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
