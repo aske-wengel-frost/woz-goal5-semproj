@@ -13,6 +13,7 @@
     class UITerminal : IUIHandler
     {
         int EffectDelay { get; set; }
+        public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
 
         /// <summary>
         /// Draws the scene in the terminal
@@ -35,9 +36,13 @@
             Console.WriteLine("=====================---------");
             Console.WriteLine("");
             textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4, charDelay: EffectDelay);
+
+            int num = 1;
             foreach (SceneChoice sceneChoice in scene.Choices)
             {
-                textDisplay.Display($"[{sceneChoice.SceneId}] > {sceneChoice.Description}", punctDelay: 5, charDelay: EffectDelay);
+                SceneChoiceAsc[num] = sceneChoice.SceneId;
+                textDisplay.Display($"[{num}] > {sceneChoice.Description}", punctDelay: 5, charDelay: EffectDelay);
+                num++;
             }
         }
 

@@ -48,19 +48,20 @@ namespace cs
         /// <param name="usrInp"></param>
         public void PerformChoice(string usrInp)
         {
+            string ErrorMsg = "Ikke et validt valg. Prøv igen.";
             Int32.TryParse(usrInp, out int usrInpValue);
-
-            Scene? sceneProxy = StoryBuilder.FindScene(usrInpValue);
-
-            if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
+            if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
-                currentScene = sceneProxy;
-                _UIHandler.DrawScene(currentScene);
+                Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
+
+                if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
+                {
+                    currentScene = sceneProxy;
+                    _UIHandler.DrawScene(currentScene);
+                }
+                else { _UIHandler.DrawError(ErrorMsg); }
             }
-            else 
-            { 
-                _UIHandler.DrawError("Hmm det kan jeg vidst ikke gøre..."); 
-            }
+            else { _UIHandler.DrawError(ErrorMsg); }
         }
 
         public void MakeDone()
