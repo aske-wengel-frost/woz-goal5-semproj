@@ -20,12 +20,12 @@
         /// <param name="scene">The scene you want to have drawn</param>
         public void DrawScene(Scene scene)
         {
-            this.EffectDelay = 10;
             ClearScreen();
+            textDisplay.charDelay = 10;
 
             Console.Write($"---------===================[");
-            textDisplay.Display(scene.Name, "]=====================---------", charDelay: EffectDelay);
-            textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7, charDelay: EffectDelay);
+            textDisplay.Display(scene.Name, "]=====================---------");
+            textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7);
             //Console.WriteLine($"{scene.DialogueText}");
             Console.Write($"---------=====================");
             foreach (char c in scene.Name)
@@ -34,10 +34,10 @@
             }
             Console.WriteLine("=====================---------");
             Console.WriteLine("");
-            textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4, charDelay: EffectDelay);
+            textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
             foreach (SceneChoice sceneChoice in scene.Choices)
             {
-                textDisplay.Display($"[{sceneChoice.SceneId}] > {sceneChoice.Description}", punctDelay: 5, charDelay: EffectDelay);
+                textDisplay.Display($"[{sceneChoice.SceneId}] > {sceneChoice.Description}", punctDelay: 5);
             }
         }
 
