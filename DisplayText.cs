@@ -8,6 +8,23 @@ namespace cs
         static Dictionary<Style, int> lowertypeDictionary = new Dictionary<Style, int> { { Style.Normal, 0 }, { Style.Bold, 0x1D41A }, { Style.Italic, 0x1D44E }, { Style.BoldItalic, 0x1D482 }, { Style.Script, 0x1D4B6 }, { Style.BoldScript, 0x1D4EA }, { Style.Fraktur, 0x1D51E }, { Style.DoubleStruck, 0x1D552 }, { Style.BoldFraktur, 0x1D586 }, { Style.SansSerif, 0x1D5BA }, { Style.BoldSansSerif, 0x1D5EE }, { Style.ItalicSansSerif, 0x1D622 }, { Style.BoldItalicSansSerif, 0x1D656 }, { Style.Monospace, 0x1D68A } };
         static Dictionary<Style, int> uppertypeDictionary = new Dictionary<Style, int> { { Style.Normal, 0 }, { Style.Bold, 0x1D400 }, { Style.Italic, 0x1D434 }, { Style.BoldItalic, 0x1D468 }, { Style.Script, 0x1D49C }, { Style.BoldScript, 0x1D4D0 }, { Style.Fraktur, 0x1D504 }, { Style.DoubleStruck, 0x1D538 }, { Style.BoldFraktur, 0x1D56C }, { Style.SansSerif, 0x1D5A0 }, { Style.BoldSansSerif, 0x1D5D4 }, { Style.ItalicSansSerif, 0x1D608 }, { Style.BoldItalicSansSerif, 0x1D63C }, { Style.Monospace, 0x1D670 } };
         public enum Style { Normal, Bold, Italic, BoldItalic, Script, BoldScript, Fraktur, DoubleStruck, BoldFraktur, SansSerif, BoldSansSerif, ItalicSansSerif, BoldItalicSansSerif, Monospace }
+        private static int _charDelay;
+        public static int charDelay
+        {
+            get {return _charDelay;}
+            
+            set
+            {
+                if (value < 0)
+                {
+                    _charDelay = 0;
+                }
+                else
+                {
+                    _charDelay = value;
+                }
+            }
+        }
         // The initialization of the Enum types of the text styles and the Dictionaries that hold the corresponding unicode hexadecimal for each text styles.  
 
         /// <summary>
@@ -22,7 +39,7 @@ namespace cs
         /// <param name="ANSI">An integer that determines how the text should be displayed in ANSI espace code</param>
         /// <param name="TextStyle">An enum type that determines the text style of the text to be displayed on the terminal</param>
 
-        public static void Display(string text, string text2 = null, int split = 0, bool newLine = true, int charDelay = 95, int punctDelay = 1, ConsoleColor color = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, int ANSI = 10, Style TextStyle = Style.Normal)
+        public static void Display(string text, string text2 = null, int split = 0, bool newLine = true, int punctDelay = 1, ConsoleColor color = ConsoleColor.White, ConsoleColor backgroundColor = ConsoleColor.Black, int ANSI = 10, Style TextStyle = Style.Normal)
         {
             //The "Console.OutputEncoding = System.Text.Encoding.UTF8;" basically makes the Consoles STDIN able to interpret the unicode of the text styles.
             Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -46,7 +63,7 @@ namespace cs
                 if (Console.KeyAvailable)
                 {
                     Console.ReadKey(true);
-                    charDelay = 0;
+                    _charDelay = 0;
                 }
                 //An if statement that checks if the given Enum text style type is present in the Dictionary and an else statement that will display an error message.
                 if (lowertypeDictionary.ContainsKey(TextStyle) || uppertypeDictionary.ContainsKey(TextStyle))
@@ -89,7 +106,7 @@ namespace cs
                 }
 
                 //This is the code that gives the delay between each display of each character to the terminal. It consist of a sort of "if statement". If the character is a punctuation mark then have the delay to be the charDelay multiplied by the punctDelay. Otherwise have the delay to be just the charDelay
-                Task.Delay((character == '.' || character == '?' || character == '!' || character == ':') ? (charDelay * punctDelay) : (charDelay)).Wait();
+                Task.Delay((character == '.' || character == '?' || character == '!' || character == ':') ? (_charDelay * punctDelay) : (_charDelay)).Wait();
                 count++;
             }
 
