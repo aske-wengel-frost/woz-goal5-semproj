@@ -1,4 +1,4 @@
-﻿namespace cs
+﻿namespace cs.MapTerminal
 {
     using System;
     using System.Collections.Generic;
@@ -19,7 +19,7 @@
             // Init size of drawbuffer, make it 2 bigger in both width and height to accomidate borders.
             DrawBuffer = new char[Height, Width];
 
-            this.initBuffer();
+            initBuffer();
         }
 
         public void initBuffer()
@@ -34,12 +34,12 @@
             }
 
 
-            this.InsertBox(0, 0, Height, Width);
+            InsertBox(0, 0, Height, Width);
 
             // Insert the header:
             string headerText = "[ Kort ]";
             int headerStartXpos = Width / 2 - headerText.Length / 2;
-            this.InsertText(headerStartXpos, 0, headerText);
+            InsertText(headerStartXpos, 0, headerText);
 
         }
 
@@ -83,14 +83,14 @@
                 {
                     for (int j = X; j < Width + X; j++)
                     {
-                        this.DrawBuffer[i, j] = '=';
+                        DrawBuffer[i, j] = '=';
                     }
                 }
                 else
                 {
                     // else we draw the sides:
-                    this.DrawBuffer[i, X] = '|';
-                    this.DrawBuffer[i, X + Width - 1] = '|';
+                    DrawBuffer[i, X] = '|';
+                    DrawBuffer[i, X + Width - 1] = '|';
                 }
             }
 
@@ -98,13 +98,13 @@
 
         private void InsertArea(int X, int Y, int Height, int Width, string name = " ")
         {
-            this.InsertBox(X, Y, Height, Width);
+            InsertBox(X, Y, Height, Width);
 
             // Calculate text offset
             int xOffset = Width / 2 - name.Length / 2;
             int yOffset = Height / 2;
 
-            this.InsertText(X + xOffset, Y + yOffset, name);
+            InsertText(X + xOffset, Y + yOffset, name);
         }
 
         private void InsertText(int X, int Y, string text)
@@ -116,7 +116,7 @@
 
             for (int ch = 0; ch < text.Length; ch++)
             {
-                this.DrawBuffer[Y, X + ch] = text[ch];
+                DrawBuffer[Y, X + ch] = text[ch];
             }
         }
 
