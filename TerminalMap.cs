@@ -9,7 +9,6 @@
     public class TerminalMap
     {
         public int Height { get; set; } = 24;
-
         public int Width { get; set; } = 68;
 
         public char[,] DrawBuffer { get; set; }
@@ -38,7 +37,7 @@
             this.InsertBox(0, 0, Height, Width);
 
             // Insert the header:
-            string headerText = "[ Map ]";
+            string headerText = "[ Kort ]";
             int headerStartXpos = Width / 2 - headerText.Length / 2;
             this.InsertText(headerStartXpos, 0, headerText);
 
@@ -52,7 +51,6 @@
                 //InsertBox(area.xStart, area.yStart, area.height, area.width);
                 InsertArea(area.xStart, area.yStart, area.height, area.width, area.Name);
             }
-            this.InsertText(94, 34, "Helloo");
 
             // loop over all areas and print map
             for (int row = 0; row < DrawBuffer.GetLength(0); row++)
