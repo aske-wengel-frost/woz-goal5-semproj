@@ -8,11 +8,11 @@
 
     public class MapBoxElement : MapElement
     {
-        public MapBoxElement(int x, int y, int height, int width) : base(x, y, height, width)
+        public MapBoxElement(int id, int x, int y, int height, int width) : base(id, x, y, height, width)
         {
         }
 
-        public override void InsertIntoBuffer(char[,] buffer)
+        public override void InsertIntoBuffer(MapChar[,] buffer)
         {
             // if the box exceeds the size of the buffer, return.
             if (this.GuardInsert(buffer))
@@ -27,14 +27,23 @@
                 {
                     for (int j = this.X; j < this.Width + this.X; j++)
                     {
-                        buffer[i, j] = '=';
+                        MapChar mapChar = buffer[i, j];
+
+                        mapChar.Char = '=';
+                        mapChar.Color = this.Color;
                     }
                 }
                 else
                 {
                     // else we draw the sides:
-                    buffer[i, X] = '|';
-                    buffer[i, X + Width - 1] = '|';
+                    MapChar mapCharLeft = buffer[i, X];
+                    MapChar mapCharRight = buffer[i, X + Width - 1];
+                    
+                    mapCharLeft.Char = '|';
+                    mapCharLeft.Color = this.Color;
+
+                    mapCharRight.Char = '|';
+                    mapCharRight.Color = this.Color;
                 }
             }
         }

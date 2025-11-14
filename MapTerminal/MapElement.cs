@@ -8,32 +8,34 @@
 
     public abstract class MapElement
     {
+        public int Id { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
         public int Height { get; set; }
         public int Width { get; set; }
-        public ConsoleColor Color { get; set; }
+        public ConsoleColor Color { get; set; } = ConsoleColor.DarkGray;
         public char VerticalBorderChar { get; set; }
         public char HorizontalBorderChar { get; set; }
 
-        protected MapElement(int x, int y, int height, int width)
+        protected MapElement(int id, int x, int y, int height, int width)
         {
             // Set properties
+            this.Id = id;
             this.X = x;
             this.Y = y;
             this.Width = width;
             this.Height = height;
-
+            //this.Color = color;
             // Set defaults
-            Color = ConsoleColor.White;
+
             VerticalBorderChar = '|';
             HorizontalBorderChar = '=';
 
         }
 
-        public abstract void InsertIntoBuffer(char[,] buffer);
+        public abstract void InsertIntoBuffer(MapChar[,] buffer);
 
-        public bool GuardInsert(char[,] buffer)
+        public bool GuardInsert(MapChar[,] buffer)
         {
             // Gets dimensions of buffer
             int mapHeight = buffer.GetLength(0);

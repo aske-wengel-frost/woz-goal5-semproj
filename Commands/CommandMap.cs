@@ -32,29 +32,23 @@
 
             };
 
-            //List<MapElement> MapElements = new List<MapElement>
-            //{
-            //    new MapBoxElement(2, 2, 12, 10),
-            //    new MapBoxElement(11, 2, 8, 20),
-            //    new MapBoxElement(11, 9, 5, 50),
-            //    new MapBoxElement(30, 2, 8, 20),
-            //    new MapBoxElement(2, 13, 9, 40),
-            //    new MapBoxElement(49, 2, 8, 12),
-            //};
-
             List<MapElement> MapElements = new List<MapElement>
             {
-                new MapRoomElement(2, 2, 12, 10, "Entré"),
-                new MapRoomElement(11, 2, 8, 20, "Værelse 1"),
-                new MapRoomElement(11, 9, 5, 50, "Gang"),
-                new MapRoomElement(30, 2, 8, 20, "Værelse 2"),
-                new MapRoomElement(2, 13, 9, 40, "Køkken alrum"),
-                new MapRoomElement(49, 2, 8, 12, "Toilet"),
+                new MapRoomElement(1, 2, 2, 12, 10, "Entré"),
+                new MapRoomElement(2, 11, 2, 8, 20, "Værelse 1"),
+                new MapRoomElement(3, 11, 9, 5, 50, "Gang"),
+                new MapRoomElement(4, 30, 2, 8, 20, "Værelse 2"),
+                new MapRoomElement(5, 2, 13, 9, 40, "Køkken alrum"),
+                new MapRoomElement(6, 49, 2, 8, 12, "Toilet"),
             };
 
             // Adds elements to buffer and refreshes buffer
             tm.Elements = MapElements;
             tm.RefreshBuffer();
+
+            //tm.HighlightElement(3);
+            tm.HighlightElement(4, ConsoleColor.White);
+
             tm.DrawMap();
 
             //StoryHandler._UIHandler.RefreshMap(testAreas);

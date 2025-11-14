@@ -13,12 +13,12 @@
         public string Text { get; set; }
 
         // Width is set to the length of the text and height is set to 1.
-        public MapTextElement(int x, int y, string text ) : base(x, y, 1, text.Length)
+        public MapTextElement(int id, int x, int y, string text ) : base(id, x, y, 1, text.Length)
         {
             Text = text;
         }
 
-        public override void InsertIntoBuffer(char[,] buffer)
+        public override void InsertIntoBuffer(MapChar[,] buffer)
         {
             if (this.GuardInsert(buffer))
             {
@@ -27,7 +27,10 @@
 
             for (int ch = 0; ch < Text.Length; ch++)
             {
-                buffer[Y, X + ch] = Text[ch];
+                MapChar mapChar = buffer[Y, X + ch];
+
+                mapChar.Char = Text[ch];
+                mapChar.Color = this.Color;
             }
         }
     }
