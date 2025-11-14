@@ -1,5 +1,7 @@
 ﻿namespace cs.Commands
 {
+    using cs.MapTerminal;
+
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -15,6 +17,8 @@
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
+            TerminalMap tm = new TerminalMap();
+
             // test areas:
             Dictionary<int, Area> testAreas = new Dictionary<int, Area>
             {
@@ -28,8 +32,32 @@
 
             };
 
+            //List<MapElement> MapElements = new List<MapElement>
+            //{
+            //    new MapBoxElement(2, 2, 12, 10),
+            //    new MapBoxElement(11, 2, 8, 20),
+            //    new MapBoxElement(11, 9, 5, 50),
+            //    new MapBoxElement(30, 2, 8, 20),
+            //    new MapBoxElement(2, 13, 9, 40),
+            //    new MapBoxElement(49, 2, 8, 12),
+            //};
 
-            StoryHandler._UIHandler.RefreshMap(testAreas);
+            List<MapElement> MapElements = new List<MapElement>
+            {
+                new MapRoomElement(2, 2, 12, 10, "Entré"),
+                new MapRoomElement(11, 2, 8, 20, "Værelse 1"),
+                new MapRoomElement(11, 9, 5, 50, "Gang"),
+                new MapRoomElement(30, 2, 8, 20, "Værelse 2"),
+                new MapRoomElement(2, 13, 9, 40, "Køkken alrum"),
+                new MapRoomElement(49, 2, 8, 12, "Toilet"),
+            };
+
+            // Adds elements to buffer and refreshes buffer
+            tm.Elements = MapElements;
+            tm.RefreshBuffer();
+            tm.DrawMap();
+
+            //StoryHandler._UIHandler.RefreshMap(testAreas);
         }
     }
 }

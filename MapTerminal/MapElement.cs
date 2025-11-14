@@ -35,7 +35,7 @@
 
         public bool GuardInsert(char[,] buffer)
         {
-            // Gets length of rows
+            // Gets dimensions of buffer
             int mapHeight = buffer.GetLength(0);
             int mapWidth = buffer.GetLength(1);
 

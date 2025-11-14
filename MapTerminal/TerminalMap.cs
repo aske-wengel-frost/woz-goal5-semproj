@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
@@ -11,13 +12,16 @@
         public int Height { get; set; } = 24;
         public int Width { get; set; } = 68;
 
-        public char[,] DrawBuffer { get; set; }
-
+        public char[,] Buffer { get; set; }
+        public List<MapElement> Elements;
 
         public TerminalMap()
         {
+            // Init list of MapElements
+            Elements = new List<MapElement>();
+
             // Init size of drawbuffer, make it 2 bigger in both width and height to accomidate borders.
-            DrawBuffer = new char[Height, Width];
+            Buffer = new char[Height, Width];
 
             initBuffer();
         }
@@ -25,122 +29,55 @@
         public void initBuffer()
         {
             // populate array with chars
-            for (int i = 0; i < DrawBuffer.GetLength(0); i++)
+            for (int i = 0; i < Buffer.GetLength(0); i++)
             {
-                for (int j = 0; j < DrawBuffer.GetLength(1); j++)
+                for (int j = 0; j < Buffer.GetLength(1); j++)
                 {
-                    DrawBuffer[i, j] = ' ';
+                    Buffer[i, j] = ' ';
                 }
             }
 
+            // Add the border
+            this.AddElement(new MapBoxElement(0, 0, this.Height, this.Width));
+            // Add the title in the center of the top border
+            string titleText = "[ Kort ]";
+            int xStartCord = this.Width / 2 - titleText.Length / 2;
+            this.AddElement(new MapTextElement(xStartCord, 0, titleText));
 
-            InsertBox(0, 0, Height, Width);
-
-            // Insert the header:
-            string headerText = "[ Kort ]";
-            int headerStartXpos = Width / 2 - headerText.Length / 2;
-            InsertText(headerStartXpos, 0, headerText);
 
         }
 
-        public void DrawMap(Dictionary<int, Area> areas)
+        public void RefreshBuffer()
         {
-            foreach (Area area in areas.Values)
+            // Populates the buffer with elements from elements list
+            foreach (MapElement element in Elements)
             {
-                // Inserts a box into the buffer
-                //InsertBox(area.xStart, area.yStart, area.height, area.width);
-                InsertArea(area.xStart, area.yStart, area.height, area.width, area.Name);
+                // Insert the area into the  buffer
+                element.InsertIntoBuffer(this.Buffer);
             }
+        }
 
-            // loop over all areas and print map
-            for (int row = 0; row < DrawBuffer.GetLength(0); row++)
+        public void DrawMap()
+        {
+            // loop over buffer and print
+            for (int row = 0; row < Buffer.GetLength(0); row++)
             {
                 // Draw the area on the map.
-                for (int col = 0; col < DrawBuffer.GetLength(1); col++)
+                for (int col = 0; col < Buffer.GetLength(1); col++)
                 {
-                    Console.Write(DrawBuffer[row, col]);
+                    Console.Write(Buffer[row, col]);
                 }
 
                 Console.WriteLine();
 
             }
-            
-
         }
 
-        private void InsertBox(int X, int Y, int Height, int Width)
+        public void AddElement(MapElement element)
         {
-            // if the box exceedsa the size of the buffer, return.
-            if(GuardSize(X, Y, Height, Width))
-            {
-                return;
-            }
-
-            for (int i = Y; i < Height + Y; i++)
-            {
-                // if it is the top or bottom line we draw
-                if (i == Y || i == Y + Height - 1)
-                {
-                    for (int j = X; j < Width + X; j++)
-                    {
-                        DrawBuffer[i, j] = '=';
-                    }
-                }
-                else
-                {
-                    // else we draw the sides:
-                    DrawBuffer[i, X] = '|';
-                    DrawBuffer[i, X + Width - 1] = '|';
-                }
-            }
-
+            this.Elements.Add(element);
+            this.RefreshBuffer();
         }
 
-        private void InsertArea(int X, int Y, int Height, int Width, string name = " ")
-        {
-            InsertBox(X, Y, Height, Width);
-
-            // Calculate text offset
-            int xOffset = Width / 2 - name.Length / 2;
-            int yOffset = Height / 2;
-
-            InsertText(X + xOffset, Y + yOffset, name);
-        }
-
-        private void InsertText(int X, int Y, string text)
-        {
-            if (GuardSize(X, Y, 1, text.Length))
-            {
-                return;
-            }
-
-            for (int ch = 0; ch < text.Length; ch++)
-            {
-                DrawBuffer[Y, X + ch] = text[ch];
-            }
-        }
-
-        /// <summary>
-        /// Makes sure that nothing drawn to the map exceeds the size of the 2d array.
-        /// </summary>
-        /// <param name="x">The start x coordinate</param>
-        /// <param name="y">The start y coordinate</param>
-        /// <param name="height">the height of the object</param>
-        /// <param name="width"> the width of the object</param>
-        /// <returns></returns>
-        private bool GuardSize(int x, int y, int height, int width)
-        {
-            if(x + width > Width)
-            {
-                return true;
-            }
-
-            if(y + height > Height)
-            {
-                return true;
-            }
-
-            return false;
-        }
     }
 }

@@ -6,9 +6,9 @@
     using System.Text;
     using System.Threading.Tasks;
 
-    public class BoxElement : MapElement
+    public class MapBoxElement : MapElement
     {
-        public BoxElement(int x, int y, int height, int width) : base(x, y, height, width)
+        public MapBoxElement(int x, int y, int height, int width) : base(x, y, height, width)
         {
         }
 

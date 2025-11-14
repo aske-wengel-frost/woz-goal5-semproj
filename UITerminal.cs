@@ -97,7 +97,7 @@
 
         public void RefreshMap(Dictionary<int, Area> areas)
         {
-            map.DrawMap(areas);
+           // map.DrawMap(areas);
         }
     }
 }
