@@ -23,8 +23,8 @@
             this.EffectDelay = 10;
             ClearScreen();
 
-            Console.Write($"---------=====================[");
-            textDisplay.Display(scene.Area.Name, "]=====================---------", charDelay: EffectDelay);
+            Console.Write($"---------====================[ ");
+            textDisplay.Display(scene.Area.Name, " ]====================---------", charDelay: EffectDelay);
             textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7, charDelay: EffectDelay);
             //Console.WriteLine($"{scene.DialogueText}");
             Console.Write($"---------=====================");
