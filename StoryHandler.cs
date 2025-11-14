@@ -59,8 +59,6 @@ namespace cs
 
                 if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
                 {
-
-                    bool diller = GetPlayer().Inventory.ItemExists(sceneProxy.RequiredItemId);
                     
                     // Checks if the choice requires an itemd
                     if (sceneProxy.RequiredItemId != null)

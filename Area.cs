@@ -31,7 +31,7 @@ namespace cs
 
         public Item? TakeItem(string itemName)
         {
-            return Items?.Where(x => x.Name == itemName).FirstOrDefault();
+            return Items?.Where(x => x.Name.ToLowerInvariant() == itemName).FirstOrDefault();
         }
 
         // A way to view the given area details
