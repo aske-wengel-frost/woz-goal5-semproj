@@ -9,7 +9,7 @@
 
     public interface IUIHandler
     {
-        public void DrawScene(Scene scene);
+        public void DrawScene(Scene scene, int score);
         public string GetUserInput(String input);
         public void ClearScreen();
         public void DrawError(string errorMsg);

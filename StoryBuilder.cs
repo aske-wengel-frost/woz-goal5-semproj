@@ -73,7 +73,7 @@
         /// Returns intial scene with ID = 0. 
         /// </summary>
         /// <returns>Scene</returns>
-        public Scene getIntiialScene()
+        public Scene getInitialScene()
         {
             return Scenes[0];
         }
@@ -89,7 +89,6 @@
             {
                 return Scenes[ID];
             }
-
             return null;
         }
         
@@ -128,15 +127,15 @@
             //         new SceneChoice(2, "Ring til Politiet")
             //    }, Areas[4]));
 
-            this.AddScene(new Scene(0, "Køkken 1", Køkken1,
+            this.AddScene(new Scene(0, "Køkken 1", -5, Køkken1,
                  new List<SceneChoice>
                  {
                      new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
                      new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
                      new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
-                }, Areas[4]));
+                 }, Areas[4]));
 
-            this.AddScene(new Scene(1, "Soveværelse 1", Soveværelse1,
+            this.AddScene(new Scene(1, "Soveværelse 1", 5, Soveværelse1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
@@ -144,14 +143,14 @@
                     new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
                 }, Areas[2], 1));
             
-            this.AddScene(new Scene(2, "Stue 1", Stue1,
+            this.AddScene(new Scene(2, "Stue 1", -5, Stue1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
                     new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
                 }, Areas[3]));
             
-            this.AddScene(new Scene(3, "Badeværelse 1", Badeværelse1,
+            this.AddScene(new Scene(3, "Badeværelse 1", 5, Badeværelse1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(0, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),

@@ -12,7 +12,8 @@ namespace cs
 
         public IUIHandler _UIHandler { get; set; }
 
-        public Player player { get; set; } //Make a player property.  
+        public Player player { get; set; } //Make a player property.
+        public int playerScore = 0; //Players score
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
@@ -38,10 +39,10 @@ namespace cs
             //StoryBuilder.ExportScenesToFile();
 
             // Sets the current scene
-            currentScene = StoryBuilder.getIntiialScene();
+            currentScene = StoryBuilder.getInitialScene();
 
             // Draws the initial scene
-            _UIHandler.DrawScene(currentScene);
+            _UIHandler.DrawScene(currentScene, playerScore);
 
         }
         /// <summary>
@@ -55,7 +56,7 @@ namespace cs
             if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
                 Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
-              
+
 
                 if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
                 {
@@ -69,9 +70,10 @@ namespace cs
                             return;
                         }
                     }
-                
+
                     currentScene = sceneProxy;
-                    _UIHandler.DrawScene(currentScene);
+                    playerScore++; //+= currentScene.ScenePoints;
+                    _UIHandler.DrawScene(currentScene, playerScore);
                     
                 }
                 
@@ -125,7 +127,7 @@ namespace cs
                     if (nextScene != null)
                     {
                         currentScene = nextScene;
-                        _UIHandler.DrawScene(currentScene);
+                        _UIHandler.DrawScene(currentScene, playerScore);
                         return true;
                     }
                 }
