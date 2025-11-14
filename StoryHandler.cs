@@ -7,8 +7,9 @@ namespace cs
     {
         bool done = false;
 
+        public Story story { get; set; }
         private Scene? currentScene { get; set; }
-        public StoryBuilder StoryBuilder { get; set; }
+        public DataLoader dataLoader { get; set; }
 
         public IUIHandler _UIHandler { get; set; }
 
@@ -20,25 +21,25 @@ namespace cs
         public StoryHandler(IUIHandler uiHandler)
         {
             _UIHandler = uiHandler;
-            StoryBuilder = new StoryBuilder();
+            dataLoader = new DataLoader();
+            
+            dataLoader.Inititalize();
+
+            // Loads the story
+            //dataLoader.LoadAreas();
+            //dataLoader.LoadScenesFromFile();
+
+            //DataLoader.LoadScenesNew();
+            //dataLoader.LinkScenes();
         }
 
         /// <summary>
         /// Entry point for the story, this loads the scenes, gets the initial scene and draws the fi
         /// </summary>
-        public void Start()
+        public void StartStory()
         {
-            // Loads the story
-            StoryBuilder.LoadAreas();
-            StoryBuilder.LoadScenesFromFile();
-            
-            //StoryBuilder.LoadScenesNew();
-            StoryBuilder.LinkScenes();
-            
-            //StoryBuilder.ExportScenesToFile();
-
             // Sets the current scene
-            currentScene = StoryBuilder.getIntiialScene();
+            currentScene = story.getIntiialScene();
 
             // Draws the initial scene
             _UIHandler.DrawScene(currentScene);
@@ -54,7 +55,7 @@ namespace cs
             Int32.TryParse(usrInp, out int usrInpValue);
             if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
-                Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
+                Scene? sceneProxy = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
               
 
                 if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
@@ -119,7 +120,7 @@ namespace cs
                     _UIHandler.DrawInfo($"Du brugte: {item.Name}.");
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
-                    Scene? nextScene = StoryBuilder.FindScene(choice.SceneId);
+                    Scene? nextScene = story.FindScene(choice.SceneId);
 
                     // Goes to the next scene if found
                     if (nextScene != null)

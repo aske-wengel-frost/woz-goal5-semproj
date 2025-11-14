@@ -4,8 +4,12 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Text.Json.Serialization;
     using System.Threading.Tasks;
 
+    [JsonDerivedType(typeof(MapTextElement), typeDiscriminator: "text")]
+    [JsonDerivedType(typeof(MapBoxElement), typeDiscriminator: "box")]
+    [JsonDerivedType(typeof(MapRoomElement), typeDiscriminator: "Room")]
     public abstract class MapElement
     {
         public int Id { get; set; }

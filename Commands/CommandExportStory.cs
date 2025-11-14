@@ -10,7 +10,7 @@
     {
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            StoryHandler.StoryBuilder.ExportScenesToFile();
+            StoryHandler.dataLoader.ExportStoryToFile();
         }
 
         public string GetDescription()

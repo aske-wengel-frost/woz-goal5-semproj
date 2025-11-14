@@ -24,7 +24,7 @@
         public TerminalMap()
         {
             // Init list of MapElements
-            Elements = new List<MapElement>();
+            elements = new List<MapElement>();
 
             // Init size of drawbuffer, make it 2 bigger in both width and height to accomidate borders.
             Buffer = new MapChar[Height, Width];
@@ -32,7 +32,7 @@
             initBuffer();
         }
 
-        public void initBuffer()
+        private void initBuffer()
         {
             // populate array with chars
             for (int i = 0; i < Buffer.GetLength(0); i++)
@@ -54,7 +54,7 @@
 
         }
 
-        public void RefreshBuffer()
+        private void RefreshBuffer()
         {
             // Populates the buffer with elements from elements list
             foreach (MapElement element in Elements)

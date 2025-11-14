@@ -10,36 +10,26 @@ namespace cs
 
     public class Game
     {
-        static public StoryHandler storyHandler { get; set; }
-        static public IUIHandler UIHandler { get; set; }
+        static public StoryHandler? storyHandler { get; set; }
+        static public DataLoader? dataLoader { get; set; }
+        static public IUIHandler? UIHandler { get; set; }
 
         static ICommand fallback = new CommandUnknown();
-        static Registry registry {get; set;}
-
-        private static void InitRegistry()
-        {
-            ICommand cmdExit = new CommandExit();
-            registry.Register("hjælp", new CommandHelp(registry));
-            registry.Register("afslut", cmdExit); // cmdExit x2?
-            registry.Register("bevæg", new CommandMove());
-            registry.Register("forlade", cmdExit); // cmdExit x2?
-            registry.Register("export", new CommandExportStory());
-
-            // New Commands for the help() function
-            registry.Register("tilbage", new CommandBack());
-            registry.Register("se", new CommandLook());
-            registry.Register("inventar", new CommandInventory());
-            registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
-            registry.Register("tag", new CommandTake());
-            registry.Register("brug", new CommandUse());
-            registry.Register("kort", new CommandMap());
-        }
+        static Registry? registry {get; set;}
 
         static void Main(string[] args)
         {
             UIHandler = new UITerminal();
+            dataLoader = new DataLoader();
             storyHandler = new StoryHandler(UIHandler);
             registry = new Registry(storyHandler, fallback);
+
+            // Init and load story from file into storyhandlers story object
+            dataLoader.Inititalize();
+            storyHandler.story = dataLoader.story;
+           
+            // We call the InitRegistry method
+            InitRegistry();
 
             // Welcome message
             Console.WriteLine("---------=======================================================================================---------");
@@ -59,10 +49,8 @@ namespace cs
             storyHandler.player = new Player (playerName); //Create the player in storyHandler. 
             Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne.");
 
-            // We call the InitRegistry method
-            InitRegistry();
-
-            storyHandler.Start();
+            // We start the storyhandler and thereby the story
+            storyHandler.StartStory();
 
             // Game loop  
             while (storyHandler.IsDone() == false)
@@ -83,6 +71,25 @@ namespace cs
             }
             Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
+        }
+
+        private static void InitRegistry()
+        {
+            ICommand cmdExit = new CommandExit();
+            registry.Register("hjælp", new CommandHelp(registry));
+            registry.Register("afslut", cmdExit); // cmdExit x2?
+            registry.Register("bevæg", new CommandMove());
+            registry.Register("forlade", cmdExit); // cmdExit x2?
+            registry.Register("export", new CommandExportStory());
+
+            // New Commands for the help() function
+            registry.Register("tilbage", new CommandBack());
+            registry.Register("se", new CommandLook());
+            registry.Register("inventar", new CommandInventory());
+            registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
+            registry.Register("tag", new CommandTake());
+            registry.Register("brug", new CommandUse());
+            registry.Register("kort", new CommandMap());
         }
     }
 }
