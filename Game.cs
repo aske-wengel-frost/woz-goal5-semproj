@@ -19,19 +19,19 @@ namespace cs
         private static void InitRegistry()
         {
             ICommand cmdExit = new CommandExit();
-            registry.Register("help", new CommandHelp(registry));
-            registry.Register("exit", cmdExit);
-            registry.Register("move", new CommandMove());
-            registry.Register("quit", cmdExit);
+            registry.Register("hjælp", new CommandHelp(registry));
+            registry.Register("afslut", cmdExit); // cmdExit x2?
+            registry.Register("bevæg", new CommandMove());
+            registry.Register("forlade", cmdExit); // cmdExit x2?
             registry.Register("export", new CommandExportStory());
 
             // New Commands for the help() function
-            registry.Register("back", new CommandBack());
-            registry.Register("look", new CommandLook());
-            registry.Register("inventory", new CommandInventory());
+            registry.Register("tilbage", new CommandBack());
+            registry.Register("se", new CommandLook());
+            registry.Register("inventar", new CommandInventory());
             registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
-            registry.Register("take", new CommandTake());
-            registry.Register("use", new CommandUse());
+            registry.Register("tag", new CommandTake());
+            registry.Register("brug", new CommandUse());
             registry.Register("kort", new CommandMap());
         }
 
@@ -50,6 +50,8 @@ namespace cs
             Console.WriteLine("Du er ikke alene, der findes hjælp - både i og uden for spillet. ");
             Console.WriteLine("Lev Uden Volds Hotline: 1888");
             Console.WriteLine();
+            Console.WriteLine("Hvis du bliver i tvivl om, hvordan spillet fungerer, kan du altid skrive kommandoen 'hjælp' ");
+            Console.WriteLine("for at se en liste over alle kommandoer med deres beskrivelse");
             Console.WriteLine("---------=======================================================================================---------");
             Console.WriteLine();
             Console.Write("Indtast dit navn: ");
@@ -67,7 +69,17 @@ namespace cs
             {
                 Console.Write("> ");
                 string? line = Console.ReadLine();
-                if (line != null) registry.Dispatch(line);
+
+                // 1. Check if the line is empty, null, or just whitespace
+                if (string.IsNullOrWhiteSpace(line))
+                {
+                    continue;
+                }
+                // 2. Convert the line to lowercase
+                string processedLine = line.ToLowerInvariant();
+
+                // 3. Send the processed line to dispatch system
+                registry.Dispatch(processedLine);
             }
             Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 

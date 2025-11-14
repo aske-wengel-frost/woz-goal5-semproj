@@ -11,7 +11,7 @@ namespace cs.Commands
         public CommandHelp(Registry registry)
         {
             this.registry = registry;
-            this.description = "Display 'help' liste";
+            this.description = "Viser 'hjælp' listen";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)

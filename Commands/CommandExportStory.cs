@@ -15,7 +15,7 @@
 
         public string GetDescription()
         {
-            return "Exports the currently loaded story to json file, First argument is filename";
+            return "Eksporterer den aktuelt indlæste historie til en JSON-fil. Første argument er filnavnet.";
         }
     }
 }
