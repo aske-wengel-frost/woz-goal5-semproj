@@ -31,8 +31,10 @@ namespace cs
             // Loads the story
             StoryBuilder.LoadAreas();
             StoryBuilder.LoadScenesFromFile();
-            StoryBuilder.LinkScenes();
+            
             //StoryBuilder.LoadScenesNew();
+            StoryBuilder.LinkScenes();
+            
             //StoryBuilder.ExportScenesToFile();
 
             // Sets the current scene
@@ -53,12 +55,27 @@ namespace cs
             if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
                 Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
+              
 
                 if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
                 {
+
+                    bool diller = GetPlayer().Inventory.ItemExists(sceneProxy.RequiredItemId);
+                    
+                    // Checks if the choice requires an itemd
+                    if (sceneProxy.RequiredItemId == null)
+                    {
+                    }
+                    else if (GetPlayer().Inventory.ItemExists(sceneProxy.RequiredItemId))
+                    { 
+                        _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
+                        return;
+                    }
                     currentScene = sceneProxy;
                     _UIHandler.DrawScene(currentScene);
+                    
                 }
+                
                 else { _UIHandler.DrawError(ErrorMsg); }
             }
             else { _UIHandler.DrawError(ErrorMsg); }
@@ -97,7 +114,7 @@ namespace cs
             foreach (SceneChoice choice in currentScene.Choices)
             {
                 // Checks if the choice requires the specified item and if it's the right one
-                if (choice.RequiredItemId.HasValue && choice.RequiredItemId.Value == item.ID)
+                if (choice.SceneObj.RequiredItemId.HasValue && choice.SceneObj.RequiredItemId.Value == item.ID)
                 {
                     // If TRUE, proceed to the next scene
                     _UIHandler.DrawInfo($"Du brugte: {item.Name}.");

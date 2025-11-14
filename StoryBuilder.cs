@@ -121,20 +121,20 @@
             string Badeværelse1 = "Du træder ind i badet. Du vasker uroen og hans kritiske kommentarer væk med det varme vand. Kort efter hører du din kæreste træde ind.";
 
             // Use item method test
-            this.AddScene(new Scene(0, "Køkken 1", Køkken1,
-               new List<SceneChoice>
-               {
-                    new SceneChoice(1, "Gå til stuen"),
-                    new SceneChoice(2, "Ring til Politiet", 1)
-               }, Areas[4]));
+            // this.AddScene(new Scene(0, "Køkken 1", Køkken1,
+            //    new List<SceneChoice>
+            //    {
+            //         new SceneChoice(1, "Gå til stuen"),
+            //         new SceneChoice(2, "Ring til Politiet")
+            //    }, Areas[4]));
 
-            /* this.AddScene(new Scene(0, "Køkken 1", Køkken1,
+            this.AddScene(new Scene(0, "Køkken 1", Køkken1,
                  new List<SceneChoice>
                  {
                      new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
                      new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
                      new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
-                 }, Areas[4]));*/
+                }, Areas[4]));
 
             this.AddScene(new Scene(1, "Soveværelse 1", Soveværelse1,
                 new List<SceneChoice>
@@ -142,7 +142,7 @@
                     new SceneChoice(3, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
                     new SceneChoice(0, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"),
                     new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
-                }, Areas[2]));
+                }, Areas[2], 1));
             
             this.AddScene(new Scene(2, "Stue 1", Stue1,
                 new List<SceneChoice>

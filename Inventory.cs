@@ -96,5 +96,11 @@ namespace cs
                 }
             }
         }
+        
+        public bool ItemExists(int? ID)
+        {
+            
+            return items.Exists(_ => _.ID == ID);
+        }
     }
 }

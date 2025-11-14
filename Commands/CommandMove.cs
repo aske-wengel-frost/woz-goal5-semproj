@@ -18,28 +18,6 @@
                 return;
 
             }
-            
-            // Just a Parse scene ID
-            Int32.TryParse(parameters[0], out int sceneID);
-
-            // Finding the scene and selected choice
-            Scene currentScene = StoryHandler.GetCurrentScene();
-            SceneChoice? selectedChoice = currentScene.Choices.Find(c => c.SceneId == sceneID);
-
-            // Checks if the choice exists
-            if (selectedChoice == null)
-            {
-                Console.WriteLine("Dette valg eksister ikke!");
-                return;
-            }
-
-            // Checks if the choice requires an item
-            if (selectedChoice.RequiredItemId.HasValue)
-            { 
-                StoryHandler._UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
-                return;
-            }
-
             StoryHandler.PerformChoice(parameters[0]);
         }
     }
