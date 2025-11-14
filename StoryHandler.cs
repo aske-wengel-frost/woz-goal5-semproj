@@ -63,14 +63,15 @@ namespace cs
                     bool diller = GetPlayer().Inventory.ItemExists(sceneProxy.RequiredItemId);
                     
                     // Checks if the choice requires an itemd
-                    if (sceneProxy.RequiredItemId == null)
+                    if (sceneProxy.RequiredItemId != null)
                     {
+                        if (!GetPlayer().Inventory.ItemExists(sceneProxy.RequiredItemId))
+                        { 
+                            _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
+                            return;
+                        }
                     }
-                    else if (GetPlayer().Inventory.ItemExists(sceneProxy.RequiredItemId))
-                    { 
-                        _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
-                        return;
-                    }
+                
                     currentScene = sceneProxy;
                     _UIHandler.DrawScene(currentScene);
                     

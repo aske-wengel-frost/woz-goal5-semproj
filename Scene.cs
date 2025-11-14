@@ -10,8 +10,6 @@
         public int AreaId { get; set; }
         public int? RequiredItemId { get; set; } // TIl scener med krav om genstand
 
-        
-
         private Area area;
         [JsonIgnore]
         public Area Area { get {return area; } set { AreaId = value != null ? value.ID : 0; area = value; } }
