@@ -40,7 +40,7 @@
                 return;
             }
 
-            StoryHandler.PerformChoice(parameters[0])
+            StoryHandler.PerformChoice(parameters[0]);
         }
     }
 }
