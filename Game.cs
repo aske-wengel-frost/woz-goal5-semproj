@@ -11,25 +11,38 @@ namespace cs
     public class Game
     {
         static public StoryHandler? storyHandler { get; set; }
-        static public DataLoader? dataLoader { get; set; }
         static public IUIHandler? UIHandler { get; set; }
 
         static ICommand fallback = new CommandUnknown();
         static Registry? registry {get; set;}
 
-        static void Main(string[] args)
+
+        /// <summary>
+        /// This class initializes all classes used in the game. It also loads the story and areas from a json file.
+        /// </summary>
+        private static void InitGame()
         {
             UIHandler = new UITerminal();
-            dataLoader = new DataLoader();
             storyHandler = new StoryHandler(UIHandler);
             registry = new Registry(storyHandler, fallback);
 
-            // Init and load story from file into storyhandlers story object
-            dataLoader.Inititalize();
-            storyHandler.story = dataLoader.story;
-           
+            // inits a new data loader and loads data
+            DataLoader dt = new DataLoader();
+            dt.Load();
+
+            // Set the storyobject of the storyhandler to the story object in the data loader
+            storyHandler.story = dt.story;
+
+            // Inits the map with the mapelements defined in the story loaded.
+            UIHandler.InitMap(storyHandler.story.MapElements);
+
             // We call the InitRegistry method
             InitRegistry();
+        }
+
+        static void Main(string[] args)
+        {
+            InitGame();
 
             // Welcome message
             Console.WriteLine("---------=======================================================================================---------");
@@ -72,6 +85,7 @@ namespace cs
             Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
         }
+
 
         private static void InitRegistry()
         {

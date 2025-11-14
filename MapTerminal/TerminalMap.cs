@@ -92,13 +92,19 @@
             this.RefreshBuffer();
         }
 
-        public void HighlightElement(int ID, ConsoleColor highlightColor = ConsoleColor.Red)
+        public void HighlightElement(int ID, ConsoleColor highlightColor = ConsoleColor.Green)
         {
             // Make sure the element we want highlighted is last in the list as this will force it to be drawn last. and thereby on top of all other elements
             MapElement? element = Elements.Find(x => x.Id == ID);
 
             if(element != null)
             {
+                // Un highlight everything else (Look into fixing hard coded gray color)
+                foreach (MapElement ele in Elements)
+                {
+                    ele.Color = ConsoleColor.DarkGray;
+                }
+
                 // Set the color of the element to the desired highlighted color
                 element.Color = highlightColor;
                 // Removes it from its current location in the list
@@ -108,7 +114,7 @@
             }
 
             this.RefreshBuffer();
-        }
+        }      
 
     }
 }

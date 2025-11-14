@@ -23,7 +23,7 @@ namespace cs
             _UIHandler = uiHandler;
             dataLoader = new DataLoader();
             
-            dataLoader.Inititalize();
+            dataLoader.Load();
 
             // Loads the story
             //dataLoader.LoadAreas();
@@ -42,6 +42,7 @@ namespace cs
             currentScene = story.getIntiialScene();
 
             // Draws the initial scene
+            _UIHandler.HighlightArea(currentScene.AreaId);
             _UIHandler.DrawScene(currentScene);
 
         }
@@ -72,6 +73,7 @@ namespace cs
                     }
                 
                     currentScene = sceneProxy;
+                    _UIHandler.HighlightArea(sceneProxy.AreaId);
                     _UIHandler.DrawScene(currentScene);
                     
                 }

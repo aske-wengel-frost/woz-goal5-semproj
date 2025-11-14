@@ -95,12 +95,19 @@
             return Regex.Replace(text, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
         }
 
-        public void RefreshMap(Dictionary<int, Area> areas)
+        public void DrawMap()
         {
-            // Translate Areas into MapElements
-            
-
             map.DrawMap();
+        }
+
+        public void InitMap(List<MapElement> elements)
+        {
+            map.Elements = elements;
+        }
+
+        public void HighlightArea(int id)
+        {
+            map.HighlightElement(id);
         }
     }
 }

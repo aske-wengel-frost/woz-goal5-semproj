@@ -21,7 +21,7 @@
             story = new Story();
         }
 
-        public void Inititalize()
+        public void Load()
         {
             this.LoadStoryFromFile();
 
