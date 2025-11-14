@@ -11,19 +11,35 @@ namespace cs.Commands
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            // Method to show the player's inventory
+            
             Player player = StoryHandler.GetPlayer();
-            if (player != null)
+            if (player == null)
             {
-                Console.WriteLine("\n=== Dit Inventory ===");
-                player.Inventory.ShowInventory();
+                
+                StoryHandler._UIHandler.DrawError("FEJL: Spilleren kunne ikke findes."); //Dont know is it should be here.
+                return;
+            }
+
+            
+            StoryHandler._UIHandler.DrawInfo("\n=== Dit Inventar ===");
+
+            
+            if (player.Inventory.IsEmpty())
+            {
+                
+                StoryHandler._UIHandler.DrawInfo("Inventar er tomt.");
             }
             else
             {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Du har ingen items"); // Debugger print
-                Console.ResetColor();
+                
+                foreach (Item item in player.Inventory.GetItems())
+                {
+                    
+                    StoryHandler._UIHandler.DrawInfo(item.ToString());
+                }
             }
         }
     }
 }
+
+

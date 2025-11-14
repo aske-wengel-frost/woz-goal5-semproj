@@ -14,7 +14,7 @@
             if (GuardEq(parameters, 1))
             {
                 // We dont have 1 parameter!
-                Console.WriteLine("For mange argumenter!");
+                StoryHandler._UIHandler.DrawError("For mange argumenter!");
                 return;
 
             }
@@ -29,7 +29,7 @@
             // Checks if the choice exists
             if (selectedChoice == null)
             {
-                Console.WriteLine("Dette valg eksister ikke!");
+                StoryHandler._UIHandler.DrawError("Dette valg eksister ikke!");
                 return;
             }
 

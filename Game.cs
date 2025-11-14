@@ -22,7 +22,6 @@ namespace cs
             registry.Register("hjælp", new CommandHelp(registry));
             registry.Register("afslut", cmdExit); // cmdExit x2?
             registry.Register("bevæg", new CommandMove());
-            registry.Register("forlade", cmdExit); // cmdExit x2?
             registry.Register("export", new CommandExportStory());
 
             // New Commands for the help() function
@@ -33,6 +32,7 @@ namespace cs
             registry.Register("tag", new CommandTake());
             registry.Register("brug", new CommandUse());
             registry.Register("kort", new CommandMap());
+            registry.Register("status", new CommandStatus());
         }
 
         static void Main(string[] args)

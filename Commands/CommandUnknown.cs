@@ -8,7 +8,7 @@ namespace cs.Commands
     {
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            Console.WriteLine("Woopsie, forstår ikke '" + command + "' 😕");
+            StoryHandler._UIHandler.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
         }
     }
 }
