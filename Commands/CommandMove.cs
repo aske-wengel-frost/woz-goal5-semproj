@@ -11,17 +11,36 @@
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-                        if (GuardEq(parameters, 1))
+            if (GuardEq(parameters, 1))
             {
                 // We dont have 1 parameter!
                 Console.WriteLine("For mange argumenter!");
                 return;
 
             }
-            else
+            
+            // Just a Parse scene ID
+            Int32.TryParse(parameters[0], out int sceneID);
+
+            // Finding the scene and selected choice
+            Scene currentScene = StoryHandler.GetCurrentScene();
+            SceneChoice? selectedChoice = currentScene.Choices.Find(c => c.SceneId == sceneID);
+
+            // Checks if the choice exists
+            if (selectedChoice == null)
             {
-                StoryHandler.PerformChoice(parameters[0]);
+                Console.WriteLine("Dette valg eksister ikke!");
+                return;
             }
+
+            // Checks if the choice requires an item
+            if (selectedChoice.RequiredItemId.HasValue)
+            { 
+                StoryHandler._UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
+                return;
+            }
+
+            StoryHandler.PerformChoice(parameters[0]);
         }
     }
 }

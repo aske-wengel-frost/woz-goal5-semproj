@@ -6,7 +6,7 @@ namespace cs.Commands
     {
         public CommandTake()
         {
-            this.description = "Tag en givende item(s)";
+            this.description = "Tag en givende genstand(ene)";
         }
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)

@@ -86,6 +86,37 @@ namespace cs
             return player;
         }
 
+        /// <summary>
+        /// Tries to use an item in the current scene.
+        /// </summary>
+        /// <param name="item">The item to be used.</param>
+        /// <returns>True if the item was used successfully, false otherwise.</returns>
+        public bool UseItemInScene(Item item)
+        {
+            // Finds a choice in the current scene that requires an item
+            foreach (SceneChoice choice in currentScene.Choices)
+            {
+                // Checks if the choice requires the specified item and if it's the right one
+                if (choice.RequiredItemId.HasValue && choice.RequiredItemId.Value == item.ID)
+                {
+                    // If TRUE, proceed to the next scene
+                    _UIHandler.DrawInfo($"Du brugte: {item.Name}.");
+
+                    // Find the next scene based on the choice - almost like the PerformChoice method
+                    Scene? nextScene = StoryBuilder.FindScene(choice.SceneId);
+
+                    // Goes to the next scene if found
+                    if (nextScene != null)
+                    {
+                        currentScene = nextScene;
+                        _UIHandler.DrawScene(currentScene);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
         // Method to go back to the previous scene
         public bool GoBack()
         {
