@@ -7,7 +7,7 @@ namespace cs
     {
         bool done = false;
 
-        private Scene? currentScene { get; set; }
+        private ContextScene? currentScene { get; set; }
         public StoryBuilder StoryBuilder { get; set; }
 
         public IUIHandler _UIHandler { get; set; }
@@ -54,7 +54,7 @@ namespace cs
             Int32.TryParse(usrInp, out int usrInpValue);
             if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
-                Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
+                ContextScene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
               
 
                 if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
@@ -91,7 +91,7 @@ namespace cs
         }
 
         // Method to get the current scene of the story
-        public Scene GetCurrentScene()
+        public ContextScene GetCurrentScene()
         {
             return currentScene;
         }
@@ -119,7 +119,7 @@ namespace cs
                     _UIHandler.DrawInfo($"Du brugte: {item.Name}.");
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
-                    Scene? nextScene = StoryBuilder.FindScene(choice.SceneId);
+                    ContextScene? nextScene = StoryBuilder.FindScene(choice.SceneId);
 
                     // Goes to the next scene if found
                     if (nextScene != null)

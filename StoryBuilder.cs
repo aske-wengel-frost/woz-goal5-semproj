@@ -10,7 +10,7 @@
     /// </summary>
     public class StoryBuilder
     {
-        public Dictionary<int, Scene> Scenes { get; set; }
+        public Dictionary<int, ContextScene> Scenes { get; set; }
         public Dictionary<int, Area> Areas { get; set; }
 
         private string scenesFilePath;
@@ -21,11 +21,11 @@
             this.scenesFilePath = scenesFilePath;
 
             // initialize Scenes and Areas
-            Scenes = new Dictionary<int, Scene>();
+            Scenes = new Dictionary<int, ContextScene>();
             Areas = new Dictionary<int, Area>();
         }
 
-        public bool AddScene(Scene scene)
+        public bool AddScene(ContextScene scene)
         {
             // Adds the scene object and sets the key in the dictionary to the name of the Scene
             Scenes.Add(scene.ID, scene);
@@ -60,7 +60,7 @@
                 foreach (SceneChoice sceneChoice in scene.Choices)
                 {
                     // try to resolve the name of the scene with a scene object
-                    if (Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
+                    if (Scenes.TryGetValue(sceneChoice.SceneId, out ContextScene OutScene))
                     {
                         // set the scene object on the scenechoice object to the found instance
                         sceneChoice.SceneObj = OutScene;
@@ -73,7 +73,7 @@
         /// Returns intial scene with ID = 0. 
         /// </summary>
         /// <returns>Scene</returns>
-        public Scene getIntiialScene()
+        public ContextScene getIntiialScene()
         {
             return Scenes[0];
         }
@@ -83,7 +83,7 @@
         /// </summary>
         /// <param name="name"></param>
         /// <returns>The found Scene object</returns>
-        public Scene? FindScene(int ID)
+        public ContextScene? FindScene(int ID)
         {
             if(Scenes.ContainsKey(ID))
             {
@@ -184,7 +184,7 @@
 
             // We load the deserialized scenes into the scenes property
             // Maby handle a null value here.
-            this.Scenes = JsonSerializer.Deserialize<Dictionary<int, Scene>>(tmpJsonStr);
+            this.Scenes = JsonSerializer.Deserialize<Dictionary<int, ContextScene>>(tmpJsonStr);
         }
 
         /// <summary>
