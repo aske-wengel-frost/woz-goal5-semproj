@@ -40,7 +40,7 @@
         public void LinkScenes()
         {
             // Loop through all scenes
-            foreach (Scene scene in Scenes.Values)
+            foreach (ContextScene scene in Scenes.Values)
             {
                 // only if area object is not instanciated
                 if(scene.Area == null)
@@ -128,7 +128,7 @@
             //         new SceneChoice(2, "Ring til Politiet")
             //    }, Areas[4]));
 
-            this.AddScene(new Scene(0, "Køkken 1", Køkken1,
+            this.AddScene(new ContextScene(0, "Køkken 1", Køkken1,
                  new List<SceneChoice>
                  {
                      new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
@@ -136,7 +136,7 @@
                      new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
                 }, Areas[4]));
 
-            this.AddScene(new Scene(1, "Soveværelse 1", Soveværelse1,
+            this.AddScene(new ContextScene(1, "Soveværelse 1", Soveværelse1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
@@ -144,14 +144,14 @@
                     new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
                 }, Areas[2], 1));
             
-            this.AddScene(new Scene(2, "Stue 1", Stue1,
+            this.AddScene(new ContextScene(2, "Stue 1", Stue1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
                     new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
                 }, Areas[3]));
             
-            this.AddScene(new Scene(3, "Badeværelse 1", Badeværelse1,
+            this.AddScene(new ContextScene(3, "Badeværelse 1", Badeværelse1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(0, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),
