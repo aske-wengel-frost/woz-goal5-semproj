@@ -161,6 +161,12 @@
             this.LinkScenes();
         }
 
+        // Method to add an end scene choice to a scene (ID = -1 being used as 'a flag')
+        public void AddEndScene(Scene scene)
+        {
+            scene.Choices.Add(new SceneChoice(-1, "Afslut spillet"));
+        }
+
         /// <summary>
         /// Imports dictionary of scenes from given json-file.
         /// </summary>

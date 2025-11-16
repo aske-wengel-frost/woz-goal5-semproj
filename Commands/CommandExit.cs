@@ -13,7 +13,7 @@ namespace cs.Commands
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            StoryHandler.MakeDone();
+            StoryHandler.ShowEndScene();
         }
     }
 

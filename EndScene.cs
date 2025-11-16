@@ -23,7 +23,7 @@
             Console.WriteLine("hvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.");
             Console.WriteLine();
             Console.WriteLine("Husk: Du er ikke alene. Der findes altid hjælp.");
-            Console.WriteLine("Hvis du kender nogle eller har selv oplevet lignende situationer,");)
+            Console.WriteLine("Hvis du kender nogle eller har selv oplevet lignende situationer,");
             Console.WriteLine("så tøv ikke med at række ud for støtte og hjælp.");
             Console.WriteLine("Lev Uden Volds Hotline: 1888");
             Console.WriteLine("---------=======================================================================================---------");
@@ -55,7 +55,7 @@
         private void ShowPlayerScore()
         {
             Player player = storyHandler.GetPlayer();
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"═══════════════════════════════");
             Console.WriteLine($"  {player.Name}'s Total Score: {player.Score}");
             Console.WriteLine($"═══════════════════════════════");

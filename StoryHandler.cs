@@ -7,6 +7,7 @@ namespace cs
     {
         bool done = false;
 
+        public EndScene EndScene { get; set; } // Added EndScene property
         private Scene? currentScene { get; set; }
         public StoryBuilder StoryBuilder { get; set; }
 
@@ -21,6 +22,7 @@ namespace cs
         {
             _UIHandler = uiHandler;
             StoryBuilder = new StoryBuilder();
+            EndScene = new EndScene(this); // Initialize EndScene with the current StoryHandler instance
         }
 
         /// <summary>
@@ -55,8 +57,8 @@ namespace cs
             if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
                 Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
-              
 
+                
                 if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
                 {
                     
@@ -100,6 +102,12 @@ namespace cs
         public Player GetPlayer()
         {
             return player;
+        }
+
+        // Method to show end scene
+        public void ShowEndScene()
+        {
+            EndScene.ShowEndScene();
         }
 
         /// <summary>
