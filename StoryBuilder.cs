@@ -10,7 +10,7 @@
     /// </summary>
     public class StoryBuilder
     {
-        public Dictionary<int, ContextScene> Scenes { get; set; }
+        public Dictionary<int, Scene> Scenes { get; set; }
         public Dictionary<int, Area> Areas { get; set; }
 
         private string scenesFilePath;
@@ -21,7 +21,7 @@
             this.scenesFilePath = scenesFilePath;
 
             // initialize Scenes and Areas
-            Scenes = new Dictionary<int, ContextScene>();
+            Scenes = new Dictionary<int, Scene>();
             Areas = new Dictionary<int, Area>();
         }
 
@@ -40,42 +40,43 @@
         public void LinkScenes()
         {
             // Loop through all scenes
-            foreach (ContextScene scene in Scenes.Values)
+            foreach (Scene scene in Scenes.Values)
             {
-                // only if area object is not instanciated
-                if(scene.Area == null)
+                if (scene is ContextScene contextScene)
                 {
-                    // link the Areas of the loaded scenes
-                    foreach (Area area in Areas.Values)
+
+                    // only if area object is not instanciated
+                    if (contextScene.Area == null)
                     {
-                        if (area.ID == scene.AreaId)
+                        if (Areas.TryGetValue(contextScene.AreaId, out Area area))
                         {
-                            scene.Area = area;
-                            break;
+                            contextScene.Area = area;
                         }
                     }
-                }
 
-                // Loop through all scenechoices in theese scenes
-                foreach (SceneChoice sceneChoice in scene.Choices)
-                {
-                    // try to resolve the name of the scene with a scene object
-                    if (Scenes.TryGetValue(sceneChoice.SceneId, out ContextScene OutScene))
+                    // Loop through all scenechoices in theese scenes
+                    foreach (SceneChoice sceneChoice in contextScene.Choices)
                     {
-                        // set the scene object on the scenechoice object to the found instance
-                        sceneChoice.SceneObj = OutScene;
+                        // try to resolve the name of the scene with a scene object
+                        if (Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
+                        {
+                            if (OutScene is ContextScene targetScene)
+                            {
+                                sceneChoice.SceneObj = targetScene;
+                            }
+                        }
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Returns intial scene with ID = 0. 
+        /// Returns intial scene with ID = 0 of only ContextScenes in the list of Scenes.
         /// </summary>
         /// <returns>Scene</returns>
         public ContextScene getIntiialScene()
         {
-            return Scenes[0];
+            return (ContextScene)Scenes[0];
         }
 
         /// <summary>
@@ -85,14 +86,24 @@
         /// <returns>The found Scene object</returns>
         public ContextScene? FindScene(int ID)
         {
-            if(Scenes.ContainsKey(ID))
+            if (Scene scene is ContextScene ctxScene)
             {
-                return Scenes[ID];
+                if (Scenes.ContainsKey(ID))
+                {
+                    return Scenes[ID];
+                }
             }
-
-            return null;
+            else if (scene is CutScene cutScene)
+            {
+            }
+            // if (Scenes.ContainsKey(ID))
+            //
+            // {
+            //     return Scenes[ID];
+            // }
+            //
+            // return null;
         }
-        
         public void LoadAreas()
         {
             Areas = new Dictionary<int, Area>
@@ -107,6 +118,8 @@
 
         public void LoadScenesNew()
         {
+            CutScene testCutScene = new CutScene(id: 123, name: "test cut scene", condtionInfo: "This is a test CutScene..", nextScene: null);
+            this.AddScene(testCutScene);
             Areas = new Dictionary<int, Area>
             {
                 {0, new Area(0, "Entré")},
@@ -143,14 +156,12 @@
                     new SceneChoice(0, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"),
                     new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
                 }, Areas[2], 1));
-            
             this.AddScene(new ContextScene(2, "Stue 1", Stue1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
                     new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
                 }, Areas[3]));
-            
             this.AddScene(new ContextScene(3, "Badeværelse 1", Badeværelse1,
                 new List<SceneChoice>
                 {
@@ -158,6 +169,8 @@
                     new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."),
                     new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
                 }, Areas[1]));
+
+            testCutScene.NextScene = Scenes[0];
             this.LinkScenes();
         }
 
@@ -178,7 +191,7 @@
                 // Creates the file and appends the json
                 File.AppendAllText(this.scenesFilePath, dat);
             }
-            
+
             // Read the text of the file
             string tmpJsonStr = File.ReadAllText(this.scenesFilePath);
 
