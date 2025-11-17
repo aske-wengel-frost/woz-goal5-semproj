@@ -72,7 +72,7 @@ namespace cs
                     }
 
                     currentScene = sceneProxy;
-                    playerScore++; //+= currentScene.ScenePoints;
+                    playerScore += currentScene.ScenePoints;
                     _UIHandler.DrawScene(currentScene, playerScore);
                     
                 }
