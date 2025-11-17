@@ -161,7 +161,7 @@
             this.LinkScenes();
         }
 
-        // Method to add an end scene choice to a scene (ID = -1 being used as 'a flag')
+        // Method to add an end scene choice to a scene (ID = -1 being used as 'a flag'/pointer)
         public void AddEndScene(Scene scene)
         {
             scene.Choices.Add(new SceneChoice(-1, "Afslut spillet"));

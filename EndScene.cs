@@ -42,11 +42,6 @@
             {
                 RestartGame();
             }
-            else
-            {
-                storyHandler.MakeDone();
-                Console.WriteLine($"Tak fordi du spillede, {storyHandler.GetPlayer().Name}. Vi håber du har lært noget vigtigt.");
-            }
         }
 
         /// <summary>
@@ -68,7 +63,6 @@
         private void RestartGame()
         {
             Console.Clear();
-            Console.WriteLine("Genstarter spillet...");
 
             // Reset players score and inventory
             storyHandler.GetPlayer().Score = 0;
