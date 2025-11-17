@@ -1,5 +1,7 @@
 /* StoryHandler class to hold all StoryHandler relevant to a session.
  */
+using System.Runtime.CompilerServices;
+
 namespace cs
 {
 
@@ -7,7 +9,7 @@ namespace cs
     {
         bool done = false;
 
-        private ContextScene? currentScene { get; set; }
+        private Scene? currentScene { get; set; }
         public StoryBuilder StoryBuilder { get; set; }
 
         public IUIHandler _UIHandler { get; set; }
@@ -30,12 +32,13 @@ namespace cs
         {
             // Loads the story
             StoryBuilder.LoadAreas();
-            StoryBuilder.LoadScenesFromFile();
-            
-            //StoryBuilder.LoadScenesNew();
+            // StoryBuilder.LoadScenesFromFile();
+
+
+            StoryBuilder.LoadScenesNew();
             StoryBuilder.LinkScenes();
-            
-            //StoryBuilder.ExportScenesToFile();
+
+            //StoryBuildes.ExportScenesToFile();
 
             // Sets the current scene
             currentScene = StoryBuilder.getIntiialScene();
@@ -54,28 +57,45 @@ namespace cs
             Int32.TryParse(usrInp, out int usrInpValue);
             if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
-                ContextScene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
-              
+                Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
 
-                if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
+                // Check wheter scene is a ContextScene.
+                if (sceneProxy is ContextScene contextScene)
                 {
-                    
-                    // Checks if the choice requires an itemd
-                    if (sceneProxy.RequiredItemId != null)
+                    if (currentScene is ContextScene curCtx && curCtx.Choices.Exists(_ => _.SceneObj == contextScene))
                     {
-                        if (!GetPlayer().Inventory.ItemExists(sceneProxy.RequiredItemId))
-                        { 
-                            _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
-                            return;
+                        // Checks if the choice requires an itemd
+                        if (contextScene.RequiredItemId != null)
+                        {
+                            // Check whether choice needs item.
+                            if (!GetPlayer().Inventory.ItemExists(contextScene.RequiredItemId))
+                            {
+                                _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
+                                return;
+                            }
                         }
+
+                        currentScene = contextScene;
+                        _UIHandler.DrawScene(currentScene);
+
                     }
-                
-                    currentScene = sceneProxy;
-                    _UIHandler.DrawScene(currentScene);
-                    
+
+                    else { _UIHandler.DrawError(ErrorMsg); }
+
                 }
-                
-                else { _UIHandler.DrawError(ErrorMsg); }
+
+                // Check whether scene is a cutscene, and handle respectively.
+                else if (sceneProxy is CutScene cutScene)
+                {
+                    if (cutScene != null)
+                    {
+                        currentScene = cutScene;
+                        this.HandleCutScene(cutScene);
+                    }
+                    else { _UIHandler.DrawError(ErrorMsg); }
+
+                }
+
             }
             else { _UIHandler.DrawError(ErrorMsg); }
         }
@@ -91,9 +111,9 @@ namespace cs
         }
 
         // Method to get the current scene of the story
-        public ContextScene GetCurrentScene()
+        public ContextScene? GetCurrentScene()
         {
-            return currentScene;
+            return currentScene as ContextScene;
         }
 
         // Method to get the player object
@@ -109,8 +129,12 @@ namespace cs
         /// <returns>True if the item was used successfully, false otherwise.</returns>
         public bool UseItemInScene(Item item)
         {
+            if (currentScene is not ContextScene contextScene)
+            {
+                return false;
+            }
             // Finds a choice in the current scene that requires an item
-            foreach (SceneChoice choice in currentScene.Choices)
+            foreach (SceneChoice choice in contextScene.Choices)
             {
                 // Checks if the choice requires the specified item and if it's the right one
                 if (choice.SceneObj.RequiredItemId.HasValue && choice.SceneObj.RequiredItemId.Value == item.ID)
@@ -119,7 +143,7 @@ namespace cs
                     _UIHandler.DrawInfo($"Du brugte: {item.Name}.");
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
-                    ContextScene? nextScene = StoryBuilder.FindScene(choice.SceneId);
+                    Scene? nextScene = StoryBuilder.FindScene(choice.SceneId);
 
                     // Goes to the next scene if found
                     if (nextScene != null)
@@ -131,6 +155,40 @@ namespace cs
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Handles what to draw given a Scene. If more CutScenes are linked to eachother, it calls recursively.
+        /// </summary>
+        /// <param name="cutScene"></param>
+        public void HandleCutScene(CutScene cutScene)
+        {
+            _UIHandler.DrawScene(cutScene);
+            _UIHandler.WaitForEnter();
+
+            // Check if next scene has id.
+            if (cutScene.NextSceneID.HasValue)
+            {
+                Scene? nextScene = StoryBuilder.FindScene(cutScene.NextSceneID.Value);
+                if (nextScene != null)
+                {
+                    // Handle next scene.
+                    currentScene = nextScene;
+                    if (currentScene is CutScene nextCutScene)
+                    {
+                        HandleCutScene(nextCutScene);
+                    }
+                    else { _UIHandler.DrawScene(nextScene); }
+                }
+                else
+                {
+                    MakeDone();
+                }
+            }
+            else
+            {
+                MakeDone();
+            }
         }
 
         // Method to go back to the previous scene

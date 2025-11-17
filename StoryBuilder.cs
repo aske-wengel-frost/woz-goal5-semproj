@@ -4,6 +4,7 @@
     using System.Text.Json;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using System.Security.Permissions;
 
     /// <summary>
     /// This class controls everything to do with building and loading a story (Collection of scenes)
@@ -25,7 +26,7 @@
             Areas = new Dictionary<int, Area>();
         }
 
-        public bool AddScene(ContextScene scene)
+        public bool AddScene(Scene scene)
         {
             // Adds the scene object and sets the key in the dictionary to the name of the Scene
             Scenes.Add(scene.ID, scene);
@@ -84,26 +85,16 @@
         /// </summary>
         /// <param name="name"></param>
         /// <returns>The found Scene object</returns>
-        public ContextScene? FindScene(int ID)
+        public Scene? FindScene(int ID)
         {
-            if (Scene scene is ContextScene ctxScene)
+            if (Scenes.TryGetValue(ID, out Scene? scene))
             {
-                if (Scenes.ContainsKey(ID))
-                {
-                    return Scenes[ID];
-                }
+                return scene;
             }
-            else if (scene is CutScene cutScene)
-            {
-            }
-            // if (Scenes.ContainsKey(ID))
-            //
-            // {
-            //     return Scenes[ID];
-            // }
-            //
-            // return null;
+            return null;
         }
+
+
         public void LoadAreas()
         {
             Areas = new Dictionary<int, Area>
@@ -118,8 +109,13 @@
 
         public void LoadScenesNew()
         {
-            CutScene testCutScene = new CutScene(id: 123, name: "test cut scene", condtionInfo: "This is a test CutScene..", nextScene: null);
-            this.AddScene(testCutScene);
+            CutScene testCutScene = new CutScene(
+            condtionInfo: "Dette er en test CutScene, tryk Enter for at fortsætte...",
+            nextSceneID: null,  // After the cutscene, go to Køkken 1
+            id: 123,
+            name: "Test CutScene");
+            AddScene(testCutScene);
+
             Areas = new Dictionary<int, Area>
             {
                 {0, new Area(0, "Entré")},
@@ -144,7 +140,7 @@
             this.AddScene(new ContextScene(0, "Køkken 1", Køkken1,
                  new List<SceneChoice>
                  {
-                     new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
+                     new SceneChoice(123, "Du forholder dig stille og roligt for at undgå konflikter."),
                      new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
                      new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
                 }, Areas[4]));
@@ -170,7 +166,7 @@
                     new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
                 }, Areas[1]));
 
-            testCutScene.NextScene = Scenes[0];
+            testCutScene.NextSceneID = Scenes[0].ID;
             this.LinkScenes();
         }
 
@@ -197,7 +193,7 @@
 
             // We load the deserialized scenes into the scenes property
             // Maby handle a null value here.
-            this.Scenes = JsonSerializer.Deserialize<Dictionary<int, ContextScene>>(tmpJsonStr);
+            this.Scenes = JsonSerializer.Deserialize<Dictionary<int, Scene>>(tmpJsonStr);
         }
 
         /// <summary>

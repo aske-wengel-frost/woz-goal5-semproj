@@ -24,17 +24,18 @@
         /// <param name="scene">The scene you want to have drawn</param>
         public void DrawScene(Scene scene)
         {
-            if (scene is CutScene)
-            {
-                Console.Write("dinmor");
+            // Set scope-specific charDelay for anmiations.
+            textDisplay.charDelay = 10;
 
+            if (scene is CutScene cutScene)
+            {
+                ClearScreen();
+                textDisplay.Display(cutScene.ConditionInfo);
             }
             else if (scene is ContextScene ctx)
             {
 
                 ClearScreen();
-                textDisplay.charDelay = 10;
-
                 Console.Write($"---------==================[ ");
                 textDisplay.Display(ctx.Area.Name, " ]====================---------");
                 textDisplay.Display(ctx.DialogueText, split: (60 + ctx.Name.Length), punctDelay: 7);
@@ -55,9 +56,9 @@
                     textDisplay.Display($"[{num}] > {sceneChoice.Description}", punctDelay: 5);
                     num++;
                 }
+                Console.WriteLine("");
+                textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
             }
-            Console.WriteLine("");
-            textDisplay.Display("[Hjælp] Hvis du er i tvivl", punctDelay: 5);
 
         }
 
@@ -108,5 +109,15 @@
         {
             map.DrawMap(areas);
         }
+
+        /// <summary>
+        /// Waits for user input. Not key-specific. 
+        /// </summary>
+        public void WaitForEnter()
+        {
+            textDisplay.Display("\nTryk [enter] for at fortsætte...");
+            Console.ReadLine();
+        }
+
     }
 }
