@@ -24,32 +24,43 @@
         /// <param name="scene">The scene you want to have drawn</param>
         public void DrawScene(Scene scene, int score)
         {
-            ClearScreen();
+            // Set scope-specific charDelay for anmiations.
             textDisplay.charDelay = 10;
 
-            Console.WriteLine($"Score: {score}");
-            Console.Write($"---------==================[ ");
-            textDisplay.Display(scene.Area.Name, " ]====================---------");
-            textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7);
-            //Console.WriteLine($"{scene.DialogueText}");
-            Console.Write($"---------=====================");
-            foreach (char c in scene.Name)
+            if (scene is CutScene cutScene)
             {
-                Console.Write("=");
+                ClearScreen();
+                textDisplay.Display(cutScene.ConditionInfo);
             }
-            Console.WriteLine("=====================---------");
-            Console.WriteLine("");
-            textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
+            else if (scene is ContextScene ctx)
+            {
 
-            int num = 1;
-            foreach (SceneChoice sceneChoice in scene.Choices)
-            {
-                SceneChoiceAsc[num] = sceneChoice.SceneId;
-                textDisplay.Display($"[{num}] > {sceneChoice.Description}", punctDelay: 5);
-                num++;
+                ClearScreen();
+                Console.WriteLine($"Score: {score}");
+                Console.Write($"---------==================[ ");
+                textDisplay.Display(ctx.Area.Name, " ]====================---------");
+                textDisplay.Display(ctx.DialogueText, split: (60 + ctx.Name.Length), punctDelay: 7);
+                //Console.WriteLine($"{ctx.DialogueText}");
+                Console.Write($"---------=====================");
+                foreach (char c in ctx.Name)
+                {
+                    Console.Write("=");
+                }
+                Console.WriteLine("=====================---------");
+                Console.WriteLine("");
+                textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
+
+                int num = 1;
+                foreach (SceneChoice sceneChoice in ctx.Choices)
+                {
+                    SceneChoiceAsc[num] = sceneChoice.SceneId;
+                    textDisplay.Display($"[{num}] > {sceneChoice.Description}", punctDelay: 5);
+                    num++;
+                }
+                Console.WriteLine("");
+                textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
             }
-            Console.WriteLine("");
-            textDisplay.Display("[Hjælp] Hvis du er i tvivl", punctDelay: 5);
+
         }
 
 
@@ -99,5 +110,15 @@
         {
             map.DrawMap(areas);
         }
+
+        /// <summary>
+        /// Waits for user input. Not key-specific. 
+        /// </summary>
+        public void WaitForKeypress()
+        {
+            textDisplay.Display("\nTryk [enter] for at fortsætte...");
+            Console.ReadLine();
+        }
+
     }
 }

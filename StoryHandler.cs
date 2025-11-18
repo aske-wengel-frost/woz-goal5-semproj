@@ -1,5 +1,7 @@
 /* StoryHandler class to hold all StoryHandler relevant to a session.
  */
+using System.Runtime.CompilerServices;
+
 namespace cs
 {
 
@@ -32,12 +34,13 @@ namespace cs
         {
             // Loads the story
             StoryBuilder.LoadAreas();
-            StoryBuilder.LoadScenesFromFile();
-            
-            //StoryBuilder.LoadScenesNew();
+            // StoryBuilder.LoadScenesFromFile();
+
+
+            StoryBuilder.LoadScenesNew();
             StoryBuilder.LinkScenes();
-            
-            //StoryBuilder.ExportScenesToFile();
+
+            //StoryBuildes.ExportScenesToFile();
 
             // Sets the current scene
             currentScene = StoryBuilder.getInitialScene();
@@ -58,27 +61,44 @@ namespace cs
             {
                 Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
 
-                
-                if (sceneProxy != null && currentScene!.Choices.Exists(_ => _.SceneObj.Equals(sceneProxy)))
+                // Check wheter scene is a ContextScene.
+                if (sceneProxy is ContextScene contextScene)
                 {
-                    
-                    // Checks if the choice requires an itemd
-                    if (sceneProxy.RequiredItemId != null)
+                    if (currentScene is ContextScene curCtx && curCtx.Choices.Exists(_ => _.SceneObj == contextScene))
                     {
-                        if (!GetPlayer().Inventory.ItemExists(sceneProxy.RequiredItemId))
-                        { 
-                            _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
-                            return;
+                        // Checks if the choice requires an itemd
+                        if (contextScene.RequiredItemId != null)
+                        {
+                            // Check whether choice needs item.
+                            if (!GetPlayer().Inventory.ItemExists(contextScene.RequiredItemId))
+                            {
+                                _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
+                                return;
+                            }
                         }
+
+                        currentScene = contextScene;
+                        player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
+                        _UIHandler.DrawScene(currentScene, player.Score);
+
                     }
 
-                    currentScene = sceneProxy;
-                    player.Score += currentScene.ScenePoints; //Adds the points of the currentScene to the playerScore
-                    _UIHandler.DrawScene(currentScene, player.Score);
-                    
+                    else { _UIHandler.DrawError(ErrorMsg); }
+
                 }
-                
-                else { _UIHandler.DrawError(ErrorMsg); }
+
+                // Check whether scene is a cutscene, and handle respectively.
+                else if (sceneProxy is CutScene cutScene)
+                {
+                    if (cutScene != null)
+                    {
+                        currentScene = cutScene;
+                        this.HandleCutScene(cutScene);
+                    }
+                    else { _UIHandler.DrawError(ErrorMsg); }
+
+                }
+
             }
             else { _UIHandler.DrawError(ErrorMsg); }
         }
@@ -94,9 +114,9 @@ namespace cs
         }
 
         // Method to get the current scene of the story
-        public Scene GetCurrentScene()
+        public ContextScene? GetCurrentScene()
         {
-            return currentScene;
+            return currentScene as ContextScene;
         }
 
         // Method to get the player object
@@ -118,8 +138,12 @@ namespace cs
         /// <returns>True if the item was used successfully, false otherwise.</returns>
         public bool UseItemInScene(Item item)
         {
+            if (currentScene is not ContextScene contextScene)
+            {
+                return false;
+            }
             // Finds a choice in the current scene that requires an item
-            foreach (SceneChoice choice in currentScene.Choices)
+            foreach (SceneChoice choice in contextScene.Choices)
             {
                 // Checks if the choice requires the specified item and if it's the right one
                 if (choice.SceneObj.RequiredItemId.HasValue && choice.SceneObj.RequiredItemId.Value == item.ID)
@@ -142,22 +166,41 @@ namespace cs
             return false;
         }
 
-        // Method to go back to the previous scene
-        public bool GoBack()
+        /// <summary>
+        /// Handles what to draw given a Scene. If more CutScenes are linked to eachother, it calls recursively.
+        /// </summary>
+        /// <param name="cutScene"></param>
+        public void HandleCutScene(CutScene cutScene)
         {
-            // Logic to go back to the previous scene
-            // Note to Self: maybe a "sceneHistory" list to hold the scenes??
-            // sceneHistory.RemoveAt(sceneHistory.Count - 1);
+            _UIHandler.DrawScene(cutScene, player.Score);
+            _UIHandler.WaitForKeypress();
 
-            /* if (sceneHistory.Count > 0)
+            // Check if next scene has id.
+            if (cutScene.NextSceneId.HasValue)
             {
-                Scene previousScene = sceneHistory[sceneHistory.Count - 1];
-                currentScene = previousScene;
-                UIHandler.DrawScene(currentScene);
-                return true;
-            }*/
-            return false;
+                Scene? nextScene = StoryBuilder.FindScene(cutScene.NextSceneId.Value);
+                if (nextScene != null)
+                {
+                    // Handle next scene.
+                    currentScene = nextScene;
+                    if (currentScene is CutScene nextCutScene)
+                    {
+                        HandleCutScene(nextCutScene);
+                    }
+                    else { _UIHandler.DrawScene(nextScene, player.Score); }
+                }
+                else
+                {
+                    MakeDone();
+                }
+            }
+            else
+            {
+                MakeDone();
+            }
         }
+
+        
     }
 }
 

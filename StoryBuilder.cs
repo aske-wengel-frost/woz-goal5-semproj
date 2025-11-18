@@ -42,40 +42,41 @@
             // Loop through all scenes
             foreach (Scene scene in Scenes.Values)
             {
-                // only if area object is not instanciated
-                if(scene.Area == null)
+                if (scene is ContextScene contextScene)
                 {
-                    // link the Areas of the loaded scenes
-                    foreach (Area area in Areas.Values)
+
+                    // only if area object is not instanciated
+                    if (contextScene.Area == null)
                     {
-                        if (area.ID == scene.AreaId)
+                        if (Areas.TryGetValue(contextScene.AreaId, out Area area))
                         {
-                            scene.Area = area;
-                            break;
+                            contextScene.Area = area;
                         }
                     }
-                }
 
-                // Loop through all scenechoices in theese scenes
-                foreach (SceneChoice sceneChoice in scene.Choices)
-                {
-                    // try to resolve the name of the scene with a scene object
-                    if (Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
+                    // Loop through all scenechoices in theese scenes
+                    foreach (SceneChoice sceneChoice in contextScene.Choices)
                     {
-                        // set the scene object on the scenechoice object to the found instance
-                        sceneChoice.SceneObj = OutScene;
+                        // try to resolve the name of the scene with a scene object
+                        if (Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
+                        {
+                            if (OutScene is ContextScene targetScene)
+                            {
+                                sceneChoice.SceneObj = targetScene;
+                            }
+                        }
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Returns intial scene with ID = 0. 
+        /// Returns intial scene with ID = 0 of only ContextScenes in the list of Scenes.
         /// </summary>
         /// <returns>Scene</returns>
-        public Scene getInitialScene()
+        public ContextScene getInitialScene()
         {
-            return Scenes[0];
+            return (ContextScene)Scenes[0];
         }
 
         /// <summary>
@@ -85,13 +86,14 @@
         /// <returns>The found Scene object</returns>
         public Scene? FindScene(int ID)
         {
-            if(Scenes.ContainsKey(ID))
+            if (Scenes.TryGetValue(ID, out Scene? scene))
             {
-                return Scenes[ID];
+                return scene;
             }
             return null;
         }
-        
+
+
         public void LoadAreas()
         {
             Areas = new Dictionary<int, Area>
@@ -106,6 +108,13 @@
 
         public void LoadScenesNew()
         {
+            CutScene testCutScene = new CutScene(
+            conditionInfo: "Dette er en test CutScene, tryk Enter for at fortsætte...",
+            nextSceneId: null,  // After the cutscene, go to Køkken 1
+            id: 123,
+            name: "Test CutScene");
+            AddScene(testCutScene);
+
             Areas = new Dictionary<int, Area>
             {
                 {0, new Area(0, "Entré")},
@@ -127,44 +136,44 @@
             //         new SceneChoice(2, "Ring til Politiet")
             //    }, Areas[4]));
 
-            this.AddScene(new Scene(0, "Køkken 1", -5, Køkken1,
+            this.AddScene(new ContextScene(0, "Køkken 1", 5, Køkken1,
                  new List<SceneChoice>
                  {
-                     new SceneChoice(1, "Du forholder dig stille og roligt for at undgå konflikter."),
+                     new SceneChoice(123, "Du forholder dig stille og roligt for at undgå konflikter."),
                      new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
                      new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
                  }, Areas[4]));
 
-            this.AddScene(new Scene(1, "Soveværelse 1", 5, Soveværelse1,
+            this.AddScene(new ContextScene(1, "Soveværelse 1", 5, Soveværelse1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
                     new SceneChoice(0, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"),
                     new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
                 }, Areas[2], 1));
-            
-            this.AddScene(new Scene(2, "Stue 1", -5, Stue1,
+            this.AddScene(new ContextScene(2, "Stue 1", 5, Stue1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
                     new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
                 }, Areas[3]));
-            
-            this.AddScene(new Scene(3, "Badeværelse 1", 5, Badeværelse1,
+            this.AddScene(new ContextScene(3, "Badeværelse 1", -5, Badeværelse1,
                 new List<SceneChoice>
                 {
                     new SceneChoice(0, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),
                     new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."),
                     new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
                 }, Areas[1]));
+
+            testCutScene.NextSceneId = Scenes[0].ID;
             this.LinkScenes();
         }
 
         // Method to add an end scene choice to a scene (ID = -1 being used as 'a flag'/pointer)
-        public void AddEndScene(Scene scene)
-        {
-            scene.Choices.Add(new SceneChoice(-1, "Afslut spillet"));
-        }
+        //public void AddEndScene(Scene scene)
+        //{
+        //    scene.Choices.Add(new SceneChoice(-1, "Afslut spillet"));
+        //}
 
         /// <summary>
         /// Imports dictionary of scenes from given json-file.
@@ -183,7 +192,7 @@
                 // Creates the file and appends the json
                 File.AppendAllText(this.scenesFilePath, dat);
             }
-            
+
             // Read the text of the file
             string tmpJsonStr = File.ReadAllText(this.scenesFilePath);
 
