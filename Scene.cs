@@ -1,5 +1,9 @@
 namespace cs
 {
+    using System.Text.Json.Serialization;
+
+    [JsonDerivedType(typeof(ContextScene), typeDiscriminator: "contextScene")]
+    [JsonDerivedType(typeof(CutScene), typeDiscriminator: "cutScene")]
     public abstract class Scene
     {
         public int ID { get; set; }

@@ -1,15 +1,21 @@
 ﻿{
+    "123": {
+        "$type": "cutScene",
+        "ConditionInfo": "Dette er en test CutScene, tryk Enter for at forts\u00E6tte...",
+        "NextSceneId": 0,
+        "ID": 123,
+        "Name": "Test CutScene"
+    },
     "0": {
-        "ID": 0,
-        "Name": "K\u00F8kken 1",
+        "$type": "contextScene",
         "AreaId": 4,
-        "ScenePoints": 5,
         "RequiredItemId": null,
+        "ScenePoints": 5,
         "DialogueText": "Du st\u00E5r i k\u00F8kkenet og laver morgenmad. Du h\u00F8rer din k\u00E6reste v\u00E5gne, og lidt efter kommer han ind i k\u00F8kkenet.",
         "Choices": [
             {
                 "Description": "Du forholder dig stille og roligt for at undg\u00E5 konflikter.",
-                "SceneId": 1
+                "SceneId": 123
             },
             {
                 "Description": "Du sp\u00F8rger, om han vil have en kop kaffe.",
@@ -19,14 +25,15 @@
                 "Description": "Du sp\u00F8rger ham om han har lyst til at hj\u00E6lpe med maden.",
                 "SceneId": 3
             }
-        ]
+        ],
+        "ID": 0,
+        "Name": "K\u00F8kken 1"
     },
     "1": {
-        "ID": 1,
-        "Name": "Sovev\u00E6relse 1",
+        "$type": "contextScene",
         "AreaId": 2,
-        "ScenePoints": 5,
         "RequiredItemId": 1,
+        "ScenePoints": 5,
         "DialogueText": "Du har lagt dig p\u00E5 sengen, din k\u00E6reste st\u00E5r i d\u00F8ren og siger \u0027Det hele er din skyld\u0027. Du f\u00F8ler dig fortvivlet og fanget.",
         "Choices": [
             {
@@ -41,14 +48,15 @@
                 "Description": "Du undskylder og lytter til hvad din k\u00E6reste siger.",
                 "SceneId": 2
             }
-        ]
+        ],
+        "ID": 1,
+        "Name": "Sovev\u00E6relse 1"
     },
     "2": {
-        "ID": 2,
-        "Name": "Stue 1",
+        "$type": "contextScene",
         "AreaId": 3,
-        "ScenePoints": 5,
         "RequiredItemId": null,
+        "ScenePoints": 5,
         "DialogueText": "Du vil gerne se nyhederne, men din k\u00E6reste syntes det er spild af tid.",
         "Choices": [
             {
@@ -59,14 +67,15 @@
                 "Description": "Du rejser dig og g\u00E5r og p\u00E5 vejen ud siger du \u0027Jeg gider ikke det her lige nu\u0027.",
                 "SceneId": 1
             }
-        ]
+        ],
+        "ID": 2,
+        "Name": "Stue 1"
     },
     "3": {
-        "ID": 3,
-        "Name": "Badev\u00E6relse 1",
+        "$type": "contextScene",
         "AreaId": 1,
-        "ScenePoints": 5,
         "RequiredItemId": null,
+        "ScenePoints": -5,
         "DialogueText": "Du tr\u00E6der ind i badet. Du vasker uroen og hans kritiske kommentarer v\u00E6k med det varme vand. Kort efter h\u00F8rer du din k\u00E6reste tr\u00E6de ind.",
         "Choices": [
             {
@@ -78,9 +87,11 @@
                 "SceneId": 1
             },
             {
-                "Description": "Du undskylder og skynder dig at slukke  vandet og forlade badev\u00E6relset.",
+                "Description": "Du undskylder og skynder dig at slukke vandet og forlade badev\u00E6relset.",
                 "SceneId": 2
             }
-        ]
+        ],
+        "ID": 3,
+        "Name": "Badev\u00E6relse 1"
     }
 }

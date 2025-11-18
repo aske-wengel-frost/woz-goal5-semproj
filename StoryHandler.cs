@@ -34,10 +34,10 @@ namespace cs
         {
             // Loads the story
             StoryBuilder.LoadAreas();
-            // StoryBuilder.LoadScenesFromFile();
+            StoryBuilder.LoadScenesFromFile();
 
 
-            StoryBuilder.LoadScenesNew();
+            //StoryBuilder.LoadScenesNew();
             StoryBuilder.LinkScenes();
 
             //StoryBuildes.ExportScenesToFile();
