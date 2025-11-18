@@ -5,7 +5,9 @@
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
+    using System.Text.Encodings.Web;
     using System.Text.Json;
+    using System.Text.Unicode;
 
     /// <summary>
     /// This class controls everything to do with building and loading a story (Collection of scenes)
@@ -115,7 +117,7 @@
                 new MapRoomElement(3, 30, 2, 8, 20, "Stue"),
                 new MapRoomElement(4, 2, 13, 9, 40, "Køkken"),
                 new MapRoomElement(5, 11, 9, 5, 50, "Gang"),
-                new MapTextElement(7, 40, 10, "Cock and balls :3") {Color = ConsoleColor.Cyan}
+                //new MapTextElement(7, 40, 10, "Cock and balls :3") {Color = ConsoleColor.Cyan}
             };
         }
 
@@ -179,7 +181,7 @@
         /// <returns></returns>
         public void ExportStoryToFile(string filePath = "./EXPORTED_STORY.json")
         {
-            string jsonStr = JsonSerializer.Serialize<Story>(this.story);
+            string jsonStr = JsonSerializer.Serialize<Story>(this.story, new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping});
 
             File.WriteAllText(filePath, jsonStr);
         }
