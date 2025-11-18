@@ -3,6 +3,7 @@
         "ID": 0,
         "Name": "K\u00F8kken 1",
         "AreaId": 4,
+        "ScenePoints": 5,
         "RequiredItemId": null,
         "DialogueText": "Du st\u00E5r i k\u00F8kkenet og laver morgenmad. Du h\u00F8rer din k\u00E6reste v\u00E5gne, og lidt efter kommer han ind i k\u00F8kkenet.",
         "Choices": [
@@ -24,6 +25,7 @@
         "ID": 1,
         "Name": "Sovev\u00E6relse 1",
         "AreaId": 2,
+        "ScenePoints": 5,
         "RequiredItemId": 1,
         "DialogueText": "Du har lagt dig p\u00E5 sengen, din k\u00E6reste st\u00E5r i d\u00F8ren og siger \u0027Det hele er din skyld\u0027. Du f\u00F8ler dig fortvivlet og fanget.",
         "Choices": [
@@ -45,6 +47,7 @@
         "ID": 2,
         "Name": "Stue 1",
         "AreaId": 3,
+        "ScenePoints": 5,
         "RequiredItemId": null,
         "DialogueText": "Du vil gerne se nyhederne, men din k\u00E6reste syntes det er spild af tid.",
         "Choices": [
@@ -62,6 +65,7 @@
         "ID": 3,
         "Name": "Badev\u00E6relse 1",
         "AreaId": 1,
+        "ScenePoints": 5,
         "RequiredItemId": null,
         "DialogueText": "Du tr\u00E6der ind i badet. Du vasker uroen og hans kritiske kommentarer v\u00E6k med det varme vand. Kort efter h\u00F8rer du din k\u00E6reste tr\u00E6de ind.",
         "Choices": [

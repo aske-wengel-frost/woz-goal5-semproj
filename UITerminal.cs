@@ -22,11 +22,12 @@
         /// Draws the scene in the terminal
         /// </summary>
         /// <param name="scene">The scene you want to have drawn</param>
-        public void DrawScene(Scene scene)
+        public void DrawScene(Scene scene, int score)
         {
             ClearScreen();
             textDisplay.charDelay = 10;
 
+            Console.WriteLine($"Score: {score}");
             Console.Write($"---------==================[ ");
             textDisplay.Display(scene.Area.Name, " ]====================---------");
             textDisplay.Display(scene.DialogueText, split: (60 + scene.Name.Length), punctDelay: 7);
