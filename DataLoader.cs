@@ -141,7 +141,7 @@
                 { 0, new ContextScene(0, "Køkken 1", 5, Køkken1,
                  new List<SceneChoice>
                  {
-                     new SceneChoice(123, "Du forholder dig stille og roligt for at undgå konflikter."),
+                     new SceneChoice(4, "Du forholder dig stille og roligt for at undgå konflikter."),
                      new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
                      new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
                      new SceneChoice(4, "Action baby"),
