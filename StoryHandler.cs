@@ -17,7 +17,7 @@ namespace cs
         public IUIHandler _UIHandler { get; set; }
 
         public Player player { get; set; } //Make a player property.
-        
+
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
         // Godt eksempel p� dependeny injection
@@ -25,7 +25,6 @@ namespace cs
         {
             _UIHandler = uiHandler;
             dataLoader = new DataLoader();
-            
             dataLoader.Load();
             dataLoader.ExportStoryToFile();
 
@@ -197,7 +196,12 @@ namespace cs
                     {
                         HandleCutScene(nextCutScene);
                     }
-                    else { _UIHandler.DrawScene(nextScene, player.Score); }
+                    else if (nextScene is ContextScene ctxScene)
+                    {
+                        _UIHandler.HighlightArea(ctxScene.AreaId);
+                        player.Score += ctxScene.ScenePoints;
+                        _UIHandler.DrawScene(nextScene, player.Score);
+                    }
                 }
                 else
                 {
@@ -210,7 +214,6 @@ namespace cs
             }
         }
 
-        
     }
 }
 
