@@ -14,8 +14,7 @@ namespace cs
         public IUIHandler _UIHandler { get; set; }
 
         public Player player { get; set; } //Make a player property.
-        public int playerScore = 0; //Players score
-
+        
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
         // Godt eksempel p� dependeny injection
@@ -44,7 +43,7 @@ namespace cs
             currentScene = StoryBuilder.getInitialScene();
 
             // Draws the initial scene
-            _UIHandler.DrawScene(currentScene, playerScore);
+            _UIHandler.DrawScene(currentScene, player.Score);
 
         }
         /// <summary>
@@ -74,8 +73,8 @@ namespace cs
                     }
 
                     currentScene = sceneProxy;
-                    playerScore += currentScene.ScenePoints; //Adds the points of the currentScene to the playerScore
-                    _UIHandler.DrawScene(currentScene, playerScore);
+                    player.Score += currentScene.ScenePoints; //Adds the points of the currentScene to the playerScore
+                    _UIHandler.DrawScene(currentScene, player.Score);
                     
                 }
                 
@@ -135,7 +134,7 @@ namespace cs
                     if (nextScene != null)
                     {
                         currentScene = nextScene;
-                        _UIHandler.DrawScene(currentScene, playerScore);
+                        _UIHandler.DrawScene(currentScene, player.Score);
                         return true;
                     }
                 }
