@@ -74,7 +74,7 @@
             storyHandler.GetPlayer().Inventory = new Inventory();
 
             // Start the game from the beginning
-            storyHandler.Start();
+            storyHandler.StartStory();
         }
     }
 }

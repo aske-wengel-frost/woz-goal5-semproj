@@ -9,7 +9,8 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-    using cs;
+
+    using MapTerminal;
 
     class UITerminal : IUIHandler
     {
@@ -106,9 +107,19 @@
             return Regex.Replace(text, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
         }
 
-        public void RefreshMap(Dictionary<int, Area> areas)
+        public void DrawMap()
         {
-            map.DrawMap(areas);
+            map.DrawMap();
+        }
+
+        public void InitMap(List<MapElement> elements)
+        {
+            map.Elements = elements;
+        }
+
+        public void HighlightArea(int id)
+        {
+            map.HighlightElement(id);
         }
 
         /// <summary>

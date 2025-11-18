@@ -1,5 +1,7 @@
 namespace cs
 {
+    using System.Text.Json.Serialization;
+
     public class Area
     {
         public int ID { get; set; }
@@ -7,11 +9,12 @@ namespace cs
 
         public List<Item> Items { get; set; }
 
-        // Map draw things
-        public int xStart { get; set; }
-        public int yStart { get; set; }
-        public int height { get; set; }
-        public int width { get; set; }
+        public Area()
+        {
+            // Initialize defaults to avoid null reference issues
+            Name = "";
+            Items = new List<Item>();
+        }
 
         // Constructor for Area initialization
         public Area(int ID, string name, List<Item>? itmes = null ) // Area can contain a List of itmes and gives it a default value.  

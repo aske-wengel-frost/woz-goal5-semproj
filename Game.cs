@@ -10,36 +10,39 @@ namespace cs
 
     public class Game
     {
-        static public StoryHandler storyHandler { get; set; }
-        static public IUIHandler UIHandler { get; set; }
+        static public StoryHandler? storyHandler { get; set; }
+        static public IUIHandler? UIHandler { get; set; }
 
         static ICommand fallback = new CommandUnknown();
-        static Registry registry {get; set;}
+        static Registry? registry {get; set;}
 
-        private static void InitRegistry()
-        {
-            ICommand cmdExit = new CommandExit();
-            registry.Register("hjælp", new CommandHelp(registry));
-            registry.Register("afslut", cmdExit); // cmdExit x2?
-            registry.Register("bevæg", new CommandMove());
-            registry.Register("export", new CommandExportStory());
 
-            // New Commands for the help() function
-            registry.Register("tilbage", new CommandBack());
-            registry.Register("se", new CommandLook());
-            registry.Register("inventar", new CommandInventory());
-            registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
-            registry.Register("tag", new CommandTake());
-            registry.Register("brug", new CommandUse());
-            registry.Register("kort", new CommandMap());
-            registry.Register("status", new CommandStatus());
-        }
-
-        static void Main(string[] args)
+        /// <summary>
+        /// This class initializes all classes used in the game. It also loads the story and areas from a json file.
+        /// </summary>
+        private static void InitGame()
         {
             UIHandler = new UITerminal();
             storyHandler = new StoryHandler(UIHandler);
             registry = new Registry(storyHandler, fallback);
+
+            // inits a new data loader and loads data
+            DataLoader dt = new DataLoader();
+            dt.Load();
+
+            // Set the storyobject of the storyhandler to the story object in the data loader
+            storyHandler.story = dt.story;
+
+            // Inits the map with the mapelements defined in the story loaded.
+            UIHandler.InitMap(storyHandler.story.MapElements);
+
+            // We call the InitRegistry method
+            InitRegistry();
+        }
+
+        static void Main(string[] args)
+        {
+            InitGame();
 
             // Welcome message
             Console.WriteLine("---------=======================================================================================---------");
@@ -59,10 +62,8 @@ namespace cs
             storyHandler.player = new Player (playerName); //Create the player in storyHandler. 
             Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne.");
 
-            // We call the InitRegistry method
-            InitRegistry();
-
-            storyHandler.Start();
+            // We start the storyhandler and thereby the story
+            storyHandler.StartStory();
 
             // Game loop  
             while (storyHandler.IsDone() == false)
@@ -83,6 +84,26 @@ namespace cs
             }
             Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
+        }
+
+
+        private static void InitRegistry()
+        {
+            ICommand cmdExit = new CommandExit();
+            registry.Register("hjælp", new CommandHelp(registry));
+            registry.Register("afslut", cmdExit); // cmdExit x2?
+            registry.Register("bevæg", new CommandMove());
+            registry.Register("export", new CommandExportStory());
+
+            // New Commands for the help() function
+            registry.Register("tilbage", new CommandBack());
+            registry.Register("se", new CommandLook());
+            registry.Register("inventar", new CommandInventory());
+            registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
+            registry.Register("tag", new CommandTake());
+            registry.Register("brug", new CommandUse());
+            registry.Register("kort", new CommandMap());
+            registry.Register("status", new CommandStatus());
         }
     }
 }

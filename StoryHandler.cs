@@ -9,9 +9,10 @@ namespace cs
     {
         bool done = false;
 
+        public Story story { get; set; }
         public EndScene EndScene { get; set; } // Added EndScene property
         private Scene? currentScene { get; set; }
-        public StoryBuilder StoryBuilder { get; set; }
+        public DataLoader dataLoader { get; set; }
 
         public IUIHandler _UIHandler { get; set; }
 
@@ -23,30 +24,38 @@ namespace cs
         public StoryHandler(IUIHandler uiHandler)
         {
             _UIHandler = uiHandler;
-            StoryBuilder = new StoryBuilder();
+            dataLoader = new DataLoader();
+            
+            dataLoader.Load();
+            dataLoader.ExportStoryToFile();
+
             EndScene = new EndScene(this); // Initialize EndScene with the current StoryHandler instance
+
+            // Loads the story
+            //dataLoader.LoadAreas();
+            //dataLoader.LoadScenesFromFile();
+
+            //DataLoader.LoadScenesNew();
+            //dataLoader.LinkScenes();
         }
 
         /// <summary>
         /// Entry point for the story, this loads the scenes, gets the initial scene and draws the fi
         /// </summary>
-        public void Start()
+        public void StartStory()
         {
-            // Loads the story
-            StoryBuilder.LoadAreas();
-            StoryBuilder.LoadScenesFromFile();
-
-
-            //StoryBuilder.LoadScenesNew();
-            StoryBuilder.LinkScenes();
-
-            //StoryBuildes.ExportScenesToFile();
-
             // Sets the current scene
-            currentScene = StoryBuilder.getInitialScene();
+            ContextScene? contextScene = story.getInitialScene();
+
+            if (contextScene is null)
+            {
+                _UIHandler.DrawError("Could not find start valid start scene!");
+                return;
+            }
 
             // Draws the initial scene
-            _UIHandler.DrawScene(currentScene, player.Score);
+            _UIHandler.HighlightArea(contextScene.AreaId);
+            _UIHandler.DrawScene(contextScene, player.Score);
 
         }
         /// <summary>
@@ -59,7 +68,7 @@ namespace cs
             Int32.TryParse(usrInp, out int usrInpValue);
             if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
-                Scene? sceneProxy = StoryBuilder.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
+                Scene? sceneProxy = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
 
                 // Check wheter scene is a ContextScene.
                 if (sceneProxy is ContextScene contextScene)
@@ -78,6 +87,7 @@ namespace cs
                         }
 
                         currentScene = contextScene;
+                        _UIHandler.HighlightArea(contextScene.AreaId);
                         player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
                         _UIHandler.DrawScene(currentScene, player.Score);
 
@@ -152,7 +162,7 @@ namespace cs
                     _UIHandler.DrawInfo($"Du brugte: {item.Name}.");
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
-                    Scene? nextScene = StoryBuilder.FindScene(choice.SceneId);
+                    Scene? nextScene = story.FindScene(choice.SceneId);
 
                     // Goes to the next scene if found
                     if (nextScene != null)
@@ -178,7 +188,7 @@ namespace cs
             // Check if next scene has id.
             if (cutScene.NextSceneId.HasValue)
             {
-                Scene? nextScene = StoryBuilder.FindScene(cutScene.NextSceneId.Value);
+                Scene? nextScene = story.FindScene(cutScene.NextSceneId.Value);
                 if (nextScene != null)
                 {
                     // Handle next scene.
