@@ -93,5 +93,10 @@ namespace cs
             return items.Count == 0;
         }
 
+        public bool ItemExists(int? ID)
+        {
+            return items.Exists(_ => _.ID == ID);
+        }
+
     }
 }
