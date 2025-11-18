@@ -12,6 +12,12 @@ namespace cs.Commands
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
             // Attempts to take the item with the specified name from the first parameter
+            if (parameters.Length == 0)
+            {
+                StoryHandler._UIHandler.DrawInfo("Brug: tag [genstand navn]");
+                return;
+            }
+            
             Item? item = StoryHandler.GetCurrentScene().Area.TakeItem(parameters[0]);
 
             // Check if the item exists
