@@ -42,6 +42,11 @@
             {
                 RestartGame();
             }
+
+            if (input == "nej" || input == "n")
+            {
+                storyHandler.MakeDone();
+            }
         }
 
         /// <summary>
