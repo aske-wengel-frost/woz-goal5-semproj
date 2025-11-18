@@ -42,14 +42,5 @@ namespace cs
         }
 
         // Displays Information about Player in Terminal
-        public void ShowPlayerStatus()
-        {
-            Console.WriteLine($"----- Player Info -----");
-            Console.WriteLine($"Name: {Name}");
-            Console.WriteLine($"Score: {Score}");
-            Console.WriteLine($"Inventory:");
-            Inventory.ShowInventory();
-            Console.WriteLine($"-----------------------");
-        }
     }
 }

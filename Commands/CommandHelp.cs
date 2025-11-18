@@ -28,11 +28,13 @@ namespace cs.Commands
             }
 
             // present list of commands
-            Console.WriteLine("Commands:");
+            StoryHandler._UIHandler.DrawInfo("Commands:");
             foreach (String commandName in commandNames)
             {
                 string description = registry.GetCommand(commandName).GetDescription();
-                Console.WriteLine(" - {0,-" + max + "} " + description, commandName);
+                string lineToDraw = string.Format(" - {0,-" + max + "} " + description, commandName);
+
+                StoryHandler._UIHandler.DrawInfo(lineToDraw);
             }
         }
     }

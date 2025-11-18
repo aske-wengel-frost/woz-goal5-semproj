@@ -27,17 +27,17 @@ namespace cs
         }
 
         // Method to remove an item from the inventory
-        public void RemoveItem(Item item)
+        public bool RemoveItem(Item item) //move this code to CommandInventory 
         {
-            // Check control for item existence (Remove if-statement later if needed)
+            
             if (items.Contains(item))
             {
                 items.Remove(item);
-                Console.WriteLine($"Item: {item.Name} Removed from Inventory"); // Debugger message to check
+               return true;
             }
             else
             {
-                Console.WriteLine($"Item not found in inventory."); //Also a debugger message
+                return false;
             }
         }
 
@@ -75,32 +75,23 @@ namespace cs
             return null;
         }
 
-        public void SetItem(Item item)
+        /// <summary>
+        /// Giver en "read-only" liste af alle items.
+        /// 'CommandInventory' vil bruge denne.
+        /// </summary>
+        public IReadOnlyList<Item> GetItems()
         {
-            items.Add(item);
-            Console.WriteLine($"Item: {item.Name}. Placed in the scene at position {item.ID}"); // Print debugger message
+            return items.AsReadOnly();
         }
 
-        public void ShowInventory()
+        /// <summary>
+        /// En simpel hjælpemetode til at tjekke, om inventory er tom.
+        /// 'CommandInventory' vil bruge denne.
+        /// </summary>
+        public bool IsEmpty()
         {
-            if (items.Count == 0)
-            {
-                Console.WriteLine("Inventory is empty.");
-                return;
-            }
-            else
-            {
-                foreach (Item item in items)
-                {
-                    Console.WriteLine(item.ToString());
-                }
-            }
+            return items.Count == 0;
         }
-        
-        public bool ItemExists(int? ID)
-        {
-            
-            return items.Exists(_ => _.ID == ID);
-        }
+
     }
 }

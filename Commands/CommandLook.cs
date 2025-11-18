@@ -15,13 +15,13 @@ namespace cs.Commands
             Scene currentScene = StoryHandler.GetCurrentScene();
             if (currentScene != null)
             {
-                Console.WriteLine($"Du befinder dig i: {currentScene.Area.Name}");
-                Console.Write($"Genstande:");
+                StoryHandler._UIHandler.DrawInfo($"Du befinder dig i: {currentScene.Area.Name}");
+                StoryHandler._UIHandler.DrawInfo($"Genstande:");
                 foreach(Item it in StoryHandler.GetCurrentScene().Area.Items )
                 {
-                    Console.Write($" {it.Name},");
+                    StoryHandler._UIHandler.DrawInfo($" {it.Name},");
                 }
-                Console.WriteLine();
+                StoryHandler._UIHandler.DrawInfo("");
             }
         }
     }
