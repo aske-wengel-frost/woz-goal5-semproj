@@ -113,7 +113,7 @@
         /// <summary>
         /// Waits for user input. Not key-specific. 
         /// </summary>
-        public void WaitForEnter()
+        public void WaitForKeypress()
         {
             textDisplay.Display("\nTryk [enter] for at fortsætte...");
             Console.ReadLine();

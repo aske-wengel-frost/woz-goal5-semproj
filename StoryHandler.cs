@@ -164,7 +164,7 @@ namespace cs
         public void HandleCutScene(CutScene cutScene)
         {
             _UIHandler.DrawScene(cutScene);
-            _UIHandler.WaitForEnter();
+            _UIHandler.WaitForKeypress();
 
             // Check if next scene has id.
             if (cutScene.NextSceneID.HasValue)

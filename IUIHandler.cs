@@ -15,7 +15,7 @@
         public void DrawError(string errorMsg);
         public void DrawInfo(string infoMsg);
         public void RefreshMap(Dictionary<int, Area> areas);
-        public void WaitForEnter();
+        public void WaitForKeypress();
 
     }
 }
