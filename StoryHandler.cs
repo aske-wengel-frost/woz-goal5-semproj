@@ -167,9 +167,9 @@ namespace cs
             _UIHandler.WaitForKeypress();
 
             // Check if next scene has id.
-            if (cutScene.NextSceneID.HasValue)
+            if (cutScene.NextSceneId.HasValue)
             {
-                Scene? nextScene = StoryBuilder.FindScene(cutScene.NextSceneID.Value);
+                Scene? nextScene = StoryBuilder.FindScene(cutScene.NextSceneId.Value);
                 if (nextScene != null)
                 {
                     // Handle next scene.

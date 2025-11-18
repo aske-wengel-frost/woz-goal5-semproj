@@ -110,8 +110,8 @@
         public void LoadScenesNew()
         {
             CutScene testCutScene = new CutScene(
-            condtionInfo: "Dette er en test CutScene, tryk Enter for at fortsætte...",
-            nextSceneID: null,  // After the cutscene, go to Køkken 1
+            conditionInfo: "Dette er en test CutScene, tryk Enter for at fortsætte...",
+            nextSceneId: null,  // After the cutscene, go to Køkken 1
             id: 123,
             name: "Test CutScene");
             AddScene(testCutScene);
@@ -166,7 +166,7 @@
                     new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
                 }, Areas[1]));
 
-            testCutScene.NextSceneID = Scenes[0].ID;
+            testCutScene.NextSceneId = Scenes[0].ID;
             this.LinkScenes();
         }
 
