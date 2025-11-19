@@ -17,9 +17,13 @@ namespace cs
             this.fallback = fallback;
         }
 
-        public void Register(string name, ICommand command)
+        public void Register(IEnumerable<string> names, ICommand command)
         {
-            commands.Add(name, command);
+            // Now supports multiple "aliases" for same command.
+            foreach (string name in names)
+            {
+                commands.Add(name, command);
+            }
         }
 
         public void Dispatch(string line)

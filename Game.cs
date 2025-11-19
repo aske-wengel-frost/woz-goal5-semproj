@@ -90,20 +90,20 @@ namespace cs
         private static void InitRegistry()
         {
             ICommand cmdExit = new CommandExit();
-            registry.Register("hjælp", new CommandHelp(registry));
-            registry.Register("afslut", cmdExit); // cmdExit x2?
-            registry.Register("bevæg", new CommandMove());
-            registry.Register("export", new CommandExportStory());
+            registry.Register(new [] {"hjælp"}, new CommandHelp(registry));
+            registry.Register(new [] {"afslut"}, cmdExit); // cmdExit x2?
+            registry.Register(new [] {"bevæg", "go", "gå"}, new CommandMove());
+            registry.Register(new [] {"export"}, new CommandExportStory());
 
             // New Commands for the help() function
-            registry.Register("tilbage", new CommandBack());
-            registry.Register("se", new CommandLook());
-            registry.Register("inventar", new CommandInventory());
-            registry.Register("inv", new CommandInventory()); // Just a shorter version for inventory (Alias)
-            registry.Register("tag", new CommandTake());
-            registry.Register("brug", new CommandUse());
-            registry.Register("kort", new CommandMap());
-            registry.Register("status", new CommandStatus());
+            registry.Register(new [] {"tilbage"}, new CommandBack());
+            registry.Register(new [] {"se"}, new CommandLook());
+            registry.Register(new [] {"inventar"}, new CommandInventory());
+            registry.Register(new [] {"inv"}, new CommandInventory()); // Just a shorter version for inventory (Alias)
+            registry.Register(new [] {"tag"}, new CommandTake());
+            registry.Register(new [] {"brug"}, new CommandUse());
+            registry.Register(new [] {"kort"}, new CommandMap());
+            registry.Register(new [] {"status"}, new CommandStatus());
         }
     }
 }
