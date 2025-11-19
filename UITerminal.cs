@@ -37,7 +37,19 @@
             {
 
                 ClearScreen();
-                Console.WriteLine($"Score: {score}");
+                if (score < 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Score: {score}");
+                }
+                else if ( score > 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"Score: {score}");
+                }
+                
+                // reset color
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($"---------==================[ ");
                 textDisplay.Display(ctx.Area.Name, " ]====================---------");
                 textDisplay.Display(ctx.DialogueText, split: (60 + ctx.Name.Length), punctDelay: 7);
