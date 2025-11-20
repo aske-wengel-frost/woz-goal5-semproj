@@ -6,10 +6,11 @@
     using System.Dynamic;
     using System.Linq;
     using System.Runtime.ExceptionServices;
+    using System.Security.Cryptography.X509Certificates;
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
-
+    using System.Xml;
     using MapTerminal;
 
     class UITerminal : IUIHandler
@@ -18,6 +19,10 @@
 
         int EffectDelay { get; set; }
         public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
+        
+        public int lineLength = 60;
+        public int dashLength = 9;
+        public int anger = 99;
 
         /// <summary>
         /// Draws the scene in the terminal
@@ -35,12 +40,33 @@
             }
             else if (scene is ContextScene ctx)
             {
-
                 ClearScreen();
-                Console.WriteLine($"Score: {score}");
-                Console.Write($"---------==================[ ");
+                int percentage = 10-(10%(anger/10));
+                string angerChars = anger.ToString();
+                string scoreChars = score.ToString();
+                int spaceLength = 61+ctx.Area.Name.Length-(21+angerChars.Length+scoreChars.Length);
+                
+                Console.WriteLine(percentage);
+                Console.Write($"Score: {score}");
+                for (int i = 0; i < spaceLength; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.Write("[" + anger + "%]");
+                Console.Write("(");
+                for(int i = 0; i < percentage; i++)
+                {
+                    Console.Write("█");
+                }
+                for(int i= 0; i < 10-percentage; i++)
+                {
+                    Console.Write("-");
+                }
+                Console.WriteLine(")");
+
+                Console.Write($"---------====================[ ");
                 textDisplay.Display(ctx.Area.Name, " ]====================---------");
-                textDisplay.Display(ctx.DialogueText, split: (60 + ctx.Name.Length), punctDelay: 7);
+                textDisplay.Display(ctx.DialogueText, split: lineLength + ctx.Name.Length, punctDelay: 7);
                 //Console.WriteLine($"{ctx.DialogueText}");
                 Console.Write($"---------=====================");
                 foreach (char c in ctx.Name)
