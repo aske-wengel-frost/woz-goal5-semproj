@@ -13,12 +13,12 @@
     /// <summary>
     /// This class controls everything to do with building and loading a story (Collection of scenes)
     /// </summary>
-    public class DataLoader
+    public class DataProvider
     {
         public Story story { get; set; }
         public string dataFilePath { get; set; }
 
-        public DataLoader(string dataFilePath = "./StoryDat.json")
+        public DataProvider(string dataFilePath = "./StoryDat.json")
         {
             this.dataFilePath = dataFilePath;
             story = new Story();
@@ -26,12 +26,12 @@
 
         public void Load()
         {
-            this.LoadStoryFromFile();
+            //this.LoadStoryFromFile();
 
-            //this.LoadAreas();
-            //this.LoadScenes();
-            //this.LoadMapElements();
-            //this.story.Name = "Test Story";
+            this.LoadAreas();
+            this.LoadScenes();
+            this.LoadMapElements();
+            this.story.Name = "Test Story";
 
 
             this.LinkScenes();
@@ -142,7 +142,7 @@
                 { 0, new ContextScene(0, "Køkken 1", 5, Køkken1,
                  new List<SceneChoice>
                  {
-                     new SceneChoice(4, "Du forholder dig stille og roligt for at undgå konflikter."),
+                     new SceneChoice(4, "Du forholder dig stille og roligt for at undgå konflikter.", 1),
                      new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
                      new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
                      new SceneChoice(4, "Action baby"),
@@ -154,13 +154,13 @@
                     new SceneChoice(3, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
                     new SceneChoice(0, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"),
                     new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
-                }, story.Areas[2], 1)},
+                }, story.Areas[2])},
 
                 {2,  new ContextScene(2, "Stue 1", 3,  Stue1,
                     new List<SceneChoice>
                     {
                         new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
-                        new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'."),
+                        new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'.", 5),
                     }, story.Areas[3])
                 },
 

@@ -3,8 +3,6 @@
 using cs.Persistance;
 using cs.Presentation;
 
-using System.Runtime.CompilerServices;
-
 namespace cs.Domain
 {
 
@@ -14,7 +12,7 @@ namespace cs.Domain
         public Story story { get; set; }
         public EndScene EndScene { get; set; }
         private Scene? currentScene { get; set; }
-        public DataLoader dataLoader { get; set; }
+        public DataProvider dataLoader { get; set; }
         public IUIHandler _UIHandler { get; set; }
         public Player player { get; set; }
 
@@ -24,7 +22,7 @@ namespace cs.Domain
         public StoryHandler(IUIHandler uiHandler)
         {
             _UIHandler = uiHandler;
-            dataLoader = new DataLoader();
+            dataLoader = new DataProvider();
             dataLoader.Load();
             dataLoader.ExportStoryToFile();
 
@@ -62,15 +60,14 @@ namespace cs.Domain
             _UIHandler.DrawScene(contextScene, player.Score);
 
         }
+
         /// <summary>
         /// Checks wether userinput corresponds to any choice, and proceeeds if true, otherwise, DrawError is called.
         /// </summary>
         /// <param name="usrInp"></param>
         public void PerformChoice(string usrInp)
         {
-            string ErrorMsg = "Ikke et validt valg. Prøv igen.";
 
-            // GUARD CLAUSES
             // If user input cannot be converted to int
             bool isConverted = Int32.TryParse(usrInp, out int usrInpValue);
             if (!isConverted)
@@ -79,34 +76,36 @@ namespace cs.Domain
                 return;
             }
 
-            // Checks if any of the scene choices contains the users input
+            // Checks if any of the scene choices contains the users input (using ASKE MAGIC)
             if (!UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
                 _UIHandler.DrawError($"{usrInpValue} er ikke et gyldigt valg!");
                 return;
             }
 
-            // Gets the sceneobject
+            //Gets the sceneobject of scene to switch to
             Scene? scene = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
 
-            // Is the scene a context scene?
-            if(scene is ContextScene contextScene)
+            // Checks if current scene is contextScene (Propably is always?)
+            if(currentScene is ContextScene curContextScene)
             {
-                // Is the current scene a context scene and does the new scene exists in its choices?
-                if (currentScene is ContextScene curCtx && curCtx.Choices.Exists(_ => _.SceneObj == contextScene))
+                // Gets the scenechoice
+                SceneChoice? sceneChoice = curContextScene.Choices.Find(_ => _.SceneId == scene.ID);
+
+                // GUARD CLAUSES
+                if (sceneChoice.isLocked())
                 {
-                    // Checks if the choice requires an items
-                    if (contextScene.RequiredItemId != null)
+                    // Try to unlock the sceneChoice
+                    if (!sceneChoice.Unlock(player.Inventory))
                     {
-                        // Check whether player has required item to unlock scene
-                        if (!GetPlayer().Inventory.ItemExists(contextScene.RequiredItemId))
-                        {
-                            _UIHandler.DrawError($"Du mangler {contextScene.RequiredItemId} for at foretage dette valg");
-                            return;
-                        }
+                        //_UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
+                        _UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst [INDSÆT ITEM NAVN]");
+                        return;
                     }
                 }
             }
+            
+
             // At last transitions to scene
             TransitionToScene(scene);
         }
@@ -119,14 +118,15 @@ namespace cs.Domain
         {
             currentScene = scene;
 
+            // If the scene is of type contextScene
             if (scene is ContextScene contextScene)
             {
-
                 _UIHandler.HighlightArea(contextScene.AreaId);
                 player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
                 _UIHandler.DrawScene(contextScene, player.Score);
             }
 
+            // if the scene to transition to is of type cutscene
             if(scene is CutScene cutScene)
             {
                 HandleCutScene(cutScene);
@@ -172,26 +172,21 @@ namespace cs.Domain
             {
                 return false;
             }
+
             // Finds a choice in the current scene that requires an item
             foreach (SceneChoice choice in contextScene.Choices)
             {
                 // Checks if the choice requires the specified item and if it's the right one
-                if (choice.SceneObj.RequiredItemId.HasValue && choice.SceneObj.RequiredItemId.Value == item.ID)
+                if (choice.isLocked() && choice.KeyItemId == item.ID)
                 {
                     // If TRUE, proceed to the next scene
                     _UIHandler.DrawInfo($"Du brugte: {item.Name}.");
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
                     Scene? nextScene = story.FindScene(choice.SceneId);
-
-                    // Goes to the next scene if found
-                    if (nextScene != null)
+                    if(nextScene != null)
                     {
-                        currentScene = nextScene;
-                        _UIHandler.HighlightArea(contextScene.AreaId);
-                        player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
-                        _UIHandler.DrawScene(currentScene, player.Score);
-                        return true;
+                        TransitionToScene(nextScene);
                     }
                 }
             }
@@ -214,17 +209,7 @@ namespace cs.Domain
                 if (nextScene != null)
                 {
                     // Handle next scene.
-                    currentScene = nextScene;
-                    if (currentScene is CutScene nextCutScene)
-                    {
-                        HandleCutScene(nextCutScene);
-                    }
-                    else if (nextScene is ContextScene ctxScene)
-                    {
-                        _UIHandler.HighlightArea(ctxScene.AreaId);
-                        player.Score += ctxScene.ScenePoints;
-                        _UIHandler.DrawScene(nextScene, player.Score);
-                    }
+                    TransitionToScene(nextScene);
                 }
                 else
                 {

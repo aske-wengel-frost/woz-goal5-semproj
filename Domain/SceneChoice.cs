@@ -10,11 +10,34 @@
 
         [JsonIgnore]
         public ContextScene? SceneObj { get; set; }
-        public SceneChoice(int sceneId, string description)
+        public int? KeyItemId { get; set; }
+        public Item? KeyItem { get; set; }
+        public SceneChoice(int sceneId, string description, int? keyItemId = null)
         {
             SceneId = sceneId;
             Description = description;
+            KeyItemId = keyItemId;
+        }
 
+        public bool isLocked()
+        {
+            if(KeyItemId == null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public bool Unlock(Inventory inv)
+        {
+            // try to find required item in inventory
+            if(inv.ItemExists(KeyItemId))
+            {
+                // inv.RemoveItem();
+                return true;
+            }
+
+            return false;
         }
     }
 }
