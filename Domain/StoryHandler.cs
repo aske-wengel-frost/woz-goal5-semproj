@@ -11,19 +11,16 @@ namespace cs.Domain
     public class StoryHandler
     {
         bool done = false;
-
         public Story story { get; set; }
-        public EndScene EndScene { get; set; } // Added EndScene property
+        public EndScene EndScene { get; set; }
         private Scene? currentScene { get; set; }
         public DataLoader dataLoader { get; set; }
-
         public IUIHandler _UIHandler { get; set; }
-
-        public Player player { get; set; } //Make a player property.
+        public Player player { get; set; }
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
-        // Godt eksempel p� dependeny injection
+        // Godt eksempel på dependeny injection
         public StoryHandler(IUIHandler uiHandler)
         {
             _UIHandler = uiHandler;
@@ -33,7 +30,8 @@ namespace cs.Domain
 
             this.story = dataLoader.story;
 
-            EndScene = new EndScene(this); // Initialize EndScene with the current StoryHandler instance
+            // Initialize EndScene with the current StoryHandler instance
+            EndScene = new EndScene(this); 
 
             // Loads the story
             //dataLoader.LoadAreas();
@@ -50,13 +48,14 @@ namespace cs.Domain
         {
             // Sets the current scene
             ContextScene? contextScene = story.getInitialScene();
-            currentScene = contextScene;
 
             if (contextScene is null)
             {
                 _UIHandler.DrawError("Could not find start valid start scene!");
                 return;
             }
+
+            currentScene = contextScene;
 
             // Draws the initial scene
             _UIHandler.HighlightArea(contextScene.AreaId);
@@ -70,54 +69,68 @@ namespace cs.Domain
         public void PerformChoice(string usrInp)
         {
             string ErrorMsg = "Ikke et validt valg. Prøv igen.";
-            Int32.TryParse(usrInp, out int usrInpValue);
-            if (UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
-            {
-                Scene? sceneProxy = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
 
-                // Check wheter scene is a ContextScene.
-                if (sceneProxy is ContextScene contextScene)
+            // GUARD CLAUSES
+            // If user input cannot be converted to int
+            bool isConverted = Int32.TryParse(usrInp, out int usrInpValue);
+            if (!isConverted)
+            {
+                _UIHandler.DrawError("Ikke validt input!");
+                return;
+            }
+
+            // Checks if any of the scene choices contains the users input
+            if (!UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
+            {
+                _UIHandler.DrawError($"{usrInpValue} er ikke et gyldigt valg!");
+                return;
+            }
+
+            // Gets the sceneobject
+            Scene? scene = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
+
+            // Is the scene a context scene?
+            if(scene is ContextScene contextScene)
+            {
+                // Is the current scene a context scene and does the new scene exists in its choices?
+                if (currentScene is ContextScene curCtx && curCtx.Choices.Exists(_ => _.SceneObj == contextScene))
                 {
-                    if (currentScene is ContextScene curCtx && curCtx.Choices.Exists(_ => _.SceneObj == contextScene))
+                    // Checks if the choice requires an items
+                    if (contextScene.RequiredItemId != null)
                     {
-                        // Checks if the choice requires an itemd
-                        if (contextScene.RequiredItemId != null)
+                        // Check whether player has required item to unlock scene
+                        if (!GetPlayer().Inventory.ItemExists(contextScene.RequiredItemId))
                         {
-                            // Check whether choice needs item.
-                            if (!GetPlayer().Inventory.ItemExists(contextScene.RequiredItemId))
-                            {
-                                _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
-                                return;
-                            }
-                            _UIHandler.DrawError($"Måske hvis du bruger en genstand ville du kunne komme videre.");
+                            _UIHandler.DrawError($"Du mangler {contextScene.RequiredItemId} for at foretage dette valg");
                             return;
                         }
-
-                        currentScene = contextScene;
-                        _UIHandler.HighlightArea(contextScene.AreaId);
-                        player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
-                        _UIHandler.DrawScene(currentScene, player.Score);
-
                     }
-
-                    else { _UIHandler.DrawError(ErrorMsg); }
-
                 }
-
-                // Check whether scene is a cutscene, and handle respectively.
-                else if (sceneProxy is CutScene cutScene)
-                {
-                    if (cutScene != null)
-                    {
-                        currentScene = cutScene;
-                        this.HandleCutScene(cutScene);
-                    }
-                    else { _UIHandler.DrawError(ErrorMsg); }
-
-                }
-
             }
-            else { _UIHandler.DrawError(ErrorMsg); }
+            // At last transitions to scene
+            TransitionToScene(scene);
+        }
+
+        /// <summary>
+        /// Helper method for transitioning to a given scene
+        /// </summary>
+        /// <param name="scene">The scene to transition to</param>
+        private void TransitionToScene(Scene scene)
+        {
+            currentScene = scene;
+
+            if (scene is ContextScene contextScene)
+            {
+
+                _UIHandler.HighlightArea(contextScene.AreaId);
+                player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
+                _UIHandler.DrawScene(contextScene, player.Score);
+            }
+
+            if(scene is CutScene cutScene)
+            {
+                HandleCutScene(cutScene);
+            }
         }
 
         public void MakeDone()
