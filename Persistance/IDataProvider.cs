@@ -11,6 +11,7 @@
     public interface IDataProvider
     {
         public Story getStory();
+        public void setStory(Story story);
         //public bool setStory();
     }
 }
