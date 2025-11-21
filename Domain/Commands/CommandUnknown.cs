@@ -1,6 +1,6 @@
 /* Fallback for when a command is not implemented
  */
-namespace cs.Commands
+namespace cs.Domain.Commands
 {
     using cs.Domain;
 

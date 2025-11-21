@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace cs.Commands
+namespace cs.Domain.Commands
 {
     public class CommandStatus : BaseCommand, ICommand
     {

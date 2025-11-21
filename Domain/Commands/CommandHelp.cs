@@ -1,7 +1,7 @@
 /* Help command
  */
 
-namespace cs.Commands
+namespace cs.Domain.Commands
 {
     using cs.Domain;
 

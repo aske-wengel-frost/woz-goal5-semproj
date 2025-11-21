@@ -1,6 +1,6 @@
 /* Baseclass for commands
  */
-namespace cs.Commands
+namespace cs.Domain.Commands
 {
 
     public class BaseCommand

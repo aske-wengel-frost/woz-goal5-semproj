@@ -1,7 +1,7 @@
 /* Command for exiting program
  */
 
-namespace cs.Commands
+namespace cs.Domain.Commands
 {
     using cs.Domain;
 
