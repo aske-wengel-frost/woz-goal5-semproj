@@ -28,7 +28,16 @@ namespace cs
 
         public void Dispatch(string line)
         {
-            string[] elements = line.Split(" ");
+            // 1. Check if the line is empty, null, or just whitespace
+            if (string.IsNullOrWhiteSpace(line))
+            {
+                return;
+            }
+
+            // 2. Convert the line to lowercase
+            string processedLine = line.ToLower();
+
+            string[] elements = processedLine.Split(" ");
             string command = elements[0];
             string[] parameters = GetParameters(elements);
             (commands.ContainsKey(command) ? GetCommand(command) : fallback).Execute(StoryHandler, command, parameters);

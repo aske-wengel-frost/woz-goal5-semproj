@@ -1,12 +1,6 @@
-/* Main class for launching the game
- */
-using cs;
-using cs.Commands;
-using System.Transactions;
-
 namespace cs
 {
-    using Commands;
+    using cs.Commands;
 
     public class Game
     {
@@ -64,16 +58,7 @@ namespace cs
                 Console.Write("> ");
                 string? line = Console.ReadLine();
 
-                // 1. Check if the line is empty, null, or just whitespace
-                if (string.IsNullOrWhiteSpace(line))
-                {
-                    continue;
-                }
-                // 2. Convert the line to lowercase
-                string processedLine = line.ToLowerInvariant();
-
-                // 3. Send the processed line to dispatch system
-                registry.Dispatch(processedLine);
+                registry.Dispatch(line);
             }
             Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
