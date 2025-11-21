@@ -29,6 +29,8 @@ namespace cs
             dataLoader.Load();
             dataLoader.ExportStoryToFile();
 
+            this.story = dataLoader.story;
+
             EndScene = new EndScene(this); // Initialize EndScene with the current StoryHandler instance
 
             // Loads the story
@@ -46,6 +48,7 @@ namespace cs
         {
             // Sets the current scene
             ContextScene? contextScene = story.getInitialScene();
+            currentScene = contextScene;
 
             if (contextScene is null)
             {
@@ -84,6 +87,8 @@ namespace cs
                                 _UIHandler.DrawError("Du mangler en genstand for at vælge dette!");
                                 return;
                             }
+                            _UIHandler.DrawError($"Måske hvis du bruger en genstand ville du kunne komme videre.");
+                            return;
                         }
 
                         currentScene = contextScene;
@@ -168,6 +173,8 @@ namespace cs
                     if (nextScene != null)
                     {
                         currentScene = nextScene;
+                        _UIHandler.HighlightArea(contextScene.AreaId);
+                        player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
                         _UIHandler.DrawScene(currentScene, player.Score);
                         return true;
                     }
