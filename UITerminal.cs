@@ -21,7 +21,7 @@
         public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
         
         public int dashLength = 9;
-        public int anger = 0;
+        public int anger = 1;
         int angerBar;
 
         /// <summary>
@@ -43,7 +43,7 @@
                 ClearScreen();
                 if (anger>10)
                 {
-                    angerBar = 10-(10%(anger/10));
+                    angerBar = (int)anger/10;
                 }
                 else
                 {
@@ -52,7 +52,8 @@
                 string angerChars = anger.ToString();
                 string scoreChars = score.ToString();
                 int spaceLength = 62+ctx.Area.Name.Length-(37+angerChars.Length+scoreChars.Length);
-                
+
+                Console.WriteLine($"Anger: {anger} Angerbar: {angerBar}");
                 Console.Write($"Score: {score}");
                 for (int i = 0; i < spaceLength; i++)
                 {
