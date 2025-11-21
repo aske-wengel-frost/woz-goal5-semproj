@@ -108,6 +108,19 @@ namespace cs
                 //This is the code that gives the delay between each display of each character to the terminal. It consist of a sort of "if statement". If the character is a punctuation mark then have the delay to be the charDelay multiplied by the punctDelay. Otherwise have the delay to be just the charDelay
                 Task.Delay((character == '.' || character == '?' || character == '!' || character == ':') ? (_charDelay * punctDelay) : (_charDelay)).Wait();
                 count++;
+
+                if (count == (split-1))
+                {
+                    if (character != ' ')
+                    {
+                        Console.Write("-");
+                    }
+                    else
+                    {
+                        Console.Write(" ");
+                    }
+                    count++;
+                }
             }
 
             //These if and else statement just determines if the next text should be displayed on the same line or on a new 

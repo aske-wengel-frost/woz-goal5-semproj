@@ -10,30 +10,34 @@
         }
 
         /// <summary>
-        /// ¨Show end scene with player's score and option to play again
+        /// Show end scene with player's score and option to play again
         /// </summary>
         public void ShowEndScene()
         {
-            Console.Clear();
-            Console.WriteLine("---------=======================================================================================---------");
-            Console.WriteLine("Tak fordi du spillede!");
-            Console.WriteLine();
-            Console.WriteLine("Dette spil er skabt for at skabe opmærksomhed omkring psykisk vold mod kvinder.");
-            Console.WriteLine("Vi håber, at du gennem disse valg og scenarier har fået indblik i,");
-            Console.WriteLine("hvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.");
-            Console.WriteLine();
-            Console.WriteLine("Husk: Du er ikke alene. Der findes altid hjælp.");
-            Console.WriteLine("Hvis du kender nogle eller har selv oplevet lignende situationer,");
-            Console.WriteLine("så tøv ikke med at række ud for støtte og hjælp.");
-            Console.WriteLine("Lev Uden Volds Hotline: 1888");
-            Console.WriteLine("---------=======================================================================================---------");
-            Console.WriteLine();
+            storyHandler._UIHandler.ClearScreen();
+
+            textDisplay.charDelay = 2; // slows character display speed for dramatic effect 🤌
+
+            
+            textDisplay.Display("---------=======================================================================================---------");
+            textDisplay.Display("Tak fordi du spillede!");
+            Console.WriteLine("");
+            textDisplay.Display("Dette spil er skabt for at skabe opmærksomhed omkring psykisk vold mod kvinder.");
+            textDisplay.Display("Vi håber, at du gennem disse valg og scenarier har fået indblik i,");
+            textDisplay.Display("hvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.");
+            Console.WriteLine("");
+            textDisplay.Display("Husk: Du er ikke alene. Der findes altid hjælp.");
+            textDisplay.Display("Hvis du kender nogle eller har selv oplevet lignende situationer,");
+            textDisplay.Display("så tøv ikke med at række ud for støtte og hjælp.");
+            textDisplay.Display("Lev Uden Volds Hotline: 1888");
+            textDisplay.Display("---------=======================================================================================---------");
+            Console.WriteLine("");
 
             // Show players total score
             ShowPlayerScore();
 
-            Console.WriteLine();
-            Console.WriteLine("Vil du gerne prøve igen? (ja/nej)");
+            Console.WriteLine("");
+            textDisplay.Display("Vil du gerne prøve igen? (ja/nej)");
             Console.Write("> ");
 
             string? input = Console.ReadLine()?.ToLowerInvariant();
@@ -55,11 +59,10 @@
         private void ShowPlayerScore()
         {
             Player player = storyHandler.GetPlayer();
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"═══════════════════════════════");
-            Console.WriteLine($"  {player.Name}'s Total Score: {player.Score}");
-            Console.WriteLine($"═══════════════════════════════");
-            Console.ResetColor();
+            Console.WriteLine();
+            storyHandler._UIHandler.DrawInfo($"═══════════════════════════════");
+            storyHandler._UIHandler.DrawInfo($"  {player.Name}'s Total Score: {player.Score}");
+            storyHandler._UIHandler.DrawInfo($"═══════════════════════════════");
         }
 
         /// <summary>
@@ -67,7 +70,7 @@
         /// </summary>
         private void RestartGame()
         {
-            Console.Clear();
+            storyHandler._UIHandler.ClearScreen();
 
             // Reset players score and inventory
             storyHandler.GetPlayer().Score = 0;

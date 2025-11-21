@@ -26,13 +26,6 @@ namespace cs
             storyHandler = new StoryHandler(UIHandler);
             registry = new Registry(storyHandler, fallback);
 
-            // inits a new data loader and loads data
-            DataLoader dt = new DataLoader();
-            dt.Load();
-
-            // Set the storyobject of the storyhandler to the story object in the data loader
-            storyHandler.story = dt.story;
-
             // Inits the map with the mapelements defined in the story loaded.
             UIHandler.InitMap(storyHandler.story.MapElements);
 
