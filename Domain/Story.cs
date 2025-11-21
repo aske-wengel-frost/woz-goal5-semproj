@@ -1,6 +1,6 @@
-﻿namespace cs
+﻿namespace cs.Domain
 {
-    using cs.MapTerminal;
+    using cs.Presentation.MapTerminal;
 
     using System;
     using System.Collections.Generic;

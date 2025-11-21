@@ -1,6 +1,5 @@
-namespace cs
+namespace cs.Domain
 {
-
     public class Player
     {
         public string Name { get; set; }

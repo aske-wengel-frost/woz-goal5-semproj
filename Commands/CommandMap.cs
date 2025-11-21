@@ -1,5 +1,6 @@
 ﻿namespace cs.Commands
 {
+    using cs.Domain;
     using cs.MapTerminal;
 
     using System;

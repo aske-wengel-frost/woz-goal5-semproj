@@ -1,7 +1,7 @@
 /* Command registry
  */
 
-namespace cs
+namespace cs.Domain
 {
     using Commands;
 

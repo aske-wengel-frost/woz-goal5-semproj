@@ -11,6 +11,9 @@
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
     using System.Xml;
+
+    using cs.Presentation.MapTerminal;
+
     using MapTerminal;
 
     class UITerminal : IUIHandler

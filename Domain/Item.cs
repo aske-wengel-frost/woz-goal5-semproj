@@ -1,7 +1,7 @@
 /* Item class representing an item in the Game
  */
 
-namespace cs
+namespace cs.Domain
 {
 
     using System;

@@ -1,5 +1,7 @@
-﻿namespace cs
+﻿namespace cs.Domain
 {
+    using cs.Presentation;
+
     public class EndScene
     {
         private StoryHandler storyHandler;

@@ -1,4 +1,4 @@
-﻿namespace cs
+﻿namespace cs.Domain
 {
     using System;
     using System.Text.Json.Serialization;

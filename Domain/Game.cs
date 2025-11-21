@@ -1,4 +1,4 @@
-namespace cs
+namespace cs.Domain
 {
     using cs.Commands;
 

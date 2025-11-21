@@ -1,6 +1,5 @@
-namespace cs
+namespace cs.Domain
 {
-
     public class CutScene : Scene
     {
         public string ConditionInfo { get; set; }

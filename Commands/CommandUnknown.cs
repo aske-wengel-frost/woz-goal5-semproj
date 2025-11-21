@@ -2,6 +2,8 @@
  */
 namespace cs.Commands
 {
+    using cs.Domain;
+
     using System;
 
     class CommandUnknown : BaseCommand, ICommand

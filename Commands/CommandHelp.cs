@@ -3,6 +3,7 @@
 
 namespace cs.Commands
 {
+    using cs.Domain;
 
     class CommandHelp : BaseCommand, ICommand
     {

@@ -1,5 +1,7 @@
 namespace cs.Commands
 {
+    using cs.Domain;
+
     using System;
 
     class CommandInventory : BaseCommand, ICommand

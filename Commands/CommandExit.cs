@@ -3,7 +3,8 @@
 
 namespace cs.Commands
 {
-    
+    using cs.Domain;
+
     class CommandExit : BaseCommand, ICommand
     {
         public CommandExit()

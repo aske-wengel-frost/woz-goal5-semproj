@@ -2,6 +2,7 @@ namespace cs
 {
     using System.Text.Json.Serialization;
 
+    // Attributes for Json serialization & deserialization, makes sure polymorphism works in export
     [JsonDerivedType(typeof(ContextScene), typeDiscriminator: "contextScene")]
     [JsonDerivedType(typeof(CutScene), typeDiscriminator: "cutScene")]
     public abstract class Scene

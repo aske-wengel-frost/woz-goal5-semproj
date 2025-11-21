@@ -1,4 +1,4 @@
-﻿namespace cs.MapTerminal
+﻿namespace cs.Presentation.MapTerminal
 {
     using System;
     using System.Collections.Generic;
