@@ -20,9 +20,9 @@
         int EffectDelay { get; set; }
         public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
         
-        public int lineLength = 60;
         public int dashLength = 9;
-        public int anger = 99;
+        public int anger = 0;
+        int angerBar;
 
         /// <summary>
         /// Draws the scene in the terminal
@@ -41,32 +41,40 @@
             else if (scene is ContextScene ctx)
             {
                 ClearScreen();
-                int percentage = 10-(10%(anger/10));
+                if (anger>10)
+                {
+                    angerBar = 10-(10%(anger/10));
+                }
+                else
+                {
+                    angerBar = 0;
+                }
                 string angerChars = anger.ToString();
                 string scoreChars = score.ToString();
-                int spaceLength = 61+ctx.Area.Name.Length-(21+angerChars.Length+scoreChars.Length);
+                int spaceLength = 62+ctx.Area.Name.Length-(37+angerChars.Length+scoreChars.Length);
                 
-                Console.WriteLine(percentage);
                 Console.Write($"Score: {score}");
                 for (int i = 0; i < spaceLength; i++)
                 {
                     Console.Write(" ");
                 }
-                Console.Write("[" + anger + "%]");
-                Console.Write("(");
-                for(int i = 0; i < percentage; i++)
+                Console.Write("Partners vrede: [" + anger + "%|");
+                for(int i = 0; i < 10; i++)
                 {
-                    Console.Write("█");
+                    if (i < angerBar)
+                    {
+                        Console.Write("█");
+                    }
+                    else
+                    {
+                        Console.Write("-");
+                    }
                 }
-                for(int i= 0; i < 10-percentage; i++)
-                {
-                    Console.Write("-");
-                }
-                Console.WriteLine(")");
+                Console.WriteLine("]");
 
                 Console.Write($"---------====================[ ");
                 textDisplay.Display(ctx.Area.Name, " ]====================---------");
-                textDisplay.Display(ctx.DialogueText, split: lineLength + ctx.Name.Length, punctDelay: 7);
+                textDisplay.Display(ctx.DialogueText, split: 60 + ctx.Name.Length, punctDelay: 7);
                 //Console.WriteLine($"{ctx.DialogueText}");
                 Console.Write($"---------=====================");
                 foreach (char c in ctx.Name)
