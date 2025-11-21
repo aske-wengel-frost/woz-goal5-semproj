@@ -45,10 +45,8 @@
             {
                 ClearScreen();
 
-
                 int AngerBarCharLength = 10;
                 int ScoreBarCharLength = 10;
-
                 int betweenBarsSpace = 62 + ctx.Area.Name.Length - (37 + AngerBarCharLength + ScoreBarCharLength);
 
                 DrawProgressBar(AngerBarCharLength, 2, 10, "Anger");
@@ -80,12 +78,6 @@
                 textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
             }
 
-        }
-
-
-        public string GetUserInput(String input)
-        {
-            return input;
         }
 
         /// <summary>
