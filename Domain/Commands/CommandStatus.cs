@@ -1,4 +1,4 @@
-﻿using cs.Domain;
+﻿using cs.Domain.Story;
 
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,7 @@
 namespace cs.Domain.Commands
 {
-    using cs.Domain;
+    using cs.Domain.Player;
+    using cs.Domain.Story;
 
     using System;
 
