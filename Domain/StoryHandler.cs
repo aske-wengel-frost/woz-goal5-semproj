@@ -1,10 +1,11 @@
 /* StoryHandler class to hold all StoryHandler relevant to a session.
  */
+using cs.Persistance;
 using cs.Presentation;
 
 using System.Runtime.CompilerServices;
 
-namespace cs
+namespace cs.Domain
 {
 
     public class StoryHandler

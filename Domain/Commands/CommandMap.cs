@@ -1,13 +1,7 @@
 ﻿namespace cs.Domain.Commands
 {
-    using cs.Domain;
-    using cs.MapTerminal;
-
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
+    using cs.Domain;
 
     public class CommandMap : BaseCommand, ICommand
     {

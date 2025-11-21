@@ -1,15 +1,14 @@
-﻿namespace cs
+﻿namespace cs.Persistance
 {
-    using cs.Domain;
-    using cs.MapTerminal;
-    using cs.Presentation.MapTerminal;
-
     using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
     using System.Text.Encodings.Web;
     using System.Text.Json;
     using System.Text.Unicode;
+
+    using cs.Domain;
+    using cs.Presentation.MapTerminal;
 
     /// <summary>
     /// This class controls everything to do with building and loading a story (Collection of scenes)

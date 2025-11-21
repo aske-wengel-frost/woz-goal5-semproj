@@ -1,6 +1,7 @@
 namespace cs.Domain
 {
-    using cs.Commands;
+    using cs.Domain.Commands;
+    using cs.Presentation;
 
     public class Game
     {

@@ -1,5 +1,10 @@
-﻿namespace cs
+﻿namespace cs.Presentation
 {
+    using cs.Domain;
+    using cs.Presentation.MapTerminal;
+
+    using MapTerminal;
+
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -10,11 +15,10 @@
     using System.Text;
     using System.Text.RegularExpressions;
     using System.Threading.Tasks;
+    using System.Transactions;
     using System.Xml;
 
-    using cs.Presentation.MapTerminal;
-
-    using MapTerminal;
+    using static System.Formats.Asn1.AsnWriter;
 
     class UITerminal : IUIHandler
     {
@@ -22,10 +26,6 @@
 
         int EffectDelay { get; set; }
         public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
-        
-        public int dashLength = 9;
-        public int anger = 1;
-        int angerBar;
 
         /// <summary>
         /// Draws the scene in the terminal
@@ -44,37 +44,17 @@
             else if (scene is ContextScene ctx)
             {
                 ClearScreen();
-                if (anger>10)
-                {
-                    angerBar = (int)anger/10;
-                }
-                else
-                {
-                    angerBar = 0;
-                }
-                string angerChars = anger.ToString();
-                string scoreChars = score.ToString();
-                int spaceLength = 62+ctx.Area.Name.Length-(37+angerChars.Length+scoreChars.Length);
 
-                Console.WriteLine($"Anger: {anger} Angerbar: {angerBar}");
-                Console.Write($"Score: {score}");
-                for (int i = 0; i < spaceLength; i++)
-                {
-                    Console.Write(" ");
-                }
-                Console.Write("Partners vrede: [" + anger + "%|");
-                for(int i = 0; i < 10; i++)
-                {
-                    if (i < angerBar)
-                    {
-                        Console.Write("█");
-                    }
-                    else
-                    {
-                        Console.Write("-");
-                    }
-                }
-                Console.WriteLine("]");
+
+                int AngerBarCharLength = 10;
+                int ScoreBarCharLength = 10;
+
+                int betweenBarsSpace = 62 + ctx.Area.Name.Length - (37 + AngerBarCharLength + ScoreBarCharLength);
+
+                DrawProgressBar(AngerBarCharLength, 2, 10, "Anger");
+                for(int i = 0; i < betweenBarsSpace; i++) { Console.Write(" ");}
+                DrawProgressBar(ScoreBarCharLength, 2, 10, "Score");
+                Console.WriteLine();
 
                 Console.Write($"---------====================[ ");
                 textDisplay.Display(ctx.Area.Name, " ]====================---------");
@@ -134,17 +114,6 @@
             Console.ResetColor();
         }
 
-        /// <summary>
-        /// Splices text into multiple lines based on a given line length
-        /// </summary>
-        /// <param name="text">The given dialogue text we want spliced</param>
-        /// <param name="lineLength">The amount of chars we want every line to be</param>
-        /// <returns>Returns the spliced text</returns>
-        private string SpliceText(string text, int lineLength)
-        {
-            return Regex.Replace(text, "(.{" + lineLength + "})", "$1" + Environment.NewLine);
-        }
-
         public void DrawMap()
         {
             map.DrawMap();
@@ -167,6 +136,35 @@
         {
             textDisplay.Display("\nTryk [enter] for at fortsætte...");
             Console.ReadLine();
+        }
+
+        public void DrawProgressBar(int BarCharLength, int curVal, int maxVal, string title = "Bar")
+        {
+            // Is not allowed, so we set curVal to 0
+            if (curVal > maxVal)
+            {
+                curVal = 0;
+            }
+
+            // percent the value is
+            double Percent = (double)curVal / (double)maxVal;
+
+            int numOfblockChars = (int)(BarCharLength * Percent);
+
+            Console.Write($"{title}: [{Percent * 100}%|");
+
+            for (int i = 0; i < BarCharLength; i++)
+            {
+                if (i < numOfblockChars)
+                {
+                    Console.Write("█");
+                }
+                else
+                {
+                    Console.Write("-");
+                }
+            }
+            Console.Write("]");
         }
 
     }

@@ -1,4 +1,4 @@
-﻿namespace cs
+﻿namespace cs.Presentation
 {
     using cs.Domain;
     using cs.Presentation.MapTerminal;
