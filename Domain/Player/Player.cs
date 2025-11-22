@@ -1,4 +1,4 @@
-namespace cs.Domain
+namespace cs.Domain.Player
 {
     public class Player
     {

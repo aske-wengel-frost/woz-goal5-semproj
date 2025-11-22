@@ -22,7 +22,7 @@ namespace cs.Domain.Commands
                 {
                     StoryHandler._UIHandler.DrawInfo($"Du befinder dig i: {ctx.Area.Name}");
                     StoryHandler._UIHandler.DrawInfo($"Genstande:");
-                    foreach (Item it in ctx.Area.Items)
+                    foreach (Item it in ctx.Area.Items.Values)
                     {
                         StoryHandler._UIHandler.DrawInfo($" {it.Name},");
                     }

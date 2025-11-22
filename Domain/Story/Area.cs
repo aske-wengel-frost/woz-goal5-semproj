@@ -1,25 +1,47 @@
-namespace cs.Domain
+namespace cs.Domain.Story
 {
+    using cs.Domain.Player;
+
     using System.Text.Json.Serialization;
 
     public class Area
     {
-        public int ID { get; set; }
+        private static int currentID = 0;
+
+        private int _ID;
+
+        public int ID
+        {
+            get { return _ID; }
+            set 
+            { 
+                _ID = value;
+                if (value > currentID)
+                {
+                    currentID = value;
+                }
+            }
+        }
+
         public string Name { get; set; }
 
-        public List<Item> Items { get; set; }
+        public List<int> itemIds { get; set;} = new List<int>();
+
+        [JsonIgnore]
+        public Dictionary<int, Item> Items { get; set; }
 
         public Area()
         {
             // Initialize defaults to avoid null reference issues
             Name = "";
-            Items = new List<Item>();
+            ID = getNextId();
+            Items = new Dictionary<int, Item>();
         }
 
         // Constructor for Area initialization
-        public Area(int ID, string name, List<Item>? itmes = null ) // Area can contain a List of itmes and gives it a default value.  
+        public Area(string name, Dictionary<int,Item>? itmes = null ) // Area can contain a List of itmes and gives it a default value.  
         {
-            this.ID = ID;
+            this.ID = getNextId();
             this.Name = name; 
             //If the developer has given items, we use it else we make a empty List. 
             if ( itmes != null )
@@ -28,19 +50,34 @@ namespace cs.Domain
             }
             else
             {
-                Items = new List<Item>();
+                Items = new Dictionary<int, Item>();
             }
+        }
+
+        public Area AddItem(Item item)
+        {
+            Items.Add(item.ID, item);
+            // Also add id to ids list so it is added when exporting to josn 
+            itemIds.Add(item.ID);
+            // this enables for chaining the method together when building stories from code
+            return this;
         }
 
         public Item? TakeItem(string itemName)
         {
-            return Items?.Where(x => x.Name.ToLowerInvariant() == itemName).FirstOrDefault();
+            return Items?.Values.Where(x => x.Name.ToLowerInvariant() == itemName).FirstOrDefault();
         }
 
         // A way to view the given area details
         public override string ToString()
         {
             return $"Area ID: {ID}, Name: {Name}";
+        }
+
+        // Helpers
+        private static int getNextId()
+        {
+            return currentID++;
         }
     }   
 }

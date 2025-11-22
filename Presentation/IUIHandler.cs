@@ -1,6 +1,6 @@
 ﻿namespace cs.Presentation
 {
-    using cs.Domain;
+    using cs.Domain.Story;
     using cs.Presentation.MapTerminal;
 
     using System;

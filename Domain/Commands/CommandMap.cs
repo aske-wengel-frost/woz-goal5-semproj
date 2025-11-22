@@ -1,7 +1,8 @@
 ﻿namespace cs.Domain.Commands
 {
     using System;
-    using cs.Domain;
+
+    using cs.Domain.Story;
 
     public class CommandMap : BaseCommand, ICommand
     {

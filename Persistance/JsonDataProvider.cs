@@ -1,6 +1,7 @@
 ﻿namespace cs.Persistance
 {
-    using cs.Domain;
+    using cs.Domain.Player;
+    using cs.Domain.Story;
 
     using System;
     using System.Collections.Generic;
@@ -13,8 +14,8 @@
     public class JsonDataProvider : IDataProvider
     {
         private Story Story;
-        private string dataFilePath = "./Story.json";
-        public JsonDataProvider(string filePath)
+        private string dataFilePath;
+        public JsonDataProvider(string filePath = "./StoryDat.json")
         {
             this.dataFilePath = filePath;
             Story = new Story();
@@ -95,6 +96,29 @@
                             {
                                 sceneChoice.SceneObj = targetScene;
                             }
+                        }
+
+                        if(Story.Items.TryGetValue(sceneChoice.KeyItemId, out Item keyItem))
+                        {
+                            sceneChoice.KeyItem = keyItem;
+                        }
+                    }
+                }
+            }
+
+            // loop through all areas and link items
+            foreach(Area area in Story.Areas.Values)
+            {
+                if(area.itemIds.Count > 0)
+                {
+                    foreach(int itemId in area.itemIds)
+                    {
+                        // Find the item
+                        Item? item = Story.Items[itemId];
+                        if(item != null)
+                        {
+                            area.Items.Add(item.ID, item);
+
                         }
                     }
                 }

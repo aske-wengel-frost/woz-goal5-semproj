@@ -1,4 +1,4 @@
-﻿namespace cs.Domain
+﻿namespace cs.Domain.Story
 {
     using System;
     using System.Text.Json.Serialization;
@@ -15,8 +15,8 @@
         public string? DialogueText { get; set; }
         public List<SceneChoice> Choices { get; set; }
 
-        public ContextScene(int id, string name, int scenePoints, string dialogueText, List<SceneChoice> choices, Area area = null)
-            : base(id, name)
+        public ContextScene(string name, int scenePoints, string dialogueText, List<SceneChoice> choices, Area area = null)
+            : base(name)
         {
             DialogueText = dialogueText;
             Area = area;

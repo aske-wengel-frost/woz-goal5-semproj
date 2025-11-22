@@ -1,6 +1,6 @@
 namespace cs.Domain.Commands
 {
-    using cs.Domain;
+    using cs.Domain.Story;
 
     using System;
 

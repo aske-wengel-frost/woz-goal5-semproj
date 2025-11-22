@@ -1,5 +1,7 @@
-﻿namespace cs.Domain
+﻿namespace cs.Domain.Story
 {
+    using cs.Domain.Player;
+
     using System.Text.Json.Serialization;
 
     // SceneChoice class to represent the choices available in a scene
@@ -10,18 +12,27 @@
 
         [JsonIgnore]
         public ContextScene? SceneObj { get; set; }
-        public int? KeyItemId { get; set; }
+        public int KeyItemId { get; set; }
+
+        [JsonIgnore]
         public Item? KeyItem { get; set; }
-        public SceneChoice(int sceneId, string description, int? keyItemId = null)
+        public SceneChoice(int sceneId, string description, Item? keyItem = null)
         {
             SceneId = sceneId;
             Description = description;
-            KeyItemId = keyItemId;
+
+            // bad?
+            KeyItemId = -1;
+            if(keyItem != null)
+            {
+                KeyItemId = keyItem.ID;
+            }
+            KeyItem = keyItem;
         }
 
         public bool isLocked()
         {
-            if(KeyItemId == null)
+            if(KeyItem == null)
             {
                 return false;
             }

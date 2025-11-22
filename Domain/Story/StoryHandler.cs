@@ -1,10 +1,9 @@
-/* StoryHandler class to hold all StoryHandler relevant to a session.
- */
-using cs.Persistance;
-using cs.Presentation;
-
-namespace cs.Domain
+namespace cs.Domain.Story
 {
+    using cs.Domain.Player;
+    using cs.Persistance;
+    using cs.Presentation;
+
 
     public class StoryHandler
     {
@@ -12,24 +11,29 @@ namespace cs.Domain
         public Story story { get; set; }
         public EndScene EndScene { get; set; }
         private Scene? currentScene { get; set; }
-        public DataProvider dataLoader { get; set; }
+        //public DataProvider dataLoader { get; set; }
         public IUIHandler _UIHandler { get; set; }
+        public IDataProvider _Data { get; set; }
         public Player player { get; set; }
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
         // Godt eksempel på dependeny injection
-        public StoryHandler(IUIHandler uiHandler)
+        public StoryHandler(IUIHandler uiHandler, IDataProvider dataProvider)
         {
+            _Data = dataProvider;
             _UIHandler = uiHandler;
-            dataLoader = new DataProvider();
-            dataLoader.Load();
-            dataLoader.ExportStoryToFile();
 
-            this.story = dataLoader.story;
+            this.story = _Data.getStory();
+            EndScene = new EndScene(this);
+
+            //dataLoader = new DataProvider();
+            //dataLoader.Load();
+            //dataLoader.ExportStoryToFile();
+
+            //this.story = dataLoader.story;
 
             // Initialize EndScene with the current StoryHandler instance
-            EndScene = new EndScene(this); 
 
             // Loads the story
             //dataLoader.LoadAreas();
@@ -67,7 +71,6 @@ namespace cs.Domain
         /// <param name="usrInp"></param>
         public void PerformChoice(string usrInp)
         {
-
             // If user input cannot be converted to int
             bool isConverted = Int32.TryParse(usrInp, out int usrInpValue);
             if (!isConverted)
@@ -99,7 +102,7 @@ namespace cs.Domain
                     if (!sceneChoice.Unlock(player.Inventory))
                     {
                         //_UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
-                        _UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst [INDSÆT ITEM NAVN]");
+                        _UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
                         return;
                     }
                 }

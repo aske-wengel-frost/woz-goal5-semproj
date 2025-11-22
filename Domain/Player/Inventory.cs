@@ -1,7 +1,7 @@
 /* Inventory Class to manage the collection of items in the Game
  */
 
-namespace cs.Domain
+namespace cs.Domain.Player
 {
     using System;
     using System.Collections.Generic;

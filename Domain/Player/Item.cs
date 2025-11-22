@@ -1,7 +1,7 @@
 /* Item class representing an item in the Game
  */
 
-namespace cs.Domain
+namespace cs.Domain.Player
 {
 
     using System;
@@ -9,15 +9,30 @@ namespace cs.Domain
 
     public class Item
     {
+        private static int currentID = 0;
+
         // Just simple properties for the Item class that use Getters and Setters 
-        public int ID { get; set; }
+        private int _ID;
+
+        public int ID
+        {
+            get { return _ID; }
+            set 
+            { 
+                _ID = value;
+                if (value > currentID)
+                {
+                    currentID = value;
+                }
+            }
+        }
         public string Name { get; set; }
         public string Description { get; set; }
 
         // Constructor for the Item class
-        public Item(int ID, string name, string description)
+        public Item(string name, string description)
         {
-            this.ID = ID;
+            this.ID = getNextId();
             this.Name = name;
             this.Description = description;
         }
@@ -26,6 +41,13 @@ namespace cs.Domain
         public override string ToString()
         {
             return $"Item ID: {ID}, Name: {Name}, Description: {Description}";
+        }
+
+
+        // Helpers
+        private static int getNextId()
+        {
+            return currentID++;
         }
     }
 }

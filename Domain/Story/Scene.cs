@@ -1,4 +1,4 @@
-namespace cs.Domain
+namespace cs.Domain.Story
 {
     using System.Text.Json.Serialization;
 
@@ -7,12 +7,31 @@ namespace cs.Domain
     [JsonDerivedType(typeof(CutScene), typeDiscriminator: "cutScene")]
     public abstract class Scene
     {
-        public int ID { get; set; }
+        // Makes sure each new created scene has uniqe ID
+        private static int currentID = 0;
+
+        private int _ID;
+        public int ID 
+        { 
+            get
+            {
+                return _ID;
+            }
+            set
+            {
+                // Makes sure to set the currentID
+                _ID = value;
+                if(value > currentID)
+                {
+                    currentID = value;
+                }
+            } 
+        }
         public string Name { get; set; }
       
-        public Scene(int id, string name)
+        public Scene(string name)
         {
-           ID = id;
+           ID = getNextId();
            Name = name;
         }
 
@@ -29,6 +48,12 @@ namespace cs.Domain
                 if (this.ID == tmpScene.ID) { return true; }
             }
             return false;
+        }
+
+        // Helpers
+        private static int getNextId()
+        {
+            return currentID++; 
         }
     }
 }

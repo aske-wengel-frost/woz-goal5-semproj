@@ -1,6 +1,8 @@
 ﻿namespace cs.Domain.Story
 {
     using cs.Presentation;
+    using cs.Domain;
+    using cs.Domain.Player;
 
     public class EndScene
     {

@@ -12,7 +12,7 @@
     {
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            StoryHandler.dataLoader.ExportStoryToFile();
+            //StoryHandler._Data.ExportStoryToFile();
         }
 
         public string GetDescription()

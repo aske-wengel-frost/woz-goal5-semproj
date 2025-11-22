@@ -1,13 +1,13 @@
-﻿using cs.Domain.Story;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace cs.Domain.Commands
+﻿namespace cs.Domain.Commands
 {
+    using cs.Domain.Story;
+    using cs.Domain.Player;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public class CommandStatus : BaseCommand, ICommand
     {
         public CommandStatus() 

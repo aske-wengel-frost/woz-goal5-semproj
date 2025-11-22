@@ -1,7 +1,10 @@
 namespace cs.Domain
 {
     using cs.Domain.Commands;
+    using cs.Domain.Story;
     using cs.Presentation;
+    using cs.Domain.Player;
+    using cs.Persistance;
 
     public class Game
     {
@@ -18,7 +21,12 @@ namespace cs.Domain
         private static void InitGame()
         {
             UIHandler = new UITerminal();
-            storyHandler = new StoryHandler(UIHandler);
+
+            TestDataProvider tdp = new TestDataProvider();
+            JsonDataProvider jsondp = new JsonDataProvider();
+
+            //storyHandler = new StoryHandler(UIHandler, new JsonDataProvider());
+            storyHandler = new StoryHandler(UIHandler, jsondp);
             registry = new Registry(storyHandler, fallback);
 
             // Inits the map with the mapelements defined in the story loaded.
@@ -26,6 +34,8 @@ namespace cs.Domain
 
             // We call the InitRegistry method
             InitRegistry();
+
+            tdp.exportTestStory();
         }
 
         static void Main(string[] args)
@@ -47,7 +57,7 @@ namespace cs.Domain
             Console.WriteLine();
             Console.Write("Indtast dit navn: ");
             string? playerName = Console.ReadLine();
-            storyHandler.player = new Player (playerName); //Create the player in storyHandler. 
+            storyHandler.player = new Player.Player (playerName); //Create the player in storyHandler. 
             Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne.");
 
             // We start the storyhandler and thereby the story

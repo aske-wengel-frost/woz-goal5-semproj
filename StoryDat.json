@@ -1,70 +1,76 @@
 {
-  "Name": "Test Story",
+  "Name": "",
   "Scenes": {
     "0": {
       "$type": "contextScene",
       "AreaId": 4,
-      "RequiredItemId": null,
       "ScenePoints": 5,
-      "DialogueText": "Du står i køkkenet og laver morgenmad. Du hører din kæreste vågne, og lidt efter kommer han ind i køkkenet.",
+      "DialogueText": "Du st\u00E5r i k\u00F8kkenet og laver morgenmad. Du h\u00F8rer din k\u00E6reste v\u00E5gne, og lidt efter kommer han ind i k\u00F8kkenet.",
       "Choices": [
         {
-          "Description": "Du forholder dig stille og roligt for at undgå konflikter.",
-          "SceneId": 4
+          "Description": "Du forholder dig stille og roligt for at undg\u00E5 konflikter.",
+          "SceneId": 4,
+          "KeyItemId": 0
         },
         {
-          "Description": "Du spørger, om han vil have en kop kaffe.",
-          "SceneId": 2
+          "Description": "Du sp\u00F8rger, om han vil have en kop kaffe.",
+          "SceneId": 2,
+          "KeyItemId": -1
         },
         {
-          "Description": "Du spørger ham om han har lyst til at hjælpe med maden.",
-          "SceneId": 3
+          "Description": "Du sp\u00F8rger ham om han har lyst til at hj\u00E6lpe med maden.",
+          "SceneId": 3,
+          "KeyItemId": -1
         },
         {
           "Description": "Action baby",
-          "SceneId": 4
+          "SceneId": 4,
+          "KeyItemId": -1
         }
       ],
       "ID": 0,
-      "Name": "Køkken 1"
+      "Name": "K\u00F8kken 1"
     },
     "1": {
       "$type": "contextScene",
       "AreaId": 2,
-      "RequiredItemId": 1,
       "ScenePoints": 5,
-      "DialogueText": "Du har lagt dig på sengen, din kæreste står i døren og siger 'Det hele er din skyld'. Du føler dig fortvivlet og fanget.",
+      "DialogueText": "Du har lagt dig p\u00E5 sengen, din k\u00E6reste st\u00E5r i d\u00F8ren og siger \u0027Det hele er din skyld\u0027. Du f\u00F8ler dig fortvivlet og fanget.",
       "Choices": [
         {
-          "Description": "Du nævner tidligere episoder, hvor han har opført sig kontrollerende.",
-          "SceneId": 3
+          "Description": "Du n\u00E6vner tidligere episoder, hvor han har opf\u00F8rt sig kontrollerende.",
+          "SceneId": 3,
+          "KeyItemId": -1
         },
         {
-          "Description": "Du sætter en grænse og siger 'Jeg har brug for at være alene.'",
-          "SceneId": 0
+          "Description": "Du s\u00E6tter en gr\u00E6nse og siger \u0027Jeg har brug for at v\u00E6re alene.\u0027",
+          "SceneId": 0,
+          "KeyItemId": -1
         },
         {
-          "Description": "Du undskylder og lytter til hvad din kæreste siger.",
-          "SceneId": 2
+          "Description": "Du undskylder og lytter til hvad din k\u00E6reste siger.",
+          "SceneId": 2,
+          "KeyItemId": -1
         }
       ],
       "ID": 1,
-      "Name": "Soveværelse 1"
+      "Name": "Sovev\u00E6relse 1"
     },
     "2": {
       "$type": "contextScene",
       "AreaId": 3,
-      "RequiredItemId": null,
       "ScenePoints": 3,
-      "DialogueText": "Du vil gerne se nyhederne, men din kæreste syntes det er spild af tid.",
+      "DialogueText": "Du vil gerne se nyhederne, men din k\u00E6reste syntes det er spild af tid.",
       "Choices": [
         {
-          "Description": "Du slukker tv’et og går fra stuen.",
-          "SceneId": 3
+          "Description": "Du slukker tv\u2019et og g\u00E5r fra stuen.",
+          "SceneId": 3,
+          "KeyItemId": -1
         },
         {
-          "Description": "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'.",
-          "SceneId": 1
+          "Description": "Du rejser dig og g\u00E5r og p\u00E5 vejen ud siger du \u0027Jeg gider ikke det her lige nu\u0027.",
+          "SceneId": 1,
+          "KeyItemId": 2
         }
       ],
       "ID": 2,
@@ -73,25 +79,27 @@
     "3": {
       "$type": "contextScene",
       "AreaId": 1,
-      "RequiredItemId": null,
       "ScenePoints": -3,
-      "DialogueText": "Du træder ind i badet. Du vasker uroen og hans kritiske kommentarer væk med det varme vand. Kort efter hører du din kæreste træde ind.",
+      "DialogueText": "Du tr\u00E6der ind i badet. Du vasker uroen og hans kritiske kommentarer v\u00E6k med det varme vand. Kort efter h\u00F8rer du din k\u00E6reste tr\u00E6de ind.",
       "Choices": [
         {
-          "Description": "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’.",
-          "SceneId": 0
+          "Description": "Du siger roligt og i afmagt \u2018Jeg har brug for et \u00F8jeblik alene\u2019.",
+          "SceneId": 0,
+          "KeyItemId": -1
         },
         {
-          "Description": "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’.",
-          "SceneId": 1
+          "Description": "Du bliver forstyrret og n\u00E5r ikke at t\u00E6nke, f\u00F8r du udbryder \u2018Vil du sige noget!?\u2019.",
+          "SceneId": 1,
+          "KeyItemId": -1
         },
         {
-          "Description": "Du undskylder og skynder dig at slukke vandet og forlade badeværelset.",
-          "SceneId": 2
+          "Description": "Du undskylder og skynder dig at slukke vandet og forlade badev\u00E6relset.",
+          "SceneId": 2,
+          "KeyItemId": -1
         }
       ],
       "ID": 3,
-      "Name": "Badeværelse 1"
+      "Name": "Badev\u00E6relse 1"
     },
     "4": {
       "$type": "cutScene",
@@ -104,40 +112,54 @@
   "Areas": {
     "0": {
       "ID": 0,
-      "Name": "Entré",
-      "Items": []
+      "Name": "Entr\u00E9",
+      "itemIds": []
     },
     "1": {
       "ID": 1,
-      "Name": "Badeværelse",
-      "Items": []
+      "Name": "Badev\u00E6relse",
+      "itemIds": []
     },
     "2": {
       "ID": 2,
-      "Name": "Soveværelse",
-      "Items": []
+      "Name": "Sovev\u00E6relse",
+      "itemIds": []
     },
     "3": {
       "ID": 3,
       "Name": "Stue",
-      "Items": []
+      "itemIds": []
     },
     "4": {
       "ID": 4,
-      "Name": "Køkken",
-      "Items": [
-        {
-          "ID": 1,
-          "Name": "Mobil",
-          "Description": "En mobiltelefon"
-        }
+      "Name": "K\u00F8kken",
+      "itemIds": [
+        0,
+        2
       ]
+    }
+  },
+  "Items": {
+    "0": {
+      "ID": 0,
+      "Name": "Mobil",
+      "Description": "En smartphone"
+    },
+    "1": {
+      "ID": 1,
+      "Name": "Toilet n\u00F8gle",
+      "Description": "En n\u00F8gle til toilettet"
+    },
+    "2": {
+      "ID": 2,
+      "Name": "Pandekage",
+      "Description": "MMMM mums en pandekage"
     }
   },
   "MapElements": [
     {
       "$type": "Room",
-      "Name": "Entré",
+      "Name": "Entr\u00E9",
       "Id": 0,
       "X": 2,
       "Y": 2,
@@ -149,7 +171,7 @@
     },
     {
       "$type": "Room",
-      "Name": "Badeværelse",
+      "Name": "Badev\u00E6relse",
       "Id": 1,
       "X": 49,
       "Y": 2,
@@ -161,7 +183,7 @@
     },
     {
       "$type": "Room",
-      "Name": "Soveværelse",
+      "Name": "Sovev\u00E6relse",
       "Id": 2,
       "X": 11,
       "Y": 2,
@@ -185,7 +207,7 @@
     },
     {
       "$type": "Room",
-      "Name": "Køkken",
+      "Name": "K\u00F8kken",
       "Id": 4,
       "X": 2,
       "Y": 13,

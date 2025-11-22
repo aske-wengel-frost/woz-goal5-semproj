@@ -34,7 +34,7 @@ namespace cs.Domain.Commands
             StoryHandler.player.Inventory.AddItem(item);
 
             // Remove the item from the Area
-            StoryHandler.GetCurrentScene().Area.Items.Remove(item);
+            StoryHandler.GetCurrentScene().Area.Items.Remove(item.ID);
 
             // Notify player of picked up item
             StoryHandler._UIHandler.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");

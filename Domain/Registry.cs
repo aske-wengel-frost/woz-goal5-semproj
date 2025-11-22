@@ -5,6 +5,8 @@ namespace cs.Domain
 {
     using Commands;
 
+    using cs.Domain.Story;
+
     public class Registry
     {
         StoryHandler StoryHandler;

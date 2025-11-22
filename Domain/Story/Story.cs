@@ -1,6 +1,8 @@
-﻿namespace cs.Domain
+﻿namespace cs.Domain.Story
 {
+    using cs;
     using cs.Presentation.MapTerminal;
+    using cs.Domain.Player;
 
     using System;
     using System.Collections.Generic;
@@ -13,6 +15,7 @@
         public string Name { get; set; }
         public Dictionary<int, Scene> Scenes { get; set; }
         public Dictionary<int, Area> Areas { get; set; }
+        public Dictionary<int, Item> Items { get; set; }
 
         // maby not?
         public List<MapElement> MapElements { get; set; }
@@ -22,6 +25,7 @@
             Name = "";
             Scenes = new Dictionary<int, Scene>();
             Areas = new Dictionary<int, Area>();
+            Items = new Dictionary<int, Item>();
             MapElements = new List<MapElement>();
         }
 
@@ -51,6 +55,38 @@
             }
 
             return null;
+        }
+
+        public void AddScene(Scene scene)
+        {
+            Scenes.Add(scene.ID, scene);
+        }
+
+        public void AddArea(Area area)
+        {
+            Areas.Add(area.ID, area);
+        }
+
+        public void AddItem(Item item)
+        {
+            Items.Add(item.ID, item);
+        }
+
+        public Item FindItemByName(string name)
+        {
+            // Gets the first item that matches
+            Item? item = Items.Values.Where(x => x.Name.ToLower() == name.ToLower()).First();
+            if(item == null)
+            {
+                throw new Exception($"No item with name {name} found");
+            }
+            return item;
+        }
+
+        // RETHINK THIS PLEASE
+        public void AddMapElement(MapElement mapel)
+        {
+            MapElements.Add(mapel);
         }
     }
 }
