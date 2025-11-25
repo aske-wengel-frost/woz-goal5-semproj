@@ -27,8 +27,11 @@
         /// <returns></returns>
         public Story getStory()
         {
+            // Loads the story into the private story attribute
             LoadStoryFromFile();
-            LinkScenes();
+            // Resolves all the object references
+            ResolveObjectLinks();
+
             return Story;
         }
 
@@ -39,6 +42,7 @@
         public void setStory(Story story)
         {
             Story = story;
+
             ExportStoryToFile();
         }
 
@@ -69,61 +73,72 @@
         /// Resolves all SceneChoice references by linking to their target Scene-objects.
         /// This is needed, as a scene object may not exist when we want to assign the scene to the scene object within the Choices of the scene.
         /// </summary>
-        private void LinkScenes()
+        private void ResolveObjectLinks()
         {
-            // Loop through all scenes
-            foreach (Scene scene in Story.Scenes.Values)
+            ResolveSceneLinks();
+            ResolveAreaLinks();
+        }
+
+        private void ResolveSceneLinks()
+        {
+            // Loop through all scenes, use oftype parameterized method to only loop through contextscenes, as theese are the only ones with Areas and SceneChoice objects
+            foreach (ContextScene contextScene in Story.Scenes.Values.OfType<ContextScene>())
             {
-                if (scene is ContextScene contextScene)
+                // only if area object is not instanciated
+                if (contextScene.Area == null)
                 {
-
-                    // only if area object is not instanciated
-                    if (contextScene.Area == null)
+                    if (Story.Areas.TryGetValue(contextScene.AreaId, out Area area))
                     {
-                        if (Story.Areas.TryGetValue(contextScene.AreaId, out Area area))
-                        {
-                            contextScene.Area = area;
-                        }
-                    }
-
-                    // Loop through all scenechoices in theese scenes
-                    foreach (SceneChoice sceneChoice in contextScene.Choices)
-                    {
-                        // try to resolve the name of the scene with a scene object
-                        if (Story.Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
-                        {
-                            if (OutScene is ContextScene targetScene)
-                            {
-                                sceneChoice.SceneObj = targetScene;
-                            }
-                        }
-
-                        if(Story.Items.TryGetValue(sceneChoice.KeyItemId, out Item keyItem))
-                        {
-                            sceneChoice.KeyItem = keyItem;
-                        }
+                        contextScene.Area = area;
                     }
                 }
-            }
 
-            // loop through all areas and link items
-            foreach(Area area in Story.Areas.Values)
-            {
-                if(area.itemIds.Count > 0)
+                // Loop through all scenechoices in theese scenes
+                foreach (SceneChoice sceneChoice in contextScene.Choices)
                 {
-                    foreach(int itemId in area.itemIds)
-                    {
-                        // Find the item
-                        Item? item = Story.Items[itemId];
-                        if(item != null)
-                        {
-                            area.Items.Add(item.ID, item);
-
-                        }
-                    }
+                    ResolveChoiceLinks(sceneChoice);
                 }
+
             }
         }
+
+        private void ResolveAreaLinks()
+        {
+            // loop through all areas and link items
+            foreach (Area area in Story.Areas.Values)
+            {
+                foreach (int itemId in area.itemIds)
+                {
+                    // Find the item
+                    Item? item = Story.Items[itemId];
+                    if (item != null)
+                    {
+                        area.Items.Add(item.ID, item);
+                    }
+                }
+
+            }
+        }
+
+        private void ResolveChoiceLinks(SceneChoice sceneChoice)
+        {
+            // try to resolve the name of the scene with a scene object
+            if (Story.Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
+            {
+                if (OutScene is ContextScene targetScene)
+                {
+                    sceneChoice.SceneObj = targetScene;
+                }
+            }
+
+            // Resolves Key item object
+            if (Story.Items.TryGetValue(sceneChoice.KeyItemId, out Item? keyItem))
+            {
+                sceneChoice.KeyItem = keyItem;
+            }
+        }
+
+
         private void ExportStoryToFile()
         {
             string jsonStr = JsonSerializer.Serialize<Story>(this.Story, new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
