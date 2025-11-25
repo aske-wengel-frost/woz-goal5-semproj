@@ -27,11 +27,13 @@
         int EffectDelay { get; set; }
         public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
 
+        int LineLength { get; set; }
+
         /// <summary>
         /// Draws the scene in the terminal
         /// </summary>
         /// <param name="scene">The scene you want to have drawn</param>
-        public void DrawScene(Scene scene, int score)
+        public void DrawScene(Scene scene, int score, int anger)
         {
             // Set scope-specific charDelay for anmiations.
             textDisplay.charDelay = 10;
@@ -45,18 +47,13 @@
             {
                 ClearScreen();
 
-                int angerBarCharLength = 10;
-                int scoreBarCharLength = 10;
-                int betweenBarsSpace = 62 + ctx.Area.Name.Length - (37 + angerBarCharLength + scoreBarCharLength);
+                LineLength = 60 + ctx.Area.Name.Length;
 
-                DrawProgressBar(angerBarCharLength, 2, 10, "Anger");
-                for(int i = 0; i < betweenBarsSpace; i++) { Console.Write(" ");}
-                DrawProgressBar(scoreBarCharLength, 2, 10, "Score");
-                Console.WriteLine();
+                DrawStatusBar(ctx, score, anger);
 
                 Console.Write($"---------====================[ ");
                 textDisplay.Display(ctx.Area.Name, " ]====================---------");
-                textDisplay.Display(ctx.DialogueText, split: 60 + ctx.Name.Length, punctDelay: 7);
+                textDisplay.Display(ctx.DialogueText, split: LineLength, punctDelay: 7);
                 //Console.WriteLine($"{ctx.DialogueText}");
                 Console.Write($"---------=====================");
                 foreach (char c in ctx.Name)
@@ -130,12 +127,30 @@
             Console.ReadLine();
         }
 
+        public void DrawStatusBar(ContextScene ctx, int score, int anger)
+        {
+            string angerTxt = "Anger";
+            string scoreTxt = "Score";
+            string tmpS = score.ToString();
+            string tmpA = anger.ToString();
+
+            int angerBarCharLength = 15 + angerTxt.Length + tmpA.Length;
+            int scoreBarCharLength = 15 + scoreTxt.Length + tmpS.Length;
+            int betweenBarsSpace = LineLength - (angerBarCharLength + scoreBarCharLength);
+
+            DrawProgressBar(10, score, 100, scoreTxt);
+            for (int i = 0; i < betweenBarsSpace; i++) { Console.Write(" "); }
+            DrawProgressBar(10, anger, 100, angerTxt);
+
+            Console.WriteLine();
+        }
+
         public void DrawProgressBar(int BarCharLength, int curVal, int maxVal, string title = "Bar")
         {
             // Is not allowed, so we set curVal to 0
             if (curVal > maxVal)
             {
-                curVal = 0;
+                curVal = maxVal;
             }
 
             // percent the value is

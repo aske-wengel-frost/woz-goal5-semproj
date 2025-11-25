@@ -3,7 +3,7 @@ namespace cs.Domain.Story
     using cs.Domain.Player;
     using cs.Persistance;
     using cs.Presentation;
-
+    using System.Security.Cryptography.X509Certificates;
 
     public class StoryHandler
     {
@@ -61,7 +61,7 @@ namespace cs.Domain.Story
 
             // Draws the initial scene
             _UIHandler.HighlightArea(contextScene.AreaId);
-            _UIHandler.DrawScene(contextScene, player.Score);
+            _UIHandler.DrawScene(contextScene, player.Score, player.PartnerAggression);
 
         }
 
@@ -90,7 +90,7 @@ namespace cs.Domain.Story
             Scene? scene = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
 
             // Checks if current scene is contextScene (Propably is always?)
-            if(currentScene is ContextScene curContextScene)
+            if (currentScene is ContextScene curContextScene)
             {
                 // Gets the scenechoice
                 SceneChoice? sceneChoice = curContextScene.Choices.Find(_ => _.SceneId == scene.ID);
@@ -106,8 +106,10 @@ namespace cs.Domain.Story
                         return;
                     }
                 }
+
+                player.Score += sceneChoice.ScorePoints;
+                player.PartnerAggression += sceneChoice.PartnerAggression;
             }
-            
 
             // At last transitions to scene
             TransitionToScene(scene);
@@ -125,8 +127,8 @@ namespace cs.Domain.Story
             if (scene is ContextScene contextScene)
             {
                 _UIHandler.HighlightArea(contextScene.AreaId);
-                player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
-                _UIHandler.DrawScene(contextScene, player.Score);
+                //player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
+                _UIHandler.DrawScene(contextScene, player.Score, player.PartnerAggression);
             }
 
             // if the scene to transition to is of type cutscene
@@ -202,7 +204,7 @@ namespace cs.Domain.Story
         /// <param name="cutScene"></param>
         public void HandleCutScene(CutScene cutScene)
         {
-            _UIHandler.DrawScene(cutScene, player.Score);
+            _UIHandler.DrawScene(cutScene, player.Score, player.PartnerAggression);
             _UIHandler.WaitForKeypress();
 
             // Check if next scene has id.

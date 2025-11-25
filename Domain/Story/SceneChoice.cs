@@ -9,6 +9,8 @@
     {
         public string? Description { get; set; }
         public int SceneId { get; set; }
+        public int ScorePoints { get; set; }
+        public int PartnerAggression { get; set; }
 
         [JsonIgnore]
         public ContextScene? SceneObj { get; set; }
@@ -16,10 +18,12 @@
 
         [JsonIgnore]
         public Item? KeyItem { get; set; }
-        public SceneChoice(int sceneId, string description, Item? keyItem = null)
+        public SceneChoice(int sceneId, int scorePoints, int partnerAggression, string description, Item? keyItem = null)
         {
             SceneId = sceneId;
             Description = description;
+            ScorePoints = scorePoints;
+            PartnerAggression = partnerAggression;
 
             // bad?
             KeyItemId = -1;

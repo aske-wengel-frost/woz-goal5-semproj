@@ -4,6 +4,7 @@ namespace cs.Domain.Player
     {
         public string Name { get; set; }
         public int Score { get; set; }
+        public int PartnerAggression { get; set; }
         public Inventory Inventory { get; set; }
 
         // We initialize score=0, creates new Inventory for Player, assigns Player a name

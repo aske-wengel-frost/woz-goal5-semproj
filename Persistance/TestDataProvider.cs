@@ -62,52 +62,48 @@
             // Add Scenes to test story
             Story.AddScene(new ContextScene(
                 "Køkken 1", 
-                5,
                 Køkken1,
                 new List<SceneChoice> 
                 {
-                    new SceneChoice(4, "Du forholder dig stille og roligt for at undgå konflikter.", Story.FindItemByName("mobil")),
-                    new SceneChoice(2, "Du spørger, om han vil have en kop kaffe."),
-                    new SceneChoice(3, "Du spørger ham om han har lyst til at hjælpe med maden."),
-                    new SceneChoice(4, "Action baby"),
+                    new SceneChoice(4, 5, 5, "Du forholder dig stille og roligt for at undgå konflikter.", Story.FindItemByName("mobil")),
+                    new SceneChoice(2, 5, 5, "Du spørger, om han vil have en kop kaffe."),
+                    new SceneChoice(3, 5, 5, "Du spørger ham om han har lyst til at hjælpe med maden."),
+                    new SceneChoice(4, 5, 5, "Action baby"),
                 }, 
                 Story.Areas[4]
             ));
 
             Story.AddScene(new ContextScene(
                 "Soveværelse 1",
-                5,
                 Soveværelse1,
                 new List<SceneChoice>
                 {
-                    new SceneChoice(3, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
-                    new SceneChoice(0, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"),
-                    new SceneChoice(2, "Du undskylder og lytter til hvad din kæreste siger."),
+                    new SceneChoice(3, 5, 5, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."),
+                    new SceneChoice(0, 5, 5, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"),
+                    new SceneChoice(2, 5, 5, "Du undskylder og lytter til hvad din kæreste siger."),
                 },
                 Story.Areas[2]
             ));
 
             Story.AddScene(new ContextScene(
                 "Stue 1",
-                3,
                 Stue1,
                 new List<SceneChoice>
                 {
-                    new SceneChoice(3, "Du slukker tv’et og går fra stuen."),
-                    new SceneChoice(1, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'.", Story.FindItemByName("pandekage")),
+                    new SceneChoice(3, 5, 5, "Du slukker tv’et og går fra stuen."),
+                    new SceneChoice(1, 5, 5, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'.", Story.FindItemByName("pandekage")),
                 },
                 Story.Areas[3]
             ));
 
             Story.AddScene(new ContextScene(
                 "Badeværelse 1",
-                -3,
                 Badeværelse1,
                 new List<SceneChoice>
                 {
-                    new SceneChoice(0, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),
-                    new SceneChoice(1, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."),
-                    new SceneChoice(2, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
+                    new SceneChoice(0, 5, 5, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."),
+                    new SceneChoice(1, 5, 5, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."),
+                    new SceneChoice(2, 5, 5, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."),
                 },
                 Story.Areas[1]
             ));
