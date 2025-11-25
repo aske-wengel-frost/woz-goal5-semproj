@@ -8,6 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Update="StoryDat - Copy.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="StoryDat.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

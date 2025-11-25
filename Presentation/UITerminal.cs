@@ -1,0 +1,163 @@
+﻿namespace cs.Presentation
+{
+    using cs.Domain.Story;
+    using cs.Presentation.MapTerminal;
+
+    using MapTerminal;
+
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Dynamic;
+    using System.Linq;
+    using System.Runtime.ExceptionServices;
+    using System.Security.Cryptography.X509Certificates;
+    using System.Text;
+    using System.Text.RegularExpressions;
+    using System.Threading.Tasks;
+    using System.Transactions;
+    using System.Xml;
+
+    using static System.Formats.Asn1.AsnWriter;
+
+    class UITerminal : IUIHandler
+    {
+        private TerminalMap map { get; set; } = new TerminalMap();
+
+        int EffectDelay { get; set; }
+        public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
+
+        /// <summary>
+        /// Draws the scene in the terminal
+        /// </summary>
+        /// <param name="scene">The scene you want to have drawn</param>
+        public void DrawScene(Scene scene, int score)
+        {
+            // Set scope-specific charDelay for anmiations.
+            textDisplay.charDelay = 10;
+
+            if (scene is CutScene cutScene)
+            {
+                ClearScreen();
+                textDisplay.Display(cutScene.ConditionInfo);
+            }
+            else if (scene is ContextScene ctx)
+            {
+                ClearScreen();
+
+                int angerBarCharLength = 10;
+                int scoreBarCharLength = 10;
+                int betweenBarsSpace = 62 + ctx.Area.Name.Length - (37 + angerBarCharLength + scoreBarCharLength);
+
+                DrawProgressBar(angerBarCharLength, 2, 10, "Anger");
+                for(int i = 0; i < betweenBarsSpace; i++) { Console.Write(" ");}
+                DrawProgressBar(scoreBarCharLength, 2, 10, "Score");
+                Console.WriteLine();
+
+                Console.Write($"---------====================[ ");
+                textDisplay.Display(ctx.Area.Name, " ]====================---------");
+                textDisplay.Display(ctx.DialogueText, split: 60 + ctx.Name.Length, punctDelay: 7);
+                //Console.WriteLine($"{ctx.DialogueText}");
+                Console.Write($"---------=====================");
+                foreach (char c in ctx.Name)
+                {
+                    Console.Write("=");
+                }
+                Console.WriteLine("=====================---------");
+                Console.WriteLine("");
+                textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
+
+                int num = 1;
+                foreach (SceneChoice sceneChoice in ctx.Choices)
+                {
+                    SceneChoiceAsc[num] = sceneChoice.SceneId;
+                    textDisplay.Display($"[{num}] > {sceneChoice.Description}", punctDelay: 5);
+                    num++;
+                }
+                Console.WriteLine("");
+                textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
+            }
+
+        }
+
+        /// <summary>
+        /// Clears the terminal screen
+        /// </summary>
+        public void ClearScreen()
+        {
+            Console.Clear();
+        }
+
+        public void DrawError()
+        {
+            Console.WriteLine("Der er opstået en fejl");
+        }
+
+        public void DrawError(string errorMsg)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(errorMsg);
+            Console.ResetColor();
+        }
+        public void DrawInfo(string infoMsg)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(infoMsg);
+            Console.ResetColor();
+        }
+
+        public void DrawMap()
+        {
+            map.DrawMap();
+        }
+
+        public void InitMap(List<MapElement> elements)
+        {
+            map.Elements = elements;
+        }
+
+        public void HighlightArea(int id)
+        {
+            map.HighlightElement(id);
+        }
+
+        /// <summary>
+        /// Waits for user input. Not key-specific. 
+        /// </summary>
+        public void WaitForKeypress()
+        {
+            textDisplay.Display("\nTryk [enter] for at fortsætte...");
+            Console.ReadLine();
+        }
+
+        public void DrawProgressBar(int BarCharLength, int curVal, int maxVal, string title = "Bar")
+        {
+            // Is not allowed, so we set curVal to 0
+            if (curVal > maxVal)
+            {
+                curVal = 0;
+            }
+
+            // percent the value is
+            double Percent = (double)curVal / (double)maxVal;
+
+            int numOfblockChars = (int)(BarCharLength * Percent);
+
+            Console.Write($"{title}: [{Percent * 100}%|");
+
+            for (int i = 0; i < BarCharLength; i++)
+            {
+                if (i < numOfblockChars)
+                {
+                    Console.Write("█");
+                }
+                else
+                {
+                    Console.Write("-");
+                }
+            }
+            Console.Write("]");
+        }
+
+    }
+}
