@@ -32,7 +32,7 @@ namespace cs.Domain.Story
         public Dictionary<int, Item> Items { get; private set; }
 
         // Frame property defines the physical representation of the area, it is nullable as every area must not have a physical representation.
-        public Frame? Frame { get; }
+        public Frame? Frame { get; set;}
 
         public Area()
         {

@@ -9,6 +9,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using System.Text.Encodings.Web;
     using System.Text.Json;
     using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@
 
         public void exportTestStory()
         {
-            string jsonStr = JsonSerializer.Serialize<Story>(Story);
+            string jsonStr = JsonSerializer.Serialize<Story>(Story, new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
 
             File.WriteAllText("EXPORTED.json", jsonStr);
         }

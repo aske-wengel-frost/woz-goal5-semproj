@@ -19,9 +19,13 @@
 
         public SceneChoice(Scene sceneObj, string description, Item? keyItem = null)
         {
-            SceneId = sceneObj.ID;
-            SceneObj = sceneObj;
             Description = description;
+
+            if (sceneObj != null)
+            {
+                SceneId = sceneObj.ID;
+            }
+            SceneObj = sceneObj;
 
             // bad?
             KeyItemId = -1;
