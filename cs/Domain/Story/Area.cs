@@ -1,5 +1,6 @@
 namespace cs.Domain.Story
 {
+    using cs.Domain;
     using cs.Domain.Player;
 
     using System.Text.Json.Serialization;
@@ -28,7 +29,10 @@ namespace cs.Domain.Story
         public List<int> itemIds { get; set;} = new List<int>();
 
         [JsonIgnore]
-        public Dictionary<int, Item> Items { get; set; }
+        public Dictionary<int, Item> Items { get; private set; }
+
+        // Frame property defines the physical representation of the area, it is nullable as every area must not have a physical representation.
+        public Frame? Frame { get; }
 
         public Area()
         {
@@ -39,10 +43,11 @@ namespace cs.Domain.Story
         }
 
         // Constructor for Area initialization
-        public Area(string name, Dictionary<int,Item>? itmes = null ) // Area can contain a List of itmes and gives it a default value.  
+        public Area(string name, Dictionary<int,Item>? itmes = null, Frame? frame = null) // Area can contain a List of itmes and gives it a default value.  
         {
             this.ID = getNextId();
             this.Name = name; 
+            this.Frame = frame;
             //If the developer has given items, we use it else we make a empty List. 
             if ( itmes != null )
             {

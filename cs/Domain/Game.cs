@@ -25,12 +25,12 @@ namespace cs.Domain
             TestDataProvider tdp = new TestDataProvider();
             JsonDataProvider jsondp = new JsonDataProvider();
 
-            //storyHandler = new StoryHandler(UIHandler, new JsonDataProvider());
-            storyHandler = new StoryHandler(UIHandler, jsondp);
+            // Inject dependencies into storyHandler and initialize
+            storyHandler = new StoryHandler(UIHandler, tdp);
             registry = new Registry(storyHandler, fallback);
 
             // Inits the map with the mapelements defined in the story loaded.
-            UIHandler.InitMap(storyHandler.story.MapElements);
+            UIHandler.InitMap(storyHandler.story.Areas);
 
             // We call the InitRegistry method
             InitRegistry();

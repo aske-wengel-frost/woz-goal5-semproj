@@ -8,17 +8,19 @@
     public class SceneChoice
     {
         public string? Description { get; set; }
+
         public int SceneId { get; set; }
-
         [JsonIgnore]
-        public ContextScene? SceneObj { get; set; }
-        public int KeyItemId { get; set; }
+        public Scene? SceneObj { get; set; }
 
+        public int KeyItemId { get; set; }
         [JsonIgnore]
         public Item? KeyItem { get; set; }
-        public SceneChoice(int sceneId, string description, Item? keyItem = null)
+
+        public SceneChoice(Scene sceneObj, string description, Item? keyItem = null)
         {
-            SceneId = sceneId;
+            SceneId = sceneObj.ID;
+            SceneObj = sceneObj;
             Description = description;
 
             // bad?

@@ -87,7 +87,7 @@ namespace cs.Domain.Story
             }
 
             //Gets the sceneobject of scene to switch to
-            Scene? scene = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
+            Scene? scene = story.FindScene<Scene>(UITerminal.SceneChoiceAsc[usrInpValue]);
 
             // Checks if current scene is contextScene (Propably is always?)
             if(currentScene is ContextScene curContextScene)
@@ -186,7 +186,7 @@ namespace cs.Domain.Story
                     _UIHandler.DrawInfo($"Du brugte: {item.Name}.");
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
-                    Scene? nextScene = story.FindScene(choice.SceneId);
+                    Scene? nextScene = story.FindScene<Scene>(choice.SceneId);
                     if(nextScene != null)
                     {
                         TransitionToScene(nextScene);
@@ -208,7 +208,7 @@ namespace cs.Domain.Story
             // Check if next scene has id.
             if (cutScene.NextSceneId.HasValue)
             {
-                Scene? nextScene = story.FindScene(cutScene.NextSceneId.Value);
+                Scene? nextScene = story.FindScene<Scene>(cutScene.NextSceneId.Value);
                 if (nextScene != null)
                 {
                     // Handle next scene.
