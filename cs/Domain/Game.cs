@@ -90,6 +90,8 @@ namespace cs.Domain
             registry.Register(new [] {"brug"}, new CommandUse());
             registry.Register(new [] {"kort"}, new CommandMap());
             registry.Register(new [] {"status"}, new CommandStatus());
+            registry.Register(new [] {"ja", "j"}, new CommandRestartGame());
+            registry.Register(new [] {"nej", "n"}, new CommandExitGame());
         }
     }
 }

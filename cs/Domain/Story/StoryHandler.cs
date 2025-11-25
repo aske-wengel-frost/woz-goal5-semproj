@@ -90,7 +90,7 @@ namespace cs.Domain.Story
             Scene? scene = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
 
             // Checks if current scene is contextScene (Propably is always?)
-            if(currentScene is ContextScene curContextScene)
+            if (currentScene is ContextScene curContextScene)
             {
                 // Gets the scenechoice
                 SceneChoice? sceneChoice = curContextScene.Choices.Find(_ => _.SceneId == scene.ID);
@@ -107,7 +107,7 @@ namespace cs.Domain.Story
                     }
                 }
             }
-            
+
 
             // At last transitions to scene
             TransitionToScene(scene);
@@ -130,7 +130,7 @@ namespace cs.Domain.Story
             }
 
             // if the scene to transition to is of type cutscene
-            if(scene is CutScene cutScene)
+            if (scene is CutScene cutScene)
             {
                 HandleCutScene(cutScene);
             }
@@ -187,7 +187,7 @@ namespace cs.Domain.Story
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
                     Scene? nextScene = story.FindScene(choice.SceneId);
-                    if(nextScene != null)
+                    if (nextScene != null)
                     {
                         TransitionToScene(nextScene);
                     }
@@ -225,6 +225,26 @@ namespace cs.Domain.Story
             }
         }
 
+        public void RestartGame()
+        {
+            _UIHandler.ClearScreen();
+            // Reset players score and inventory
+            GetPlayer().Score = 0;
+
+            // storyHandler.GetPlayer().Inventory = new Inventory();
+            // Remove all items in inventory instead of just making a new one
+            GetPlayer().Inventory.RemoveAllItems();
+            StartStory();
+        }
+
+        public void ShowPlayerScore()
+        {
+            _UIHandler.DrawInfo($"═══════════════════════════════");
+            _UIHandler.DrawInfo($"  {player.Name}'s Total Score: {player.Score}");
+            _UIHandler.DrawInfo($"═══════════════════════════════");
+        }
+
     }
+
 }
 

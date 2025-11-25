@@ -20,7 +20,7 @@
         public void ShowEndScene()
         {
             storyHandler._UIHandler.ClearScreen();
-            textDisplay.charDelay = 2;
+            textDisplay.charDelay = 5;
             
             textDisplay.Display("---------=======================================================================================---------");
             textDisplay.Display("Tak fordi du spillede!");
@@ -37,53 +37,57 @@
             Console.WriteLine("");
 
             // Show players total score
-            ShowPlayerScore();
+            storyHandler.ShowPlayerScore();
 
             Console.WriteLine("");
             textDisplay.Display("Vil du gerne prøve igen? (ja/nej)");
             Console.Write("> ");
+            //
+            // string? input = Console.ReadLine()?.ToLowerInvariant();
+            //
+            // if (input == "ja" || input == "j")
+            // {
+            //     storyHandler.RestartGame();
+            // }
+            // else if (input == "nej" || input == "n")
+            // {
+            //     storyHandler.MakeDone();
+            // }
+            // else 
+            // {
+            //    storyHandler._UIHandler.DrawError("Vælg validt udtryk");
+            // }
 
-            string? input = Console.ReadLine()?.ToLowerInvariant();
-
-            if (input == "ja" || input == "j")
-            {
-                RestartGame();
-            }
-
-            if (input == "nej" || input == "n")
-            {
-                storyHandler.MakeDone();
-            }
         }
 
         /// <summary>
         /// Show player's total score
         /// </summary>
-        private void ShowPlayerScore()
-        {
-            Player player = storyHandler.GetPlayer();
-            Console.WriteLine();
-            storyHandler._UIHandler.DrawInfo($"═══════════════════════════════");
-            storyHandler._UIHandler.DrawInfo($"  {player.Name}'s Total Score: {player.Score}");
-            storyHandler._UIHandler.DrawInfo($"═══════════════════════════════");
-        }
-
-        /// <summary>
-        /// Restart game from the beginning
-        /// </summary>
-        private void RestartGame()
-        {
-            storyHandler._UIHandler.ClearScreen();
-
-            // Reset players score and inventory
-            storyHandler.GetPlayer().Score = 0;
-            
-            // storyHandler.GetPlayer().Inventory = new Inventory();
-            // Remove all items in inventory instead of just making a new one
-            storyHandler.GetPlayer().Inventory.RemoveAllItems();
-            
-            // Start the game from the beginning
-            storyHandler.StartStory();
-        }
+        // private void ShowPlayerScore()
+        // {
+        //     Player player = storyHandler.GetPlayer();
+        //     Console.WriteLine();
+        //     storyHandler._UIHandler.DrawInfo($"═══════════════════════════════");
+        //     storyHandler._UIHandler.DrawInfo($"  {player.Name}'s Total Score: {player.Score}");
+        //     storyHandler._UIHandler.DrawInfo($"═══════════════════════════════");
+        // }
+        //
+        // /// <summary>
+        // /// Restart game from the beginning
+        // /// </summary>
+        // private void RestartGame()
+        // {
+        //     storyHandler._UIHandler.ClearScreen();
+        //
+        //     // Reset players score and inventory
+        //     storyHandler.GetPlayer().Score = 0;
+        //
+        //     // storyHandler.GetPlayer().Inventory = new Inventory();
+        //     // Remove all items in inventory instead of just making a new one
+        //     storyHandler.GetPlayer().Inventory.RemoveAllItems();
+        //
+        //     // Start the game from the beginning
+        //     storyHandler.StartStory();
+        // }
     }
 }
