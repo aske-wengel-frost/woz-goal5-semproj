@@ -19,7 +19,7 @@ namespace cs.Domain.Commands
             if (player == null)
             {
                 
-                StoryHandler._UIHandler.DrawError("FEJL: Spilleren kunne ikke findes."); //Dont know is it should be here.
+                StoryHandler._UIHandler.DrawError("FEJL: Spilleren kunne ikke findes.");
                 return;
             }
 
