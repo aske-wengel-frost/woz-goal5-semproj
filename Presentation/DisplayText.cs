@@ -44,6 +44,7 @@ namespace cs.Presentation
             //The "Console.OutputEncoding = System.Text.Encoding.UTF8;" basically makes the Consoles STDIN able to interpret the unicode of the text styles.
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             int count = 0;
+            bool dash = false;
 
             //Basically a for loop that iterates between eách character in the text 
             foreach (char character in text)
@@ -52,6 +53,16 @@ namespace cs.Presentation
                 Console.ForegroundColor = color;
                 Console.BackgroundColor = backgroundColor;
                 
+                if (dash)
+                {
+                    if (character != ' ')
+                    {
+                        Console.Write("-");
+                        count++;
+                    }
+                    dash = false;
+                }
+
                 //This if statement makes the characters printed on a new line 
                 if (count >= split && split >= 1)
                 {
@@ -113,13 +124,12 @@ namespace cs.Presentation
                 {
                     if (character != ' ')
                     {
-                        Console.Write("-");
+                        dash = true;
                     }
                     else
                     {
-                        Console.Write(" ");
+                        count++;
                     }
-                    count++;
                 }
             }
 
