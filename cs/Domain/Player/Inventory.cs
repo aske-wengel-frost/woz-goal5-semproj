@@ -5,10 +5,14 @@ namespace cs.Domain.Player
 {
     using System;
     using System.Collections.Generic;
+    using System.Runtime.CompilerServices;
 
     public class Inventory
     {
         private List<Item> items;
+
+        //Define  the maximum cpacity of the inventory. 
+        private const int MaxCapacity = 2; 
 
         // Constructor for inventory initialization
         public Inventory()
@@ -17,27 +21,37 @@ namespace cs.Domain.Player
         }
 
         // Method to add an item to the inventory
-        public void AddItem(Item item)
+        // Returns true if succesfull, false if full or item is null 
+        public bool AddItem(Item item)
         {
+            //Cheks if the inventory has reached it's maximum capacity 
+            if (items.Count >= MaxCapacity)
+            {
+                return false; //Inventory is full
+            }
+
             if (item != null)
             {
                 items.Add(item);
-                //Console.WriteLine($"Item: {item.Name} Added to Inventory"); //Debugger message to check
+                return true; // Item added
             }
+
+            return false; // Item = null
         }
 
         // Method to remove an item from the inventory
-        public bool RemoveItem(Item item) //move this code to CommandInventory 
+        //Returns true if the item was found and removed, otherwise false 
+        public bool RemoveItem(Item item) 
         {
             
             if (items.Contains(item))
             {
-                items.Remove(item);
-               return true;
+               items.Remove(item);
+               return true; // Item removed successfully
             }
             else
             {
-                return false;
+                return false; // Item not found
             }
         }
 
