@@ -33,7 +33,7 @@
         /// Returns intial scene with ID = 0. 
         /// </summary>
         /// <returns>Scene</returns>
-        public ContextScene? getInitialScene()
+        public ContextScene? GetInitialScene()
         {
             if(Scenes[0] is not ContextScene)
             {

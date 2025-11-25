@@ -17,7 +17,7 @@ namespace cs.Domain.Commands
             // Attempts to take the item with the specified name from the first parameter
             if (parameters.Length == 0)
             {
-                StoryHandler._UIHandler.DrawInfo("Brug: tag [genstand navn]");
+                StoryHandler._UI.DrawInfo("Brug: tag [genstand navn]");
                 return;
             }
             
@@ -26,7 +26,7 @@ namespace cs.Domain.Commands
             // Check if the item exists
             if(item == null)
             {
-                StoryHandler._UIHandler.DrawError("Denne genstand findes vidst ikke...");
+                StoryHandler._UI.DrawError("Denne genstand findes vidst ikke...");
                 return;
             }
 
@@ -37,7 +37,7 @@ namespace cs.Domain.Commands
             StoryHandler.GetCurrentScene().Area.Items.Remove(item.ID);
 
             // Notify player of picked up item
-            StoryHandler._UIHandler.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
+            StoryHandler._UI.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
 
         }
     }

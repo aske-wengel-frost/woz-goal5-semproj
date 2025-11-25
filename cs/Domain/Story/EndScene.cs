@@ -18,7 +18,7 @@
         /// </summary>
         public void ShowEndScene()
         {
-            storyHandler._UIHandler.ClearScreen();
+            storyHandler._UI.ClearScreen();
 
             textDisplay.charDelay = 2; // slows character display speed for dramatic effect 🤌
 
@@ -64,9 +64,9 @@
         {
             Player player = storyHandler.GetPlayer();
             Console.WriteLine();
-            storyHandler._UIHandler.DrawInfo($"═══════════════════════════════");
-            storyHandler._UIHandler.DrawInfo($"  {player.Name}'s Total Score: {player.Score}");
-            storyHandler._UIHandler.DrawInfo($"═══════════════════════════════");
+            storyHandler._UI.DrawInfo($"═══════════════════════════════");
+            storyHandler._UI.DrawInfo($"  {player.Name}'s Total Score: {player.Score}");
+            storyHandler._UI.DrawInfo($"═══════════════════════════════");
         }
 
         /// <summary>
@@ -74,7 +74,7 @@
         /// </summary>
         private void RestartGame()
         {
-            storyHandler._UIHandler.ClearScreen();
+            storyHandler._UI.ClearScreen();
 
             // Reset players score and inventory
             storyHandler.GetPlayer().Score = 0;

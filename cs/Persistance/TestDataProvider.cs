@@ -21,17 +21,17 @@
             Story = new Story();
             BuildTestStory();
         }
-        public Story getStory()
+        public Story GetStory()
         {
             return Story;
         }
 
-        public void setStory(Story story)
+        public void SetStory(Story story)
         {
             throw new NotImplementedException();
         }
 
-        public void exportTestStory()
+        public void ExportTestStory()
         {
             string jsonStr = JsonSerializer.Serialize<Story>(Story, new JsonSerializerOptions { Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping });
 

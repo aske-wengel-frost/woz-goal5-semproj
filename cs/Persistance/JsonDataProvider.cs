@@ -25,7 +25,7 @@
         /// Gets the story from the json file and links the objects 
         /// </summary>
         /// <returns></returns>
-        public Story getStory()
+        public Story GetStory()
         {
             // Loads the story into the private story attribute
             LoadStoryFromFile();
@@ -39,7 +39,7 @@
         /// Saves the story object back into json file
         /// </summary>
         /// <param name="story"></param>
-        public void setStory(Story story)
+        public void SetStory(Story story)
         {
             Story = story;
 

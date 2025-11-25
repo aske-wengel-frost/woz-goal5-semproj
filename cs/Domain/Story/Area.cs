@@ -34,18 +34,19 @@ namespace cs.Domain.Story
         // Frame property defines the physical representation of the area, it is nullable as every area must not have a physical representation.
         public Frame? Frame { get; set;}
 
+        // NEEDED???
         public Area()
         {
             // Initialize defaults to avoid null reference issues
             Name = "";
-            ID = getNextId();
+            ID = GetNextId();
             Items = new Dictionary<int, Item>();
         }
 
         // Constructor for Area initialization
         public Area(string name, Dictionary<int,Item>? itmes = null, Frame? frame = null) // Area can contain a List of itmes and gives it a default value.  
         {
-            this.ID = getNextId();
+            this.ID = GetNextId();
             this.Name = name; 
             this.Frame = frame;
             //If the developer has given items, we use it else we make a empty List. 
@@ -80,7 +81,7 @@ namespace cs.Domain.Story
         }
 
         // Helpers
-        private static int getNextId()
+        private static int GetNextId()
         {
             return currentID++;
         }

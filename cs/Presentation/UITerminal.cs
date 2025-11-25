@@ -24,8 +24,6 @@
     class UITerminal : IUIHandler
     {
         private TerminalMap map { get; set; } = new TerminalMap();
-
-        int EffectDelay { get; set; }
         public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
 
         /// <summary>

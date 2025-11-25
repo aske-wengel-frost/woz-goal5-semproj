@@ -19,18 +19,18 @@ namespace cs.Domain.Commands
             if (player == null)
             {
                 
-                StoryHandler._UIHandler.DrawError("FEJL: Spilleren kunne ikke findes."); //Dont know is it should be here.
+                StoryHandler._UI.DrawError("FEJL: Spilleren kunne ikke findes."); //Dont know is it should be here.
                 return;
             }
 
             
-            StoryHandler._UIHandler.DrawInfo("\n=== Dit Inventar ===");
+            StoryHandler._UI.DrawInfo("\n=== Dit Inventar ===");
 
             
             if (player.Inventory.IsEmpty())
             {
                 
-                StoryHandler._UIHandler.DrawInfo("Inventar er tomt.");
+                StoryHandler._UI.DrawInfo("Inventar er tomt.");
             }
             else
             {
@@ -38,7 +38,7 @@ namespace cs.Domain.Commands
                 foreach (Item item in player.Inventory.GetItems())
                 {
                     
-                    StoryHandler._UIHandler.DrawInfo(item.ToString());
+                    StoryHandler._UI.DrawInfo(item.ToString());
                 }
             }
         }

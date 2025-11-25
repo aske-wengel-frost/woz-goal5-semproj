@@ -10,7 +10,7 @@ namespace cs.Domain.Commands
     {
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            StoryHandler._UIHandler.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
+            StoryHandler._UI.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
         }
     }
 }

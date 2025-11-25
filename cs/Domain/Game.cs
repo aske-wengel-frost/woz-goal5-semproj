@@ -9,10 +9,10 @@ namespace cs.Domain
     public static class Game
     {
         static public StoryHandler? storyHandler { get; set; }
-        static public IUIHandler? UIHandler { get; set; }
+        //static public IUIHandler? UIHandler { get; set; }
 
         static ICommand fallback = new CommandUnknown();
-        static Registry? registry {get; set;}
+        static Registry? registry { get; set; }
 
 
         /// <summary>
@@ -20,7 +20,7 @@ namespace cs.Domain
         /// </summary>
         private static void InitGame()
         {
-            UIHandler = new UITerminal();
+            UITerminal UIHandler = new UITerminal();
 
             TestDataProvider tdp = new TestDataProvider();
             JsonDataProvider jsondp = new JsonDataProvider();
@@ -35,7 +35,7 @@ namespace cs.Domain
             // We call the InitRegistry method
             InitRegistry();
 
-            tdp.exportTestStory();
+            tdp.ExportTestStory();
         }
 
         static void Main(string[] args)

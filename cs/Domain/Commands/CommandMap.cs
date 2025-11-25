@@ -13,7 +13,7 @@
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            StoryHandler._UIHandler.DrawMap();
+            StoryHandler._UI.DrawMap();
         }
     }
 }

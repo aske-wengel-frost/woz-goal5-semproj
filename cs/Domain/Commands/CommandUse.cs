@@ -18,7 +18,7 @@ namespace cs.Domain.Commands
             // Checks if the user has provided an item name
             if (parameters.Length == 0)
             { 
-                StoryHandler._UIHandler.DrawInfo("Brug: use [Genstand navn]");
+                StoryHandler._UI.DrawInfo("Brug: use [Genstand navn]");
                 return;
             }
 
@@ -30,7 +30,7 @@ namespace cs.Domain.Commands
             // Check to see if the item exists in the inventory
             if (item == null)
             { 
-                StoryHandler._UIHandler.DrawError($"Du har ikke '{itemName}' i dit inventar.");
+                StoryHandler._UI.DrawError($"Du har ikke '{itemName}' i dit inventar.");
                 return;
             }
 
@@ -40,7 +40,7 @@ namespace cs.Domain.Commands
             // If the item cannot be used, it shows an error message
             if (!success)
             { 
-                StoryHandler._UIHandler.DrawError($"Du kan ikke bruge '{itemName}' her.");
+                StoryHandler._UI.DrawError($"Du kan ikke bruge '{itemName}' her.");
             }
         }
     }

@@ -10,8 +10,8 @@
 
     public interface IDataProvider
     {
-        public Story getStory();
-        public void setStory(Story story);
+        public Story GetStory();
+        public void SetStory(Story story);
         //public bool setStory();
     }
 }

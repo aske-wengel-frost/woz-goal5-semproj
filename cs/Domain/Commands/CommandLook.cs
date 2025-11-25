@@ -20,19 +20,19 @@ namespace cs.Domain.Commands
             {
                 if (ctx != null)
                 {
-                    StoryHandler._UIHandler.DrawInfo($"Du befinder dig i: {ctx.Area.Name}");
-                    StoryHandler._UIHandler.DrawInfo($"Genstande:");
+                    StoryHandler._UI.DrawInfo($"Du befinder dig i: {ctx.Area.Name}");
+                    StoryHandler._UI.DrawInfo($"Genstande:");
                     foreach (Item it in ctx.Area.Items.Values)
                     {
-                        StoryHandler._UIHandler.DrawInfo($" {it.Name},");
+                        StoryHandler._UI.DrawInfo($" {it.Name},");
                     }
-                    StoryHandler._UIHandler.DrawInfo("");
+                    StoryHandler._UI.DrawInfo("");
 
                    
                 }
 
             }
-            else { StoryHandler._UIHandler.DrawError("Command not accessable in this context."); } // Do we need to handle other cases ? 
+            else { StoryHandler._UI.DrawError("Command not accessable in this context."); } // Do we need to handle other cases ? 
         }
     }
 }
