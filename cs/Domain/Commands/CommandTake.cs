@@ -20,8 +20,11 @@ namespace cs.Domain.Commands
                 StoryHandler._UIHandler.DrawInfo("Brug: tag [genstand navn]");
                 return;
             }
-            
-            Item? item = StoryHandler.GetCurrentScene().Area.TakeItem(parameters[0]);
+
+            //JoinItemName: Combine array of words into one string
+            string itemName = JoinItemName(parameters);
+
+            Item? item = StoryHandler.GetCurrentScene().Area.TakeItem(itemName);
 
             // Check if the item exists
             if(item == null)
@@ -30,15 +33,26 @@ namespace cs.Domain.Commands
                 return;
             }
 
-            // Add the item to the players inventory
-            StoryHandler.player.Inventory.AddItem(item);
+            // Attempt to add the item to the player's inventory.
+            bool success = StoryHandler.GetPlayer().Inventory.AddItem(item);
 
-            // Remove the item from the Area
-            StoryHandler.GetCurrentScene().Area.Items.Remove(item.ID);
+            if (success)
+            {
+                // Remove the item from the Area
+                StoryHandler.GetCurrentScene().Area.Items.Remove(item.ID);
 
-            // Notify player of picked up item
-            StoryHandler._UIHandler.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
+                // Notify player of picked up item
+                StoryHandler._UIHandler.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
+            }
 
+            else
+            {
+                //The inventory was full (MaxCapacity reached)
+
+                StoryHandler._UIHandler.DrawError("Dit inventar er fuldt! (Max 2 ting)");
+
+                StoryHandler._UIHandler.DrawError("Brug 'Smid' kommandoen for at lave plads");
+            }
         }
     }
 }

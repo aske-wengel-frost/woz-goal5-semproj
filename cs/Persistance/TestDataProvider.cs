@@ -51,7 +51,7 @@
             Story.AddArea(new Area("Badeværelse"));
             Story.AddArea(new Area("Soveværelse"));
             Story.AddArea(new Area("Stue"));
-            Story.AddArea(new Area("Køkken").AddItem(Story.FindItemByName("mobil")).AddItem(Story.FindItemByName("Pandekage")));
+            Story.AddArea(new Area("Køkken").AddItem(Story.FindItemByName("mobil")).AddItem(Story.FindItemByName("Pandekage")).AddItem(Story.FindItemByName("Toilet nøgle")));
 
 
             string Køkken1 = "Du står i køkkenet og laver morgenmad. Du hører din kæreste vågne, og lidt efter kommer han ind i køkkenet.";

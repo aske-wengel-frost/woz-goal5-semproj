@@ -5,7 +5,6 @@ namespace cs.Domain.Player
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.CompilerServices;
 
     public class Inventory
     {
