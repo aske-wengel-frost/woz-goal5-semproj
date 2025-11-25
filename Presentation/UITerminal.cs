@@ -45,13 +45,13 @@
             {
                 ClearScreen();
 
-                int AngerBarCharLength = 10;
-                int ScoreBarCharLength = 10;
-                int betweenBarsSpace = 62 + ctx.Area.Name.Length - (37 + AngerBarCharLength + ScoreBarCharLength);
+                int angerBarCharLength = 10;
+                int scoreBarCharLength = 10;
+                int betweenBarsSpace = 62 + ctx.Area.Name.Length - (37 + angerBarCharLength + scoreBarCharLength);
 
-                DrawProgressBar(AngerBarCharLength, 2, 10, "Anger");
+                DrawProgressBar(angerBarCharLength, 2, 10, "Anger");
                 for(int i = 0; i < betweenBarsSpace; i++) { Console.Write(" ");}
-                DrawProgressBar(ScoreBarCharLength, 2, 10, "Score");
+                DrawProgressBar(scoreBarCharLength, 2, 10, "Score");
                 Console.WriteLine();
 
                 Console.Write($"---------====================[ ");

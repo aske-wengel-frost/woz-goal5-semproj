@@ -6,7 +6,7 @@ namespace cs.Domain
     using cs.Domain.Player;
     using cs.Persistance;
 
-    public class Game
+    public static class Game
     {
         static public StoryHandler? storyHandler { get; set; }
         static public IUIHandler? UIHandler { get; set; }
