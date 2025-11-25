@@ -25,7 +25,7 @@ namespace cs.Domain.Story
             _UIHandler = uiHandler;
 
             this.story = _Data.getStory();
-            EndScene = new EndScene(this);
+            EndScene = new EndScene("Enscene", this);
 
             //dataLoader = new DataProvider();
             //dataLoader.Load();

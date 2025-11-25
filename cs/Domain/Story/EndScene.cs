@@ -1,16 +1,17 @@
 ﻿namespace cs.Domain.Story
 {
     using cs.Presentation;
-    using cs.Domain;
     using cs.Domain.Player;
 
-    public class EndScene
+    public class EndScene: Scene
     {
         private StoryHandler storyHandler;
 
-        public EndScene(StoryHandler storyHandler)
+        public EndScene(string name, StoryHandler storyHandler) 
+            : base (name)
         {
             this.storyHandler = storyHandler;
+            this.Name = name;
         }
 
         /// <summary>
@@ -19,9 +20,7 @@
         public void ShowEndScene()
         {
             storyHandler._UIHandler.ClearScreen();
-
-            textDisplay.charDelay = 2; // slows character display speed for dramatic effect 🤌
-
+            textDisplay.charDelay = 2;
             
             textDisplay.Display("---------=======================================================================================---------");
             textDisplay.Display("Tak fordi du spillede!");
@@ -78,8 +77,11 @@
 
             // Reset players score and inventory
             storyHandler.GetPlayer().Score = 0;
-            storyHandler.GetPlayer().Inventory = new Inventory();
-
+            
+            // storyHandler.GetPlayer().Inventory = new Inventory();
+            // Remove all items in inventory instead of just making a new one
+            storyHandler.GetPlayer().Inventory.RemoveAllItems();
+            
             // Start the game from the beginning
             storyHandler.StartStory();
         }

@@ -29,16 +29,20 @@ namespace cs.Domain.Player
         // Method to remove an item from the inventory
         public bool RemoveItem(Item item) //move this code to CommandInventory 
         {
-            
             if (items.Contains(item))
             {
                 items.Remove(item);
-               return true;
+                return true;
             }
             else
             {
                 return false;
             }
+        }
+
+        public void RemoveAllItems()
+        {
+            items.Clear();
         }
 
         /// <summary>
