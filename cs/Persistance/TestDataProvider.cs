@@ -51,7 +51,9 @@
             Story.AddArea(new Area("Badeværelse", frame: new Frame(49, 2, 8, 12)));
             Story.AddArea(new Area("Soveværelse", frame: new Frame(11, 2, 8, 20)));
             Story.AddArea(new Area("Stue", frame: new Frame(30, 2, 8, 20)));
-            Story.AddArea(new Area("Køkken", frame: new Frame(2, 13, 9, 40)).AddItem(Story.FindItem("mobil")).AddItem(Story.FindItem("Pandekage")));
+            Story.AddArea(new Area("Køkken", frame: new Frame(2, 13, 9, 40))
+                .AddItem(Story.FindItem("mobil"))
+                .AddItem(Story.FindItem("Pandekage")));
             Story.AddArea(new Area("Gang", frame: new Frame(11, 9, 5, 50)));
 
 
@@ -77,7 +79,7 @@
             Story.AddScene(sejereje);
 
 
-            // Now that all scenes have been added to story, we can add scene choices to scenes
+            // Now that all scenes have been added to story, we can add scene choices to scenes (This is done as a scene mostly linkes "forward" to a scene not yet created)
             // ===== KØKKEN 1 ===== //
             køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<CutScene>("Seje reje"), "Du forholder dig stille og roligt for at undgå konflikter.", Story.FindItem("mobil")));
             køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), "Du spørger, om han vil have en kop kaffe."));
