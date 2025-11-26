@@ -10,7 +10,7 @@
 
     public class CommandExportStory : BaseCommand, ICommand
     {
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             //StoryHandler._Data.ExportStoryToFile();
         }

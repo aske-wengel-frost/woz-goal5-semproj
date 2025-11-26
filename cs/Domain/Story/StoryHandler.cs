@@ -99,7 +99,7 @@ namespace cs.Domain.Story
                 if (sceneChoice.isLocked())
                 {
                     // Try to unlock the sceneChoice
-                    if (!sceneChoice.Unlock(player.Inventory))
+                    if (!sceneChoice.Unlock(player.inventory))
                     {
                         //_UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
                         _UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");

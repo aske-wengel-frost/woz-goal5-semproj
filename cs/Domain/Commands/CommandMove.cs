@@ -11,16 +11,16 @@
             this.description = "Bevæge til en anden scene ved at skrive scene nummer";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             if (GuardEq(parameters, 1))
             {
                 // We dont have 1 parameter!
-                StoryHandler._UIHandler.DrawError("For mange argumenter!");
+                storyHandler._UIHandler.DrawError("For mange argumenter!");
                 return;
 
             }
-            StoryHandler.PerformChoice(parameters[0]);
+            storyHandler.PerformChoice(parameters[0]);
         }
     }
 }
