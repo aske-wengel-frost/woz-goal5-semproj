@@ -54,5 +54,18 @@ namespace UnitTests
 
             Assert.AreEqual(expectedStart, result, "ToString should return the correct format.");
         }
+
+        // TEST 3: Empty Name and Description
+        public void Item_EmptyNameAndDescription_CreatesSuccessfully()
+        {
+            // ACT: Create an item with empty strings
+            Item emptyItem = new Item("", "");
+        
+            Assert.AreEqual("", emptyItem.Name, "Item name should be empty string.");
+        
+            Assert.AreEqual("", emptyItem.Description, "Item description should be empty string.");
+
+            Assert.GreaterOrEqual(emptyItem.ID, 0, "Item should still have a valid ID.");
+        }
     }
 }
