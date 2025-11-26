@@ -22,7 +22,7 @@ namespace cs.Domain.Commands
             }
 
             //JoinItemName: Combine array of words into one string
-            string itemName = JoinItemName(parameters);
+            string itemName = JoinParameters(parameters);
 
             Item? item = StoryHandler.GetCurrentScene().Area.TakeItem(itemName);
 

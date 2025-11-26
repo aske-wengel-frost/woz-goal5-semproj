@@ -13,7 +13,7 @@ namespace cs.Domain.Commands
         /// </summary>
         /// <param name="parameters">The array of words typed by the user (after the command word).</param>
         /// <returns>A single string with the words joined by spaces.</returns>
-        protected string JoinItemName(string[] parameters)
+        protected string JoinParameters(string[] parameters)
         {
             return string.Join(" ", parameters);
         }
