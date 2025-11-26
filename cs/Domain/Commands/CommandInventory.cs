@@ -12,33 +12,33 @@ namespace cs.Domain.Commands
             this.description = "Viser player's inventar";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             
-            Player player = StoryHandler.GetPlayer();
+            Player player = storyHandler.GetPlayer();
             if (player == null)
             {
                 
-                StoryHandler._UIHandler.DrawError("FEJL: Spilleren kunne ikke findes.");
+                storyHandler._UIHandler.DrawError("FEJL: Spilleren kunne ikke findes."); //Dont know is it should be here.
                 return;
             }
 
             
-            StoryHandler._UIHandler.DrawInfo("\n=== Dit Inventar ===");
+            storyHandler._UIHandler.DrawInfo("\n=== Dit Inventar ===");
 
             
-            if (player.Inventory.IsEmpty())
+            if (player.inventory.IsEmpty())
             {
                 
-                StoryHandler._UIHandler.DrawInfo("Inventar er tomt.");
+                storyHandler._UIHandler.DrawInfo("Inventar er tomt.");
             }
             else
             {
                 
-                foreach (Item item in player.Inventory.GetItems())
+                foreach (Item item in player.inventory.GetItems())
                 {
                     
-                    StoryHandler._UIHandler.DrawInfo(item.ToString());
+                    storyHandler._UIHandler.DrawInfo(item.ToString());
                 }
             }
         }

@@ -12,9 +12,9 @@ namespace cs.Domain.Commands
             this.description = "Forlad spillet";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-            StoryHandler.ShowEndScene();
+            storyHandler.ShowEndScene();
         }
     }
 
