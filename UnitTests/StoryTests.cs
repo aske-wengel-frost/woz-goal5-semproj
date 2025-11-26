@@ -5,7 +5,7 @@ namespace UnitTests
     using cs.Domain.Story;
     using cs.Persistance;
     using cs.Presentation;
-    using NUnit.Framework.Internal;
+    using NUnit.Framework;
     using System.Security.Cryptography.X509Certificates;
 
     public class Tests
@@ -13,27 +13,22 @@ namespace UnitTests
         int input = 10;
         string sInput = "mobil";
         
-        Story story = new Story();
 
         [SetUp]
         public void Setup()
         {
-            story.AddItem(new Item("mobil", "En smartphone"));
-            
-            story.AddArea(new Area("værelse").AddItem(story.FindItemByName("mobil")));
-            
-            story.AddScene(new ContextScene(
-                "Køkken 1", 
-                "Køkken tekst",
+            Story story = new Story();
+            Item item = new Item("mobil", "En smartphone");
+            Area area = new Area("vÃ¦relse");
+            Scene scene = new ContextScene(
+                "KÃ¸kken 1", 
+                "KÃ¸kken tekst",
                 new List<SceneChoice> 
                 {
                     new SceneChoice(1, 5, 5, "Choice 1")
                 }, 
                 story.Areas[0]
-            ));
-
-            Test2();
-            Test1();
+            );
         }
 
         [Test]
