@@ -56,12 +56,18 @@ namespace UnitTests
                 Assert.AreEqual("gå", newCommandNames[2]);                
             });
         }
-
+        //TMP = Too Many Parameters or none
         [Test]
-        public void TestCommandErrorExecution()
+        public void TestCommandTMPExecution()
         {
             var output1 = new StringWriter();
             Console.SetOut(output1);
+            
+            // Make a list of the command names 
+            string[] commandNames = {"bevæg", "go", "gå"};
+
+            // Insert the command into the registry dictionary
+            registry.Register(commandNames, new CommandMove());
             
             // Run the registry dispatch method
             registry.Dispatch("bevæg");
@@ -71,6 +77,28 @@ namespace UnitTests
             
             // Test if the output to the terminal is correct
             Assert.AreEqual("For mange argumenter!", consoleOutput1); 
+        }
+        
+        [Test]
+        public void TestCommandInvalidChoice()
+        {
+            var output1 = new StringWriter();
+            Console.SetOut(output1);
+            
+            // Make a list of the command names 
+            string[] commandNames = {"bevæg", "go", "gå"};
+
+            // Insert the command into the registry dictionary
+            registry.Register(commandNames, new CommandMove());
+            
+            // Run the registry dispatch method
+            registry.Dispatch("bevæg 5");
+
+            // Convert the stringwriter into a string
+            string consoleOutput1 = output1.ToString().Trim();
+            
+            // Test if the output to the terminal is correct
+            Assert.AreEqual("5 er ikke et gyldigt valg!", consoleOutput1); 
         }
     }
 }
