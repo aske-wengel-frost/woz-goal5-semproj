@@ -39,5 +39,20 @@ namespace UnitTests
             // 3. The ID should be assigned (not negative)
             Assert.GreaterOrEqual(testItem.ID, 0, "Item ID should be 0 or greater.");
         }
+
+        // TEST 2: ToString Method
+        // Verification that ToString() returns the correct format.
+        public void Item_ToString_ReturnsCorrectFormat()
+        {
+            // Using the mobil item from Setup method
+            // ACT: Call ToString()
+            string result = mobil.ToString();
+
+            // ASSERT: Verify the format
+            // The expected format should be: "Item ID: {ID}, Name: {Name}, Description: {Description}"
+            string expectedStart = $"Item ID: {mobil.ID}, Name: Mobil, Description: En smartphone";
+
+            Assert.AreEqual(expectedStart, result, "ToString should return the correct format.");
+        }
     }
 }
