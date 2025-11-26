@@ -13,10 +13,10 @@ namespace cs.Domain.Commands
         public CommandHelp(Registry registry)
         {
             this.registry = registry;
-            this.description = "Viser 'hjælp' listen";
+            this.description = "Viser 'hjï¿½lp' listen";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             string[] commandNames = registry.GetCommandNames();
             Array.Sort(commandNames);
@@ -30,13 +30,13 @@ namespace cs.Domain.Commands
             }
 
             // present list of commands
-            StoryHandler._UIHandler.DrawInfo("Commands:");
+            storyHandler._UIHandler.DrawInfo("Commands:");
             foreach (String commandName in commandNames)
             {
                 string description = registry.GetCommand(commandName).GetDescription();
                 string lineToDraw = string.Format(" - {0,-" + max + "} " + description, commandName);
 
-                StoryHandler._UIHandler.DrawInfo(lineToDraw);
+                storyHandler._UIHandler.DrawInfo(lineToDraw);
             }
         }
     }

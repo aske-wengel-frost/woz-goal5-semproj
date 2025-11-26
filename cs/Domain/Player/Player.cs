@@ -12,7 +12,12 @@ namespace cs.Domain.Player
         {
             Name = name;
             Score = 0;
-            Inventory = new Inventory();
+            inventory = new Inventory();
+        }
+        
+        public Item? DropItem(string ItemName)
+        {
+            return inventory.GetItemName(ItemName);
         }
 
         // Increase Score by 5
@@ -32,13 +37,13 @@ namespace cs.Domain.Player
         // Adds Item to new initialized Inventory 
         public void AddItem(Item item)
         {
-            Inventory.AddItem(item);
+            inventory.AddItem(item);
         }
 
         // Removes Item to new initialized Inventory 
         public void RemoveItem(Item item)
         {
-            Inventory.RemoveItem(item);
+            inventory.RemoveItem(item);
         }
 
         // Displays Information about Player in Terminal

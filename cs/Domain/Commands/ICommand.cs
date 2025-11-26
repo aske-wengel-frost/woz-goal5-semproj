@@ -6,7 +6,7 @@ namespace cs.Domain.Commands
 
     public interface ICommand
     {
-        void Execute(StoryHandler StoryHandler, string command, string[] parameters);
+        void Execute(StoryHandler storyHandler, string command, string[] parameters);
         string GetDescription();
     }
 }

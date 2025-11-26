@@ -12,33 +12,48 @@ namespace cs.Domain.Commands
             this.description = "Tag en givende genstand(ene)";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             // Attempts to take the item with the specified name from the first parameter
             if (parameters.Length == 0)
             {
-                StoryHandler._UIHandler.DrawInfo("Brug: tag [genstand navn]");
+                storyHandler._UIHandler.DrawInfo("Brug: tag [genstand navn]");
                 return;
             }
+
+            //JoinItemName: Combine array of words into one string
+            string itemName = JoinParameters(parameters);
             
-            Item? item = StoryHandler.GetCurrentScene().Area.TakeItem(parameters[0]);
+            Item? item = storyHandler.GetCurrentScene().Area.TakeItem(itemName);
 
             // Check if the item exists
             if(item == null)
             {
-                StoryHandler._UIHandler.DrawError("Denne genstand findes vidst ikke...");
+                storyHandler._UIHandler.DrawError("Denne genstand findes vidst ikke...");
                 return;
             }
 
-            // Add the item to the players inventory
-            StoryHandler.player.Inventory.AddItem(item);
+            // Attempt to add the item to the player's inventory.
+            bool success = storyHandler.GetPlayer().inventory.AddItem(item);
 
             // Remove the item from the Area
-            StoryHandler.GetCurrentScene().Area.Items.Remove(item.ID);
+            storyHandler.GetCurrentScene().Area.Items.Remove(item.ID);
+            if (success)
+            {
+                // Remove the item from the Area
+                storyHandler.GetCurrentScene().Area.Items.Remove(item.ID);
 
-            // Notify player of picked up item
-            StoryHandler._UIHandler.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
+                // Notify player of picked up item
+                storyHandler._UIHandler.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
+            }
+            else
+            {
+                //The inventory was full (MaxCapacity reached)
 
+                storyHandler._UIHandler.DrawError("Dit inventar er fuldt! (Max 2 ting)");
+
+                storyHandler._UIHandler.DrawError("Brug 'Smid' kommandoen for at lave plads");
+            }
         }
     }
 }

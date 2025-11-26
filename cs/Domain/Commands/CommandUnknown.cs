@@ -8,9 +8,9 @@ namespace cs.Domain.Commands
 
     class CommandUnknown : BaseCommand, ICommand
     {
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-            StoryHandler._UIHandler.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
+            storyHandler._UIHandler.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
         }
     }
 }

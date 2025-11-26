@@ -78,7 +78,7 @@
 
             // Reset players score and inventory
             storyHandler.GetPlayer().Score = 0;
-            storyHandler.GetPlayer().Inventory = new Inventory();
+            storyHandler.GetPlayer().inventory = new Inventory();
 
             // Start the game from the beginning
             storyHandler.StartStory();

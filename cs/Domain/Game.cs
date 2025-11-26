@@ -90,6 +90,7 @@ namespace cs.Domain
             registry.Register(new [] {"inventar"}, new CommandInventory());
             registry.Register(new [] {"inv"}, new CommandInventory()); // Just a shorter version for inventory (Alias)
             registry.Register(new [] {"tag"}, new CommandTake());
+            registry.Register(new [] {"smid"}, new CommandDrop());
             registry.Register(new [] {"brug"}, new CommandUse());
             registry.Register(new [] {"kort"}, new CommandMap());
             registry.Register(new [] {"status"}, new CommandStatus());

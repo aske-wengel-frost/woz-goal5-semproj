@@ -11,7 +11,7 @@
              this.description = "Viser kortet";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             //List<MapElement> MapElements = new List<MapElement>
             //{
@@ -24,7 +24,7 @@
             //    new MapTextElement(7, 40, 10, "Cock and balls :3") {Color = ConsoleColor.Cyan}
             //};
 
-            StoryHandler._UIHandler.DrawMap();
+            storyHandler._UIHandler.DrawMap();
         }
     }
 }
