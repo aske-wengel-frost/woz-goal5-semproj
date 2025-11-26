@@ -56,7 +56,18 @@
 
             return null;
         }
-
+        
+        public Scene? FindSceneByName(string searchTerm)
+        {
+            foreach (Scene scene in Scenes.Values)
+            {
+                if (string.Equals(scene.Name, searchTerm, StringComparison.OrdinalIgnoreCase))
+                {
+                    return scene;
+                }
+            }
+            return null; 
+        }
         public void AddScene(Scene scene)
         {
             Scenes.Add(scene.ID, scene);

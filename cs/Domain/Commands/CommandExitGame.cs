@@ -1,7 +1,7 @@
 namespace cs.Domain.Commands
 {
     using cs.Domain.Story;
-    class CommandExitGame: BaseCommand, ICommand
+    class CommandExitGame : BaseCommand, ICommand
     {
         public CommandExitGame()
         {
@@ -10,8 +10,13 @@ namespace cs.Domain.Commands
 
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-            storyHandler.MakeDone();
 
+            if (!storyHandler.isEndScene)
+            {
+                storyHandler._UIHandler.DrawError("Du kan kun afslutte spillet såfremt du er ved slutningen.");
+                return;
+            }
+            storyHandler.MakeDone();
         }
     }
 }
