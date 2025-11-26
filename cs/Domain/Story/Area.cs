@@ -39,14 +39,14 @@ namespace cs.Domain.Story
         }
 
         // Constructor for Area initialization
-        public Area(string name, Dictionary<int,Item>? itmes = null ) // Area can contain a List of itmes and gives it a default value.  
+        public Area(string name, Dictionary<int,Item>? items = null ) // Area can contain a List of items and gives it a default value.  
         {
             this.ID = getNextId();
             this.Name = name; 
             //If the developer has given items, we use it else we make a empty List. 
-            if ( itmes != null )
+            if ( items != null )
             {
-                Items = itmes;
+                Items = items;
             }
             else
             {

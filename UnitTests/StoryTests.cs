@@ -1,0 +1,60 @@
+namespace UnitTests
+{
+    using cs.Domain;
+    using cs.Domain.Player;
+    using cs.Domain.Story;
+    using cs.Persistance;
+    using cs.Presentation;
+    using NUnit.Framework.Internal;
+    using System.Security.Cryptography.X509Certificates;
+
+    public class Tests
+    {
+        int input = 10;
+        string sInput = "mobil";
+        
+        Story story = new Story();
+
+        [SetUp]
+        public void Setup()
+        {
+            story.AddItem(new Item("mobil", "En smartphone"));
+            
+            story.AddArea(new Area("værelse").AddItem(story.FindItemByName("mobil")));
+            
+            story.AddScene(new ContextScene(
+                "Køkken 1", 
+                "Køkken tekst",
+                new List<SceneChoice> 
+                {
+                    new SceneChoice(1, 5, 5, "Choice 1")
+                }, 
+                story.Areas[0]
+            ));
+
+            Test2();
+            Test1();
+        }
+
+        [Test]
+        public void Test1()
+        {
+            object? result = story.FindScene(input);
+            if (result is null)
+            {
+                Assert.Fail();
+            }
+            else { Assert.Pass(); }
+        }
+
+        [Test]
+        public void Test2()
+        {
+            object? result = story.FindItemByName(sInput);
+            if (result is Item)
+            {
+                Assert.Pass();
+            }
+        }
+    }
+}
