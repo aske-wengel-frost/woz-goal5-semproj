@@ -5,6 +5,8 @@ namespace cs.Domain.Story
     // Attributes for Json serialization & deserialization, makes sure polymorphism works in export
     [JsonDerivedType(typeof(ContextScene), typeDiscriminator: "contextScene")]
     [JsonDerivedType(typeof(CutScene), typeDiscriminator: "cutScene")]
+    [JsonDerivedType(typeof(EndScene), typeDiscriminator: "endScene")]
+    
     public abstract class Scene
     {
         // Makes sure each new created scene has uniqe ID
@@ -31,7 +33,7 @@ namespace cs.Domain.Story
       
         public Scene(string name)
         {
-           ID = getNextId();
+           ID = GetNextId();
            Name = name;
         }
 
@@ -51,9 +53,17 @@ namespace cs.Domain.Story
         }
 
         // Helpers
-        private static int getNextId()
+        private static int GetNextId()
         {
             return currentID++; 
+        }
+
+        /// <summary>
+        /// Resets the static ID counter. Used when restarting the game.
+        /// </summary>
+        public static void ResetIdCounter()
+        {
+            currentID = 0;
         }
     }
 }

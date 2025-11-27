@@ -17,7 +17,7 @@ namespace cs.Domain.Commands
             // Attempts to take the item with the specified name from the first parameter
             if (parameters.Length == 0)
             {
-                storyHandler._UIHandler.DrawInfo("Brug: tag [genstand navn]");
+                storyHandler._UI.DrawInfo("Brug: tag [genstand navn]");
                 return;
             }
 
@@ -29,7 +29,7 @@ namespace cs.Domain.Commands
             // Check if the item exists
             if(item == null)
             {
-                storyHandler._UIHandler.DrawError("Denne genstand findes vidst ikke...");
+                storyHandler._UI.DrawError("Denne genstand findes vidst ikke...");
                 return;
             }
 
@@ -44,15 +44,15 @@ namespace cs.Domain.Commands
                 storyHandler.GetCurrentScene().Area.Items.Remove(item.ID);
 
                 // Notify player of picked up item
-                storyHandler._UIHandler.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
+                storyHandler._UI.DrawInfo($"Du samlede op: {item.Name} [{item.Description}]");
             }
             else
             {
                 //The inventory was full (MaxCapacity reached)
 
-                storyHandler._UIHandler.DrawError("Dit inventar er fuldt! (Max 2 ting)");
+                storyHandler._UI.DrawError("Dit inventar er fuldt! (Max 2 ting)");
 
-                storyHandler._UIHandler.DrawError("Brug 'Smid' kommandoen for at lave plads");
+                storyHandler._UI.DrawError("Brug 'Smid' kommandoen for at lave plads");
             }
         }
     }

@@ -16,7 +16,7 @@
             if (GuardEq(parameters, 1))
             {
                 // We dont have 1 parameter!
-                storyHandler._UIHandler.DrawError("For mange argumenter!");
+                storyHandler._UI.DrawError("For mange argumenter!");
                 return;
 
             }

@@ -12,11 +12,11 @@ namespace cs.Domain.Commands
         {
             if (parameters.Length == 0)
             {
-                storyHandler._UIHandler.DrawInfo("Brug: smid [genstand navn]");
+                storyHandler._UI.DrawInfo("Brug: smid [genstand navn]");
                 return;
             }
             // get name of item
-            string itemName = parameters[0];
+            string itemName = base.JoinParameters(parameters);
             
             // find the ID of item
             Player player = storyHandler.GetPlayer();
@@ -26,7 +26,7 @@ namespace cs.Domain.Commands
 
             if (item == null)
             {
-                storyHandler._UIHandler.DrawError("Hov... Du har ikke denne genstand");
+                storyHandler._UI.DrawError("Hov... Du har ikke denne genstand");
             }
             
             // check if user has item
@@ -38,7 +38,7 @@ namespace cs.Domain.Commands
                 // Remove the item from the players inventory
                 storyHandler.player.inventory.RemoveItem(item);
                 
-                storyHandler._UIHandler.DrawInfo($"Du smed: {itemName} [{item.Description}]");
+                storyHandler._UI.DrawInfo($"Du smed: {itemName} [{item.Description}]");
             }
 
         }

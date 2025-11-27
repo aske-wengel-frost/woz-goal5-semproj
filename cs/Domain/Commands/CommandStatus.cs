@@ -19,18 +19,18 @@
             Player player = storyHandler.GetPlayer();
             if (player == null)
             {
-                storyHandler._UIHandler.DrawError("FEJL: Spilleren kunne ikke findes.");
+                storyHandler._UI.DrawError("FEJL: Spilleren kunne ikke findes.");
                 return;
             }
 
-            storyHandler._UIHandler.DrawInfo("--- Player Info ---");
+            storyHandler._UI.DrawInfo("--- Player Info ---");
 
-            storyHandler._UIHandler.DrawInfo($"Name: {player.Name}");
-            storyHandler._UIHandler.DrawInfo($"Score: {player.Score}");
+            storyHandler._UI.DrawInfo($"Name: {player.Name}");
+            storyHandler._UI.DrawInfo($"Score: {player.Score}");
 
-            storyHandler._UIHandler.DrawInfo("Inventar: (Brug 'inventar' kommandoen for at se)");
+            storyHandler._UI.DrawInfo("Inventar: (Brug 'inventar' kommandoen for at se)");
 
-            storyHandler._UIHandler.DrawInfo("---------------------");
+            storyHandler._UI.DrawInfo("---------------------");
         }
     }
 }

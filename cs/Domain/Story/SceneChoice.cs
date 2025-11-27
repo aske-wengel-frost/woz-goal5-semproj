@@ -8,22 +8,27 @@
     public class SceneChoice
     {
         public string? Description { get; set; }
-        public int SceneId { get; set; }
         public int ScorePoints { get; set; }
         public int PartnerAggression { get; set; }
 
+        public int SceneId { get; set; }
         [JsonIgnore]
-        public ContextScene? SceneObj { get; set; }
-        public int KeyItemId { get; set; }
+        public Scene? SceneObj { get; set; }
 
+        public int KeyItemId { get; set; }
         [JsonIgnore]
         public Item? KeyItem { get; set; }
-        public SceneChoice(int sceneId, int scorePoints, int partnerAggression, string description, Item? keyItem = null)
+        public SceneChoice(Scene sceneObj, int scorePoints, int partnerAggression, string description, Item? keyItem = null)
         {
-            SceneId = sceneId;
             Description = description;
             ScorePoints = scorePoints;
             PartnerAggression = partnerAggression;
+
+            if (sceneObj != null)
+            {
+                SceneId = sceneObj.ID;
+            }
+            SceneObj = sceneObj;
 
             // bad?
             KeyItemId = -1;

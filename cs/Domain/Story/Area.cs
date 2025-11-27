@@ -1,5 +1,6 @@
 namespace cs.Domain.Story
 {
+    using cs.Domain;
     using cs.Domain.Player;
 
     using System.Text.Json.Serialization;
@@ -28,30 +29,27 @@ namespace cs.Domain.Story
         public List<int> itemIds { get; set;} = new List<int>();
 
         [JsonIgnore]
-        public Dictionary<int, Item> Items { get; set; }
+        public Dictionary<int, Item> Items { get; private set; }
 
+        // Frame property defines the physical representation of the area, it is nullable as every area must not have a physical representation.
+        public Frame? Frame { get; set;}
+
+        // NEEDED???
         public Area()
         {
             // Initialize defaults to avoid null reference issues
             Name = "";
-            ID = getNextId();
+            ID = GetNextId();
             Items = new Dictionary<int, Item>();
         }
 
         // Constructor for Area initialization
-        public Area(string name, Dictionary<int,Item>? items = null ) // Area can contain a List of items and gives it a default value.  
+        public Area(string name, Dictionary<int,Item>? itmes = null, Frame? frame = null) // Area can contain a List of itmes and gives it a default value.  
         {
-            this.ID = getNextId();
+            this.ID = GetNextId();
             this.Name = name; 
-            //If the developer has given items, we use it else we make a empty List. 
-            if ( items != null )
-            {
-                Items = items;
-            }
-            else
-            {
-                Items = new Dictionary<int, Item>();
-            }
+            this.Frame = frame;
+            Items = new Dictionary<int, Item>();
         }
 
         public Area AddItem(Item item)
@@ -75,9 +73,17 @@ namespace cs.Domain.Story
         }
 
         // Helpers
-        private static int getNextId()
+        private static int GetNextId()
         {
             return currentID++;
+        }
+
+        /// <summary>
+        /// Resets the static ID counter. Used when restarting the game.
+        /// </summary>
+        public static void ResetIdCounter()
+        {
+            currentID = 0;
         }
     }   
 }

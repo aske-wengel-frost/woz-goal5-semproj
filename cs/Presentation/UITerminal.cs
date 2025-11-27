@@ -19,12 +19,11 @@
     using System.Xml;
 
     using static System.Formats.Asn1.AsnWriter;
+    using cs.Domain;
 
     class UITerminal : IUIHandler
     {
         private TerminalMap map { get; set; } = new TerminalMap();
-
-        int EffectDelay { get; set; }
         public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
 
         int LineLength { get; set; }
@@ -108,9 +107,21 @@
             map.DrawMap();
         }
 
-        public void InitMap(List<MapElement> elements)
+        public void InitMap(Dictionary<int, Area> areas)
         {
-            map.Elements = elements;
+            List<MapElement> mapElements = new List<MapElement>();
+
+            foreach (Area area in areas.Values)
+            {
+                if (area.Frame is null)
+                {
+                    // We dont add a mapelement
+                    continue;
+                }
+
+                mapElements.Add(new MapRoomElement(area.ID, area.Frame.X, area.Frame.Y, area.Frame.Height, area.Frame.Width, area.Name));
+            }
+            map.Elements = mapElements;
         }
 
         public void HighlightArea(int id)
