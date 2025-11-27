@@ -110,23 +110,30 @@ namespace UnitTests
         [Test]
         public void TestCommandAction()
         {
-            // Start the story  
+            // Start the story and get the current scene
             storyHandler.StartStory();
-
-            // Get the current scene
             Scene scene1 = storyHandler.GetCurrentScene();
             
-            // Insert the CommandMove into registry
-            registry.Register(commandNames, new CommandMove());
+            // Sets up the story class
+            JsonDataProvider StoryGetter = new JsonDataProvider();
+            Story story = StoryGetter.getStory();
+            
+            // Find the second scene choice 
+            Scene scene2 = story.FindScene(UITerminal.SceneChoiceAsc[2]);
 
-            // Execute the CommandMove through the dispatch method
+            // Insert the CommandMove into registry and execute
+            registry.Register(commandNames, new CommandMove());
             registry.Dispatch("bevæg 2");
 
             // Get the new current scene
-            Scene scene2 = storyHandler.GetCurrentScene();
+            Scene scene3 = storyHandler.GetCurrentScene();
 
             // Check if the two current scenes are different
-            Assert.AreNotEqual(scene1.Name, scene2.Name, "The CommandMove execution failed");
-        }
+            Assert.Multiple(() =>
+            {
+                Assert.AreNotEqual(scene1.Name, scene3.Name, "The CommandMove execution failed");
+                Assert.AreEqual(scene2.Name, scene3.Name, "Failed to switch to the proper scene");
+            });
+        } 
     }
 }
