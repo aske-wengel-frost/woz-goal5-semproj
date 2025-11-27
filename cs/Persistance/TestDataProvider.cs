@@ -118,7 +118,7 @@
 
              Story.AddScene(new CutScene("Seje reje", "Yo stupid ass did not just do that", 1));
 
-
+            // Create EndScene test
             string endSceneContentInfo =
             "---------=======================================================================================---------\n" +
             "Tak fordi du spillede!\n\n" +

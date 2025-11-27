@@ -24,7 +24,6 @@ namespace cs.Domain.Story
         {
             _Data = dataProvider;
             _UIHandler = uiHandler;
-
             this.story = _Data.getStory();
 
             //dataLoader = new DataProvider();
@@ -235,6 +234,9 @@ namespace cs.Domain.Story
             }
         }
 
+        /// <summary>
+        /// Creates new instance of story, and restarts game.
+        /// </summary>
         public void RestartGame()
         {
             if (!isEndScene) return;
@@ -250,6 +252,9 @@ namespace cs.Domain.Story
             
         }
 
+        /// <summary>
+        /// Shows playerscore at current instance.
+        /// </summary>
         public void ShowPlayerScore()
         {
             _UIHandler.DrawInfo($"═══════════════════════════════");
