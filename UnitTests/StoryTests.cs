@@ -10,17 +10,21 @@ namespace UnitTests
 
     public class StoryTests
     {
-        int input = 10;
+        int input = 0;
         string sInput = "mobil";
         
-        Story story = new Story();
-        
+        private Story story;
+        private Item item;
+        private Area area;
+        private Scene scene;
+
         [SetUp]
         public void Setup()
         {
-            Item item = new Item("mobil", "En smartphone");
-            Area area = new Area("værelse");
-            Scene scene = new ContextScene(
+            story = new Story();
+            item = new Item("mobil", "En smartphone");
+            area = new Area("værelse");
+            scene = new ContextScene(
                 "Køkken 1", 
                 "Køkken tekst",
                 new List<SceneChoice> 
@@ -32,24 +36,27 @@ namespace UnitTests
         }
 
         [Test]
-        public void Test1()
+        public void FindSceneTest()
         {
-            object? result = story.FindScene(input);
-            if (result is null)
-            {
-                Assert.Fail();
-            }
-            else { Assert.Pass(); }
+            story.AddScene( scene );
+
+            Scene? result = story.FindScene(input);
+
+            Assert.IsNotNull(result, "The Method should return null if theres no Scene that matches the given ID");
+
+            Assert.That(result, Is.EqualTo(scene));
         }
 
+
         [Test]
-        public void Test2()
+        public void FindItemByNameTest()
         {
-            object? result = story.FindItemByName(sInput);
-            if (result is Item)
-            {
-                Assert.Pass();
-            }
+            story.AddArea( area );
+            story.AddItem( item );
+
+            Item? result = story.FindItemByName(sInput);
+
+            Assert.That(result, Is.EqualTo(item));
         }
     }
 }
