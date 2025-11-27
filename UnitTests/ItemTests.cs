@@ -14,6 +14,7 @@ namespace UnitTests
         private Item pandekage;
         private Item toiletNøgle;
 
+        [SetUp]
         public void Setup()
         {
             // Created dummy items (also the items in actual game) to use for testing
@@ -24,6 +25,7 @@ namespace UnitTests
 
         // TEST 1: Constructor
         // Verifying that the constructor sets all properties correctly
+        [Test]
         public void Item_Constructor_SetsPropertiesCorrectly()
         {
             // ACTON: Create a new item
@@ -42,6 +44,7 @@ namespace UnitTests
 
         // TEST 2: ToString Method
         // Verification that ToString() returns the correct format.
+        [Test]
         public void Item_ToString_ReturnsCorrectFormat()
         {
             // Using the mobil item from Setup method
@@ -56,16 +59,34 @@ namespace UnitTests
         }
 
         // TEST 3: Empty Name and Description
+        [Test]
         public void Item_EmptyNameAndDescription_CreatesSuccessfully()
         {
             // ACT: Create an item with empty strings
             Item emptyItem = new Item("", "");
-        
+
             Assert.AreEqual("", emptyItem.Name, "Item name should be empty string.");
-        
+
             Assert.AreEqual("", emptyItem.Description, "Item description should be empty string.");
 
             Assert.GreaterOrEqual(emptyItem.ID, 0, "Item should still have a valid ID.");
+        }
+
+        // TEST 4: Multiple Items with Same Name
+        // Testing to see if two items can have the same name but different IDs
+        [Test]
+        public void Item_SameName_DifferentIDs()
+        {
+            // ARRANGEMENT & ACT: Creating two items with the same name
+            Item knife1 = new Item("A Knife!", "Stabby stab");
+            Item knife2 = new Item("A Knife!", "Stabby stab");
+
+            // ASSERTION: Verifying their IDs are different
+            // 1. Names should be the same
+            Assert.AreEqual(knife1.Name, knife2.Name, "Both items have the same name.");
+
+            // 2. The two items should have different IDs
+            Assert.AreNotEqual(knife1.ID, knife2.ID, "Items with the same name should have different IDs.");
         }
     }
 }
