@@ -3,60 +3,134 @@ namespace UnitTests
     using cs.Domain;
     using cs.Domain.Player;
     using cs.Domain.Story;
-    using cs.Persistance;
-    using cs.Presentation;
     using NUnit.Framework;
-    using System.Security.Cryptography.X509Certificates;
+    using NUnit.Framework.Interfaces;
 
     public class StoryTests
     {
-        int input = 0;
-        string sInput = "mobil";
-        
+        //Inputs for tests
+        int Sceneinput = 0;
+        string SceneNameInput = "Køkken 1";
+        int ItemInput = 0;
+        string ItemNameInput = "mobil";
+        int AreaInput = 0;
+        string AreaNameInput = "værelse";
+
+        //Variables that will be used for tests
         private Story story;
         private Item item;
         private Area area;
         private Scene scene;
+        private Dictionary<int, Item> items;
 
+        //Setup method to initialize test variables and adding them to Story
         [SetUp]
         public void Setup()
         {
             story = new Story();
             item = new Item("mobil", "En smartphone");
-            area = new Area("værelse");
+            items = new Dictionary<int, Item>();
+            area = new Area("værelse", items);
             scene = new ContextScene(
-                "Køkken 1", 
+                "Køkken 1",
+                5,
                 "Køkken tekst",
-                new List<SceneChoice> 
-                {
-                    new SceneChoice(1, 5, 5, "Choice 1")
-                }, 
-                story.Areas[0]
+                area
             );
+
+            story.AddArea(area);
+            story.AddScene(scene);
+            story.AddItem(item);
         }
 
-        [Test]
-        public void FindSceneTest()
-        {
-            story.AddScene( scene );
 
-            Scene? result = story.FindScene(input);
+        //Test 1: Adding Scene
+        [Test]
+        public void AddSceneTest()
+        {
+
+            Assert.That(story.Scenes.ContainsValue(scene));
+        }
+
+        //Test 2: Adding Area
+        [Test]
+        public void AddAreaTest()
+        {
+            //story.AddArea(area);
+
+            Assert.That(story.Areas.ContainsValue(area));
+        }
+
+        //Test 3: Adding Item
+        [Test]
+        public void AddItemTest()
+        {
+            //story.AddItem(item);
+
+            Assert.That(story.Items.ContainsValue(item));
+        }
+
+
+        //Test 4: Finding Scene by ID
+        [Test]
+        public void FindSceneByIDTest()
+        {
+            Scene? result = story.FindScene<Scene>(Sceneinput);
 
             Assert.IsNotNull(result, "The Method should return null if theres no Scene that matches the given ID");
 
             Assert.That(result, Is.EqualTo(scene));
         }
 
+        //Test 5: Finding Scene by Name
+        [Test]
+        public void FindSceneByNameTest()
+        {
+            Scene result = story.FindScene<Scene>(SceneNameInput);
 
+            Assert.That(result, Is.EqualTo(scene));
+        }
+
+
+        //Test 6: Finding Item by ID
+        [Test]
+        public void FindItemByIDTest()
+        {
+            story.AddItem(item);
+
+            Item result = story.FindItem(ItemInput);
+
+            Assert.That(result, Is.EqualTo(item));
+        }
+
+        //Test 7: Finding Item by Name
         [Test]
         public void FindItemByNameTest()
         {
-            story.AddArea( area );
-            story.AddItem( item );
-
-            Item? result = story.FindItemByName(sInput);
+            Item result = story.FindItem(ItemNameInput);
 
             Assert.That(result, Is.EqualTo(item));
+        }
+
+
+        //Test 8: Finding Area by ID
+        [Test]
+        public void FindAreaByIDTest()
+        {
+            story.AddArea(area);
+
+            Area result = story.FindArea(AreaInput);
+
+            Assert.That(result, Is.EqualTo(area));
+        }
+
+        //Test 9: Finding Area by Name
+        [Test]
+        public void FindAreaByNameTest()
+        {
+            Area result = story.FindArea(AreaNameInput);
+
+            Assert.That(result, Is.EqualTo(area));
         }
     }
 }
