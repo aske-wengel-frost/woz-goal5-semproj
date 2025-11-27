@@ -45,11 +45,13 @@ namespace cs.Domain
             (commands.ContainsKey(command) ? GetCommand(command) : fallback).Execute(StoryHandler, command, parameters);
         }
 
+        // Interface that Gets a command by name and lists all registered commands
         public ICommand GetCommand(string commandName)
         {
             return commands[commandName];
         }
 
+        // Method that returns all registered command names
         public string[] GetCommandNames()
         {
             return commands.Keys.ToArray();

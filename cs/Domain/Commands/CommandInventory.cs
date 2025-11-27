@@ -5,6 +5,10 @@ namespace cs.Domain.Commands
 
     using System;
 
+    /// <summary>
+    /// CommandInventory class which implements the ICommand interface
+    /// and provides functionality to display the player's inventory.
+    /// </summary>
     class CommandInventory : BaseCommand, ICommand
     {
         public CommandInventory()
@@ -12,21 +16,19 @@ namespace cs.Domain.Commands
             this.description = "Viser player's inventar";
         }
 
+        // summary>
+        // The Execution of the method will displays the player's inventory
+        // items to the user through the StoryHandler's UI.
+        // With an appropriate design pattern for the user to understand it better.
+        // /summary>
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             
             Player player = storyHandler.GetPlayer();
-            if (player == null)
-            {
-                
-                storyHandler._UI.DrawError("FEJL: Spilleren kunne ikke findes."); //Dont know is it should be here.
-                return;
-            }
-
-            
+                  
             storyHandler._UI.DrawInfo("\n=== Dit Inventar ===");
 
-            
+            // If-statement to check if the inventory is empty
             if (player.inventory.IsEmpty())
             {
                 
@@ -34,7 +36,7 @@ namespace cs.Domain.Commands
             }
             else
             {
-                
+                // Loop through each item in the player's inventory and display its details
                 foreach (Item item in player.inventory.GetItems())
                 {
                     

@@ -1,6 +1,11 @@
 namespace cs.Domain.Commands
 {
     using cs.Domain.Story;
+
+    /// <summary>
+    /// Restart method that restarts the game if the player is at the end scene.
+    /// And if the player chooses to restart the game.
+    /// </summary>
     class CommandRestartGame : BaseCommand, ICommand
     {
         public CommandRestartGame()

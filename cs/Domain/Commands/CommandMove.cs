@@ -4,6 +4,9 @@
 
     using System;
 
+    /// <summary>
+    /// Command to move to another scene by specifying the scene number.
+    /// </summary> 
     class CommandMove : BaseCommand, ICommand
     {
         public CommandMove()

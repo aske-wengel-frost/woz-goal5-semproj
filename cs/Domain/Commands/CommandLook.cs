@@ -5,6 +5,10 @@ namespace cs.Domain.Commands
 
     using System;
 
+    /// <summary>
+    /// CommandLook class which implements the ICommand interface
+    /// and provides functionality to look around in the current scene.
+    /// </summary>
     class CommandLook : BaseCommand, ICommand
     {
         public CommandLook()
@@ -18,6 +22,7 @@ namespace cs.Domain.Commands
             Scene currentScene = storyHandler.GetCurrentScene();
             if (currentScene is ContextScene ctx)
             {
+                // Checks location and lists items present within the area
                 if (ctx != null)
                 {
                     storyHandler._UI.DrawInfo($"Du befinder dig i: {ctx.Area.Name}");
@@ -32,7 +37,6 @@ namespace cs.Domain.Commands
                 }
 
             }
-            else { storyHandler._UI.DrawError("Command not accessable in this context."); } // Do we need to handle other cases ? 
         }
     }
 }

@@ -4,11 +4,11 @@ namespace cs.Domain.Commands
     using System;
 
 
-    //summary
-    // This command was only made as an idea for the player to go back to a previous scene.
-    // It's not implemented in the game but mearly here as a placeholder for future development.
-    // /summary
-    class CommandBack : BaseCommand, ICommand
+    /// <summary>
+    /// This command was only made as an idea for the player to go back to a previous scene.
+    /// It's not implemented in the game but mearly here as a placeholder for future development.
+    /// </summary>
+    /*class CommandBack : BaseCommand, ICommand
     {
         public CommandBack()
         {
@@ -27,5 +27,5 @@ namespace cs.Domain.Commands
             //    Console.ResetColor();
             //}
         }
-    }
+    }*/
 }
