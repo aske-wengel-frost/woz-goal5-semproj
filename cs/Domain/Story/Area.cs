@@ -49,15 +49,7 @@ namespace cs.Domain.Story
             this.ID = GetNextId();
             this.Name = name; 
             this.Frame = frame;
-            //If the developer has given items, we use it else we make a empty List. 
-            if ( itmes != null )
-            {
-                Items = itmes;
-            }
-            else
-            {
-                Items = new Dictionary<int, Item>();
-            }
+            Items = new Dictionary<int, Item>();
         }
 
         public Area AddItem(Item item)

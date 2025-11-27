@@ -4,7 +4,6 @@ namespace cs.Domain.Story
     using cs.Persistance;
     using cs.Presentation;
 
-
     public class StoryHandler
     {
         bool done = false;
@@ -46,7 +45,7 @@ namespace cs.Domain.Story
 
             // Draws the initial scene
             _UI.HighlightArea(contextScene.AreaId);
-            _UI.DrawScene(contextScene, player.Score);
+            _UI.DrawScene(contextScene, player.Score, player.PartnerAggression);
 
         }
 
@@ -90,6 +89,9 @@ namespace cs.Domain.Story
                         return;
                     }
                 }
+
+                player.Score += sceneChoice.ScorePoints;
+                player.PartnerAggression += sceneChoice.PartnerAggression;
             }
 
             // At last transitions to scene
@@ -108,8 +110,7 @@ namespace cs.Domain.Story
             if (scene is ContextScene contextScene)
             {
                 _UI.HighlightArea(contextScene.AreaId);
-                player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
-                _UI.DrawScene(contextScene, player.Score);
+                _UI.DrawScene(contextScene, player.Score, player.PartnerAggression);
             }
 
             // if the scene to transition to is of type cutscene
@@ -195,7 +196,7 @@ namespace cs.Domain.Story
         /// <param name="cutScene"></param>
         private void HandleCutScene(CutScene cutScene)
         {
-            _UI.DrawScene(cutScene, player.Score);
+            _UI.DrawScene(cutScene, player.Score, player.PartnerAggression);
             _UI.WaitForKeypress();
 
             // Check if next scene has id.

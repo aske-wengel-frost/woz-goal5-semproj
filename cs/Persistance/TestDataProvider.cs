@@ -87,19 +87,19 @@
 
             // Now that all scenes have been added to story, we can add scene choices to scenes (This is done as a scene mostly linkes "forward" to a scene not yet created)
             // ===== KØKKEN 1 ===== //
-            køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<CutScene>("Seje reje"), "Du forholder dig stille og roligt for at undgå konflikter.", Story.FindItem("mobil")));
-            køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), "Du spørger, om han vil have en kop kaffe."));
-            køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Badeværelse 1"), "Du spørger ham om han har lyst til at hjælpe med maden."));
-            køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<CutScene>("Seje reje"), "Action baby"));
+            køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<CutScene>("Seje reje"), 1, 2, "Du forholder dig stille og roligt for at undgå konflikter.", Story.FindItem("mobil")));
+            køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), 2, 10, "Du spørger, om han vil have en kop kaffe."));
+            køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Badeværelse 1"),5, -2, "Du spørger ham om han har lyst til at hjælpe med maden."));
+            køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<CutScene>("Seje reje"), 5, -2, "Action baby"));
 
             // ===== Soveværelse 1 ===== //
-            soveværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Badeværelse 1"), "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."));
-            soveværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Køkken 1"), "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"));
-            soveværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), "Du undskylder og lytter til hvad din kæreste siger."));
+            soveværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Badeværelse 1"), 5, -2, "Du nævner tidligere episoder, hvor han har opført sig kontrollerende."));
+            soveværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Køkken 1"), 5, -2, "Du sætter en grænse og siger 'Jeg har brug for at være alene.'"));
+            soveværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), 5, -2, "Du undskylder og lytter til hvad din kæreste siger."));
 
             // ===== Stue 1 ===== //
-            stue1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Badeværelse 1"), "Du slukker tv’et og går fra stuen."));
-            stue1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Soveværelse 1"), "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'.", Story.FindItem("pandekage")));
+            stue1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Badeværelse 1"), 5, 4, "Du slukker tv’et og går fra stuen."));
+            stue1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Soveværelse 1"), 5, 2, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'.", Story.FindItem("pandekage")));
             // Create EndScene test
             string endSceneContentInfo =
             "---------=======================================================================================---------\n" +
@@ -118,9 +118,9 @@
             Story.AddScene(endScene);
 
             // ===== Badeværelse 1 ===== //
-            badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Køkken 1"), "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."));
-            badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Soveværelse 1"), "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."));
-            badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."));
+            badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Køkken 1"), 5, 2, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."));
+            badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Soveværelse 1"), 5, -2, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."));
+            badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), 5, 8, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."));
         }
     }
 }

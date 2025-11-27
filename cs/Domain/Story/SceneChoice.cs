@@ -8,6 +8,8 @@
     public class SceneChoice
     {
         public string? Description { get; set; }
+        public int ScorePoints { get; set; }
+        public int PartnerAggression { get; set; }
 
         public int SceneId { get; set; }
         [JsonIgnore]
@@ -16,10 +18,11 @@
         public int KeyItemId { get; set; }
         [JsonIgnore]
         public Item? KeyItem { get; set; }
-
-        public SceneChoice(Scene sceneObj, string description, Item? keyItem = null)
+        public SceneChoice(Scene sceneObj, int scorePoints, int partnerAggression, string description, Item? keyItem = null)
         {
             Description = description;
+            ScorePoints = scorePoints;
+            PartnerAggression = partnerAggression;
 
             if (sceneObj != null)
             {
