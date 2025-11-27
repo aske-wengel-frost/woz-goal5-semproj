@@ -1,14 +1,18 @@
 namespace cs.Domain.Commands
 {
     using cs.Domain.Story;
-
     using System;
 
+
+    //summary
+    // This command was only made as an idea for the player to go back to a previous scene.
+    // It's not implemented in the game but mearly here as a placeholder for future development.
+    // /summary
     class CommandBack : BaseCommand, ICommand
     {
         public CommandBack()
         {
-            this.description = "G� tilbage til tidligere scene (nej)";
+            this.description = "Gå tilbage til tidligere scene (nej)";
         }
 
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)

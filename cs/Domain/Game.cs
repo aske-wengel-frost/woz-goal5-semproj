@@ -62,7 +62,7 @@ namespace cs.Domain
             storyHandler.player = new Player.Player (playerName); //Create the player in storyHandler. 
             //storyHandler.player.Name = Environment.UserName;
 
-            Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne.");
+            //Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne."); // This Console-function can't be seen in the game hence it's commented
 
             // We start the storyhandler and thereby the story
             storyHandler.StartStory();
@@ -87,7 +87,6 @@ namespace cs.Domain
             registry.Register(new [] {"afslut", "gg"}, new CommandExit()); 
             registry.Register(new [] {"bevæg", "go", "gå"}, new CommandMove());
             registry.Register(new [] {"export"}, new CommandExportStory());
-            registry.Register(new [] {"tilbage"}, new CommandBack());
             registry.Register(new [] {"se"}, new CommandLook());
             registry.Register(new [] {"inventar", "inv"}, new CommandInventory());
             registry.Register(new [] {"tag"}, new CommandTake());
