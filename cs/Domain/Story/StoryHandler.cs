@@ -242,7 +242,7 @@ namespace cs.Domain.Story
             if (!isEndScene) return;
             // Reset players score and inventory
             GetPlayer().Score = 0;
-            GetPlayer().Inventory.RemoveAllItems();
+            GetPlayer().inventory.RemoveAllItems();
 
             // Reset story
             _Data = new TestDataProvider();

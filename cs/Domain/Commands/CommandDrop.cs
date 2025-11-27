@@ -16,7 +16,7 @@ namespace cs.Domain.Commands
                 return;
             }
             // get name of item
-            string itemName = parameters[0];
+            string itemName = base.JoinParameters(parameters);
             
             // find the ID of item
             Player player = storyHandler.GetPlayer();
