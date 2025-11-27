@@ -248,6 +248,7 @@ namespace cs.Domain.Story
             _Data = new TestDataProvider();
             this.story = _Data.getStory();
             StartStory();
+            isEndScene = false;
 
             
         }
