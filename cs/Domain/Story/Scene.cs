@@ -33,7 +33,7 @@ namespace cs.Domain.Story
       
         public Scene(string name)
         {
-           ID = getNextId();
+           ID = GetNextId();
            Name = name;
         }
 
@@ -53,7 +53,7 @@ namespace cs.Domain.Story
         }
 
         // Helpers
-        private static int getNextId()
+        private static int GetNextId()
         {
             return currentID++; 
         }

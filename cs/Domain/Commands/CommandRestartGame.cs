@@ -13,7 +13,7 @@ namespace cs.Domain.Commands
 
             if (!storyHandler.isEndScene)
             {
-                storyHandler._UIHandler.DrawError("Du kan kun genstarte spillet såfremt du er ved slutningen.");
+                storyHandler._UI.DrawError("Du kan kun genstarte spillet såfremt du er ved slutningen.");
                 return; 
             }
             storyHandler.RestartGame();

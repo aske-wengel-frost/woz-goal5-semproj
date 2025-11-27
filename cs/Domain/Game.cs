@@ -1,10 +1,12 @@
 namespace cs.Domain
 {
     using cs.Domain.Commands;
-    using cs.Domain.Story;
-    using cs.Presentation;
     using cs.Domain.Player;
+    using cs.Domain.Story;
     using cs.Persistance;
+    using cs.Presentation;
+
+    using System;
 
     public static class Game
     {
@@ -12,7 +14,7 @@ namespace cs.Domain
         static public IUIHandler? UIHandler { get; set; }
 
         static ICommand fallback = new CommandUnknown();
-        static Registry? registry {get; set;}
+        static Registry? registry { get; set; }
 
 
         /// <summary>
@@ -20,7 +22,7 @@ namespace cs.Domain
         /// </summary>
         private static void InitGame()
         {
-            UIHandler = new UITerminal();
+            UITerminal UIHandler = new UITerminal();
 
             TestDataProvider tdp = new TestDataProvider();
             JsonDataProvider jsondp = new JsonDataProvider();
@@ -30,7 +32,7 @@ namespace cs.Domain
             registry = new Registry(storyHandler, fallback);
              
             // Inits the map with the mapelements defined in the story loaded.
-            UIHandler.InitMap(storyHandler.story.MapElements);
+            UIHandler.InitMap(storyHandler.story.Areas);
 
             // We call the InitRegistry method
             InitRegistry();
@@ -58,6 +60,8 @@ namespace cs.Domain
             Console.Write("Indtast dit navn: ");
             string? playerName = Console.ReadLine();
             storyHandler.player = new Player.Player (playerName); //Create the player in storyHandler. 
+            //storyHandler.player.Name = Environment.UserName;
+
             Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne.");
 
             // We start the storyhandler and thereby the story
