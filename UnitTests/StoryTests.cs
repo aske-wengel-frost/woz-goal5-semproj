@@ -8,16 +8,16 @@ namespace UnitTests
     using NUnit.Framework;
     using System.Security.Cryptography.X509Certificates;
 
-    public class Tests
+    public class StoryTests
     {
         int input = 10;
         string sInput = "mobil";
         
-
+        Story story = new Story();
+        
         [SetUp]
         public void Setup()
         {
-            Story story = new Story();
             Item item = new Item("mobil", "En smartphone");
             Area area = new Area("værelse");
             Scene scene = new ContextScene(
