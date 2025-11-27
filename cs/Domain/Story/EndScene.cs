@@ -1,47 +1,45 @@
 ﻿namespace cs.Domain.Story
 {
     using cs.Presentation;
-    using cs.Domain.Player;
 
-    public class EndScene: Scene
+    public class EndScene : Scene
     {
         private StoryHandler storyHandler;
+        public string EndSceneContent { get; set; }
 
-        public EndScene(string name, StoryHandler storyHandler) 
-            : base (name)
+        public EndScene(string name, string endSceneContent)
+            : base(name)
         {
-            this.storyHandler = storyHandler;
-            this.Name = name;
+            this.EndSceneContent = endSceneContent;
         }
 
         /// <summary>
         /// Show end scene with player's score and option to play again
         /// </summary>
-        public void ShowEndScene()
-        {
-            storyHandler._UIHandler.ClearScreen();
-            textDisplay.charDelay = 5;
-            
-            textDisplay.Display("---------=======================================================================================---------");
-            textDisplay.Display("Tak fordi du spillede!");
-            Console.WriteLine("");
-            textDisplay.Display("Dette spil er skabt for at skabe opmærksomhed omkring psykisk vold mod kvinder.");
-            textDisplay.Display("Vi håber, at du gennem disse valg og scenarier har fået indblik i,");
-            textDisplay.Display("hvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.");
-            Console.WriteLine("");
-            textDisplay.Display("Husk: Du er ikke alene. Der findes altid hjælp.");
-            textDisplay.Display("Hvis du kender nogle eller har selv oplevet lignende situationer,");
-            textDisplay.Display("så tøv ikke med at række ud for støtte og hjælp.");
-            textDisplay.Display("Lev Uden Volds Hotline: 1888");
-            textDisplay.Display("---------=======================================================================================---------");
-            Console.WriteLine("");
-
+        // public void ShowEndScene()
+        // {
+            // storyHandler._UIHandler.ClearScreen();
+            // textDisplay.charDelay = 5;
+            // textDisplay.Display("---------=======================================================================================---------");
+            // textDisplay.Display("Tak fordi du spillede!");
+            // Console.WriteLine("");
+            // textDisplay.Display("Dette spil er skabt for at skabe opmærksomhed omkring psykisk vold mod kvinder.");
+            // textDisplay.Display("Vi håber, at du gennem disse valg og scenarier har fået indblik i,");
+            // textDisplay.Display("hvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.");
+            // Console.WriteLine("");
+            // textDisplay.Display("Husk: Du er ikke alene. Der findes altid hjælp.");
+            // textDisplay.Display("Hvis du kender nogle eller har selv oplevet lignende situationer,");
+            // textDisplay.Display("så tøv ikke med at række ud for støtte og hjælp.");
+            // textDisplay.Display("Lev Uden Volds Hotline: 1888");
+            // textDisplay.Display("---------=======================================================================================---------");
+            // Console.WriteLine("");
+            //
             // Show players total score
-            storyHandler.ShowPlayerScore();
-
-            Console.WriteLine("");
-            textDisplay.Display("Vil du gerne prøve igen? (ja/nej)");
-            Console.Write("> ");
+            // storyHandler.ShowPlayerScore();
+            //
+            // Console.WriteLine("");
+            // textDisplay.Display("Vil du gerne prøve igen? (ja/nej)");
+            // Console.Write("> ");
             //
             // string? input = Console.ReadLine()?.ToLowerInvariant();
             //
@@ -58,7 +56,7 @@
             //    storyHandler._UIHandler.DrawError("Vælg validt udtryk");
             // }
 
-        }
+        // }
 
         /// <summary>
         /// Show player's total score

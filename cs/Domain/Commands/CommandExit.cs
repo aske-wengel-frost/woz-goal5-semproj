@@ -14,7 +14,15 @@ namespace cs.Domain.Commands
 
         public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
         {
-            StoryHandler.ShowEndScene();
+            Scene sceneObj = StoryHandler.story.FindSceneByName("Endscene");
+            if (sceneObj is EndScene endScene)
+            {
+                StoryHandler.ShowEndScene(endScene.EndSceneContent);
+            }
+            else
+            {
+                StoryHandler._UIHandler.DrawError("Endscene not found...");
+            }
         }
     }
 
