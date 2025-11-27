@@ -8,7 +8,9 @@ using cs.Persistance;
 namespace UnitTests
 {
     public class Tests
-    {
+    {   
+        private UITerminal uiTerminal;
+        private StoryHandler storyHandler;
         private Registry registry;
         private CommandMove command;
         private string[] commandNames;
@@ -16,8 +18,17 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
+            // Sets up UITerminal
+            uiTerminal = new UITerminal();
+
+            // Sets up the StoryHandler
+            storyHandler = new StoryHandler(uiTerminal, new JsonDataProvider());
+
+            // Sets the player object to the storyHandler player
+            storyHandler.player = new cs.Domain.Player.Player("Name");
+
             // Sets up the registry object class
-		    registry = new Registry(new StoryHandler(new UITerminal(), new JsonDataProvider()), new CommandUnknown()); 
+		    registry = new Registry(storyHandler, new CommandUnknown()); 
                         
             // Make a new CommandMove Object
             command = new CommandMove();   
@@ -46,7 +57,7 @@ namespace UnitTests
             string consoleOutput1 = GetTerminalOutput("bevæg");
             
             // Test if the output to the terminal is correct
-            Assert.AreEqual("Woopsie, forstår ikke 'bevæg' 😕", consoleOutput1); 
+            Assert.AreEqual("Woopsie, forstår ikke 'bevæg' 😕", consoleOutput1, "Registry initilazation failed");
         }
 
         [Test]
@@ -60,9 +71,9 @@ namespace UnitTests
             
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("bevæg", newCommandNames[0]);
-                Assert.AreEqual("go", newCommandNames[1]); 
-                Assert.AreEqual("gå", newCommandNames[2]);                
+                Assert.AreEqual("bevæg", newCommandNames[0], "Command name 'bevæg' not working");
+                Assert.AreEqual("go", newCommandNames[1], "Command name 'go' not working"); 
+                Assert.AreEqual("gå", newCommandNames[2], "Command name 'gå' not working");                
             });
         }
         //TMP = Too Many Parameters or none
@@ -72,10 +83,15 @@ namespace UnitTests
             
             registry.Register(commandNames, new CommandMove());
             
-            string consoleOutput1 = GetTerminalOutput("bevæg");     
+            string consoleOutput1 = GetTerminalOutput("bevæg"); 
+            string consoleOutput2 = GetTerminalOutput("bevæg 2 3");
 
             // Test to see if the command matches the string below
-            Assert.AreEqual("For mange argumenter!", consoleOutput1); 
+            Assert.Multiple(() =>
+            {
+                Assert.AreEqual("For mange argumenter!", consoleOutput1, "The command feedback for non parameters failed"); 
+                Assert.AreEqual("For mange argumenter!", consoleOutput2, "The command for too many parameters failed");
+            });
         }
         
         [Test]
@@ -88,7 +104,29 @@ namespace UnitTests
             string consoleOutput1 = GetTerminalOutput("Bevæg 5");
             
             // Test if the output to the terminal is correct
-            Assert.AreEqual("5 er ikke et gyldigt valg!", consoleOutput1); 
+            Assert.AreEqual("5 er ikke et gyldigt valg!", consoleOutput1, "The invalid message failed"); 
+        }
+
+        [Test]
+        public void TestCommandAction()
+        {
+            // Start the story  
+            storyHandler.StartStory();
+
+            // Get the current scene
+            Scene scene1 = storyHandler.GetCurrentScene();
+            
+            // Insert the CommandMove into registry
+            registry.Register(commandNames, new CommandMove());
+
+            // Execute the CommandMove through the dispatch method
+            registry.Dispatch("bevæg 2");
+
+            // Get the new current scene
+            Scene scene2 = storyHandler.GetCurrentScene();
+
+            // Check if the two current scenes are different
+            Assert.AreNotEqual(scene1.Name, scene2.Name, "The CommandMove execution failed");
         }
     }
 }
