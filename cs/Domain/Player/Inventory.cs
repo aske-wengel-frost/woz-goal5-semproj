@@ -42,16 +42,20 @@ namespace cs.Domain.Player
         //Returns true if the item was found and removed, otherwise false 
         public bool RemoveItem(Item item) 
         {
-            
             if (items.Contains(item))
             {
-               items.Remove(item);
-               return true; // Item removed successfully
+                items.Remove(item);
+                return true;
             }
             else
             {
                 return false; // Item not found
             }
+        }
+
+        public void RemoveAllItems()
+        {
+            items.Clear();
         }
 
         /// <summary>
@@ -98,7 +102,7 @@ namespace cs.Domain.Player
         }
 
         /// <summary>
-        /// En simpel hjælpemetode til at tjekke, om inventory er tom.
+        /// En simpel hjï¿½lpemetode til at tjekke, om inventory er tom.
         /// 'CommandInventory' vil bruge denne.
         /// </summary>
         public bool IsEmpty()

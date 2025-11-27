@@ -9,12 +9,13 @@ namespace cs.Domain.Story
     {
         bool done = false;
         public Story story { get; set; }
-        public EndScene EndScene { get; set; }
         private Scene? currentScene { get; set; }
         //public DataProvider dataLoader { get; set; }
         public IUIHandler _UIHandler { get; set; }
         public IDataProvider _Data { get; set; }
         public Player player { get; set; }
+        public bool isEndScene { get; private set; }
+        static Registry? registry { get; set; }
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
@@ -23,9 +24,7 @@ namespace cs.Domain.Story
         {
             _Data = dataProvider;
             _UIHandler = uiHandler;
-
             this.story = _Data.getStory();
-            EndScene = new EndScene(this);
 
             //dataLoader = new DataProvider();
             //dataLoader.Load();
@@ -90,7 +89,7 @@ namespace cs.Domain.Story
             Scene? scene = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
 
             // Checks if current scene is contextScene (Propably is always?)
-            if(currentScene is ContextScene curContextScene)
+            if (currentScene is ContextScene curContextScene)
             {
                 // Gets the scenechoice
                 SceneChoice? sceneChoice = curContextScene.Choices.Find(_ => _.SceneId == scene.ID);
@@ -107,7 +106,7 @@ namespace cs.Domain.Story
                     }
                 }
             }
-            
+
 
             // At last transitions to scene
             TransitionToScene(scene);
@@ -130,14 +129,20 @@ namespace cs.Domain.Story
             }
 
             // if the scene to transition to is of type cutscene
-            if(scene is CutScene cutScene)
+            else if (scene is CutScene cutScene)
             {
                 HandleCutScene(cutScene);
+            }
+
+            else if (scene is EndScene endScene)
+            {
+                ShowEndScene(endScene.EndSceneContent);
             }
         }
 
         public void MakeDone()
         {
+            if (!isEndScene) return;
             done = true;
         }
 
@@ -159,9 +164,13 @@ namespace cs.Domain.Story
         }
 
         // Method to show end scene
-        public void ShowEndScene()
+        public void ShowEndScene(string inp)
         {
-            EndScene.ShowEndScene();
+
+            isEndScene = true;
+            _UIHandler.ClearScreen();
+            textDisplay.Display(inp);
+            ShowPlayerScore(); 
         }
 
         /// <summary>
@@ -187,7 +196,7 @@ namespace cs.Domain.Story
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
                     Scene? nextScene = story.FindScene(choice.SceneId);
-                    if(nextScene != null)
+                    if (nextScene != null)
                     {
                         TransitionToScene(nextScene);
                     }
@@ -225,6 +234,36 @@ namespace cs.Domain.Story
             }
         }
 
+        /// <summary>
+        /// Creates new instance of story, and restarts game.
+        /// </summary>
+        public void RestartGame()
+        {
+            if (!isEndScene) return;
+            // Reset players score and inventory
+            GetPlayer().Score = 0;
+            GetPlayer().Inventory.RemoveAllItems();
+
+            // Reset story
+            _Data = new TestDataProvider();
+            this.story = _Data.getStory();
+            StartStory();
+            isEndScene = false;
+
+            
+        }
+
+        /// <summary>
+        /// Shows playerscore at current instance.
+        /// </summary>
+        public void ShowPlayerScore()
+        {
+            _UIHandler.DrawInfo($"═══════════════════════════════");
+            _UIHandler.DrawInfo($"  {player.Name}'s Totale score: {player.Score}");
+            _UIHandler.DrawInfo($"═══════════════════════════════");
+        }
+
     }
+
 }
 

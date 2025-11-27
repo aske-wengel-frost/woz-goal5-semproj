@@ -28,14 +28,14 @@ namespace cs.Domain
             //storyHandler = new StoryHandler(UIHandler, new JsonDataProvider());
             storyHandler = new StoryHandler(UIHandler, tdp);
             registry = new Registry(storyHandler, fallback);
-
+             
             // Inits the map with the mapelements defined in the story loaded.
             UIHandler.InitMap(storyHandler.story.MapElements);
 
             // We call the InitRegistry method
             InitRegistry();
 
-            tdp.exportTestStory();
+            //tdp.exportTestStory();
         }
 
         static void Main(string[] args)
@@ -75,25 +75,24 @@ namespace cs.Domain
 
         }
 
-
+        
+        /// Responsible for invoking commands possible in registry.
         private static void InitRegistry()
         {
-            ICommand cmdExit = new CommandExit();
             registry.Register(new [] {"hjælp"}, new CommandHelp(registry));
-            registry.Register(new [] {"afslut"}, cmdExit); // cmdExit x2?
+            registry.Register(new [] {"afslut", "gg"}, new CommandExit()); 
             registry.Register(new [] {"bevæg", "go", "gå"}, new CommandMove());
             registry.Register(new [] {"export"}, new CommandExportStory());
-
-            // New Commands for the help() function
             registry.Register(new [] {"tilbage"}, new CommandBack());
             registry.Register(new [] {"se"}, new CommandLook());
-            registry.Register(new [] {"inventar"}, new CommandInventory());
-            registry.Register(new [] {"inv"}, new CommandInventory()); // Just a shorter version for inventory (Alias)
+            registry.Register(new [] {"inventar", "inv"}, new CommandInventory());
             registry.Register(new [] {"tag"}, new CommandTake());
             registry.Register(new [] {"smid"}, new CommandDrop());
             registry.Register(new [] {"brug"}, new CommandUse());
             registry.Register(new [] {"kort"}, new CommandMap());
             registry.Register(new [] {"status"}, new CommandStatus());
+            registry.Register(new [] {"ja", "j"}, new CommandRestartGame());
+            registry.Register(new [] {"nej", "n"}, new CommandExitGame());
         }
     }
 }

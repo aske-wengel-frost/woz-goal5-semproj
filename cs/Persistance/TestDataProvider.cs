@@ -17,6 +17,10 @@
         private Story Story;
         public TestDataProvider()
         {
+            // Reset static ID counters to ensure consistent IDs
+            Area.ResetIdCounter();
+            Scene.ResetIdCounter();
+            
             Story = new Story();
             BuildTestStory();
         }
@@ -114,6 +118,22 @@
 
              Story.AddScene(new CutScene("Seje reje", "Yo stupid ass did not just do that", 1));
 
+            // Create EndScene test
+            string endSceneContentInfo =
+            "---------=======================================================================================---------\n" +
+            "Tak fordi du spillede!\n\n" +
+            "Dette spil er skabt for at skabe opmærksomhed omkring psykisk vold mod kvinder.\n" +
+            "Vi håber, at du gennem disse valg og scenarier har fået indblik i,\n" +
+            "hvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.\n\n" +
+            "Husk: Du er ikke alene. Der findes altid hjælp.\n" +
+            "Hvis du kender nogle eller har selv oplevet lignende situationer,\n" +
+            "så tøv ikke med at række ud for støtte og hjælp.\n" +
+            "Lev Uden Volds Hotline: 1888\n" +
+            "---------=======================================================================================---------\n\n" +
+            "Vil du gerne prøve igen? (ja/nej)\n> ";
+
+            EndScene endScene = new EndScene("Endscene", endSceneContentInfo);
+            Story.AddScene(endScene);
 
             // Add Map Elements to story
             Story.AddMapElement(new MapRoomElement(0, 2, 2, 12, 10, "Entré"));
