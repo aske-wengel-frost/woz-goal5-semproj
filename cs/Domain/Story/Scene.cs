@@ -55,5 +55,13 @@ namespace cs.Domain.Story
         {
             return currentID++; 
         }
+
+        /// <summary>
+        /// Resets the static ID counter. Used when restarting the game.
+        /// </summary>
+        public static void ResetIdCounter()
+        {
+            currentID = 0;
+        }
     }
 }

@@ -17,6 +17,10 @@
         private Story Story;
         public TestDataProvider()
         {
+            // Reset static ID counters to ensure consistent IDs
+            Area.ResetIdCounter();
+            Scene.ResetIdCounter();
+            
             Story = new Story();
             BuildTestStory();
         }

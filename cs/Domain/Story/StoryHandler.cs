@@ -229,18 +229,24 @@ namespace cs.Domain.Story
         {
             _UIHandler.ClearScreen();
             // Reset players score and inventory
-            GetPlayer().Score = 0;
+            // GetPlayer().Score = 0;
 
             // storyHandler.GetPlayer().Inventory = new Inventory();
             // Remove all items in inventory instead of just making a new one
-            GetPlayer().Inventory.RemoveAllItems();
+            // GetPlayer().Inventory.RemoveAllItems();
+
+            // Reset story
+            _Data = new TestDataProvider();
+            this.story = _Data.getStory();
             StartStory();
+
+            
         }
 
         public void ShowPlayerScore()
         {
             _UIHandler.DrawInfo($"═══════════════════════════════");
-            _UIHandler.DrawInfo($"  {player.Name}'s Total Score: {player.Score}");
+            _UIHandler.DrawInfo($"  {player.Name}'s Totale score: {player.Score}");
             _UIHandler.DrawInfo($"═══════════════════════════════");
         }
 
