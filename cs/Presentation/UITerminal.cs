@@ -24,7 +24,6 @@
     class UITerminal : IUIHandler
     {
         private TerminalMap map { get; set; } = new TerminalMap();
-        public static Dictionary<int, int> SceneChoiceAsc = new Dictionary<int, int> { };
 
         int LineLength { get; set; }
 
@@ -63,13 +62,13 @@
                 Console.WriteLine("");
                 textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
 
-                int num = 1;
-                foreach (SceneChoice sceneChoice in ctx.Choices)
+
+                // Uses the index of the array to display the options ascendingly
+                for(int i = 1; i < ctx.Choices.Count() + 1; i++)
                 {
-                    SceneChoiceAsc[num] = sceneChoice.SceneId;
-                    textDisplay.Display($"[{num}] > {sceneChoice.Description}", punctDelay: 5);
-                    num++;
+                    textDisplay.Display($"[{i}] > {ctx.Choices[i - 1].Description}", punctDelay: 5);
                 }
+
                 Console.WriteLine("");
                 textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
             }

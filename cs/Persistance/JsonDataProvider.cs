@@ -96,7 +96,22 @@
                 // Loop through all scenechoices in theese scenes
                 foreach (SceneChoice sceneChoice in contextScene.Choices)
                 {
-                    ResolveChoiceLinks(sceneChoice);
+
+                    // try to resolve the name of the scene with a scene object
+                    if (Story.Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
+                    {
+                        // this is cap
+                        //if (OutScene is ContextScene targetScene)
+                        //{
+                        sceneChoice.SceneObj = OutScene;
+                        //}
+                    }
+
+                    // Resolves Key item object
+                    if (Story.Items.TryGetValue(sceneChoice.KeyItemId, out Item? keyItem))
+                    {
+                        sceneChoice.KeyItem = keyItem;
+                    }
                 }
 
             }
@@ -125,10 +140,11 @@
             // try to resolve the name of the scene with a scene object
             if (Story.Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
             {
-                if (OutScene is ContextScene targetScene)
-                {
-                    sceneChoice.SceneObj = targetScene;
-                }
+                // this is cap
+                //if (OutScene is ContextScene targetScene)
+                //{
+                    sceneChoice.SceneObj = OutScene;
+                //}
             }
 
             // Resolves Key item object
