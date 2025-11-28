@@ -371,4 +371,4 @@ FodyWeavers.xsd
 
 EXPORTED_STORY.json
 
-UnitTests.csproj
+UnitTests/UnitTests.csproj

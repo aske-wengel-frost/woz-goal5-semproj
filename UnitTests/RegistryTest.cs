@@ -116,10 +116,10 @@ namespace UnitTests
             
             // Sets up the story class
             JsonDataProvider StoryGetter = new JsonDataProvider();
-            Story story = StoryGetter.getStory();
+            Story story = StoryGetter.GetStory();
             
             // Find the second scene choice 
-            Scene scene2 = story.FindScene(UITerminal.SceneChoiceAsc[2]);
+            Scene scene2 = story.FindScene<Scene>(UITerminal.SceneChoiceAsc[2]);
 
             // Insert the CommandMove into registry and execute
             registry.Register(commandNames, new CommandMove());
