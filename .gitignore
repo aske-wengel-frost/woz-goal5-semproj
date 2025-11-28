@@ -369,6 +369,6 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-EXPORTED_STORY.json/
+EXPORTED_STORY.json
 
-UnitTests.csproj/
+UnitTests/UnitTests.csproj
