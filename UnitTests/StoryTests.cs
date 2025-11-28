@@ -27,6 +27,11 @@ namespace UnitTests
         [SetUp]
         public void Setup()
         {
+            //Resets the ID counters before each test so we know the ID starts at 0
+            Scene.ResetIdCounter();
+            Area.ResetIdCounter();
+
+            //Initializes the test variables that will be used in the tests
             story = new Story();
             item = new Item("mobil", "En smartphone");
             items = new Dictionary<int, Item>();
@@ -37,90 +42,146 @@ namespace UnitTests
                 "Køkken tekst",
                 area
             );
-
-            story.AddArea(area);
-            story.AddScene(scene);
-            story.AddItem(item);
         }
 
+        #region Tests
+        #region Add Tests
 
-        //Test 1: Adding Scene
+        //TEST 1: Adding Scene
+        //We want to verify that adding a scene to the story correctly adds it to the Scenes dictionary.
         [Test]
         public void AddSceneTest()
         {
+            //ARRANGE & ACT: Adds the scene to the story
+            story.AddScene(scene);
 
+            //ASSERT: Verifies that the scene was added to the Scenes dictionary
             Assert.That(story.Scenes.ContainsValue(scene));
         }
 
-        //Test 2: Adding Area
+        //TEST 2: Adding Area
+        //We want to verify that adding an area to the story correctly adds it to the Areas dictionary.
         [Test]
         public void AddAreaTest()
         {
+            //ARRANGE & ACT: Adds the area to the story
+            story.AddArea(area);
+
+            //ASSERT: Verifies that the area was added to the Areas dictionary
             Assert.That(story.Areas.ContainsValue(area));
         }
 
-        //Test 3: Adding Item
+        //TEST 3: Adding Item
+        //We want to verify that adding an item to the story correctly adds it to the Items dictionary.
         [Test]
         public void AddItemTest()
         {
+            //ARRANGE & ACT: Adds the item to the story
+            story.AddItem(item);
+
+            //ASSERT: Verifies that the item was added to the Items dictionary
             Assert.That(story.Items.ContainsValue(item));
         }
+        #endregion
 
+        #region Find Scene Tests
 
-        //Test 4: Finding Scene by ID
+        //TEST 4: Finding Scene by ID
+        //We want to verify that finding a scene by its ID returns the correct scene.
         [Test]
         public void FindSceneByIDTest()
         {
-            Scene? result = story.FindScene<Scene>(Sceneinput);
+            //ARRANGE: Adds the scene to the story
+            story.AddScene(scene);
 
+            //ACT: Finds the scene by its ID
+            Scene result = story.FindScene<Scene>(Sceneinput);
+
+            //ASSERT: Verifies that the found scene is the same as the one we added
             Assert.That(result, Is.EqualTo(scene));
         }
 
-        //Test 5: Finding Scene by Name
+        //TEST 5: Finding Scene by Name
+        //We want to verify that finding a scene by its Name returns the correct scene.
         [Test]
         public void FindSceneByNameTest()
         {
+            //ARRANGE: Adds the scene to the story
+            story.AddScene(scene);
+
+            //ACT: Finds the scene by its name
             Scene result = story.FindScene<Scene>(SceneNameInput);
 
+            //ASSERT: Verifies that the found scene is the same as the one we added
             Assert.That(result, Is.EqualTo(scene));
         }
+        #endregion
 
+        #region Find Item Tests
 
-        //Test 6: Finding Item by ID
+        //TEST 6: Finding Item by ID
+        //We want to verify that finding an item by its ID returns the correct item.
         [Test]
         public void FindItemByIDTest()
         {
+            //ARRANGE: Adds the item to the story
+            story.AddItem(item);
+
+            //ACT: Finds the item by its ID
             Item result = story.FindItem(ItemInput);
 
+            //ASSERT: Verifies that the found item is the same as the one we added
             Assert.That(result, Is.EqualTo(item));
         }
 
-        //Test 7: Finding Item by Name
+        //TEST 7: Finding Item by Name
+        //We want to verify that finding an item by its Name returns the correct item.
         [Test]
         public void FindItemByNameTest()
         {
+            //ARRANGE: Adds the item to the story
+            story.AddItem(item);
+
+            //ACT: Finds the item by its Name
             Item result = story.FindItem(ItemNameInput);
 
+            //ASSERT: Verifies that the found item is the same as the one we added
             Assert.That(result, Is.EqualTo(item));
         }
+        #endregion
 
+        #region Find Area Tests
 
-        //Test 8: Finding Area by ID
+        //TEST 8: Finding Area by ID
+        //We want to verify that finding an area by its ID returns the correct area.
         [Test]
         public void FindAreaByIDTest()
         {
+            //ARRANGE: Adds the area to the story
+            story.AddArea(area);
+
+            //ACT: Finds the area by its ID
             Area result = story.FindArea(AreaInput);
 
+            //ASSERT: Verifies that the found area is the same as the one we added
             Assert.That(result, Is.EqualTo(area));
         }
 
-        //Test 9: Finding Area by Name
+        //TEST 9: Finding Area by Name
+        //We want to verify that finding an area by its Name returns the correct area.
         [Test]
         public void FindAreaByNameTest()
         {
+            //ARRANGE: Adds the area to the story
+            story.AddArea(area);
+
+            //ACT: Finds the area by its Name
             Area result = story.FindArea(AreaNameInput);
 
+            //ASSERT: Verifies that the found area is the same as the one we added
             Assert.That(result, Is.EqualTo(area));
         }
+        #endregion
+        #endregion
     }
 }
