@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -18,9 +18,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\cs\cs.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+<<<<<<< HEAD
   <ItemGroup>
     <ProjectReference Include="..\cs\cs.csproj" />
   </ItemGroup>
@@ -28,4 +33,10 @@
   <ItemGroup>
 	<InternalsVisibleTo Include="UnitTests" />
   </ItemGroup>
+=======
+  <ItemGroup>
+    <ProjectReference Include="..\cs\cs.csproj" />
+  </ItemGroup>
+
+>>>>>>> main
 </Project>

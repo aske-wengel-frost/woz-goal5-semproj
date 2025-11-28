@@ -1,17 +1,21 @@
 namespace cs.Domain.Commands
 {
     using cs.Domain.Story;
-
     using System;
 
-    class CommandBack : BaseCommand, ICommand
+
+    /// <summary>
+    /// This command was only made as an idea for the player to go back to a previous scene.
+    /// It's not implemented in the game but mearly here as a placeholder for future development.
+    /// </summary>
+    /*class CommandBack : BaseCommand, ICommand
     {
         public CommandBack()
         {
-            this.description = "Gå tilbage til tidligere scene (nej)";
+            this.description = "GÃ¥ tilbage til tidligere scene (nej)";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             // Check to see if the player can go back to the previous scene
             //bool success = StoryHandler.GoBack();
@@ -19,9 +23,9 @@ namespace cs.Domain.Commands
             //{
             //    // How do i keep the red coler? and not use the green coler form DrawInfo? (should i just make a new .DrawInfo?)
             //    Console.ForegroundColor = ConsoleColor.Red;
-            //    Console.WriteLine("Du kan ikke gå tilbage herfra"); // Message if bool is false
+            //    Console.WriteLine("Du kan ikke gï¿½ tilbage herfra"); // Message if bool is false
             //    Console.ResetColor();
             //}
         }
-    }
+    }*/
 }

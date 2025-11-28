@@ -10,7 +10,6 @@ namespace cs.Domain.Story
             this.ConditionInfo = conditionInfo;
             this.NextSceneId = nextSceneId;
         }
-
     }
 
 }

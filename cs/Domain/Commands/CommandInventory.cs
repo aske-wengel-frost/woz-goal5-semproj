@@ -5,6 +5,10 @@ namespace cs.Domain.Commands
 
     using System;
 
+    /// <summary>
+    /// CommandInventory class which implements the ICommand interface
+    /// and provides functionality to display the player's inventory.
+    /// </summary>
     class CommandInventory : BaseCommand, ICommand
     {
         public CommandInventory()
@@ -12,33 +16,31 @@ namespace cs.Domain.Commands
             this.description = "Viser player's inventar";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        // summary>
+        // The Execution of the method will displays the player's inventory
+        // items to the user through the StoryHandler's UI.
+        // With an appropriate design pattern for the user to understand it better.
+        // /summary>
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             
-            Player player = StoryHandler.GetPlayer();
-            if (player == null)
+            Player player = storyHandler.GetPlayer();
+                  
+            storyHandler._UI.DrawInfo("\n=== Dit Inventar ===");
+
+            // If-statement to check if the inventory is empty
+            if (player.inventory.IsEmpty())
             {
                 
-                StoryHandler._UIHandler.DrawError("FEJL: Spilleren kunne ikke findes."); //Dont know is it should be here.
-                return;
-            }
-
-            
-            StoryHandler._UIHandler.DrawInfo("\n=== Dit Inventar ===");
-
-            
-            if (player.Inventory.IsEmpty())
-            {
-                
-                StoryHandler._UIHandler.DrawInfo("Inventar er tomt.");
+                storyHandler._UI.DrawInfo("Inventar er tomt.");
             }
             else
             {
-                
-                foreach (Item item in player.Inventory.GetItems())
+                // Loop through each item in the player's inventory and display its details
+                foreach (Item item in player.inventory.GetItems())
                 {
                     
-                    StoryHandler._UIHandler.DrawInfo(item.ToString());
+                    storyHandler._UI.DrawInfo(item.ToString());
                 }
             }
         }

@@ -1,11 +1,12 @@
-/* Help command
- */
-
 namespace cs.Domain.Commands
 {
     using cs.Domain;
     using cs.Domain.Story;
 
+    /// <summary>
+    /// CommandHelp class which implements the ICommand interface
+    /// and provides help information about available commands to the user.
+    /// </summary>
     class CommandHelp : BaseCommand, ICommand
     {
         Registry registry;
@@ -13,10 +14,14 @@ namespace cs.Domain.Commands
         public CommandHelp(Registry registry)
         {
             this.registry = registry;
-            this.description = "Viser 'hjælp' listen";
+            this.description = "Viser 'hjÃ¦lp' listen";
         }
 
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        // summary>
+        // Executes the help-command and displays a list of available commands
+        // for the user along with their descriptions.
+        // /summary>
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             string[] commandNames = registry.GetCommandNames();
             Array.Sort(commandNames);
@@ -30,13 +35,13 @@ namespace cs.Domain.Commands
             }
 
             // present list of commands
-            StoryHandler._UIHandler.DrawInfo("Commands:");
+            storyHandler._UI.DrawInfo("Commands:");
             foreach (String commandName in commandNames)
             {
                 string description = registry.GetCommand(commandName).GetDescription();
                 string lineToDraw = string.Format(" - {0,-" + max + "} " + description, commandName);
 
-                StoryHandler._UIHandler.DrawInfo(lineToDraw);
+                storyHandler._UI.DrawInfo(lineToDraw);
             }
         }
     }

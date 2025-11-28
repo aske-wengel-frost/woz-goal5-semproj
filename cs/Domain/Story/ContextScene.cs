@@ -15,17 +15,22 @@
         public string? DialogueText { get; set; }
         public List<SceneChoice> Choices { get; set; }
 
-        public ContextScene(string name, int scenePoints, string dialogueText, List<SceneChoice> choices, Area area = null)
+        public ContextScene(string name, int scenePoints, string dialogueText, Area area = null)
             : base(name)
         {
             DialogueText = dialogueText;
             Area = area;
             AreaId = area != null ? area.ID : 0;
-            Choices = choices;
-            //RequiredItemId = requiredItemId;
             ScenePoints = scenePoints;
+            Choices = new List<SceneChoice>();
 
         }
+
+        public void AddSceneChoice(SceneChoice sceneChoice)
+        {
+            Choices.Add(sceneChoice);
+        }
+        
         
     }
 }

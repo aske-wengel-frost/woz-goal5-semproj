@@ -4,17 +4,17 @@ namespace cs.Domain.Story
     using cs.Persistance;
     using cs.Presentation;
 
-
     public class StoryHandler
     {
         bool done = false;
         public Story story { get; set; }
-        public EndScene EndScene { get; set; }
         private Scene? currentScene { get; set; }
         //public DataProvider dataLoader { get; set; }
-        public IUIHandler _UIHandler { get; set; }
+        public IUIHandler _UI { get; set; }
         public IDataProvider _Data { get; set; }
         public Player player { get; set; }
+        public bool isEndScene { get; private set; }
+        static Registry? registry { get; set; }
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
@@ -22,25 +22,9 @@ namespace cs.Domain.Story
         public StoryHandler(IUIHandler uiHandler, IDataProvider dataProvider)
         {
             _Data = dataProvider;
-            _UIHandler = uiHandler;
+            _UI = uiHandler;
+            this.story = _Data.GetStory();
 
-            this.story = _Data.getStory();
-            EndScene = new EndScene(this);
-
-            //dataLoader = new DataProvider();
-            //dataLoader.Load();
-            //dataLoader.ExportStoryToFile();
-
-            //this.story = dataLoader.story;
-
-            // Initialize EndScene with the current StoryHandler instance
-
-            // Loads the story
-            //dataLoader.LoadAreas();
-            //dataLoader.LoadScenesFromFile();
-
-            //DataLoader.LoadScenesNew();
-            //dataLoader.LinkScenes();
         }
 
         /// <summary>
@@ -49,19 +33,19 @@ namespace cs.Domain.Story
         public void StartStory()
         {
             // Sets the current scene
-            ContextScene? contextScene = story.getInitialScene();
+            ContextScene? contextScene = story.GetInitialScene();
 
             if (contextScene is null)
             {
-                _UIHandler.DrawError("Could not find start valid start scene!");
+                _UI.DrawError("Could not find start valid start scene!");
                 return;
             }
 
             currentScene = contextScene;
 
             // Draws the initial scene
-            _UIHandler.HighlightArea(contextScene.AreaId);
-            _UIHandler.DrawScene(contextScene, player.Score);
+            _UI.HighlightArea(contextScene.AreaId);
+            _UI.DrawScene(contextScene, player.Score, player.PartnerAggression);
 
         }
 
@@ -75,22 +59,22 @@ namespace cs.Domain.Story
             bool isConverted = Int32.TryParse(usrInp, out int usrInpValue);
             if (!isConverted)
             {
-                _UIHandler.DrawError("Ikke validt input!");
+                _UI.DrawError("Ikke validt input!");
                 return;
             }
 
             // Checks if any of the scene choices contains the users input (using ASKE MAGIC)
             if (!UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
             {
-                _UIHandler.DrawError($"{usrInpValue} er ikke et gyldigt valg!");
+                _UI.DrawError($"{usrInpValue} er ikke et gyldigt valg!");
                 return;
             }
 
             //Gets the sceneobject of scene to switch to
-            Scene? scene = story.FindScene(UITerminal.SceneChoiceAsc[usrInpValue]);
+            Scene? scene = story.FindScene<Scene>(UITerminal.SceneChoiceAsc[usrInpValue]);
 
             // Checks if current scene is contextScene (Propably is always?)
-            if(currentScene is ContextScene curContextScene)
+            if (currentScene is ContextScene curContextScene)
             {
                 // Gets the scenechoice
                 SceneChoice? sceneChoice = curContextScene.Choices.Find(_ => _.SceneId == scene.ID);
@@ -99,15 +83,16 @@ namespace cs.Domain.Story
                 if (sceneChoice.isLocked())
                 {
                     // Try to unlock the sceneChoice
-                    if (!sceneChoice.Unlock(player.Inventory))
+                    if (!sceneChoice.Unlock(player.inventory))
                     {
-                        //_UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
-                        _UIHandler.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
+                        _UI.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
                         return;
                     }
                 }
+
+                player.Score += sceneChoice.ScorePoints;
+                player.PartnerAggression += sceneChoice.PartnerAggression;
             }
-            
 
             // At last transitions to scene
             TransitionToScene(scene);
@@ -124,20 +109,25 @@ namespace cs.Domain.Story
             // If the scene is of type contextScene
             if (scene is ContextScene contextScene)
             {
-                _UIHandler.HighlightArea(contextScene.AreaId);
-                player.Score += contextScene.ScenePoints; //Adds the points of the currentScene to the playerScore
-                _UIHandler.DrawScene(contextScene, player.Score);
+                _UI.HighlightArea(contextScene.AreaId);
+                _UI.DrawScene(contextScene, player.Score, player.PartnerAggression);
             }
 
             // if the scene to transition to is of type cutscene
-            if(scene is CutScene cutScene)
+            else if (scene is CutScene cutScene)
             {
                 HandleCutScene(cutScene);
+            }
+
+            else if (scene is EndScene endScene)
+            {
+                ShowEndScene(endScene.EndSceneContent);
             }
         }
 
         public void MakeDone()
         {
+            if (!isEndScene) return;
             done = true;
         }
 
@@ -159,9 +149,13 @@ namespace cs.Domain.Story
         }
 
         // Method to show end scene
-        public void ShowEndScene()
+        public void ShowEndScene(string inp)
         {
-            EndScene.ShowEndScene();
+
+            isEndScene = true;
+            _UI.ClearScreen();
+            textDisplay.Display(inp);
+            ShowPlayerScore(); 
         }
 
         /// <summary>
@@ -183,10 +177,10 @@ namespace cs.Domain.Story
                 if (choice.isLocked() && choice.KeyItemId == item.ID)
                 {
                     // If TRUE, proceed to the next scene
-                    _UIHandler.DrawInfo($"Du brugte: {item.Name}.");
+                    _UI.DrawInfo($"Du brugte: {item.Name}.");
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
-                    Scene? nextScene = story.FindScene(choice.SceneId);
+                    Scene? nextScene = story.FindScene<Scene>(choice.SceneId);
                     if(nextScene != null)
                     {
                         TransitionToScene(nextScene);
@@ -200,15 +194,15 @@ namespace cs.Domain.Story
         /// Handles what to draw given a Scene. If more CutScenes are linked to eachother, it calls recursively.
         /// </summary>
         /// <param name="cutScene"></param>
-        public void HandleCutScene(CutScene cutScene)
+        private void HandleCutScene(CutScene cutScene)
         {
-            _UIHandler.DrawScene(cutScene, player.Score);
-            _UIHandler.WaitForKeypress();
+            _UI.DrawScene(cutScene, player.Score, player.PartnerAggression);
+            _UI.WaitForKeypress();
 
             // Check if next scene has id.
             if (cutScene.NextSceneId.HasValue)
             {
-                Scene? nextScene = story.FindScene(cutScene.NextSceneId.Value);
+                Scene? nextScene = story.FindScene<Scene>(cutScene.NextSceneId.Value);
                 if (nextScene != null)
                 {
                     // Handle next scene.
@@ -223,6 +217,34 @@ namespace cs.Domain.Story
             {
                 MakeDone();
             }
+        }
+
+        /// <summary>
+        /// Creates new instance of story, and restarts game.
+        /// </summary>
+        public void RestartGame()
+        {
+            if (!isEndScene) return;
+            // Reset players score and inventory
+            GetPlayer().Score = 0;
+            GetPlayer().inventory.RemoveAllItems();
+
+            // Reset story
+            _Data = new TestDataProvider();
+            this.story = _Data.GetStory();
+            StartStory();
+            isEndScene = false;
+
+        }
+
+        /// <summary>
+        /// Shows playerscore at current instance.
+        /// </summary>
+        public void ShowPlayerScore()
+        {
+            _UI.DrawInfo($"═══════════════════════════════");
+            _UI.DrawInfo($"  {player.Name}'s Totale score: {player.Score}");
+            _UI.DrawInfo($"═══════════════════════════════");
         }
 
     }

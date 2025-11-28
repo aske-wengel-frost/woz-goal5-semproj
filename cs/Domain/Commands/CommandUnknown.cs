@@ -6,11 +6,15 @@ namespace cs.Domain.Commands
 
     using System;
 
+    /// <summary>
+    /// A simple command that notifies the player if they give/type an unknown command.
+    /// </summary>
     class CommandUnknown : BaseCommand, ICommand
     {
-        public void Execute(StoryHandler StoryHandler, string command, string[] parameters)
+        public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-            StoryHandler._UIHandler.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
+            // Draws this message to the UI when an unknown command is given
+            storyHandler._UI.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
         }
     }
 }
