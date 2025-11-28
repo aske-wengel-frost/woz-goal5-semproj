@@ -17,11 +17,7 @@
     {
         private Story Story;
         public TestDataProvider()
-        {
-            // Reset static ID counters to ensure consistent IDs
-            Area.ResetIdCounter();
-            Scene.ResetIdCounter();
-            
+        {   
             Story = new Story();
             BuildTestStory();
         }
@@ -121,6 +117,15 @@
             badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Køkken 1"), 5, 2, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."));
             badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Soveværelse 1"), 5, -2, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."));
             badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), 5, 8, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."));
+        }
+
+        public void ReloadStory()
+        {
+            Area.ResetIdCounter();
+            Item.ResetIdCounter();
+            Scene.ResetIdCounter();
+
+            BuildTestStory();
         }
     }
 }

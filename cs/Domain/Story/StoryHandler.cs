@@ -235,7 +235,7 @@ namespace cs.Domain.Story
             GetPlayer().inventory.RemoveAllItems();
 
             // Reset story
-            _Data = new TestDataProvider();
+            _Data.ReloadStory();
             this.story = _Data.GetStory();
             StartStory();
             isEndScene = false;

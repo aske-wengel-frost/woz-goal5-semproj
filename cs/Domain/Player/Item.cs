@@ -49,5 +49,10 @@ namespace cs.Domain.Player
         {
             return currentID++;
         }
+
+        public static void ResetIdCounter()
+        {
+            currentID = 0;
+        }
     }
 }

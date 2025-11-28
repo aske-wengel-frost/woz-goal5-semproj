@@ -153,7 +153,15 @@
                 sceneChoice.KeyItem = keyItem;
             }
         }
+        public void ReloadStory()
+        {
+            Area.ResetIdCounter();
+            Item.ResetIdCounter();
+            Scene.ResetIdCounter();
 
+            LoadStoryFromFile();
+            ResolveObjectLinks();
+        }
 
         private void ExportStoryToFile()
         {
