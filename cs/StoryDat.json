@@ -157,12 +157,12 @@
       "Choices": [
         {
           "Description": "Du gider ikke diskutere mere med din kæreste, så du vælger at tage et bad uden at låse døren.",
-          "SceneId": 3,
+          "SceneId": 19,
           "KeyItemId": -1
         },
         {
           "Description": "Du vil gerne have lidt tid alene så du låser døren og tager et bad.",
-          "SceneId": 5,
+          "SceneId": 19,
           "KeyItemId": 1
         }
       ]
