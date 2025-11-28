@@ -370,3 +370,5 @@ MigrationBackup/
 FodyWeavers.xsd
 
 EXPORTED_STORY.json/
+
+UnitTests.csproj/
