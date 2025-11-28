@@ -2,199 +2,337 @@
   "Name": "",
   "Scenes": {
     "0": {
-      "$type": "contextScene",
-      "AreaId": 4,
-      "ScenePoints": 5,
-      "DialogueText": "Du står i køkkenet og laver morgenmad. Du hører din kæreste vågne, og lidt efter kommer han ind i køkkenet.",
-      "Choices": [
-        {
-          "Description": "Du forholder dig stille og roligt for at undgå konflikter.",
-          "SceneId": 4,
-          "KeyItemId": 0
-        },
-        {
-          "Description": "Du spørger, om han vil have en kop kaffe.",
-          "SceneId": 2,
-          "KeyItemId": -1
-        },
-        {
-          "Description": "Du spørger ham om han har lyst til at hjælpe med maden.",
-          "SceneId": 3,
-          "KeyItemId": -1
-        },
-        {
-          "Description": "Action baby",
-          "SceneId": 4,
-          "KeyItemId": -1
-        }
-      ],
+      "$type": "cutScene",
+      "ConditionInfo": "Du bor sammen med din kæreste, som i begyndelsen virkede som den ideelle partner.\nMen noget har forandret sig.\nDet begyndte med små kommentarer.\nEt blik. En bemærkning om dit tøj, din måde at tale på.\nDu prøver stadig at overbevise dig selv om, at det nok bare er stress. At det bliver bedre.\nMen i det sidste stykke tid er du begyndt at mærke noget andet.",
+      "NextSceneId": 1,
       "ID": 0,
-      "Name": "Køkken 1"
+      "Name": "Introduktion"
     },
     "1": {
       "$type": "contextScene",
+      "ID": 1,
+      "Name": "Soveværelse 1",
       "AreaId": 2,
       "ScenePoints": 5,
-      "DialogueText": "Du har lagt dig på sengen, din kæreste står i døren og siger 'Det hele er din skyld'. Du føler dig fortvivlet og fanget.",
+      "DialogueText": "Du vågner, ved at din kæreste nusser dig på ryggen. “Godmorgen, skat” siger han med et smil på læben. Din mobiltelefon ligger på natbordet, den begynder at ringe. Du skynder dig at afbryde opkaldet for at undgå en ny konflikt mellem jer. Du kigger tilbage på din kæreste og ser, at hans smil er falmet.",
       "Choices": [
         {
-          "Description": "Du nævner tidligere episoder, hvor han har opført sig kontrollerende.",
-          "SceneId": 3,
-          "KeyItemId": -1
+          "Description": "Du lægger hurtigt mobiltelefonen væk og siger “Undskyld skat…. det var bare min veninde, jeg ringer tilbage senere.” Du kigger smilende på ham igen og prøver at få hans smil tilbage.",
+          "SceneId": 8,
+          "KeyItemId": 0,
+          "ScorePoints": 0,
+          "PartnerAggression": 0
         },
         {
-          "Description": "Du sætter en grænse og siger 'Jeg har brug for at være alene.'",
-          "SceneId": 0,
-          "KeyItemId": -1
+          "Description": "Du tager mobiltelefonen op og siger “Det var bare min veninde, Jeg kan ringe tilbage til hende senere”\nDu møder hans stivnede blik, men undskylder ikke. “Jeg går ud og laver morgenmad, vil du at jeg skal lave noget til dig også?”",
+          "SceneId": 9,
+          "KeyItemId": 0,
+          "ScorePoints": 0,        
+          "PartnerAggression": 0
         },
         {
-          "Description": "Du undskylder og lytter til hvad din kæreste siger.",
-          "SceneId": 2,
+          "Description": "Du vender hurtigt mobiltelefonen med skærmen nedad og siger “Det.. det må have været en fejl opringning”. Du prøver at undgå hans blik",
+          "SceneId": 8,
           "KeyItemId": -1
         }
-      ],
-      "ID": 1,
-      "Name": "Soveværelse 1"
+      ]
     },
     "2": {
-      "$type": "contextScene",
-      "AreaId": 3,
-      "ScenePoints": 3,
-      "DialogueText": "Du vil gerne se nyhederne, men din kæreste syntes det er spild af tid.",
-      "Choices": [
-        {
-          "Description": "Du slukker tv’et og går fra stuen.",
-          "SceneId": 3,
-          "KeyItemId": -1
-        },
-        {
-          "Description": "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'.",
-          "SceneId": 1,
-          "KeyItemId": 2
-        }
-      ],
-      "ID": 2,
-      "Name": "Stue 1"
-    },
+        "$type": "contextScene",
+        "ID": 2,
+        "Name": "Køkken 1",
+        "AreaId": 4,
+        "ScenePoints": 5,
+        "DialogueText": "I står op og går ud i køkkenet. Din kæreste sætter sig ved bordet, og du begynder at lave jeres morgenmad. Du mærker, at han stadig tænker på opkaldet. Han spørger pludseligt “Skjuler du noget for mig?”. Du er overrasket, du forventede ikke at han ville spørge mere ind til det. Du begynder at ryste og mister kniven, du holder i hånden. “For helvede, du er så uduelig, skal jeg pakke knivene væk igen?”",
+        "Choices": [
+          {
+            "Description": "Du tager en dyb indånding og siger “Jeg tabte kniven fordi jeg blev forskrækket, det var ikke med vilje”",
+            "SceneId": 10,
+            "KeyItemId": -1
+          },
+          {
+            "Description": "Du skynder dig at samle kniven op igen og mumler forsigtigt “Undskyld… det var min fejl, jeg ved ikke hvorfor jeg tabte kniven.”",
+            "SceneId": 11,
+            "KeyItemId": -1
+          }
+        ]
+      },
     "3": {
-      "$type": "contextScene",
-      "AreaId": 1,
-      "ScenePoints": -3,
-      "DialogueText": "Du træder ind i badet. Du vasker uroen og hans kritiske kommentarer væk med det varme vand. Kort efter hører du din kæreste træde ind.",
-      "Choices": [
-        {
-          "Description": "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’.",
-          "SceneId": 0,
-          "KeyItemId": -1
-        },
-        {
-          "Description": "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’.",
-          "SceneId": 1,
-          "KeyItemId": -1
-        },
-        {
-          "Description": "Du undskylder og skynder dig at slukke vandet og forlade badeværelset.",
-          "SceneId": 2,
-          "KeyItemId": -1
-        }
-      ],
-      "ID": 3,
-      "Name": "Badeværelse 1"
-    },
+        "$type": "contextScene",
+        "ID": 3,
+        "Name": "Køkken 2",
+        "AreaId": 4,
+        "ScenePoints": 5,
+        "DialogueText": "Du står op og går i gang med at stege pandekager. Kort efter hører du din kæreste komme ud fra soveværelset. Han er stadig i godt humør, måske lidt for godt. Han går om bag dig og krammer dig bagfra. “Jeg er bare bekymret, fordi jeg elsker dig.” Jeg ved godt hvad han skal sige nu. “Jeg ved bare ikke, hvordan jeg skulle leve uden dig. Du er den jeg lever for!”",
+        "Choices": [
+          {
+            "Description": "Du prøver og ignorere ham, du vender dig stivt om mod ham og siger “Pandekagerne brænder på, hvis du ikke giver mig plads til at vende dem”",
+            "SceneId": 12,
+            "KeyItemId": -1
+          },
+          {
+            "Description": "Du læner dig ind i hans arme og siger beroligende til ham “Det okay skat… Jeg går ingen steder. Du behøver ikke være bange.”",
+            "SceneId": 13,
+            "KeyItemId": -1
+          },
+          {
+            "Description": "“Skat… dine tanker og handlinger er ikke mit ansvar. Jeg vil gerne tale om, hvordan du har det, men du må ikke sige sådan noget.",
+            "SceneID": 13,
+            "KeyItemId": -1
+          }
+        ]
+      },
     "4": {
-      "$type": "cutScene",
-      "ConditionInfo": "Yo stupid ass did not just do that",
-      "NextSceneId": 1,
-      "ID": 4,
-      "Name": "Seje reje"
-    }
-  },
-  "Areas": {
-    "0": {
-      "ID": 0,
-      "Name": "Entré",
-      "itemIds": [],
-      "Frame": {
-        "X": 2,
-        "Y": 2,
-        "Width": 10,
-        "Height": 12
-      }
-    },
-    "1": {
-      "ID": 1,
-      "Name": "Badeværelse",
-      "itemIds": [],
-      "Frame": {
-        "X": 49,
-        "Y": 2,
-        "Width": 12,
-        "Height": 8
-      }
-    },
-    "2": {
-      "ID": 2,
-      "Name": "Soveværelse",
-      "itemIds": [],
-      "Frame": {
-        "X": 11,
-        "Y": 2,
-        "Width": 20,
-        "Height": 8
-      }
-    },
-    "3": {
-      "ID": 3,
-      "Name": "Stue",
-      "itemIds": [],
-      "Frame": {
-        "X": 30,
-        "Y": 2,
-        "Width": 20,
-        "Height": 8
-      }
-    },
-    "4": {
-      "ID": 4,
-      "Name": "Køkken",
-      "itemIds": [
-        0,
-        2
-      ],
-      "Frame": {
-        "X": 2,
-        "Y": 13,
-        "Width": 40,
-        "Height": 9
-      }
-    },
+        "$type": "contextScene",
+        "ID": 4,
+        "Name": "Stue 1",
+        "AreaId": 3,
+        "ScenePoints": 5,
+        "DialougeText": "Du kommer ind i stuen og ser at din kæreste ikke har gjort rent, i får besøg af dine forældre i dag og han havde lovet at rydde op. Han kommer ind i stuen til dig og siger “Skat… Jeg har dit skema klar til dig.” Han forbereder hver dag skemaer til dig, fordi han ikke mener at du selv kan administrere din tid. Du kigger på skemaet og ser at det er dig der skal rydde op. ",
+        "Choices": [
+          {
+            "Description": "Du føler dig irriteret, men vælger ikke at nævne at han havde lovet at gøre det. Du vælger i stedet at gøre det selv, da du ikke vil skabe en konflikt, før dine forældre kommer.",
+            "SceneId": 15,
+            "KeyItemId": -1
+          },
+          {
+            "Description": "Du kigger irriteret på ham og siger “Men du havde lovet at du ville gøre det?”",
+            "SceneId": 14,
+            "KeyItemId": -1
+          }
+        ]
+      },
     "5": {
-      "ID": 5,
-      "Name": "Gang",
-      "itemIds": [],
-      "Frame": {
-        "X": 11,
-        "Y": 9,
-        "Width": 50,
-        "Height": 5
+        "$type": "contextScene",
+        "ID": 5,
+        "Name": "Stue 2",
+        "AreaId": 3,
+        "ScenePoints": 5,
+        "DialougeText": "Du sætter dig i stuen for at spise morgenmad. Din kæreste ser på tallerkenen og rynker panden “Er du sikker på at du burde spise så meget?, har vi ikke snakket om det før? du er nødt til at tænke dig om” Han læner sig frem og tilføjer med en alvorlig tone “Jeg siger det jo kun for din egen skyld”",
+        "Choices": [
+          {
+            "Description": "Du bliver straks fornærmet og siger “Du skal ikke sige sådan til mig” Han vender hovedet mod dig og ser overrasket ud.",
+            "SceneId": 17,
+            "KeyItemId": -1
+          },
+          {
+            "Description": "Du bliver bange og siger lavt “Undskyld… du har nok ret”, du rejser dig fra bordet fordi tanken om mad nu giver dig kvalme.",
+            "SceneId": 16,
+            "KeyItemId": -1
+          }
+        ]
+      },
+    "6": {
+        "$type": "contextScene",
+        "ID": 6,
+        "Name": "Stue 3",
+        "AreaId": 3,
+        "ScenePoints": 5,
+        "DialougeText": "Først da opdager du, at han ikke selv har taget noget morgenmad, men at han sidder med sin telefon i hånden og kun fokuserer på dig. Han kigger surt på dig og svarer “Tror du selv der er nogen der gider være sammen med en som dig. Jeg er den eneste, der kan holde dig ud, og hvis du bliver ved med at reagere sådan, så er jeg også væk”",
+        "Choices": [
+          {
+            "Description": "Du kigger chokeret på ham og siger “Det er min krop ikke din, du bestemmer ikke hvad jeg må spise, og jeg vil ikke have du snakker sådan til mig.”",
+            "SceneId": 18,
+            "KeyItemId": -1
+          },
+          {
+            "Description": "Du bliver bange og går i chok, du vælger at ignorere ham, og går direkte ud i bad.",
+            "SceneId": 18,
+            "KeyItemId": -1
+          },
+          {
+            "Description": "Du bliver bange, da han hæver stemme og svarer “Undskyld… Det var ikke min mening at reagere sådan. Du har nok ret. Jeg vil prøve at tænke mig om næste gang.”",
+            "SceneId": 18,
+            "KeyItemId": -1
+          }
+        ]
+      },
+    "7": {
+        "$type": "contextScene",
+        "ID": 7,
+        "Name": "Badeværelse 1",
+        "AreaId": 1,
+        "ScenePoints": 5,
+        "DialougeText": "Du er gået ud på badeværelset, tager dit tøj af og gør dig klar til at gå i bad.",
+        "Choices": [
+          {
+            "Description": "Du gider ikke diskutere mere med din kæreste, så du vælger at tage et bad uden at låse døren.",
+            "SceneId": 3,
+            "KeyItemId": -1
+          },
+          {
+            "Description": "Du vil gerne have lidt tid alene så du låser døren og tager et bad.",
+            "SceneId": 5,
+            "KeyItemId": 1
+          }
+        ]
+      },
+    "8": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer kontrol og isolation. Din partner styrer dine valg gennem frygt for konflikt, i forbindelse med denne kontrol kommer isolationen, han får dig til at frygte at være sammen med venner og familie, dette får dig til at føle ensomhed og afhængighed.\nHvis din partners humør bestemmer dine handlinger, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888",
+        "NextSceneId": 2,
+        "ID": 8,
+        "Name": "Konsekvens 1"
+      },
+    "9": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer kontrol og isolation. Din partner styrer dine valg gennem frygt for konflikt, i forbindelse med denne kontrol kommer isolationen, han får dig til at frygte at være sammen med venner og familie, dette får dig til at føle ensomhed og afhængighed.\nHvis din partners humør bestemmer dine handlinger, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888",
+        "NextSceneId": 3,
+        "ID": 9,
+        "Name": "Konsekvens 1"
+      },
+    "10": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer nedgørelse og verbal aggression. Nedgørelse er når din partner systematisk kritiserer eller håner dig, med formål at skade dit selvværd. Din partner skaber frygtl gennem den verbale aggression, som styrker hans kontrol.\nHvis du føler dig ydmyget, nedgjort eller bange, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos OfferRådgivningen døgnåbne tilbud på 116 006.",
+        "NextSceneId": 4,
+        "ID": 10,
+        "Name": "Konsekvens 2"
+      },
+    "11": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer nedgørelse og verbal aggression. Nedgørelse er når din partner systematisk kritiserer eller håner dig, med formål at skade dit selvværd. Din partner skaber frygtl gennem den verbale aggression, som styrker hans kontrol.\nHvis du føler dig ydmyget, nedgjort eller bange, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos OfferRådgivningen døgnåbne tilbud på 116 006.",
+        "NextSceneId": 5,
+        "ID": 11,
+        "Name": "Konsekvens 2"
+      },
+    "12": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer emotionel afpresning og fastholdelse. Din partner bruger voldsomme følelsesmæssige udsagn, for at bevidst lægge et enormt pres på dig. Presset giver dig skyldfølelse og et ansvar for din partners velfærd, som hurtigt fastholder dig i forholdet.\nHvis din partners kærlighed føles som et redskab for hans kontrol, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
+        "NextSceneId": 5,
+        "ID": 12,
+        "Name": "Konsekvens 3"
+      },
+    "13": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer emotionel afpresning og fastholdelse. Din partner bruger voldsomme følelsesmæssige udsagn, for at bevidst lægge et enormt pres på dig. Presset giver dig skyldfølelse og et ansvar for din partners velfærd, som hurtigt fastholder dig i forholdet.\nHvis din partners kærlighed føles som et redskab for hans kontrol, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
+        "NextSceneId": 6,
+        "ID": 13,
+        "Name": "Konsekvens 3"
+      },
+    "14": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer struktureret kontrol og ansvarsfralæggelse. Din partner bruger skemaer til at kontrollere dig og dine planer, samtidig med at han fraskriver sig selv eget ansvar.\nHvis din partner dikterer din tid, dine pligter og føler du at din selvstændighed bliver brudt, er det psykisk vold. \nDu kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
+        "NextSceneId": 6,
+        "ID": 14,
+        "Name": "Konsekvens 4"
+      },
+    "15": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer struktureret kontrol og ansvarsfralæggelse. Din partner bruger skemaer til at kontrollere dig og dine planer, samtidig med at han fraskriver sig selv eget ansvar.\nHvis din partner dikterer din tid, dine pligter og føler du at din selvstændighed bliver brudt, er det psykisk vold. \nDu kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
+        "NextSceneId": 7,
+        "ID": 15,
+        "Name": "Konsekvens 4"
+      },
+    "16": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer kontrol af vaner og nedgørelse. Din partner bruger dit madindtag som en måde at kontrollere dig og dine vaner, samtidig med at han får dig til at tvivle på dine egne sunde behov.\nHvis du føler at din partner har kontrol over din krop, mad eller vaner, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
+        "NextSceneId": 6,
+        "ID": 16,
+        "Name": "Konsekvens 5"
+      },
+    "17": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer kontrol af vaner og nedgørelse. Din partner bruger dit madindtag som en måde at kontrollere dig og dine vaner, samtidig med at han får dig til at tvivle på dine egne sunde behov.\nHvis du føler at din partner har kontrol over din krop, mad eller vaner, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
+        "NextSceneId": 7,
+        "ID": 17,
+        "Name": "Konsekvens 5"
+      },
+    "18": {
+        "$type": "cutScene",
+        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer isolation og verbal aggression. Din partners trussel om at forlade dig er et forsøg på at isolere dig og ødelægge dit selvværd, på den måde får han dig til at blive i forholdet.\nHvis din partner bruger trusler om at forlade dig for at få sympati, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
+        "NextSceneId": 7,
+        "ID": 18,
+        "Name": "Konsekvens 6"
       }
-    }
-  },
-  "Items": {
-    "0": {
-      "ID": 0,
-      "Name": "Mobil",
-      "Description": "En smartphone"
     },
-    "1": {
-      "ID": 1,
-      "Name": "Toilet nøgle",
-      "Description": "En nøgle til toilettet"
+    "Areas": {
+      "0": {
+        "ID": 0,
+        "Name": "Entré",
+        "itemIds": [],
+        "Frame": {
+          "X": 2,
+          "Y": 2,
+          "Width": 10,
+          "Height": 12
+        }
+      },
+      "1": {
+        "ID": 1,
+        "Name": "Badeværelse",
+        "itemIds": [],
+        "Frame": {
+          "X": 49,
+          "Y": 2,
+          "Width": 12,
+          "Height": 8
+        }
+      },
+      "2": {
+        "ID": 2,
+        "Name": "Soveværelse",
+        "itemIds": [
+          0,
+          1
+        ],
+        "Frame": {
+          "X": 11,
+          "Y": 2,
+          "Width": 20,
+          "Height": 8
+        }
+      },
+      "3": {
+        "ID": 3,
+        "Name": "Stue",
+        "itemIds": [],
+        "Frame": {
+          "X": 30,
+          "Y": 2,
+          "Width": 20,
+          "Height": 8
+        }
+      },
+      "4": {
+        "ID": 4,
+        "Name": "Køkken",
+        "itemIds": [
+          2
+        ],
+        "Frame": {
+          "X": 2,
+          "Y": 13,
+          "Width": 40,
+          "Height": 9
+        }
+      },
+      "5": {
+        "ID": 5,
+        "Name": "Gang",
+        "itemIds": [],
+        "Frame": {
+          "X": 11,
+          "Y": 9,
+          "Width": 50,
+          "Height": 5
+        }
+      }
     },
-    "2": {
-      "ID": 2,
-      "Name": "Pandekage",
-      "Description": "MMMM mums en pandekage"
+    "Items": {
+      "0": {
+        "ID": 0,
+        "Name": "Mobil",
+        "Description": "En smartphone"
+      },
+      "1": {
+        "ID": 1,
+        "Name": "Toilet nøgle",
+        "Description": "En nøgle til toilettet"
+      },
+      "2": {
+        "ID": 2,
+        "Name": "Pandekage",
+        "Description": "MMMM mums en pandekage"
+      }
     }
   }
-}

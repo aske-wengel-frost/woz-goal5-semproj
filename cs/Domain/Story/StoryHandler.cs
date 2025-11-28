@@ -33,7 +33,8 @@ namespace cs.Domain.Story
         public void StartStory()
         {
             // Sets the current scene
-            ContextScene? contextScene = story.GetInitialScene();
+            // Scene? contextScene = story.GetInitialScene();
+            Scene? contextScene = story.GetInitialScene();
 
             if (contextScene is null)
             {
@@ -44,8 +45,10 @@ namespace cs.Domain.Story
             currentScene = contextScene;
 
             // Draws the initial scene
-            _UI.HighlightArea(contextScene.AreaId);
-            _UI.DrawScene(contextScene, player.Score, player.PartnerAggression);
+            // _UI.HighlightArea(contextScene.AreaId);
+            // _UI.DrawScene(contextScene, player.Score, player.PartnerAggression);
+            
+            this.TransitionToScene(contextScene);
 
         }
 

@@ -28,7 +28,7 @@ namespace cs.Domain
             JsonDataProvider jsondp = new JsonDataProvider();
 
             //storyHandler = new StoryHandler(UIHandler, new JsonDataProvider());
-            storyHandler = new StoryHandler(UIHandler, tdp);
+            storyHandler = new StoryHandler(UIHandler, jsondp);
             registry = new Registry(storyHandler, fallback);
              
             // Inits the map with the mapelements defined in the story loaded.

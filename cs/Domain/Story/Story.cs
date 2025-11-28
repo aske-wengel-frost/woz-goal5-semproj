@@ -31,13 +31,14 @@
         /// Returns intial scene with ID = 0. 
         /// </summary>
         /// <returns>Scene</returns>
-        public ContextScene? GetInitialScene()
+        public Scene? GetInitialScene()
         {
-            if(Scenes[0] is not ContextScene)
-            {
-                return null;
-            }
-            return (ContextScene)Scenes[0];
+            // if(Scenes[0] is not ContextScene)
+            // {
+            //     return null;
+            // }s
+            // return (ContextScene)Scenes[0];
+            return Scenes[0];
         }
 
         /// <summary>
