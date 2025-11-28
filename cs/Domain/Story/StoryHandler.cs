@@ -66,39 +66,41 @@ namespace cs.Domain.Story
                 return;
             }
 
-            // Checks if any of the scene choices contains the users input (using ASKE MAGIC)
-            if (!UITerminal.SceneChoiceAsc.ContainsKey(usrInpValue))
+            if(currentScene is not ContextScene)
+            {
+                _UI.DrawError($"Den nuværende scene er ikke en context scene!");
+                return;
+            }
+
+            // We can explicit cast as we have a guard check for if the current scene is a context scene
+            ContextScene? contextScene = (ContextScene)GetCurrentScene();
+
+
+            if (contextScene.Choices.ElementAtOrDefault(usrInpValue - 1) == null)
             {
                 _UI.DrawError($"{usrInpValue} er ikke et gyldigt valg!");
                 return;
             }
 
-            //Gets the sceneobject of scene to switch to
-            Scene? scene = story.FindScene<Scene>(UITerminal.SceneChoiceAsc[usrInpValue]);
+            // Gets the scenechoice with aske stuff
+            SceneChoice? sceneChoice = contextScene.Choices[usrInpValue - 1];
 
-            // Checks if current scene is contextScene (Propably is always?)
-            if (currentScene is ContextScene curContextScene)
+            // GUARD CLAUSES
+            if (sceneChoice.isLocked())
             {
-                // Gets the scenechoice
-                SceneChoice? sceneChoice = curContextScene.Choices.Find(_ => _.SceneId == scene.ID);
-
-                // GUARD CLAUSES
-                if (sceneChoice.isLocked())
+                // Try to unlock the sceneChoice
+                if (!sceneChoice.Unlock(player.inventory))
                 {
-                    // Try to unlock the sceneChoice
-                    if (!sceneChoice.Unlock(player.inventory))
-                    {
-                        _UI.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
-                        return;
-                    }
+                    _UI.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
+                    return;
                 }
-
-                player.Score += sceneChoice.ScorePoints;
-                player.PartnerAggression += sceneChoice.PartnerAggression;
             }
 
+            player.Score += sceneChoice.ScorePoints;
+            player.PartnerAggression += sceneChoice.PartnerAggression;
+
             // At last transitions to scene
-            TransitionToScene(scene);
+            TransitionToScene(sceneChoice.SceneObj);
         }
 
         /// <summary>

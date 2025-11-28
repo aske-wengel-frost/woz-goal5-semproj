@@ -83,90 +83,90 @@
         ]
       },
     "4": {
-        "$type": "contextScene",
-        "ID": 4,
-        "Name": "Stue 1",
-        "AreaId": 3,
-        "ScenePoints": 5,
-        "DialougeText": "Du kommer ind i stuen og ser at din kæreste ikke har gjort rent, i får besøg af dine forældre i dag og han havde lovet at rydde op. Han kommer ind i stuen til dig og siger “Skat… Jeg har dit skema klar til dig.” Han forbereder hver dag skemaer til dig, fordi han ikke mener at du selv kan administrere din tid. Du kigger på skemaet og ser at det er dig der skal rydde op. ",
-        "Choices": [
-          {
-            "Description": "Du føler dig irriteret, men vælger ikke at nævne at han havde lovet at gøre det. Du vælger i stedet at gøre det selv, da du ikke vil skabe en konflikt, før dine forældre kommer.",
-            "SceneId": 15,
-            "KeyItemId": -1
-          },
-          {
-            "Description": "Du kigger irriteret på ham og siger “Men du havde lovet at du ville gøre det?”",
-            "SceneId": 14,
-            "KeyItemId": -1
-          }
-        ]
-      },
+      "$type": "contextScene",
+      "ID": 4,
+      "Name": "Stue 1",
+      "AreaId": 3,
+      "ScenePoints": 5,
+      "DialogueText": "Du kommer ind i stuen og ser at din kæreste ikke har gjort rent, i får besøg af dine forældre i dag og han havde lovet at rydde op. Han kommer ind i stuen til dig og siger “Skat… Jeg har dit skema klar til dig.” Han forbereder hver dag skemaer til dig, fordi han ikke mener at du selv kan administrere din tid. Du kigger på skemaet og ser at det er dig der skal rydde op. ",
+      "Choices": [
+        {
+          "Description": "Du føler dig irriteret, men vælger ikke at nævne at han havde lovet at gøre det. Du vælger i stedet at gøre det selv, da du ikke vil skabe en konflikt, før dine forældre kommer.",
+          "SceneId": 15,
+          "KeyItemId": -1
+        },
+        {
+          "Description": "Du kigger irriteret på ham og siger “Men du havde lovet at du ville gøre det?”",
+          "SceneId": 14,
+          "KeyItemId": -1
+        }
+      ]
+    },
     "5": {
-        "$type": "contextScene",
-        "ID": 5,
-        "Name": "Stue 2",
-        "AreaId": 3,
-        "ScenePoints": 5,
-        "DialougeText": "Du sætter dig i stuen for at spise morgenmad. Din kæreste ser på tallerkenen og rynker panden “Er du sikker på at du burde spise så meget?, har vi ikke snakket om det før? du er nødt til at tænke dig om” Han læner sig frem og tilføjer med en alvorlig tone “Jeg siger det jo kun for din egen skyld”",
-        "Choices": [
-          {
-            "Description": "Du bliver straks fornærmet og siger “Du skal ikke sige sådan til mig” Han vender hovedet mod dig og ser overrasket ud.",
-            "SceneId": 17,
-            "KeyItemId": -1
-          },
-          {
-            "Description": "Du bliver bange og siger lavt “Undskyld… du har nok ret”, du rejser dig fra bordet fordi tanken om mad nu giver dig kvalme.",
-            "SceneId": 16,
-            "KeyItemId": -1
-          }
-        ]
-      },
+      "$type": "contextScene",
+      "ID": 5,
+      "Name": "Stue 2",
+      "AreaId": 3,
+      "ScenePoints": 5,
+      "DialogueText": "Du sætter dig i stuen for at spise morgenmad. Din kæreste ser på tallerkenen og rynker panden “Er du sikker på at du burde spise så meget?, har vi ikke snakket om det før? du er nødt til at tænke dig om” Han læner sig frem og tilføjer med en alvorlig tone “Jeg siger det jo kun for din egen skyld”",
+      "Choices": [
+        {
+          "Description": "Du bliver straks fornærmet og siger “Du skal ikke sige sådan til mig” Han vender hovedet mod dig og ser overrasket ud.",
+          "SceneId": 17,
+          "KeyItemId": -1
+        },
+        {
+          "Description": "Du bliver bange og siger lavt “Undskyld… du har nok ret”, du rejser dig fra bordet fordi tanken om mad nu giver dig kvalme.",
+          "SceneId": 16,
+          "KeyItemId": -1
+        }
+      ]
+    },
     "6": {
-        "$type": "contextScene",
-        "ID": 6,
-        "Name": "Stue 3",
-        "AreaId": 3,
-        "ScenePoints": 5,
-        "DialougeText": "Først da opdager du, at han ikke selv har taget noget morgenmad, men at han sidder med sin telefon i hånden og kun fokuserer på dig. Han kigger surt på dig og svarer “Tror du selv der er nogen der gider være sammen med en som dig. Jeg er den eneste, der kan holde dig ud, og hvis du bliver ved med at reagere sådan, så er jeg også væk”",
-        "Choices": [
-          {
-            "Description": "Du kigger chokeret på ham og siger “Det er min krop ikke din, du bestemmer ikke hvad jeg må spise, og jeg vil ikke have du snakker sådan til mig.”",
-            "SceneId": 18,
-            "KeyItemId": -1
-          },
-          {
-            "Description": "Du bliver bange og går i chok, du vælger at ignorere ham, og går direkte ud i bad.",
-            "SceneId": 18,
-            "KeyItemId": -1
-          },
-          {
-            "Description": "Du bliver bange, da han hæver stemme og svarer “Undskyld… Det var ikke min mening at reagere sådan. Du har nok ret. Jeg vil prøve at tænke mig om næste gang.”",
-            "SceneId": 18,
-            "KeyItemId": -1
-          }
-        ]
-      },
+      "$type": "contextScene",
+      "ID": 6,
+      "Name": "Stue 3",
+      "AreaId": 3,
+      "ScenePoints": 5,
+      "DialogueText": "Først da opdager du, at han ikke selv har taget noget morgenmad, men at han sidder med sin telefon i hånden og kun fokuserer på dig. Han kigger surt på dig og svarer “Tror du selv der er nogen der gider være sammen med en som dig. Jeg er den eneste, der kan holde dig ud, og hvis du bliver ved med at reagere sådan, så er jeg også væk”",
+      "Choices": [
+        {
+          "Description": "Du kigger chokeret på ham og siger “Det er min krop ikke din, du bestemmer ikke hvad jeg må spise, og jeg vil ikke have du snakker sådan til mig.”",
+          "SceneId": 18,
+          "KeyItemId": -1
+        },
+        {
+          "Description": "Du bliver bange og går i chok, du vælger at ignorere ham, og går direkte ud i bad.",
+          "SceneId": 18,
+          "KeyItemId": -1
+        },
+        {
+          "Description": "Du bliver bange, da han hæver stemme og svarer “Undskyld… Det var ikke min mening at reagere sådan. Du har nok ret. Jeg vil prøve at tænke mig om næste gang.”",
+          "SceneId": 18,
+          "KeyItemId": -1
+        }
+      ]
+    },
     "7": {
-        "$type": "contextScene",
-        "ID": 7,
-        "Name": "Badeværelse 1",
-        "AreaId": 1,
-        "ScenePoints": 5,
-        "DialougeText": "Du er gået ud på badeværelset, tager dit tøj af og gør dig klar til at gå i bad.",
-        "Choices": [
-          {
-            "Description": "Du gider ikke diskutere mere med din kæreste, så du vælger at tage et bad uden at låse døren.",
-            "SceneId": 3,
-            "KeyItemId": -1
-          },
-          {
-            "Description": "Du vil gerne have lidt tid alene så du låser døren og tager et bad.",
-            "SceneId": 5,
-            "KeyItemId": 1
-          }
-        ]
-      },
+      "$type": "contextScene",
+      "ID": 7,
+      "Name": "Badeværelse 1",
+      "AreaId": 1,
+      "ScenePoints": 5,
+      "DialogueText": "Du er gået ud på badeværelset, tager dit tøj af og gør dig klar til at gå i bad.",
+      "Choices": [
+        {
+          "Description": "Du gider ikke diskutere mere med din kæreste, så du vælger at tage et bad uden at låse døren.",
+          "SceneId": 3,
+          "KeyItemId": -1
+        },
+        {
+          "Description": "Du vil gerne have lidt tid alene så du låser døren og tager et bad.",
+          "SceneId": 5,
+          "KeyItemId": 1
+        }
+      ]
+    },
     "8": {
         "$type": "cutScene",
         "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer kontrol og isolation. Din partner styrer dine valg gennem frygt for konflikt, i forbindelse med denne kontrol kommer isolationen, han får dig til at frygte at være sammen med venner og familie, dette får dig til at føle ensomhed og afhængighed.\nHvis din partners humør bestemmer dine handlinger, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888",
