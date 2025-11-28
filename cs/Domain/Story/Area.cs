@@ -66,6 +66,11 @@ namespace cs.Domain.Story
             return Items?.Values.Where(x => x.Name.ToLowerInvariant() == itemName).FirstOrDefault();
         }
 
+        //public Item? FindItem(string itemname)
+        //{
+
+        //}
+
         // A way to view the given area details
         public override string ToString()
         {

@@ -24,7 +24,7 @@ namespace cs.Domain.Commands
             //JoinItemName: Combine array of words into one string
             string itemName = JoinParameters(parameters);
             
-            Item? item = storyHandler.GetCurrentScene().Area.TakeItem(itemName);
+            Item? item = storyHandler.GetCurrentScene().Area. TakeItem(itemName);
 
             // Check if the item exists
             if(item == null)
@@ -36,8 +36,6 @@ namespace cs.Domain.Commands
             // Attempt to add the item to the player's inventory.
             bool success = storyHandler.GetPlayer().inventory.AddItem(item);
 
-            // Remove the item from the Area
-            storyHandler.GetCurrentScene().Area.Items.Remove(item.ID);
             if (success)
             {
                 // Remove the item from the Area

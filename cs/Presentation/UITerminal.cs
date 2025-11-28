@@ -168,7 +168,7 @@
 
             int numOfblockChars = (int)(BarCharLength * Percent);
 
-            Console.Write($"{title}: [{Math.Round(Percent * 100)}%|");
+            Console.Write($"{title}: [{Percent * 100}%|");
 
             for (int i = 0; i < BarCharLength; i++)
             {
