@@ -56,8 +56,6 @@ namespace UnitTests
         [Test]
         public void AddAreaTest()
         {
-            //story.AddArea(area);
-
             Assert.That(story.Areas.ContainsValue(area));
         }
 
@@ -65,8 +63,6 @@ namespace UnitTests
         [Test]
         public void AddItemTest()
         {
-            //story.AddItem(item);
-
             Assert.That(story.Items.ContainsValue(item));
         }
 
@@ -76,8 +72,6 @@ namespace UnitTests
         public void FindSceneByIDTest()
         {
             Scene? result = story.FindScene<Scene>(Sceneinput);
-
-            Assert.IsNotNull(result, "The Method should return null if theres no Scene that matches the given ID");
 
             Assert.That(result, Is.EqualTo(scene));
         }
@@ -96,8 +90,6 @@ namespace UnitTests
         [Test]
         public void FindItemByIDTest()
         {
-            story.AddItem(item);
-
             Item result = story.FindItem(ItemInput);
 
             Assert.That(result, Is.EqualTo(item));
@@ -117,8 +109,6 @@ namespace UnitTests
         [Test]
         public void FindAreaByIDTest()
         {
-            story.AddArea(area);
-
             Area result = story.FindArea(AreaInput);
 
             Assert.That(result, Is.EqualTo(area));
