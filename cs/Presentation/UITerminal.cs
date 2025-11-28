@@ -145,10 +145,11 @@
             string tmpA = anger.ToString();
 
             int angerBarCharLength = 15 + angerTxt.Length + tmpA.Length;
-            int scoreBarCharLength = 15 + scoreTxt.Length + tmpS.Length;
+            int scoreBarCharLength = 1 + scoreTxt.Length + tmpS.Length;
             int betweenBarsSpace = LineLength - (angerBarCharLength + scoreBarCharLength);
 
-            DrawProgressBar(10, score, 100, scoreTxt);
+            Console.Write($"{scoreTxt}: {score}");
+            //DrawProgressBar(10, score, 100, scoreTxt);
             for (int i = 0; i < betweenBarsSpace; i++) { Console.Write(" "); }
             DrawProgressBar(10, anger, 100, angerTxt);
 
