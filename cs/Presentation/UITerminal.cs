@@ -25,7 +25,8 @@
     {
         private TerminalMap map { get; set; } = new TerminalMap();
 
-        int LineLength { get; set; }
+        int LineLength { get; set; } = 60;
+        int OuterLineLength { get; set; } = 9;
 
         /// <summary>
         /// Draws the scene in the terminal
@@ -45,35 +46,33 @@
             {
                 ClearScreen();
 
-                LineLength = 60 + ctx.Area.Name.Length;
+                LineLength = LineLength + ctx.Area.Name.Length;
 
-                DrawStatusBar(ctx, score, anger);
 
-                Console.Write($"---------====================[ ");
-                textDisplay.Display(ctx.Area.Name, " ]====================---------");
+                DrawStatusBar(score, anger);
+
+                Console.WriteLine(LineConstructor(ctx.Area.Name, true));
+
                 textDisplay.Display(ctx.DialogueText, split: LineLength, punctDelay: 7);
-                //Console.WriteLine($"{ctx.DialogueText}");
-                Console.Write($"---------=====================");
-                foreach (char c in ctx.Name)
-                {
-                    Console.Write("=");
-                }
-                Console.WriteLine("=====================---------");
-                Console.WriteLine("");
+
+                Console.WriteLine(LineConstructor(ctx.Area.Name, false));
+
+                Console.WriteLine();
                 textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
 
-
                 // Uses the index of the array to display the options ascendingly
-                for(int i = 1; i < ctx.Choices.Count() + 1; i++)
+                for (int i = 1; i < ctx.Choices.Count() + 1; i++)
                 {
                     textDisplay.Display($"[{i}] > {ctx.Choices[i - 1].Description}", punctDelay: 5);
                 }
+
 
                 Console.WriteLine("");
                 textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
             }
 
         }
+
 
         /// <summary>
         /// Clears the terminal screen
@@ -137,10 +136,46 @@
             Console.ReadLine();
         }
 
-        public void DrawStatusBar(ContextScene ctx, int score, int anger)
+        public string LineConstructor(string name, bool displayName)
         {
-            string angerTxt = "Anger";
-            string scoreTxt = "Score";
+            int drawnLine = LineLength - name.Length;
+            string output = "";
+
+            for (int i = 0; i < OuterLineLength; i++)
+            {
+                output += "-";
+            }
+            if (displayName)
+            {
+                for (int i = 0; i < (int)drawnLine/2 - (OuterLineLength+1); i++)
+                {
+                    output += "═";
+                }
+                output += $"[ {name} ]";
+                for (int i = 0; i < (int)drawnLine/2 - (OuterLineLength+1); i++)
+                {
+                    output += "═";
+                }
+            }
+            else
+            {
+                for (int i = 0; i < drawnLine + name.Length + 2 - (2 * OuterLineLength); i++)
+                {
+                    output += "═";
+                }
+            }
+
+            for (int i = 0; i < OuterLineLength; i++)
+            {
+                output += "-";
+            }
+            return output;
+        }
+
+        public void DrawStatusBar(int score, int anger)
+        {
+            string angerTxt = "Partners Aggression";
+            string scoreTxt = "Point";
             string tmpS = score.ToString();
             string tmpA = anger.ToString();
 
