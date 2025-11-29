@@ -10,11 +10,9 @@ namespace cs.Domain
 
     public static class Game
     {
-        static public StoryHandler? storyHandler { get; set; }
-        static public IUIHandler? UIHandler { get; set; }
-
+        static public StoryHandler? StoryHandler { get; set; }
         static ICommand fallback = new CommandUnknown();
-        static Registry? registry { get; set; }
+        static Registry? Registry { get; set; }
 
 
         /// <summary>
@@ -22,17 +20,22 @@ namespace cs.Domain
         /// </summary>
         private static void InitGame()
         {
+            // Initializes an instance of Terminal UI
             UITerminal UIHandler = new UITerminal();
 
+            // Initializes an instance of JsonDataProvider 
+            // ONLY INIT ONE INSTANCE OF A DATAPROVIDER AS IT WILL FUCK UP IDS IF NOT!!
             TestDataProvider tdp = new TestDataProvider();
             JsonDataProvider jsondp = new JsonDataProvider();
+            
+            // Inits and sets the instance of StoryHandler
+            StoryHandler = new StoryHandler(UIHandler, jsondp);
 
-            //storyHandler = new StoryHandler(UIHandler, new JsonDataProvider());
-            storyHandler = new StoryHandler(UIHandler, tdp);
-            registry = new Registry(storyHandler, fallback);
+            // Inits and sets the instance of Registry 
+            Registry = new Registry(StoryHandler, fallback);
              
             // Inits the map with the mapelements defined in the story loaded.
-            UIHandler.InitMap(storyHandler.story.Areas);
+            UIHandler.InitMap(StoryHandler.Story.Areas);
 
             // We call the InitRegistry method
             InitRegistry();
@@ -59,21 +62,19 @@ namespace cs.Domain
             Console.WriteLine();
             Console.Write("Indtast dit navn: ");
             string? playerName = Console.ReadLine();
-            storyHandler.player = new Player.Player (playerName); //Create the player in storyHandler. 
+            StoryHandler.Player = new Player.Player (playerName); //Create the player in storyHandler. 
             //storyHandler.player.Name = Environment.UserName;
 
-            //Console.WriteLine($"Hej {playerName}, tak fordi du vælger at engagere dig i et vigtigt emne."); // This Console-function can't be seen in the game hence it's commented
-
-            // We start the storyhandler and thereby the story
-            storyHandler.StartStory();
+            // We start the story
+            StoryHandler.StartStory();
 
             // Game loop  
-            while (storyHandler.IsDone() == false)
+            while (StoryHandler.IsDone() == false)
             {
                 Console.Write("> ");
                 string? line = Console.ReadLine();
 
-                registry.Dispatch(line);
+                Registry.Dispatch(line);
             }
             Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
@@ -83,19 +84,18 @@ namespace cs.Domain
         /// Responsible for invoking commands possible in registry.
         private static void InitRegistry()
         {
-            registry.Register(new [] {"hjælp"}, new CommandHelp(registry));
-            registry.Register(new [] {"afslut", "gg"}, new CommandExit()); 
-            registry.Register(new [] {"bevæg", "go", "gå"}, new CommandMove());
-            registry.Register(new [] {"export"}, new CommandExportStory());
-            registry.Register(new [] {"se"}, new CommandLook());
-            registry.Register(new [] {"inventar", "inv"}, new CommandInventory());
-            registry.Register(new [] {"tag"}, new CommandTake());
-            registry.Register(new [] {"smid"}, new CommandDrop());
-            registry.Register(new [] {"brug"}, new CommandUse());
-            registry.Register(new [] {"kort"}, new CommandMap());
-            registry.Register(new [] {"status"}, new CommandStatus());
-            registry.Register(new [] {"ja", "j"}, new CommandRestartGame());
-            registry.Register(new [] {"nej", "n"}, new CommandExitGame());
+            Registry.Register(new [] {"hjælp"}, new CommandHelp(Registry));
+            Registry.Register(new [] {"afslut", "gg"}, new CommandExit()); 
+            Registry.Register(new [] {"bevæg", "go", "gå"}, new CommandMove());
+            Registry.Register(new [] {"se"}, new CommandLook());
+            Registry.Register(new [] {"inventar", "inv"}, new CommandInventory());
+            Registry.Register(new [] {"tag"}, new CommandTake());
+            Registry.Register(new [] {"smid"}, new CommandDrop());
+            Registry.Register(new [] {"brug"}, new CommandUse());
+            Registry.Register(new [] {"kort"}, new CommandMap());
+            Registry.Register(new [] {"status"}, new CommandStatus());
+            Registry.Register(new [] {"ja", "j"}, new CommandRestartGame());
+            Registry.Register(new [] {"nej", "n"}, new CommandExitGame());
         }
     }
 }

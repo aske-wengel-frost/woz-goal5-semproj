@@ -28,9 +28,9 @@ namespace cs.Domain.Commands
             
             // find the ID of item
             Player player = storyHandler.GetPlayer();
-            Inventory inventory = player.inventory;
+            Inventory inventory = player.Inventory;
             
-            Item? item = inventory.GetItemName(itemName);
+            Item? item = inventory.GetItem(itemName);
 
             // Checker for if the item value is null
             if (item == null)
@@ -38,14 +38,14 @@ namespace cs.Domain.Commands
                 storyHandler._UI.DrawError("Hov... Du har ikke denne genstand");
             }
             
-            // check if user has item
+            // Check if user has item
             if (item != null)
             {
                 // add the item to the area the user is in
-                storyHandler.GetCurrentScene().Area.AddItem(item);
+                ((ContextScene)storyHandler.GetCurrentScene()).Area.AddItem(item);
                 
                 // Remove the item from the players inventory
-                storyHandler.player.inventory.RemoveItem(item);
+                storyHandler.Player.Inventory.RemoveItem(item);
 
                 // Inform the user with a feedback message
                 storyHandler._UI.DrawInfo($"Du smed: {itemName} [{item.Description}]");

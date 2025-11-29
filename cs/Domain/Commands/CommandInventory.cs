@@ -26,21 +26,21 @@ namespace cs.Domain.Commands
             
             Player player = storyHandler.GetPlayer();
                   
-            storyHandler._UI.DrawInfo("\n=== Dit Inventar ===");
+            storyHandler._UI.DrawInfo("====[ Dit Inventar ]====");
 
             // If-statement to check if the inventory is empty
-            if (player.inventory.IsEmpty())
+            if (player.Inventory.IsEmpty())
             {
                 
-                storyHandler._UI.DrawInfo("Inventar er tomt.");
+                storyHandler._UI.DrawError("Inventar er tomt.");
             }
             else
             {
                 // Loop through each item in the player's inventory and display its details
-                foreach (Item item in player.inventory.GetItems())
+                foreach (Item item in player.Inventory.GetItems())
                 {
                     
-                    storyHandler._UI.DrawInfo(item.ToString());
+                    storyHandler._UI.DrawInfo($"* {item.ToString()}");
                 }
             }
         }

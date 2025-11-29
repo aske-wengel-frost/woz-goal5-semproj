@@ -12,7 +12,7 @@
 
     public interface IUIHandler
     {
-        public void DrawScene(Scene scene, int score, int anger);
+        public void DrawScene(Scene scene, StoryHandler storyHandler);
         public void ClearScreen();
         public void DrawError(string errorMsg);
         public void DrawInfo(string infoMsg);

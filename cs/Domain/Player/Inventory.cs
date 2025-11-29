@@ -1,6 +1,3 @@
-/* Inventory Class to manage the collection of items in the Game
- */
-
 namespace cs.Domain.Player
 {
     using System;
@@ -10,12 +7,13 @@ namespace cs.Domain.Player
     {
         private List<Item> items;
 
-        //Define  the maximum cpacity of the inventory. 
-        private const int MaxCapacity = 2; 
+        //Define the maximum cpacity of the inventory. 
+        private int MaxCapacity = 2; 
 
         // Constructor for inventory initialization
-        public Inventory()
+        public Inventory(int maxCapacity = 2)
         {
+            MaxCapacity = maxCapacity;
             items = new List<Item>();
         }
 
@@ -39,7 +37,7 @@ namespace cs.Domain.Player
         }
 
         // Method to remove an item from the inventory
-        //Returns true if the item was found and removed, otherwise false 
+        // Returns true if the item was found and removed, otherwise false 
         public bool RemoveItem(Item item) 
         {
             if (items.Contains(item))
@@ -61,14 +59,14 @@ namespace cs.Domain.Player
         /// <summary>
         /// Method to get an item by its ID
         /// </summary>
-        /// <param name="ID"></param>
+        /// <param name="id"></param>
         /// <returns></returns>
-        public Item GetItem(int ID)
+        public Item GetItem(int id)
         {
             /// Foreach loop that check if the ID matches what the player is looking for
             foreach (Item item in items)
             {
-                if (item.ID == ID)
+                if (item.Id == id)
                 {
                     return item;
                 }
@@ -79,7 +77,7 @@ namespace cs.Domain.Player
         /// <summary>
         /// Method to get an item by its Name
         /// </summary>
-        public Item GetItemName(string name)
+        public Item GetItem(string name)
         {
             /// Foreach loop that check names with case insensitivity
             foreach (Item item in items)
@@ -102,7 +100,7 @@ namespace cs.Domain.Player
         }
 
         /// <summary>
-        /// En simpel hj�lpemetode til at tjekke, om inventory er tom.
+        /// En simpel hjælpemetode til at tjekke, om inventory er tom.
         /// 'CommandInventory' vil bruge denne.
         /// </summary>
         public bool IsEmpty()
@@ -112,7 +110,7 @@ namespace cs.Domain.Player
 
         public bool ItemExists(int? ID)
         {
-            return items.Exists(_ => _.ID == ID);
+            return items.Exists(_ => _.Id == ID);
         }
 
     }

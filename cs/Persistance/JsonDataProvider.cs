@@ -17,6 +17,11 @@
         private string dataFilePath;
         public JsonDataProvider(string filePath = "./StoryDat.json")
         {
+            // Reset the Id counters before starting.
+            Area.ResetIdCounter();
+            Item.ResetIdCounter();
+            Scene.ResetIdCounter();
+
             this.dataFilePath = filePath;
             Story = new Story();
         }
@@ -96,7 +101,22 @@
                 // Loop through all scenechoices in theese scenes
                 foreach (SceneChoice sceneChoice in contextScene.Choices)
                 {
-                    ResolveChoiceLinks(sceneChoice);
+
+                    // try to resolve the name of the scene with a scene object
+                    if (Story.Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
+                    {
+                        // this is cap
+                        //if (OutScene is ContextScene targetScene)
+                        //{
+                        sceneChoice.SceneObj = OutScene;
+                        //}
+                    }
+
+                    // Resolves Key item object
+                    if (Story.Items.TryGetValue(sceneChoice.KeyItemId, out Item? keyItem))
+                    {
+                        sceneChoice.KeyItem = keyItem;
+                    }
                 }
 
             }
@@ -113,7 +133,7 @@
                     Item? item = Story.Items[itemId];
                     if (item != null)
                     {
-                        area.Items.Add(item.ID, item);
+                        area.Items.Add(item.Id, item);
                     }
                 }
 
@@ -125,10 +145,11 @@
             // try to resolve the name of the scene with a scene object
             if (Story.Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
             {
-                if (OutScene is ContextScene targetScene)
-                {
-                    sceneChoice.SceneObj = targetScene;
-                }
+                // this is cap
+                //if (OutScene is ContextScene targetScene)
+                //{
+                    sceneChoice.SceneObj = OutScene;
+                //}
             }
 
             // Resolves Key item object
@@ -137,7 +158,15 @@
                 sceneChoice.KeyItem = keyItem;
             }
         }
+        public void ReloadStory()
+        {
+            Area.ResetIdCounter();
+            Item.ResetIdCounter();
+            Scene.ResetIdCounter();
 
+            LoadStoryFromFile();
+            ResolveObjectLinks();
+        }
 
         private void ExportStoryToFile()
         {
