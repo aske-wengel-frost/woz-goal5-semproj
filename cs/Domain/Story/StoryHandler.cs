@@ -247,11 +247,11 @@ namespace cs.Domain.Story
         /// </summary>
         public void ShowPlayerScore()
         {
-            _UI.DrawInfo($"═══════════════════════════════");
+            _UI.DrawInfo($"═════════════════════════════════════");
             _UI.DrawInfo($"  {player.Name}'s Totale score: {player.Score}");
-            _UI.DrawInfo($"═══════════════════════════════");
+            _UI.DrawInfo($"  Partnerens Aggressionsniveau: {player.PartnerAggression}%");
+            _UI.DrawInfo($"═════════════════════════════════════");
         }
 
     }
 }
-

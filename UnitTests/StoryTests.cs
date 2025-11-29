@@ -30,6 +30,7 @@ namespace UnitTests
             //Resets the ID counters before each test so we know the ID starts at 0
             Scene.ResetIdCounter();
             Area.ResetIdCounter();
+            Item.ResetIdCounter();
 
             //Initializes the test variables that will be used in the tests
             story = new Story();
@@ -42,42 +43,41 @@ namespace UnitTests
                 "Køkken tekst",
                 area
             );
+
+            //ARRANGE: Adds the scene, area and item variables to the story. This happens in setup as they will be used in multiple tests.
+            story.AddScene(scene);
+            story.AddArea(area);
+            story.AddItem(item);
         }
 
         #region Tests
         #region Add Tests
 
         //TEST 1: Adding Scene
-        //We want to verify that adding a scene to the story correctly adds it to the Scenes dictionary.
+        //We want to verify that the scene variable was added to the story correctly in the setup.
         [Test]
         public void AddSceneTest()
         {
-            //ARRANGE & ACT: Adds the scene to the story
-            story.AddScene(scene);
-
             //ASSERT: Verifies that the scene was added to the Scenes dictionary
             Assert.That(story.Scenes.ContainsValue(scene));
         }
 
         //TEST 2: Adding Area
-        //We want to verify that adding an area to the story correctly adds it to the Areas dictionary.
+        //We want to verify that the area variable was added to the story correctly in the setup.
         [Test]
         public void AddAreaTest()
         {
-            //ARRANGE & ACT: Adds the area to the story
-            story.AddArea(area);
-
             //ASSERT: Verifies that the area was added to the Areas dictionary
             Assert.That(story.Areas.ContainsValue(area));
         }
 
         //TEST 3: Adding Item
-        //We want to verify that adding an item to the story correctly adds it to the Items dictionary.
+        //We want to verify that the item variable was added to the story correctly in the setup.
         [Test]
         public void AddItemTest()
         {
             //ARRANGE & ACT: Adds the item to the story
-            story.AddItem(item);
+            //story.AddItem(item);
 
             //ASSERT: Verifies that the item was added to the Items dictionary
             Assert.That(story.Items.ContainsValue(item));
@@ -92,7 +92,7 @@ namespace UnitTests
         public void FindSceneByIDTest()
         {
             //ARRANGE: Adds the scene to the story
-            story.AddScene(scene);
+            //story.AddScene(scene);
 
             //ACT: Finds the scene by its ID
             Scene result = story.FindScene<Scene>(Sceneinput);
@@ -107,7 +107,7 @@ namespace UnitTests
         public void FindSceneByNameTest()
         {
             //ARRANGE: Adds the scene to the story
-            story.AddScene(scene);
+            //story.AddScene(scene);
 
             //ACT: Finds the scene by its name
             Scene result = story.FindScene<Scene>(SceneNameInput);
@@ -125,7 +125,7 @@ namespace UnitTests
         public void FindItemByIDTest()
         {
             //ARRANGE: Adds the item to the story
-            story.AddItem(item);
+            //story.AddItem(item);
 
             //ACT: Finds the item by its ID
             Item result = story.FindItem(ItemInput);
@@ -140,7 +140,7 @@ namespace UnitTests
         public void FindItemByNameTest()
         {
             //ARRANGE: Adds the item to the story
-            story.AddItem(item);
+            //story.AddItem(item);
 
             //ACT: Finds the item by its Name
             Item result = story.FindItem(ItemNameInput);
@@ -158,7 +158,7 @@ namespace UnitTests
         public void FindAreaByIDTest()
         {
             //ARRANGE: Adds the area to the story
-            story.AddArea(area);
+            //story.AddArea(area);
 
             //ACT: Finds the area by its ID
             Area result = story.FindArea(AreaInput);
@@ -173,7 +173,7 @@ namespace UnitTests
         public void FindAreaByNameTest()
         {
             //ARRANGE: Adds the area to the story
-            story.AddArea(area);
+            //story.AddArea(area);
 
             //ACT: Finds the area by its Name
             Area result = story.FindArea(AreaNameInput);
