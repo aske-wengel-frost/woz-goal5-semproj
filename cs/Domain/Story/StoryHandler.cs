@@ -33,23 +33,48 @@ namespace cs.Domain.Story
         public void StartStory()
         {
             // Sets the current scene
-            // Scene? contextScene = story.GetInitialScene();
-            Scene? contextScene = story.GetInitialScene();
+            Scene? initialScene = story.GetInitialScene();
 
-            if (contextScene is null)
+            if (initialScene is null)
             {
-                _UI.DrawError("Could not find start valid start scene!");
+                _UI.DrawError("Could not a valid start scene!");
+                return;
+            }
+            
+            this.TransitionToScene(initialScene);
+        }
+
+        /// <summary>
+        /// Helper method for transitioning to a given scene
+        /// </summary>
+        /// <param name="scene">The scene to transition to</param>
+        private void TransitionToScene(Scene scene)
+        {
+            // Sets the current scene
+            currentScene = scene;
+
+            // If the scene is of type ContextScene
+            if (scene is ContextScene contextScene)
+            {
+                _UI.HighlightArea(contextScene.AreaId);
+                _UI.DrawScene(contextScene, this);
+                // The object type is identified so we return as there is no need to check further statements!
                 return;
             }
 
-            currentScene = contextScene;
+            // If the scene is of type CutScene
+            else if (scene is CutScene cutScene)
+            {
+                HandleCutScene(cutScene);
+                return;
+            }
 
-            // Draws the initial scene
-            // _UI.HighlightArea(contextScene.AreaId);
-            // _UI.DrawScene(contextScene, player.Score, player.PartnerAggression);
-            
-            this.TransitionToScene(contextScene);
-
+            // If the scene is of type EndScene
+            else if (scene is EndScene endScene)
+            {
+                HandleEndScene(endScene);
+                return;
+            }
         }
 
         /// <summary>
@@ -66,7 +91,7 @@ namespace cs.Domain.Story
                 return;
             }
 
-            if(currentScene is not ContextScene)
+            if (currentScene is not ContextScene)
             {
                 _UI.DrawError($"Den nuværende scene er ikke en context scene!");
                 return;
@@ -103,33 +128,6 @@ namespace cs.Domain.Story
             TransitionToScene(sceneChoice.SceneObj);
         }
 
-        /// <summary>
-        /// Helper method for transitioning to a given scene
-        /// </summary>
-        /// <param name="scene">The scene to transition to</param>
-        private void TransitionToScene(Scene scene)
-        {
-            currentScene = scene;
-
-            // If the scene is of type contextScene
-            if (scene is ContextScene contextScene)
-            {
-                _UI.HighlightArea(contextScene.AreaId);
-                _UI.DrawScene(contextScene, player.Score, player.PartnerAggression);
-            }
-
-            // if the scene to transition to is of type cutscene
-            else if (scene is CutScene cutScene)
-            {
-                HandleCutScene(cutScene);
-            }
-
-            else if (scene is EndScene endScene)
-            {
-                ShowEndScene(endScene.EndSceneContent);
-            }
-        }
-
         public void MakeDone()
         {
             if (!isEndScene) return;
@@ -154,13 +152,11 @@ namespace cs.Domain.Story
         }
 
         // Method to show end scene
-        public void ShowEndScene(string inp)
+        public void HandleEndScene(EndScene endScene)
         {
-
             isEndScene = true;
-            _UI.ClearScreen();
-            textDisplay.Display(inp);
-            ShowPlayerScore(); 
+            _UI.DrawScene(endScene, this);
+
         }
 
         /// <summary>
@@ -201,7 +197,7 @@ namespace cs.Domain.Story
         /// <param name="cutScene"></param>
         private void HandleCutScene(CutScene cutScene)
         {
-            _UI.DrawScene(cutScene, player.Score, player.PartnerAggression);
+            _UI.DrawScene(cutScene, this);
             _UI.WaitForKeypress();
 
             // Check if next scene has id.
@@ -240,17 +236,6 @@ namespace cs.Domain.Story
             StartStory();
             isEndScene = false;
 
-        }
-
-        /// <summary>
-        /// Shows playerscore at current instance.
-        /// </summary>
-        public void ShowPlayerScore()
-        {
-            _UI.DrawInfo($"═════════════════════════════════════");
-            _UI.DrawInfo($"  {player.Name}'s Totale score: {player.Score}");
-            _UI.DrawInfo($"  Partnerens Aggressionsniveau: {player.PartnerAggression}%");
-            _UI.DrawInfo($"═════════════════════════════════════");
         }
 
     }

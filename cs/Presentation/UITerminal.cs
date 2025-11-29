@@ -1,5 +1,7 @@
 ﻿namespace cs.Presentation
 {
+    using cs.Domain;
+    using cs.Domain.Player;
     using cs.Domain.Story;
     using cs.Presentation.MapTerminal;
 
@@ -10,6 +12,7 @@
     using System.Diagnostics.CodeAnalysis;
     using System.Dynamic;
     using System.Linq;
+    using System.Reflection.Emit;
     using System.Runtime.ExceptionServices;
     using System.Security.Cryptography.X509Certificates;
     using System.Text;
@@ -19,8 +22,6 @@
     using System.Xml;
 
     using static System.Formats.Asn1.AsnWriter;
-    using cs.Domain;
-    using System.Reflection.Emit;
 
     class UITerminal : IUIHandler
     {
@@ -39,25 +40,29 @@
         /// Draws the scene in the terminal
         /// </summary>
         /// <param name="scene">The scene you want to have drawn</param>
-        public void DrawScene(Scene scene, int score, int anger)
+        public void DrawScene(Scene scene, StoryHandler storyHandler)
         {
             // Set scope-specific charDelay for anmiations.
             textDisplay.charDelay = 10;
 
+            // Clear the terminal when a new scene is drawn
             ClearScreen();
 
-            //LineLength = LineLength + contextScene.Area.Name.Length;
-            //ConsoleViewCharLength = ConsoleViewCharLength + scene.Name.Length;
+            // Draw the top statusbar
+            DrawStatusBar(storyHandler.player.Score, storyHandler.player.PartnerAggression);
 
-            DrawStatusBar(score, anger);
-
+            // Draw scene depending on type
             if (scene is CutScene cutScene)
             {
                 this.DrawCutScene(cutScene);
             }
-            else if (scene is ContextScene ctx)
+            else if (scene is ContextScene contextScene)
             {
-                this.DrawContextScene(ctx);
+                this.DrawContextScene(contextScene);
+            } 
+            else if (scene is EndScene endScene)
+            {
+                this.DrawEndScene(endScene, storyHandler.player);
             }
 
         }
@@ -110,6 +115,10 @@
             map.Elements = mapElements;
         }
 
+        /// <summary>
+        /// Highlights a specefic area on the map, based on an id
+        /// </summary>
+        /// <param name="id"></param>
         public void HighlightArea(int id)
         {
             map.HighlightElement(id);
@@ -126,6 +135,10 @@
 
         // Helpers
 
+        /// <summary>
+        /// Draws a contextscene
+        /// </summary>
+        /// <param name="contextScene"></param>
         private void DrawContextScene(ContextScene contextScene)
         {
             Console.WriteLine(ConstructLine(contextScene.Area.Name));
@@ -149,14 +162,24 @@
             textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
         }
 
+        /// <summary>
+        /// Draws a Cut Scene
+        /// </summary>
+        /// <param name="cutScene">the object of the CutScene to draw</param>
         private void DrawCutScene(CutScene cutScene)
         {
-            textDisplay.Display(cutScene.ConditionInfo);
+            Console.WriteLine(ConstructLine());
+            textDisplay.Display(cutScene.ConditionInfo, split: ConsoleViewCharLength);
         }
 
-        private void DrawEndScene(EndScene endScene)
+        private void DrawEndScene(EndScene endScene, Player player)
         {
+            textDisplay.Display(endScene.EndSceneContent);
 
+            DrawInfo($"═════════════════════════════════════");
+            DrawInfo($"  {player.Name}'s Totale score: {player.Score}");
+            DrawInfo($"  Partnerens Aggressionsniveau: {player.PartnerAggression}%");
+            DrawInfo($"═════════════════════════════════════");
         }
 
         /// <summary>

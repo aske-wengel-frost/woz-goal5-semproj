@@ -23,7 +23,7 @@ namespace cs.Domain.Commands
             Scene sceneObj = storyHandler.story.FindScene<Scene>("Endscene");
             if (sceneObj is EndScene endScene)
             {
-                storyHandler.ShowEndScene(endScene.EndSceneContent);
+                storyHandler.HandleEndScene(endScene);
             }
             else
             {
