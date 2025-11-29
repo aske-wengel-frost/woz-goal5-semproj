@@ -2,21 +2,20 @@ namespace cs.Domain.Story
 {
     using cs.Domain;
     using cs.Domain.Player;
-
     using System.Text.Json.Serialization;
 
     public class Area
     {
         private static int currentID = 0;
 
-        private int _ID;
+        private int _Id;
 
-        public int ID
+        public int Id
         {
-            get { return _ID; }
-            set 
+            get { return _Id; }
+            init 
             { 
-                _ID = value;
+                _Id = value;
                 if (value > currentID)
                 {
                     currentID = value;
@@ -24,29 +23,29 @@ namespace cs.Domain.Story
             }
         }
 
-        public string Name { get; set; }
+        public string Name { get; init; }
 
-        public List<int> itemIds { get; set;} = new List<int>();
+        public List<int> itemIds { get; init;} = new List<int>();
 
         [JsonIgnore]
-        public Dictionary<int, Item> Items { get; private set; }
+        public Dictionary<int, Item> Items { get; init; }
 
         // Frame property defines the physical representation of the area, it is nullable as every area must not have a physical representation.
-        public Frame? Frame { get; set;}
+        public Frame? Frame { get; init;}
 
         // NEEDED???
         public Area()
         {
             // Initialize defaults to avoid null reference issues
             Name = "";
-            ID = GetNextId();
+            Id = GetNextId();
             Items = new Dictionary<int, Item>();
         }
 
         // Constructor for Area initialization
         public Area(string name, Dictionary<int,Item>? items = null, Frame? frame = null) // Area can contain a List of items and gives it a default value.  
         {
-            this.ID = GetNextId();
+            this.Id = GetNextId();
             this.Name = name; 
             this.Frame = frame;
             Items = new Dictionary<int, Item>();
@@ -54,9 +53,9 @@ namespace cs.Domain.Story
 
         public Area AddItem(Item item)
         {
-            Items.Add(item.ID, item);
+            Items.Add(item.Id, item);
             // Also add id to ids list so it is added when exporting to josn 
-            itemIds.Add(item.ID);
+            itemIds.Add(item.Id);
             // this enables for chaining the method together when building stories from code
             return this;
         }
@@ -66,15 +65,10 @@ namespace cs.Domain.Story
             return Items?.Values.Where(x => x.Name.ToLowerInvariant() == itemName).FirstOrDefault();
         }
 
-        //public Item? FindItem(string itemname)
-        //{
-
-        //}
-
         // A way to view the given area details
         public override string ToString()
         {
-            return $"Area ID: {ID}, Name: {Name}";
+            return $"Area ID: {Id}, Name: {Name}";
         }
 
         // Helpers

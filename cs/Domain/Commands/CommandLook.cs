@@ -25,17 +25,14 @@ namespace cs.Domain.Commands
                 // Checks location and lists items present within the area
                 if (ctx != null)
                 {
-                    storyHandler._UI.DrawInfo($"Du befinder dig i: {ctx.Area.Name}");
-                    storyHandler._UI.DrawInfo($"Genstande:");
+                    storyHandler._UI.DrawInfo($"====[ Genstande ]====");
                     foreach (Item it in ctx.Area.Items.Values)
                     {
-                        storyHandler._UI.DrawInfo($" {it.Name},");
+                        storyHandler._UI.DrawInfo($"* {it.ToString()}");
                     }
                     storyHandler._UI.DrawInfo("");
 
-                   
                 }
-
             }
         }
     }

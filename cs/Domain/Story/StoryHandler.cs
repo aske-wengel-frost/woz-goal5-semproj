@@ -4,26 +4,29 @@ namespace cs.Domain.Story
     using cs.Persistance;
     using cs.Presentation;
 
+    using System.Xml.Linq;
+
+    using static System.Formats.Asn1.AsnWriter;
+
     public class StoryHandler
     {
-        bool done = false;
-        public Story story { get; set; }
-        private Scene? currentScene { get; set; }
-        //public DataProvider dataLoader { get; set; }
-        public IUIHandler _UI { get; set; }
-        public IDataProvider _Data { get; set; }
-        public Player player { get; set; }
-        public bool isEndScene { get; private set; }
-        static Registry? registry { get; set; }
+        bool Done = false;
+        public Story Story { get; private set; }
+        private Scene? CurrentScene { get; set; }
+        public IUIHandler _UI { get; private set; }
+        public IDataProvider _Data { get; private set; }
+        public Player Player { get; set; }
+        public bool IsEndScene { get; private set; }
 
         // New constructor with respect to our design. 
         // With respect to dependency of our UIHandler.
         // Godt eksempel på dependeny injection
         public StoryHandler(IUIHandler uiHandler, IDataProvider dataProvider)
         {
+            Player = new Player("");
             _Data = dataProvider;
             _UI = uiHandler;
-            this.story = _Data.GetStory();
+            this.Story = _Data.GetStory();
 
         }
 
@@ -33,11 +36,11 @@ namespace cs.Domain.Story
         public void StartStory()
         {
             // Sets the current scene
-            Scene? initialScene = story.GetInitialScene();
+            Scene? initialScene = Story.GetInitialScene();
 
             if (initialScene is null)
             {
-                _UI.DrawError("Could not a valid start scene!");
+                _UI.DrawError("Could not find a valid start scene!");
                 return;
             }
             
@@ -51,13 +54,12 @@ namespace cs.Domain.Story
         private void TransitionToScene(Scene scene)
         {
             // Sets the current scene
-            currentScene = scene;
+            CurrentScene = scene;
 
             // If the scene is of type ContextScene
             if (scene is ContextScene contextScene)
             {
-                _UI.HighlightArea(contextScene.AreaId);
-                _UI.DrawScene(contextScene, this);
+                HandleContextScene(contextScene);
                 // The object type is identified so we return as there is no need to check further statements!
                 return;
             }
@@ -77,6 +79,7 @@ namespace cs.Domain.Story
             }
         }
 
+        // Måske flyt denne ind i gå command?
         /// <summary>
         /// Checks wether userinput corresponds to any choice, and proceeeds if true, otherwise, DrawError is called.
         /// </summary>
@@ -91,38 +94,38 @@ namespace cs.Domain.Story
                 return;
             }
 
-            if (currentScene is not ContextScene)
+            if (CurrentScene is not ContextScene)
             {
                 _UI.DrawError($"Den nuværende scene er ikke en context scene!");
                 return;
             }
 
-            // We can explicit cast as we have a guard check for if the current scene is a context scene
-            ContextScene? contextScene = (ContextScene)GetCurrentScene();
+            // We explicitcast to context scene as we know it is one based on guard check
+            ContextScene contextScene = (ContextScene)GetCurrentScene();
 
-
+            // Try to find the contextscene in the list of contextscenes by index based on the users input.
             if (contextScene.Choices.ElementAtOrDefault(usrInpValue - 1) == null)
             {
                 _UI.DrawError($"{usrInpValue} er ikke et gyldigt valg!");
                 return;
             }
 
-            // Gets the scenechoice with aske stuff
-            SceneChoice? sceneChoice = contextScene.Choices[usrInpValue - 1];
+            // Gets the scenechoice object
+            SceneChoice sceneChoice = contextScene.Choices[usrInpValue - 1];
 
             // GUARD CLAUSES
-            if (sceneChoice.isLocked())
+            if (sceneChoice.IsLocked())
             {
                 // Try to unlock the sceneChoice
-                if (!sceneChoice.Unlock(player.inventory))
+                if (!sceneChoice.Unlock(Player.Inventory))
                 {
                     _UI.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
                     return;
                 }
             }
 
-            player.Score += sceneChoice.ScorePoints;
-            player.PartnerAggression += sceneChoice.PartnerAggression;
+            Player.ModifyScore(sceneChoice.ScorePoints);
+            Player.ModifyPartnerAgression(sceneChoice.PartnerAggression);
 
             // At last transitions to scene
             TransitionToScene(sceneChoice.SceneObj);
@@ -130,31 +133,31 @@ namespace cs.Domain.Story
 
         public void MakeDone()
         {
-            if (!isEndScene) return;
-            done = true;
+            if (!IsEndScene) return;
+            Done = true;
         }
 
         public bool IsDone()
         {
-            return done;
+            return Done;
         }
 
         // Method to get the current scene of the story
-        public ContextScene? GetCurrentScene()
+        public Scene GetCurrentScene()
         {
-            return currentScene as ContextScene;
+            return CurrentScene;
         }
 
         // Method to get the player object
         public Player GetPlayer()
         {
-            return player;
+            return Player;
         }
 
         // Method to show end scene
         public void HandleEndScene(EndScene endScene)
         {
-            isEndScene = true;
+            IsEndScene = true;
             _UI.DrawScene(endScene, this);
 
         }
@@ -166,7 +169,7 @@ namespace cs.Domain.Story
         /// <returns>True if the item was used successfully, false otherwise.</returns>
         public bool UseItemInScene(Item item)
         {
-            if (currentScene is not ContextScene contextScene)
+            if (CurrentScene is not ContextScene contextScene)
             {
                 return false;
             }
@@ -175,13 +178,13 @@ namespace cs.Domain.Story
             foreach (SceneChoice choice in contextScene.Choices)
             {
                 // Checks if the choice requires the specified item and if it's the right one
-                if (choice.isLocked() && choice.KeyItemId == item.ID)
+                if (choice.IsLocked() && choice.KeyItemId == item.Id)
                 {
                     // If TRUE, proceed to the next scene
                     _UI.DrawInfo($"Du brugte: {item.Name}.");
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
-                    Scene? nextScene = story.FindScene<Scene>(choice.SceneId);
+                    Scene? nextScene = Story.FindScene<Scene>(choice.SceneId);
                     if(nextScene != null)
                     {
                         TransitionToScene(nextScene);
@@ -189,6 +192,12 @@ namespace cs.Domain.Story
                 }
             }
             return false;
+        }
+
+        private void HandleContextScene(ContextScene contextScene)
+        {
+            _UI.HighlightArea(contextScene.AreaId);
+            _UI.DrawScene(contextScene, this);
         }
 
         /// <summary>
@@ -203,7 +212,7 @@ namespace cs.Domain.Story
             // Check if next scene has id.
             if (cutScene.NextSceneId.HasValue)
             {
-                Scene? nextScene = story.FindScene<Scene>(cutScene.NextSceneId.Value);
+                Scene? nextScene = Story.FindScene<Scene>(cutScene.NextSceneId.Value);
                 if (nextScene != null)
                 {
                     // Handle next scene.
@@ -225,16 +234,16 @@ namespace cs.Domain.Story
         /// </summary>
         public void RestartGame()
         {
-            if (!isEndScene) return;
+            if (!IsEndScene) return;
             // Reset players score and inventory
-            GetPlayer().Score = 0;
-            GetPlayer().inventory.RemoveAllItems();
+            GetPlayer().ResetPlayerScore();
+            GetPlayer().Inventory.RemoveAllItems();
 
             // Reset story
             _Data.ReloadStory();
-            this.story = _Data.GetStory();
+            this.Story = _Data.GetStory();
             StartStory();
-            isEndScene = false;
+            IsEndScene = false;
 
         }
 

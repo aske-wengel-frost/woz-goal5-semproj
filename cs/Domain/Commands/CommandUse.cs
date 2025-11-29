@@ -25,7 +25,7 @@ namespace cs.Domain.Commands
             string itemName = parameters[0];
 
             // Like TakeItem in Area.cs, it tries to find the item in the player's inventory
-            Item? item = storyHandler.GetPlayer().inventory.GetItemName(itemName);
+            Item? item = storyHandler.GetPlayer().Inventory.GetItem(itemName);
 
             // Check to see if the item exists in the inventory
             if (item == null)

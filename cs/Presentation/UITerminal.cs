@@ -49,7 +49,7 @@
             ClearScreen();
 
             // Draw the top statusbar
-            DrawStatusBar(storyHandler.player.Score, storyHandler.player.PartnerAggression);
+            DrawStatusBar(storyHandler.Player.Score, storyHandler.Player.PartnerAggression);
 
             // Draw scene depending on type
             if (scene is CutScene cutScene)
@@ -62,7 +62,7 @@
             } 
             else if (scene is EndScene endScene)
             {
-                this.DrawEndScene(endScene, storyHandler.player);
+                this.DrawEndScene(endScene, storyHandler.Player);
             }
 
         }
@@ -110,7 +110,7 @@
                     continue;
                 }
 
-                mapElements.Add(new MapRoomElement(area.ID, area.Frame.X, area.Frame.Y, area.Frame.Height, area.Frame.Width, area.Name));
+                mapElements.Add(new MapRoomElement(area.Id, area.Frame.X, area.Frame.Y, area.Frame.Height, area.Frame.Width, area.Name));
             }
             map.Elements = mapElements;
         }

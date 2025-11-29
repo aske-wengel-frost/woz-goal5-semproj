@@ -16,7 +16,7 @@ namespace cs.Domain.Commands
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
 
-            if (!storyHandler.isEndScene)
+            if (!storyHandler.IsEndScene)
             {
                 storyHandler._UI.DrawError("Du kan kun genstarte spillet såfremt du er ved slutningen.");
                 return; 

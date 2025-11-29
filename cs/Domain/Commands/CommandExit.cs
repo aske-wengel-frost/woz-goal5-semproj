@@ -19,8 +19,8 @@ namespace cs.Domain.Commands
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
 
-            // Instantiating the end scene and showing it
-            Scene sceneObj = storyHandler.story.FindScene<Scene>("Endscene");
+            // Finding the end scene object based on name, and showing it
+            Scene sceneObj = storyHandler.Story.FindScene<Scene>("Endscene");
             if (sceneObj is EndScene endScene)
             {
                 storyHandler.HandleEndScene(endScene);

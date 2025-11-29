@@ -17,7 +17,12 @@
     {
         private Story Story;
         public TestDataProvider()
-        {   
+        {
+            // Reset the Id counters before starting.
+            Area.ResetIdCounter();
+            Item.ResetIdCounter();
+            Scene.ResetIdCounter();
+
             Story = new Story();
             BuildTestStory();
         }
