@@ -20,13 +20,20 @@
 
     using static System.Formats.Asn1.AsnWriter;
     using cs.Domain;
+    using System.Reflection.Emit;
 
     class UITerminal : IUIHandler
     {
         private TerminalMap map { get; set; } = new TerminalMap();
+        int ConsoleViewCharLength { get; set; } = 120;
+        int OuterLineLength { get; set; } = 10;
 
-        int LineLength { get; set; } = 60;
-        int OuterLineLength { get; set; } = 9;
+        int CharDelay { get; set; } = 10;
+
+        //public UITerminal(int charDelay)
+        //{
+            
+        //}
 
         /// <summary>
         /// Draws the scene in the terminal
@@ -37,42 +44,23 @@
             // Set scope-specific charDelay for anmiations.
             textDisplay.charDelay = 10;
 
+            ClearScreen();
+
+            //LineLength = LineLength + contextScene.Area.Name.Length;
+            //ConsoleViewCharLength = ConsoleViewCharLength + scene.Name.Length;
+
+            DrawStatusBar(score, anger);
+
             if (scene is CutScene cutScene)
             {
-                ClearScreen();
-                textDisplay.Display(cutScene.ConditionInfo);
+                this.DrawCutScene(cutScene);
             }
             else if (scene is ContextScene ctx)
             {
-                ClearScreen();
-
-                LineLength = LineLength + ctx.Area.Name.Length;
-
-
-                DrawStatusBar(score, anger);
-
-                Console.WriteLine(LineConstructor(ctx.Area.Name, true));
-
-                textDisplay.Display(ctx.DialogueText, split: LineLength, punctDelay: 7);
-
-                Console.WriteLine(LineConstructor(ctx.Area.Name, false));
-
-                Console.WriteLine();
-                textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
-
-                // Uses the index of the array to display the options ascendingly
-                for (int i = 1; i < ctx.Choices.Count() + 1; i++)
-                {
-                    textDisplay.Display($"[{i}] > {ctx.Choices[i - 1].Description}", punctDelay: 5);
-                }
-
-
-                Console.WriteLine("");
-                textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
+                this.DrawContextScene(ctx);
             }
 
         }
-
 
         /// <summary>
         /// Clears the terminal screen
@@ -84,7 +72,7 @@
 
         public void DrawError()
         {
-            Console.WriteLine("Der er opstået en fejl");
+            DrawError("Der er opstået en fejl");
         }
 
         public void DrawError(string errorMsg)
@@ -136,43 +124,95 @@
             Console.ReadLine();
         }
 
-        public string LineConstructor(string name, bool displayName)
+        // Helpers
+
+        private void DrawContextScene(ContextScene contextScene)
         {
-            int drawnLine = LineLength - name.Length;
+            Console.WriteLine(ConstructLine(contextScene.Area.Name));
+
+            textDisplay.Display(contextScene.DialogueText, split: ConsoleViewCharLength, punctDelay: 7);
+
+            //Console.WriteLine(LineConstructor(contextScene.Area.Name, false));
+            Console.WriteLine(ConstructLine());
+
+            Console.WriteLine();
+            textDisplay.Display("Her er dine valgmuligheder:", punctDelay: 4);
+
+            // Uses the index of the array to display the options ascendingly
+            for (int i = 1; i < contextScene.Choices.Count() + 1; i++)
+            {
+                textDisplay.Display($"[{i}] > {contextScene.Choices[i - 1].Description}", punctDelay: 5);
+            }
+
+
+            Console.WriteLine("");
+            textDisplay.Display("[hjælp] Hvis du er i tvivl", punctDelay: 5);
+        }
+
+        private void DrawCutScene(CutScene cutScene)
+        {
+            textDisplay.Display(cutScene.ConditionInfo);
+        }
+
+        private void DrawEndScene(EndScene endScene)
+        {
+
+        }
+
+        /// <summary>
+        /// Draws a horizontal line in the terminal
+        /// </summary>
+        /// <returns></returns>
+        private string ConstructLine()
+        {
             string output = "";
-
-            for (int i = 0; i < OuterLineLength; i++)
-            {
-                output += "-";
-            }
-            if (displayName)
-            {
-                for (int i = 0; i < (int)drawnLine/2 - (OuterLineLength+1); i++)
-                {
-                    output += "═";
-                }
-                output += $"[ {name} ]";
-                for (int i = 0; i < (int)drawnLine/2 - (OuterLineLength+1); i++)
-                {
-                    output += "═";
-                }
-            }
-            else
-            {
-                for (int i = 0; i < drawnLine + name.Length + 2 - (2 * OuterLineLength); i++)
-                {
-                    output += "═";
-                }
-            }
-
-            for (int i = 0; i < OuterLineLength; i++)
-            {
-                output += "-";
-            }
+            output += ConstructCharLine(OuterLineLength, '-');
+            output += ConstructCharLine(ConsoleViewCharLength - (2 * OuterLineLength), '=');
+            output += ConstructCharLine(OuterLineLength, '-');
             return output;
         }
 
-        public void DrawStatusBar(int score, int anger)
+        /// <summary>
+        /// Draws a horizontal line in the terminal with a text title
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="displayName"></param>
+        /// <returns></returns>
+        private string ConstructLine(string title)
+        {
+            string output = "";
+
+            // initiates a new stringbuilder, and passes in the result of the ConstructLine method to which this method is a overload
+            StringBuilder sb = new StringBuilder(ConstructLine());
+
+            // Added the brackets to each side of the title
+            string newTitle = $"[ {title} ]";
+
+            // Gets the index within the string which represents the line, of where to place the title to get it to be roughly in the center
+            int titleStartIndexInLine = (ConsoleViewCharLength - newTitle.Length) / 2 ;
+
+            // adds the title to the line
+            for(int i = 0; i < newTitle.Length; i++)
+            {
+                sb[i + titleStartIndexInLine] = newTitle[i];
+            }
+            
+            // sets the output string and returns
+            output = sb.ToString();
+            return output;
+        }
+
+        private string ConstructCharLine(int length, char ch)
+        {
+            string retStr = "";
+            for (int i = 0; i < length; i++)
+            {
+             retStr += ch;   
+            }
+            return retStr;
+        }
+
+        private void DrawStatusBar(int score, int anger)
         {
             string angerTxt = "Partners Aggression";
             string scoreTxt = "Point";
@@ -181,7 +221,7 @@
 
             int angerBarCharLength = 15 + angerTxt.Length + tmpA.Length;
             int scoreBarCharLength = 1 + scoreTxt.Length + tmpS.Length;
-            int betweenBarsSpace = LineLength - (angerBarCharLength + scoreBarCharLength);
+            int betweenBarsSpace = ConsoleViewCharLength - (angerBarCharLength + scoreBarCharLength) - 2;
 
             Console.Write($"{scoreTxt}: {score}");
             //DrawProgressBar(10, score, 100, scoreTxt);
@@ -191,7 +231,7 @@
             Console.WriteLine();
         }
 
-        public void DrawProgressBar(int BarCharLength, int curVal, int maxVal, string title = "Bar")
+        private void DrawProgressBar(int BarCharLength, int curVal, int maxVal, string title = "Bar")
         {
             // Is not allowed, so we set curVal to 0
             if (curVal > maxVal)
