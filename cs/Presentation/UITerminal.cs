@@ -28,13 +28,7 @@
         private TerminalMap map { get; set; } = new TerminalMap();
         int ConsoleViewCharLength { get; set; } = 120;
         int OuterLineLength { get; set; } = 10;
-
         int CharDelay { get; set; } = 10;
-
-        //public UITerminal(int charDelay)
-        //{
-            
-        //}
 
         /// <summary>
         /// Draws the scene in the terminal
@@ -75,17 +69,29 @@
             Console.Clear();
         }
 
+        /// <summary>
+        /// Draw error overload method for non descriptive error
+        /// </summary>
         public void DrawError()
         {
             DrawError("Der er opstået en fejl");
         }
 
+        /// <summary>
+        /// Draw error method for printing errors in red
+        /// </summary>
+        /// <param name="errorMsg"></param>
         public void DrawError(string errorMsg)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(errorMsg);
             Console.ResetColor();
         }
+
+        /// <summary>
+        /// Draws in green text
+        /// </summary>
+        /// <param name="infoMsg"></param>
         public void DrawInfo(string infoMsg)
         {
             Console.ForegroundColor = ConsoleColor.Green;
