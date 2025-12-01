@@ -39,7 +39,7 @@ namespace UnitTests
             Assert.AreEqual("A test description", testItem.Description, "Item description should be 'A test description'.");
 
             // 3. The ID should be assigned (not negative)
-            Assert.GreaterOrEqual(testItem.ID, 0, "Item ID should be 0 or greater.");
+            Assert.GreaterOrEqual(testItem.Id, 0, "Item ID should be 0 or greater.");
         }
 
         // TEST 2: ToString Method
@@ -53,7 +53,7 @@ namespace UnitTests
 
             // ASSERT: Verify the format
             // The expected format should be: "Item ID: {ID}, Name: {Name}, Description: {Description}"
-            string expectedStart = $"Item ID: {mobil.ID}, Name: Mobil, Description: En smartphone";
+            string expectedStart = $"Item ID: {mobil.Id}, Name: Mobil, Description: En smartphone";
 
             Assert.AreEqual(expectedStart, result, "ToString should return the correct format.");
         }
@@ -69,7 +69,7 @@ namespace UnitTests
 
             Assert.AreEqual("", emptyItem.Description, "Item description should be empty string.");
 
-            Assert.GreaterOrEqual(emptyItem.ID, 0, "Item should still have a valid ID.");
+            Assert.GreaterOrEqual(emptyItem.Id, 0, "Item should still have a valid ID.");
         }
 
         // TEST 4: Multiple Items with Same Name
@@ -86,7 +86,7 @@ namespace UnitTests
             Assert.AreEqual(knife1.Name, knife2.Name, "Both items have the same name.");
 
             // 2. The two items should have different IDs
-            Assert.AreNotEqual(knife1.ID, knife2.ID, "Items with the same name should have different IDs.");
+            Assert.AreNotEqual(knife1.Id, knife2.Id, "Items with the same name should have different IDs.");
         }
     }
 }

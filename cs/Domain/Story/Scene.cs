@@ -12,28 +12,28 @@ namespace cs.Domain.Story
         // Makes sure each new created scene has uniqe ID
         private static int currentID = 0;
 
-        private int _ID;
-        public int ID 
+        private int _Id;
+        public int Id 
         { 
             get
             {
-                return _ID;
+                return _Id;
             }
-            set
+            init
             {
                 // Makes sure to set the currentID
-                _ID = value;
+                _Id = value;
                 if(value > currentID)
                 {
                     currentID = value;
                 }
             } 
         }
-        public string Name { get; set; }
+        public string Name { get; init; }
       
         public Scene(string name)
         {
-           ID = GetNextId();
+           Id = GetNextId();
            Name = name;
         }
 
@@ -47,7 +47,7 @@ namespace cs.Domain.Story
             if (obj is Scene)
             {
                 Scene tmpScene = (Scene)obj;
-                if (this.ID == tmpScene.ID) { return true; }
+                if (this.Id == tmpScene.Id) { return true; }
             }
             return false;
         }

@@ -1,51 +1,60 @@
 namespace cs.Domain.Player
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Player
     {
-        public string Name { get; set; }
-        public int Score { get; set; }
-        public int PartnerAggression { get; set; }
-        public Inventory inventory { get; set; }
+        public readonly int MAX_AGRESSION = 100;
+
+        public string Name { get; private set; }
+        public int Score { get; private set; }
+        public int PartnerAggression { get; private set; }
+        public Inventory Inventory { get; private set; }
 
         // We initialize score=0, creates new Inventory for Player, assigns Player a name
         public Player(string name)
         {
             Name = name;
             Score = 0;
-            inventory = new Inventory();
-        }
-        
-        public Item? DropItem(string ItemName)
-        {
-            return inventory.GetItemName(ItemName);
+            PartnerAggression = 0;
+            Inventory = new Inventory();
         }
 
-        // Increase Score by 5
-        public void IncreaseScore()
+        // Change value of score
+        public void ModifyScore(int amount)
         {
-            Score += 5;
-            //Console.WriteLine($"{Name}'s score is increased to {Score}");
+            // Make sure the score never goes below 0.
+            if(Score + amount < 0)
+            {
+                Score = 0;
+                return;
+            }
+            Score += amount;
         }
 
-        // Decrease score by 5
-        public void DecreaseScore()
+        public void ModifyPartnerAgression(int amount)
         {
-            Score -= 5;
-            //Console.WriteLine($"{Name}'s score is decreased to {Score}");
+            // Make sure the score never goes below 0.
+            if (PartnerAggression + amount < 0)
+            {
+                PartnerAggression = 0;
+                return;
+            }
+            if(PartnerAggression + amount > MAX_AGRESSION)
+            {
+                PartnerAggression = MAX_AGRESSION;
+            }
+            PartnerAggression += amount;
         }
 
-        // Adds Item to new initialized Inventory 
-        public void AddItem(Item item)
+        public void ResetPlayerScore()
         {
-            inventory.AddItem(item);
+            Score = 0;
         }
 
-        // Removes Item to new initialized Inventory 
-        public void RemoveItem(Item item)
+        public void ResetParterAggression()
         {
-            inventory.RemoveItem(item);
+            PartnerAggression = 0;
         }
-
-        // Displays Information about Player in Terminal
     }
 }

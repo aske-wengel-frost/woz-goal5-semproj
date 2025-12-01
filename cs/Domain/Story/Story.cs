@@ -13,15 +13,15 @@
 
     public class Story
     {
-        public string Name { get; set; }
+        public string Name { get; init; }
         public Dictionary<int, Scene> Scenes { get; set; }
         public Dictionary<int, Area> Areas { get; set; }
         public Dictionary<int, Item> Items { get; set; }
 
 
-        public Story()  
+        public Story(string name = "Story")  
         {
-            Name = "";
+            Name = name;
             Scenes = new Dictionary<int, Scene>();
             Areas = new Dictionary<int, Area>();
             Items = new Dictionary<int, Item>();
@@ -33,11 +33,6 @@
         /// <returns>Scene</returns>
         public Scene? GetInitialScene()
         {
-            // if(Scenes[0] is not ContextScene)
-            // {
-            //     return null;
-            // }s
-            // return (ContextScene)Scenes[0];
             return Scenes[0];
         }
 
@@ -134,17 +129,17 @@
 
         public void AddScene(Scene scene)
         {
-            Scenes.Add(scene.ID, scene);
+            Scenes.Add(scene.Id, scene);
         }
 
         public void AddArea(Area area)
         {
-            Areas.Add(area.ID, area);
+            Areas.Add(area.Id, area);
         }
 
         public void AddItem(Item item)
         {
-            Items.Add(item.ID, item);
+            Items.Add(item.Id, item);
         }
     }
 }
