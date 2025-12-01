@@ -20,15 +20,15 @@
           "Description": "Du lægger hurtigt mobiltelefonen væk og siger “Undskyld skat…. det var bare min veninde, jeg ringer tilbage senere.” Du kigger smilende på ham igen og prøver at få hans smil tilbage.",
           "SceneId": 8,
           "KeyItemId": 0,
-          "ScorePoints": 0,
-          "PartnerAggression": 0
+          "ScorePoints": 5,
+          "PartnerAggression": 10 
         },
         {
           "Description": "Du tager mobiltelefonen op og siger “Det var bare min veninde, Jeg kan ringe tilbage til hende senere”\nDu møder hans stivnede blik, men undskylder ikke. “Jeg går ud og laver morgenmad, vil du at jeg skal lave noget til dig også?”",
           "SceneId": 9,
           "KeyItemId": 0,
-          "ScorePoints": 0,        
-          "PartnerAggression": 0
+          "ScorePoints": 5,
+          "PartnerAggression": 10 
         },
         {
           "Description": "Du vender hurtigt mobiltelefonen med skærmen nedad og siger “Det.. det må have været en fejl opringning”. Du prøver at undgå hans blik",
@@ -48,7 +48,9 @@
           {
             "Description": "Du tager en dyb indånding og siger “Jeg tabte kniven fordi jeg blev forskrækket, det var ikke med vilje”",
             "SceneId": 10,
-            "KeyItemId": -1
+            "KeyItemId": -1,
+            "ScorePoints": 5,        
+            "PartnerAggression": 10 
           },
           {
             "Description": "Du skynder dig at samle kniven op igen og mumler forsigtigt “Undskyld… det var min fejl, jeg ved ikke hvorfor jeg tabte kniven.”",
@@ -68,17 +70,23 @@
           {
             "Description": "Du prøver og ignorere ham, du vender dig stivt om mod ham og siger “Pandekagerne brænder på, hvis du ikke giver mig plads til at vende dem”",
             "SceneId": 12,
-            "KeyItemId": -1
+            "KeyItemId": -1,
+            "ScorePoints": 5,        
+            "PartnerAggression": 10 
           },
           {
             "Description": "Du læner dig ind i hans arme og siger beroligende til ham “Det okay skat… Jeg går ingen steder. Du behøver ikke være bange.”",
             "SceneId": 13,
-            "KeyItemId": -1
+            "KeyItemId": -1,
+            "ScorePoints": 5,        
+            "PartnerAggression": 10 
           },
           {
             "Description": "“Skat… dine tanker og handlinger er ikke mit ansvar. Jeg vil gerne tale om, hvordan du har det, men du må ikke sige sådan noget.",
             "SceneID": 13,
-            "KeyItemId": -1
+            "KeyItemId": -1,
+            "ScorePoints": 5,        
+            "PartnerAggression": 10 
           }
         ]
       },
@@ -93,12 +101,16 @@
         {
           "Description": "Du føler dig irriteret, men vælger ikke at nævne at han havde lovet at gøre det. Du vælger i stedet at gøre det selv, da du ikke vil skabe en konflikt, før dine forældre kommer.",
           "SceneId": 15,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         },
         {
           "Description": "Du kigger irriteret på ham og siger “Men du havde lovet at du ville gøre det?”",
           "SceneId": 14,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         }
       ]
     },
@@ -113,12 +125,16 @@
         {
           "Description": "Du bliver straks fornærmet og siger “Du skal ikke sige sådan til mig” Han vender hovedet mod dig og ser overrasket ud.",
           "SceneId": 17,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         },
         {
           "Description": "Du bliver bange og siger lavt “Undskyld… du har nok ret”, du rejser dig fra bordet fordi tanken om mad nu giver dig kvalme.",
           "SceneId": 16,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         }
       ]
     },
@@ -133,17 +149,23 @@
         {
           "Description": "Du kigger chokeret på ham og siger “Det er min krop ikke din, du bestemmer ikke hvad jeg må spise, og jeg vil ikke have du snakker sådan til mig.”",
           "SceneId": 18,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         },
         {
           "Description": "Du bliver bange og går i chok, du vælger at ignorere ham, og går direkte ud i bad.",
           "SceneId": 18,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         },
         {
           "Description": "Du bliver bange, da han hæver stemme og svarer “Undskyld… Det var ikke min mening at reagere sådan. Du har nok ret. Jeg vil prøve at tænke mig om næste gang.”",
           "SceneId": 18,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         }
       ]
     },
@@ -158,12 +180,16 @@
         {
           "Description": "Du gider ikke diskutere mere med din kæreste, så du vælger at tage et bad uden at låse døren.",
           "SceneId": 19,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         },
         {
           "Description": "Du vil gerne have lidt tid alene så du låser døren og tager et bad.",
           "SceneId": 19,
-          "KeyItemId": 1
+          "KeyItemId": 1,
+          "ScorePoints": 5,        
+          "PartnerAggression": 10 
         }
       ]
     },
