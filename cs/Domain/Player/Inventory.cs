@@ -51,6 +51,8 @@ namespace cs.Domain.Player
             }
         }
 
+        // Removes all the items from the inventory
+        // And used when restarting the game
         public void RemoveAllItems()
         {
             items.Clear();
@@ -108,6 +110,9 @@ namespace cs.Domain.Player
             return items.Count == 0;
         }
 
+        /// <summary>
+        /// Checks if a specific item exits in the inventory by its ID
+        /// </summary>
         public bool ItemExists(int? ID)
         {
             return items.Exists(_ => _.Id == ID);

@@ -185,15 +185,27 @@ namespace cs.Domain.Story
 
                     // Find the next scene based on the choice - almost like the PerformChoice method
                     Scene? nextScene = Story.FindScene<Scene>(choice.SceneId);
-                    if(nextScene != null)
+                    if (nextScene != null)
                     {
                         TransitionToScene(nextScene);
+                        return true; // True return if the Item was used successfully
+                    }
+                    else
+                    {
+                        // UI draws error if next scene could not be found (If scene is null)
+                        _UI.DrawError("Could not find the next scene");
+                        return false;
                     }
                 }
+                return false;
             }
-            return false;
         }
 
+        /// <summary>
+        /// Handles what to draw given a specific ContextScene.
+        /// And highlights the area related to the scene.
+        /// Where if mutliple cut scenes are linked to eachother, it calls recursively.
+        /// </summary>
         private void HandleContextScene(ContextScene contextScene)
         {
             _UI.HighlightArea(contextScene.AreaId);

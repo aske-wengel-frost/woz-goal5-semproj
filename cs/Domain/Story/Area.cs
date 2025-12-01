@@ -51,6 +51,11 @@ namespace cs.Domain.Story
             Items = new Dictionary<int, Item>();
         }
 
+        /// <summary>
+        /// Adds an item to the area's collection of items (Item dictionary).
+        /// </summary>
+        /// <param name="item">The item to be added to the area.</param>
+        /// <returns>The current Area instance to allow method chaining.</returns>
         public Area AddItem(Item item)
         {
             Items.Add(item.Id, item);
@@ -60,6 +65,12 @@ namespace cs.Domain.Story
             return this;
         }
 
+        /// <summary>
+        /// Methods attemps to retrive an item from the area by its name
+        /// Note: It does NOT remove the item from the area
+        /// </summary>
+        /// <param name="itemName">The name of the item to be taken.</param>
+        /// <returns>The item it finds otherwise shows null.</returns>
         public Item? TakeItem(string itemName)
         {
             return Items?.Values.Where(x => x.Name.ToLowerInvariant() == itemName).FirstOrDefault();

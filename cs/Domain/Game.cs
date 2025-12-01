@@ -25,8 +25,8 @@ namespace cs.Domain
 
             // Initializes an instance of JsonDataProvider 
             // ONLY INIT ONE INSTANCE OF A DATAPROVIDER AS IT WILL FUCK UP IDS IF NOT!!
-            TestDataProvider tdp = new TestDataProvider();
-            JsonDataProvider jsondp = new JsonDataProvider();
+            TestDataProvider tdp = new TestDataProvider(); // TDP = The class with the TestDataProvider
+            JsonDataProvider jsondp = new JsonDataProvider(); // JsonDP = The Class with the Json Data (And the one being used in the game)
             
             // Inits and sets the instance of StoryHandler
             StoryHandler = new StoryHandler(UIHandler, jsondp);

@@ -16,7 +16,7 @@ namespace cs.Domain.Player
             Inventory = new Inventory();
         }
 
-        // Change value of score
+        // Change value of score based on the specific amount given
         public void ModifyScore(int amount)
         {
             // Make sure the score never goes below 0.
@@ -28,6 +28,10 @@ namespace cs.Domain.Player
             Score += amount;
         }
 
+        /// <summary>
+        /// Modifies the partner's aggresion level by the specified amount.
+        /// The level is clamped to a minimum of 0 and "MAX_PARTNER_AGGRESSION" (100)
+        /// </summary>
         public void ModifyPartnerAgression(int amount)
         {
             // Make sure the score never goes below 0.
@@ -39,11 +43,13 @@ namespace cs.Domain.Player
             PartnerAggression += amount;
         }
 
+        // Simple reset methods used to reset player stats when restarting the game
         public void ResetPlayerScore()
         {
             Score = 0;
         }
 
+        // Used when restarting the game to put partner aggression back to 0
         public void ResetParterAggression()
         {
             PartnerAggression = 0;
