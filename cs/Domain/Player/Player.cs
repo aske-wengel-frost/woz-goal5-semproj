@@ -4,7 +4,7 @@ namespace cs.Domain.Player
 
     public class Player
     {
-        public readonly int MAX_AGRESSION = 300;
+        public readonly int MAX_AGRESSION = 100;
 
         public string Name { get; private set; }
         public int Score { get; private set; }
