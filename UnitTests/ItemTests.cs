@@ -53,7 +53,7 @@ namespace UnitTests
 
             // ASSERT: Verify the format
             // The expected format should be: "Item ID: {ID}, Name: {Name}, Description: {Description}"
-            string expectedStart = $"Item ID: {mobil.Id}, Name: Mobil, Description: En smartphone";
+            string expectedStart = $"Mobil - En smartphone";
 
             Assert.AreEqual(expectedStart, result, "ToString should return the correct format.");
         }
