@@ -16,11 +16,11 @@ namespace cs.Domain.Commands
             this.description = "Viser player's inventar";
         }
 
-        // <summary>
-        // The Execution of the method will displays the player's inventory
-        // items to the user through the StoryHandler's UI.
-        // With an appropriate design pattern for the user to understand it better.
-        // </summary>
+        /// <summary>
+        /// The Execution of the method will displays the player's inventory
+        /// items to the user through the StoryHandler's UI.
+        /// With an appropriate design pattern for the user to understand it better.
+        /// </summary>
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             

@@ -197,8 +197,9 @@ namespace cs.Domain.Story
                         return false;
                     }
                 }
-                return false;
             }
+            
+            return false;
         }
 
         /// <summary>
