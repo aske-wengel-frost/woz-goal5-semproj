@@ -17,10 +17,10 @@ namespace cs.Domain.Commands
             this.description = "Viser 'hjælp' listen";
         }
 
-        // summary>
+        // <summary>
         // Executes the help-command and displays a list of available commands
         // for the user along with their descriptions.
-        // /summary>
+        // </summary>
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             string[] commandNames = registry.GetCommandNames();

@@ -3,7 +3,7 @@ namespace cs.Domain.Commands
     using cs.Domain.Player;
     using cs.Domain.Story;
 
-    /// summary>
+    /// <summary>
     /// A Drop Command class for dropping an item from the players inventory to the current area
     /// </summary>
     class CommandDrop : BaseCommand, ICommand 
