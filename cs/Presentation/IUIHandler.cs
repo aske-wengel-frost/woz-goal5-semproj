@@ -1,5 +1,6 @@
 ﻿namespace cs.Presentation
 {
+    using cs.Domain.Player;
     using cs.Domain.Story;
     using cs.Presentation.MapTerminal;
 
@@ -12,7 +13,7 @@
 
     public interface IUIHandler
     {
-        public void DrawScene(Scene scene, StoryHandler storyHandler);
+        public void DrawScene(Scene scene, Player player);
         public void ClearScreen();
         public void DrawError(string errorMsg);
         public void DrawInfo(string infoMsg);

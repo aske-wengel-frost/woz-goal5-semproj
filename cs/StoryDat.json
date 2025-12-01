@@ -33,7 +33,9 @@
         {
           "Description": "Du vender hurtigt mobiltelefonen med skærmen nedad og siger “Det.. det må have været en fejl opringning”. Du prøver at undgå hans blik",
           "SceneId": 8,
-          "KeyItemId": -1
+          "KeyItemId": -1,
+          "ScorePoints": 5,
+          "PartnerAggression": 10
         }
       ]
     },
@@ -55,7 +57,9 @@
           {
             "Description": "Du skynder dig at samle kniven op igen og mumler forsigtigt “Undskyld… det var min fejl, jeg ved ikke hvorfor jeg tabte kniven.”",
             "SceneId": 11,
-            "KeyItemId": -1
+            "KeyItemId": -1,
+            "ScorePoints": 5,
+            "PartnerAggression": 10
           }
         ]
       },
