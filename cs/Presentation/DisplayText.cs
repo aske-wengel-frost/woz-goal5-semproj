@@ -53,6 +53,11 @@ namespace cs.Presentation
                 Console.ForegroundColor = color;
                 Console.BackgroundColor = backgroundColor;
                 
+                if (character == '\n')
+                {
+                    count = 0;
+                }
+
                 if (dash)
                 {
                     if (character != ' ')
