@@ -44,6 +44,7 @@ namespace UnitTests
 
         // TEST 2: ToString Method
         // Verification that ToString() returns the correct format.
+        //This test is Redundant because the string it checks, is hardcoded in the ToString method
         [Test]
         public void Item_ToString_ReturnsCorrectFormat()
         {
@@ -53,7 +54,7 @@ namespace UnitTests
 
             // ASSERT: Verify the format
             // The expected format should be: "Item ID: {ID}, Name: {Name}, Description: {Description}"
-            string expectedStart = $"Mobil - En smartphone";
+            string expectedStart = $"Mobil - En smartphone"; 
 
             Assert.AreEqual(expectedStart, result, "ToString should return the correct format.");
         }
