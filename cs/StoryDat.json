@@ -87,7 +87,7 @@
           },
           {
             "Description": "“Skat… dine tanker og handlinger er ikke mit ansvar. Jeg vil gerne tale om, hvordan du har det, men du må ikke sige sådan noget.",
-            "SceneID": 13,
+            "SceneId": 13,
             "KeyItemId": -1,
             "ScorePoints": 5,
             "PartnerAggression": 5
