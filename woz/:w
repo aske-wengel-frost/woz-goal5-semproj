@@ -184,7 +184,6 @@
             // }
             //
 
-
             Dictionary<ICommand, List<string>> abbrevs = new Dictionary<ICommand, List<string>>();
 
             // group by underlying command instance.
@@ -195,16 +194,16 @@
                 abbrevs[command].Add(cmd.Key);
             }
 
+            
 
             DrawInfo("Commands: ");
             foreach (var abreviation in abbrevs)
             {
-                // join values with '<>' wrap.
+                BaseCommand cmd = (BaseCommand)abreviation.Key;
                 string proxyDesc = string.Join(", ", abreviation.Value.Select(_ => $"<{_}>"));
-                proxyDesc += " - " + abreviation.Key.GetDescription();
+                proxyDesc += " - " + cmd.GetDescription();
                 DrawInfo(proxyDesc);
             }
-
         }
 
         // HELPERS
