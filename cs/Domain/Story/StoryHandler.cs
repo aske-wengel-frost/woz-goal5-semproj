@@ -158,7 +158,7 @@ namespace cs.Domain.Story
         public void HandleEndScene(EndScene endScene)
         {
             IsEndScene = true;
-            _UI.DrawScene(endScene, this);
+            _UI.DrawScene(endScene, this.Player);
 
         }
 
@@ -197,7 +197,7 @@ namespace cs.Domain.Story
         private void HandleContextScene(ContextScene contextScene)
         {
             _UI.HighlightArea(contextScene.AreaId);
-            _UI.DrawScene(contextScene, this);
+            _UI.DrawScene(contextScene, this.Player);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace cs.Domain.Story
         /// <param name="cutScene"></param>
         private void HandleCutScene(CutScene cutScene)
         {
-            _UI.DrawScene(cutScene, this);
+            _UI.DrawScene(cutScene, this.Player);
             _UI.WaitForKeypress();
 
             // Check if next scene has id.
@@ -237,6 +237,7 @@ namespace cs.Domain.Story
             if (!IsEndScene) return;
             // Reset players score and inventory
             GetPlayer().ResetPlayerScore();
+            GetPlayer().ResetParterAggression();
             GetPlayer().Inventory.RemoveAllItems();
 
             // Reset story

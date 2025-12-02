@@ -1,7 +1,11 @@
 namespace cs.Domain.Player
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Player
     {
+        public readonly int MAX_AGRESSION = 100;
+
         public string Name { get; private set; }
         public int Score { get; private set; }
         public int PartnerAggression { get; private set; }
@@ -20,7 +24,7 @@ namespace cs.Domain.Player
         public void ModifyScore(int amount)
         {
             // Make sure the score never goes below 0.
-            if(Score - amount < 0)
+            if(Score + amount < 0)
             {
                 Score = 0;
                 return;
@@ -31,10 +35,14 @@ namespace cs.Domain.Player
         public void ModifyPartnerAgression(int amount)
         {
             // Make sure the score never goes below 0.
-            if (PartnerAggression - amount < 0)
+            if (PartnerAggression + amount < 0)
             {
                 PartnerAggression = 0;
                 return;
+            }
+            if(PartnerAggression + amount > MAX_AGRESSION)
+            {
+                PartnerAggression = MAX_AGRESSION;
             }
             PartnerAggression += amount;
         }

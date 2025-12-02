@@ -34,8 +34,8 @@
         /// Draws the scene in the terminal
         /// </summary>
         /// <param name="scene">The scene you want to have drawn</param>
-        public void DrawScene(Scene scene, StoryHandler storyHandler)
-        {
+        public void DrawScene(Scene scene, Player player)
+        { 
             // Set scope-specific charDelay for anmiations.
             textDisplay.charDelay = 10;
 
@@ -43,7 +43,7 @@
             ClearScreen();
 
             // Draw the top statusbar
-            DrawStatusBar(storyHandler.Player.Score, storyHandler.Player.PartnerAggression);
+            DrawStatusBar(player);
 
             // Draw scene depending on type
             if (scene is CutScene cutScene)
@@ -56,7 +56,7 @@
             } 
             else if (scene is EndScene endScene)
             {
-                this.DrawEndScene(endScene, storyHandler.Player);
+                this.DrawEndScene(endScene, player);
             }
 
         }
@@ -236,26 +236,25 @@
             string retStr = "";
             for (int i = 0; i < length; i++)
             {
-             retStr += ch;   
+                retStr += ch;   
             }
             return retStr;
         }
 
-        private void DrawStatusBar(int score, int anger)
+        private void DrawStatusBar(Player player)
         {
             string angerTxt = "Partners Aggression";
             string scoreTxt = "Point";
-            string tmpS = score.ToString();
-            string tmpA = anger.ToString();
+            string tmpS = player.Score.ToString();
+            string tmpA = player.PartnerAggression.ToString();
 
             int angerBarCharLength = 15 + angerTxt.Length + tmpA.Length;
             int scoreBarCharLength = 1 + scoreTxt.Length + tmpS.Length;
             int betweenBarsSpace = ConsoleViewCharLength - (angerBarCharLength + scoreBarCharLength) - 2;
 
-            Console.Write($"{scoreTxt}: {score}");
-            //DrawProgressBar(10, score, 100, scoreTxt);
+            Console.Write($"{scoreTxt}: {player.Score.ToString("##")}");
             for (int i = 0; i < betweenBarsSpace; i++) { Console.Write(" "); }
-            DrawProgressBar(10, anger, 100, angerTxt);
+            DrawProgressBar(10, player.PartnerAggression, player.MAX_AGRESSION, angerTxt);
 
             Console.WriteLine();
         }
@@ -273,7 +272,8 @@
 
             int numOfblockChars = (int)(BarCharLength * Percent);
 
-            Console.Write($"{title}: [{Percent * 100}%|");
+            double num = Percent * 100;
+            Console.Write($"{title}: [{num.ToString("##")}%|");
 
             for (int i = 0; i < BarCharLength; i++)
             {
