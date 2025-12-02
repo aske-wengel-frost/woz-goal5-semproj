@@ -230,7 +230,7 @@
             output = sb.ToString();
             return output;
         }
-
+        
         private string ConstructCharLine(int length, char ch)
         {
             string retStr = "";
