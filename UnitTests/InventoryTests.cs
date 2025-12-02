@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
-using cs.Domain.Player;
-using cs;
+using woz.Domain.Player;
+using woz;
 using System.Collections.Generic;
 
 namespace UnitTests

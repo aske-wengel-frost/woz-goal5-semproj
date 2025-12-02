@@ -1,4 +1,4 @@
-﻿using cs.Domain.Player;
+﻿using woz.Domain.Player;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ namespace UnitTests
 {
     internal class ItemTests
     {
-        // Define variables reuse from InventoryTests.cs - Which will be use for multiple tests
+        // Define variables reuse from InventoryTests.woz - Which will be use for multiple tests
         private Item mobil;
         private Item pandekage;
         private Item toiletNøgle;
