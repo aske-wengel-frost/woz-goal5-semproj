@@ -65,7 +65,7 @@ namespace woz.Domain.Player
         /// <returns></returns>
         public Item GetItem(int id)
         {
-            /// Foreach loop that check if the ID matches what the player is looking for
+            // Foreach loop that check if the ID matches what the player is looking for
             foreach (Item item in items)
             {
                 if (item.Id == id)
@@ -81,7 +81,7 @@ namespace woz.Domain.Player
         /// </summary>
         public Item GetItem(string name)
         {
-            /// Foreach loop that check names with case insensitivity
+            // Foreach loop that check names with case insensitivity
             foreach (Item item in items)
             {
                 if (item.Name.ToLower() == name.ToLower())
@@ -93,8 +93,8 @@ namespace woz.Domain.Player
         }
 
         /// <summary>
-        /// Giver en "read-only" liste af alle items.
-        /// 'CommandInventory' vil bruge denne.
+        /// Gives a "read-only" list of all items
+        /// 'CommandInventory' would use this
         /// </summary>
         public IReadOnlyList<Item> GetItems()
         {
@@ -102,8 +102,8 @@ namespace woz.Domain.Player
         }
 
         /// <summary>
-        /// En simpel hjælpemetode til at tjekke, om inventory er tom.
-        /// 'CommandInventory' vil bruge denne.
+        /// A simpel helper method to check, if the inventory is empty
+        /// 'CommandInventory' use this
         /// </summary>
         public bool IsEmpty()
         {
@@ -115,7 +115,7 @@ namespace woz.Domain.Player
         /// </summary>
         public bool ItemExists(int? ID)
         {
-            return items.Exists(_ => _.Id == ID);
+            return items.Exists(item => item.Id == ID);
         }
 
     }

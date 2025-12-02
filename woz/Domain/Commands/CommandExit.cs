@@ -18,7 +18,11 @@ namespace woz.Domain.Commands
 
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-
+            if (storyHandler.isCurrentSceneOftype<EndScene>())
+            {
+                storyHandler.UI.DrawError("Spillet er allerede slut");
+                return;
+            }
             // Finding the end scene object based on name, and showing it
             Scene sceneObj = storyHandler.Story.FindScene<Scene>("Endscene");
             if (sceneObj is EndScene endScene)

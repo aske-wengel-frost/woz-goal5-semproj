@@ -10,6 +10,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+    using woz.Domain.Commands;
 
     public interface IUIHandler
     {
@@ -21,6 +22,8 @@
         public void DrawMap();
         public void HighlightArea(int id);
         public void WaitForKeypress();
+        public void DrawInventory(Inventory inventory);
+        public void DrawHelp(Dictionary<string, ICommand> commands);
 
     }
 }

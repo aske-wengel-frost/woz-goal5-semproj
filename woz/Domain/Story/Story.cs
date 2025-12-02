@@ -61,7 +61,13 @@
                 //return default(T);
             }
         }
-
+        /// <summary>
+        /// Finds scene object on given scene type in generic method
+        /// </summary>
+        /// <param name="name"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        /// <exception cref="Exception"></exception>
         public T FindScene<T>(string name)
         {
             Scene? scene = Scenes.Values.Where(x => x.Name.ToLower() == name.ToLower()).First();

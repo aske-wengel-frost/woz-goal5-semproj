@@ -10,7 +10,7 @@ namespace woz.Domain.Commands
     {
         public CommandRestartGame()
         {
-            this.description = "Restarter spillet.";
+            this.description = "Genstarter spillet.";
         }
 
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)

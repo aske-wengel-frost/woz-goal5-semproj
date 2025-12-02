@@ -22,6 +22,7 @@
     using System.Xml;
 
     using static System.Formats.Asn1.AsnWriter;
+    using woz.Domain.Commands;
 
     class UITerminal : IUIHandler
     {
@@ -137,6 +138,51 @@
         {
             textDisplay.Display("\nTryk [enter] for at fortsætte...");
             Console.ReadLine();
+        }
+
+        public void DrawInventory(Inventory inventory)
+        {
+            DrawInfo("====[ Dit Inventar ]====");
+
+            // If-statement to check if the inventory is empty
+            if (inventory.IsEmpty())
+            {
+                
+                DrawError("Inventar er tomt.");
+            }
+            else
+            {
+                // Loop through each item in the player's inventory and display its details
+                foreach (Item item in inventory.GetItems())
+                {
+                    
+                    DrawInfo($"* {item.ToString()}");
+                }
+            }
+        }
+
+        public void DrawHelp(Dictionary<string, ICommand> commands)
+        {
+            string[] commandNames = commands.Keys.ToArray();
+            Array.Sort(commandNames);
+            // find max length of command name
+            int max = 0;
+            foreach (string commandName in commandNames)
+            {
+                int length = commandName.Length;
+                if (length > max) max = length;
+            }
+
+            // present list of commands
+            DrawInfo("Commands:");
+            foreach (string commandName in commandNames)
+            {
+                BaseCommand command = (BaseCommand)commands[commandName];
+                string description = command.GetDescription();
+                string lineToDraw = string.Format(" - {0,-" + max + "} " + description, commandName);
+
+                DrawInfo(lineToDraw);
+            }
         }
 
         // Helpers

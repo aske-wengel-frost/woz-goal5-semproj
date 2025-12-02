@@ -6,43 +6,23 @@ namespace woz.Domain.Commands
     using System;
 
     /// <summary>
-    /// CommandInventory class which implements the ICommand interface
-    /// and provides functionality to display the player's inventory.
+    /// CommandInventory class provides functionality to display the player's inventory.
     /// </summary>
     class CommandInventory : BaseCommand, ICommand
     {
         public CommandInventory()
         {
-            this.description = "Viser player's inventar";
+            this.description = "Viser dit inventar";
         }
 
         /// <summary>
-        /// The Execution of the method will displays the player's inventory
+        /// The Execution of the method will display the player's inventory
         /// items to the user through the StoryHandler's UI.
-        /// With an appropriate design pattern for the user to understand it better.
         /// </summary>
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-            
             Player player = storyHandler.GetPlayer();
-                  
-            storyHandler.UI.DrawInfo("====[ Dit Inventar ]====");
-
-            // If-statement to check if the inventory is empty
-            if (player.Inventory.IsEmpty())
-            {
-                
-                storyHandler.UI.DrawError("Inventar er tomt.");
-            }
-            else
-            {
-                // Loop through each item in the player's inventory and display its details
-                foreach (Item item in player.Inventory.GetItems())
-                {
-                    
-                    storyHandler.UI.DrawInfo($"* {item.ToString()}");
-                }
-            }
+            storyHandler.UI.DrawInventory(player.Inventory);
         }
     }
 }

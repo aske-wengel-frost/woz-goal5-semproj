@@ -16,7 +16,10 @@ namespace woz.Domain.Player
 
         public int Id
         {
-            get { return _Id; }
+            get
+            {
+                return _Id;
+            }
             init 
             { 
                 _Id = value;
@@ -51,8 +54,8 @@ namespace woz.Domain.Player
         }
 
         /// <summary>
-        /// REsets the static ID counter to 0
-        /// It' used when restarting the game to ensure IDs start fresh.
+        /// Resets the static ID counter to 0
+        /// It's used when restarting the game to ensure IDs start fresh
         /// </summary>
         public static void ResetIdCounter()
         {

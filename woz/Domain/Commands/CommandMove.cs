@@ -5,7 +5,7 @@
     using System;
 
     /// <summary>
-    /// Command to move to another scene by specifying the scene number.
+    /// Command to move to another scene
     /// </summary> 
     class CommandMove : BaseCommand, ICommand
     {
@@ -18,8 +18,8 @@
         {
             if (GuardEq(parameters, 1))
             {
-                // We dont have 1 parameter!
-                storyHandler.UI.DrawError("For mange argumenter!");
+                // We dont have a parameter
+                storyHandler.UI.DrawError("Specificer venligst ET valg");
                 return;
 
             }

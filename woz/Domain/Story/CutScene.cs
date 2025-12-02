@@ -3,8 +3,8 @@ namespace woz.Domain.Story
     public class CutScene : Scene
     {
         public string ConditionInfo { get; init; }
-        public int? NextSceneId { get; init; } // Might end the story.
-        public CutScene(string name, string conditionInfo, int? nextSceneId = null)
+        public int? NextSceneId { get; init; }
+        public CutScene(string name, string conditionInfo, int? nextSceneId = -1)
             : base(name)
         {
             this.ConditionInfo = conditionInfo;

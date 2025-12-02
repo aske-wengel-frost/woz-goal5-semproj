@@ -4,8 +4,7 @@ namespace woz.Domain.Commands
     using woz.Domain.Story;
 
     /// <summary>
-    /// CommandHelp class which implements the ICommand interface
-    /// and provides help information about available commands to the user.
+    /// CommandHelp class provides help information about available commands to the user.
     /// </summary>
     class CommandHelp : BaseCommand, ICommand
     {
@@ -23,26 +22,8 @@ namespace woz.Domain.Commands
         /// </summary>
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-            string[] commandNames = registry.GetCommandNames();
-            Array.Sort(commandNames);
+            storyHandler.UI.DrawHelp(registry.GetCommands());
 
-            // find max length of command name
-            int max = 0;
-            foreach (string commandName in commandNames)
-            {
-                int length = commandName.Length;
-                if (length > max) max = length;
-            }
-
-            // present list of commands
-            storyHandler.UI.DrawInfo("Commands:");
-            foreach (string commandName in commandNames)
-            {
-                string description = registry.GetCommand(commandName).GetDescription();
-                string lineToDraw = string.Format(" - {0,-" + max + "} " + description, commandName);
-
-                storyHandler.UI.DrawInfo(lineToDraw);
-            }
         }
     }
 }

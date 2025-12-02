@@ -7,11 +7,13 @@
     // SceneChoice class to represent the choices available in a scene
     public class SceneChoice
     {
+        //init: We only want to set the value when an instance of the class is created and never ever ever ever again
         public string? Description { get; init; }
         public int ScorePoints { get; init; }
         public int PartnerAggression { get; init; }
 
         public int SceneId { get; init; }
+        // We don't use init here because we need to be able to access this property when linking scenes
         [JsonIgnore]
         public Scene? SceneObj { get; set; }
 
@@ -29,6 +31,7 @@
                 SceneId = sceneObj.Id;
             }
             SceneObj = sceneObj;
+            
 
             // -1 represents no key item!
             KeyItemId = -1;
@@ -51,14 +54,7 @@
         public bool Unlock(Inventory inv)
         {
             // try to find required item in inventory
-            if(inv.ItemExists(KeyItemId))
-            {
-                // Should we remove the item?
-                //inv.RemoveItem();
-                return true;
-            }
-
-            return false;
+            return inv.ItemExists(KeyItemId);
         }
     }
 }

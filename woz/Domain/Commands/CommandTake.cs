@@ -9,19 +9,19 @@ namespace woz.Domain.Commands
     {
         public CommandTake()
         {
-            this.description = "Tag en givende genstand(ene)";
+            this.description = "tag en genstand";
         }
 
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-            // Attempts to take the item with the specified name from the first parameter
+            // Attempts to take the item with the specified name based on the first element in the parameter-array
             if (parameters.Length == 0)
             {
                 storyHandler.UI.DrawInfo("Brug: tag [genstand navn]");
                 return;
             }
 
-            //JoinItemName: Combine array of words into one string
+            //Combine array of words into one string
             string itemName = JoinParameters(parameters);
             
             Item? item = ((ContextScene)storyHandler.GetCurrentScene()).Area.TakeItem(itemName);

@@ -12,7 +12,10 @@ namespace woz.Domain.Story
 
         public int Id
         {
-            get { return _Id; }
+            get
+            {
+                return _Id;
+            }
             init 
             { 
                 _Id = value;
@@ -33,15 +36,6 @@ namespace woz.Domain.Story
         // Frame property defines the physical representation of the area, it is nullable as every area must not have a physical representation.
         public Frame? Frame { get; init;}
 
-        // NEEDED???
-        public Area()
-        {
-            // Initialize defaults to avoid null reference issues
-            Name = "";
-            Id = GetNextId();
-            Items = new Dictionary<int, Item>();
-        }
-
         // Constructor for Area initialization
         public Area(string name, Dictionary<int,Item>? items = null, Frame? frame = null) // Area can contain a List of items and gives it a default value.  
         {
@@ -59,7 +53,7 @@ namespace woz.Domain.Story
         public Area AddItem(Item item)
         {
             Items.Add(item.Id, item);
-            // Also add id to ids list so it is added when exporting to josn 
+            // Also add id to ids list so it is added when exporting to json 
             itemIds.Add(item.Id);
             // this enables for chaining the method together when building stories from code
             return this;
