@@ -18,15 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\cs\cs.csproj" />
+    <ProjectReference Include="..\woz\woz.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="NUnit.Framework" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\cs\cs.csproj" />
   </ItemGroup>
 
 </Project>
