@@ -80,7 +80,7 @@ namespace woz.Domain
         private static void InitRegistry()
         {
             Registry.Register(new [] {"hjælp"}, new CommandHelp(Registry));
-            Registry.Register(new [] {"afslut"}, new CommandExit()); 
+            Registry.Register(new [] {"slut"}, new CommandExit()); 
             Registry.Register(new [] {"bevæg", "gå"}, new CommandMove());
             Registry.Register(new [] {"se"}, new CommandLook());
             Registry.Register(new [] {"inventar", "inv"}, new CommandInventory());
