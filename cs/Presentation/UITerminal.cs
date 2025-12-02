@@ -252,7 +252,7 @@
             int scoreBarCharLength = 1 + scoreTxt.Length + tmpS.Length;
             int betweenBarsSpace = ConsoleViewCharLength - (angerBarCharLength + scoreBarCharLength) - 2;
 
-            Console.Write($"{scoreTxt}: {player.Score.ToString("##")}");
+            Console.Write($"{scoreTxt}: {player.Score.ToString("0")}");
             for (int i = 0; i < betweenBarsSpace; i++) { Console.Write(" "); }
             DrawProgressBar(10, player.PartnerAggression, player.MAX_AGRESSION, angerTxt);
 
@@ -273,7 +273,7 @@
             int numOfblockChars = (int)(BarCharLength * Percent);
 
             double num = Percent * 100;
-            Console.Write($"{title}: [{num.ToString("##")}%|");
+            Console.Write($"{title}: [{num.ToString("0")}%|");
 
             for (int i = 0; i < BarCharLength; i++)
             {

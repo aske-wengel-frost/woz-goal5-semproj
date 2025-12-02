@@ -16,7 +16,7 @@ namespace cs.Domain.Player
         {
             Name = name;
             Score = 0;
-            PartnerAggression = 0;
+            PartnerAggression = 30;
             Inventory = new Inventory();
         }
 
@@ -24,7 +24,7 @@ namespace cs.Domain.Player
         public void ModifyScore(int amount)
         {
             // Make sure the score never goes below 0.
-            if(Score + amount < 0)
+            if (Score + amount < 0)
             {
                 Score = 0;
                 return;
