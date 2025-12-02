@@ -1,6 +1,3 @@
-/* Command for exiting program
- */
-
 namespace woz.Domain.Commands
 {
     using woz.Domain.Story;

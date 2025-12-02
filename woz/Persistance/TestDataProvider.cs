@@ -18,7 +18,7 @@
         private Story Story;
         public TestDataProvider()
         {
-            // Reset the Id counters before starting.
+            // Reset the Id counters before starting
             Area.ResetIdCounter();
             Item.ResetIdCounter();
             Scene.ResetIdCounter();
@@ -86,7 +86,7 @@
             Story.AddScene(sejereje);
 
 
-            // Now that all scenes have been added to story, we can add scene choices to scenes (This is done as a scene mostly linkes "forward" to a scene not yet created)
+            // Now that all scenes have been added to story, we can add scene choices to scenes (This is done as a scene mostly links "forward" to a scene not yet created)
             // ===== KØKKEN 1 ===== //
             køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<CutScene>("Seje reje"), 1, 2, "Du forholder dig stille og roligt for at undgå konflikter.", Story.FindItem("mobil")));
             køkken1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), 2, 10, "Du spørger, om han vil have en kop kaffe."));
@@ -101,27 +101,28 @@
             // ===== Stue 1 ===== //
             stue1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Badeværelse 1"), 5, 4, "Du slukker tv’et og går fra stuen."));
             stue1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Soveværelse 1"), 5, 2, "Du rejser dig og går og på vejen ud siger du 'Jeg gider ikke det her lige nu'.", Story.FindItem("pandekage")));
-            // Create EndScene test
-            string endSceneContentInfo =
-            "---------=======================================================================================---------\n" +
-            "Tak fordi du spillede!\n\n" +
-            "Dette spil er skabt for at skabe opmærksomhed omkring psykisk vold mod kvinder.\n" +
-            "Vi håber, at du gennem disse valg og scenarier har fået indblik i,\n" +
-            "hvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.\n\n" +
-            "Husk: Du er ikke alene. Der findes altid hjælp.\n" +
-            "Hvis du kender nogle eller har selv oplevet lignende situationer,\n" +
-            "så tøv ikke med at række ud for støtte og hjælp.\n" +
-            "Lev Uden Volds Hotline: 1888\n" +
-            "---------=======================================================================================---------\n\n" +
-            "Vil du gerne prøve igen? (ja/nej)\n> ";
-
-            EndScene endScene = new EndScene("Endscene", endSceneContentInfo);
-            Story.AddScene(endScene);
 
             // ===== Badeværelse 1 ===== //
             badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Køkken 1"), 5, 2, "Du siger roligt og i afmagt ‘Jeg har brug for et øjeblik alene’."));
             badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Soveværelse 1"), 5, -2, "Du bliver forstyrret og når ikke at tænke, før du udbryder ‘Vil du sige noget!?’."));
             badeværelse1.AddSceneChoice(new SceneChoice(Story.FindScene<ContextScene>("Stue 1"), 5, 8, "Du undskylder og skynder dig at slukke vandet og forlade badeværelset."));
+            
+            // Create EndScene test
+            string endSceneContentInfo =
+                "---------=======================================================================================---------\n" +
+                "Tak fordi du spillede!\n\n" +
+                "Dette spil er skabt for at skabe opmærksomhed omkring psykisk vold mod kvinder.\n" +
+                "Vi håber, at du gennem disse valg og scenarier har fået indblik i,\n" +
+                "hvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.\n\n" +
+                "Husk: Du er ikke alene. Der findes altid hjælp.\n" +
+                "Hvis du kender nogle eller har selv oplevet lignende situationer,\n" +
+                "så tøv ikke med at række ud for støtte og hjælp.\n" +
+                "Lev Uden Volds Hotline: 1888\n" +
+                "---------=======================================================================================---------\n\n" +
+                "Vil du gerne prøve igen? (ja/nej)\n> ";
+
+            EndScene endScene = new EndScene("Endscene", endSceneContentInfo);
+            Story.AddScene(endScene);
         }
 
         public void ReloadStory()

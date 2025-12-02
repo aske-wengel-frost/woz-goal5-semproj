@@ -8,7 +8,6 @@ namespace woz.Domain.Commands
     /// </summary>
     class CommandDrop : BaseCommand, ICommand 
     {
-        // Uses the same structure as the other command classes in the Commands folder
         public CommandDrop()
         {
             this.description = "Smid en genstand";
@@ -23,16 +22,16 @@ namespace woz.Domain.Commands
                 return;
             }
             
-            // get name of item
+            // Get name of item
             string itemName = base.JoinParameters(parameters);
             
-            // find the ID of item
+            // Find the ID of item
             Player player = storyHandler.GetPlayer();
             Inventory inventory = player.Inventory;
             
             Item? item = inventory.GetItem(itemName);
 
-            // Checker for if the item value is null
+            // Checks if the item value is null
             if (item == null)
             {
                 storyHandler.UI.DrawError("Hov... Du har ikke denne genstand");
@@ -41,7 +40,7 @@ namespace woz.Domain.Commands
             // Check if user has item
             if (item != null)
             {
-                // add the item to the area the user is in
+                // Add the item to the area the user is in
                 ((ContextScene)storyHandler.GetCurrentScene()).Area.AddItem(item);
                 
                 // Remove the item from the players inventory
