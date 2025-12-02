@@ -98,8 +98,8 @@ namespace UnitTests
             // Test to see if the command matches the string below
             Assert.Multiple(() =>
             {
-                Assert.AreEqual("For mange argumenter!", consoleOutput1, "The command feedback for non parameters failed"); 
-                Assert.AreEqual("For mange argumenter!", consoleOutput2, "The command for too many parameters failed");
+                Assert.AreEqual("Specificer venligst ET valg", consoleOutput1, "The command feedback for non parameters failed"); 
+                Assert.AreEqual("Specificer venligst ET valg", consoleOutput2, "The command for too many parameters failed");
             });
         }
         
