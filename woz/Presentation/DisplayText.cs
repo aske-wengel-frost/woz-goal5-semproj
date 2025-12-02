@@ -52,7 +52,7 @@ namespace woz.Presentation
                 //Code that tells the Console class the color and background color of the text, that was given by the parameter of the method
                 Console.ForegroundColor = color;
                 Console.BackgroundColor = backgroundColor;
-                
+
                 if (dash)
                 {
                     if (character != ' ')
