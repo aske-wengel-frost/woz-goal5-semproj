@@ -1,8 +1,8 @@
 namespace UnitTests
 {
-    using cs.Domain;
-    using cs.Domain.Player;
-    using cs.Domain.Story;
+    using woz.Domain;
+    using woz.Domain.Player;
+    using woz.Domain.Story;
     using NUnit.Framework;
     using NUnit.Framework.Interfaces;
 

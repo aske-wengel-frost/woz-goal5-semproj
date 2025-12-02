@@ -1,10 +1,11 @@
 using System;
 using System.IO;
-using cs.Domain;
-using cs.Domain.Story;
-using cs.Domain.Commands;
-using cs.Presentation;
-using cs.Persistance;
+using woz;
+using woz.Domain;
+using woz.Domain.Story;
+using woz.Domain.Commands;
+using woz.Presentation;
+using woz.Persistance;
 namespace UnitTests
 {
     public class Tests
@@ -25,7 +26,7 @@ namespace UnitTests
             storyHandler = new StoryHandler(uiTerminal, new JsonDataProvider());
 
             // Sets the player object to the storyHandler player
-            storyHandler.player = new cs.Domain.Player.Player("Name");
+            //storyHandler.player = new cs.Domain.Player.Player("Name");
 
             // Sets up the registry object class
 		    registry = new Registry(storyHandler, new CommandUnknown()); 
@@ -48,6 +49,14 @@ namespace UnitTests
 
             // Convert the stringwriter into a string
             return output1.ToString().Trim();
+        }
+
+        public void Start()
+        {
+            storyHandler.StartStory();
+            string simulatedInput = Environment.NewLine;
+            StringReader reader = new StringReader(simulatedInput);
+            Console.SetIn(reader);
         }
 
         [Test]
@@ -99,6 +108,8 @@ namespace UnitTests
         {
             // Insert the command into the registry dictionary
             registry.Register(commandNames, new CommandMove());
+
+            Start();
             
             // Convert the stringwriter into a string
             string consoleOutput1 = GetTerminalOutput("Bevæg 5");
@@ -111,19 +122,21 @@ namespace UnitTests
         public void TestCommandAction()
         {
             // Start the story and get the current scene
-            storyHandler.StartStory();
+            Start();
             Scene scene1 = storyHandler.GetCurrentScene();
+            ContextScene contextScene1 = scene1 as ContextScene;       
             
-            // Sets up the story class
-            JsonDataProvider StoryGetter = new JsonDataProvider();
-            Story story = StoryGetter.GetStory();
-            
+            // Setup a new story object
+            JsonDataProvider data = new JsonDataProvider();
+            Story story = data.GetStory();
+
             // Find the second scene choice 
-            Scene scene2 = story.FindScene<Scene>(UITerminal.SceneChoiceAsc[2]);
+            CutScene cutScene2 = contextScene1.Choices[3 - 1].SceneObj as CutScene;
+            Scene scene2 = story.FindScene<Scene>(cutScene2.NextSceneId.Value);
 
             // Insert the CommandMove into registry and execute
             registry.Register(commandNames, new CommandMove());
-            registry.Dispatch("bevæg 2");
+            registry.Dispatch("bevæg 3");
 
             // Get the new current scene
             Scene scene3 = storyHandler.GetCurrentScene();
@@ -131,6 +144,7 @@ namespace UnitTests
             // Check if the two current scenes are different
             Assert.Multiple(() =>
             {
+                Console.WriteLine(scene1.Name + " " + scene2.Name + " " + scene3.Name + " Giggity");
                 Assert.AreNotEqual(scene1.Name, scene3.Name, "The CommandMove execution failed");
                 Assert.AreEqual(scene2.Name, scene3.Name, "Failed to switch to the proper scene");
             });
