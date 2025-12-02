@@ -22,15 +22,15 @@
         {
             Player player = storyHandler.GetPlayer();
            
-            storyHandler._UI.DrawInfo("--- Player Info ---");
+            storyHandler.UI.DrawInfo("--- Player Info ---");
 
-            storyHandler._UI.DrawInfo($"Name: {player.Name}");
-            storyHandler._UI.DrawInfo($"Score: {player.Score}");
-            storyHandler._UI.DrawInfo($"Partner agression: {player.PartnerAggression}");
+            storyHandler.UI.DrawInfo($"Name: {player.Name}");
+            storyHandler.UI.DrawInfo($"Score: {player.Score}");
+            storyHandler.UI.DrawInfo($"Partner agression: {player.PartnerAggression}");
 
-            storyHandler._UI.DrawInfo("Inventar: (Brug 'inventar' kommandoen for at se)");
+            storyHandler.UI.DrawInfo("Inventar: (Brug 'inventar' kommandoen for at se)");
 
-            storyHandler._UI.DrawInfo("---------------------");
+            storyHandler.UI.DrawInfo("---------------------");
         }
     }
 }

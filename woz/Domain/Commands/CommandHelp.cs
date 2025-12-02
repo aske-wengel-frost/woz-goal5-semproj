@@ -17,10 +17,10 @@ namespace woz.Domain.Commands
             this.description = "Viser 'hjælp' listen";
         }
 
-        // summary>
-        // Executes the help-command and displays a list of available commands
-        // for the user along with their descriptions.
-        // /summary>
+        /// <summary>
+        /// Executes the help-command and displays a list of available commands
+        /// for the user along with their descriptions.
+        /// </summary>
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             string[] commandNames = registry.GetCommandNames();
@@ -35,13 +35,13 @@ namespace woz.Domain.Commands
             }
 
             // present list of commands
-            storyHandler._UI.DrawInfo("Commands:");
+            storyHandler.UI.DrawInfo("Commands:");
             foreach (string commandName in commandNames)
             {
                 string description = registry.GetCommand(commandName).GetDescription();
                 string lineToDraw = string.Format(" - {0,-" + max + "} " + description, commandName);
 
-                storyHandler._UI.DrawInfo(lineToDraw);
+                storyHandler.UI.DrawInfo(lineToDraw);
             }
         }
     }

@@ -16,9 +16,9 @@ namespace woz.Domain.Commands
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
 
-            if (!storyHandler.IsEndScene)
+            if (storyHandler.isCurrentSceneOftype<EndScene>())
             {
-                storyHandler._UI.DrawError("Du kan kun genstarte spillet såfremt du er ved slutningen.");
+                storyHandler.UI.DrawError("Du kan kun genstarte spillet såfremt du er ved slutningen.");
                 return; 
             }
             storyHandler.RestartGame();

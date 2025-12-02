@@ -16,23 +16,23 @@ namespace woz.Domain.Commands
             this.description = "Viser player's inventar";
         }
 
-        // summary>
-        // The Execution of the method will displays the player's inventory
-        // items to the user through the StoryHandler's UI.
-        // With an appropriate design pattern for the user to understand it better.
-        // /summary>
+        /// <summary>
+        /// The Execution of the method will displays the player's inventory
+        /// items to the user through the StoryHandler's UI.
+        /// With an appropriate design pattern for the user to understand it better.
+        /// </summary>
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             
             Player player = storyHandler.GetPlayer();
                   
-            storyHandler._UI.DrawInfo("====[ Dit Inventar ]====");
+            storyHandler.UI.DrawInfo("====[ Dit Inventar ]====");
 
             // If-statement to check if the inventory is empty
             if (player.Inventory.IsEmpty())
             {
                 
-                storyHandler._UI.DrawError("Inventar er tomt.");
+                storyHandler.UI.DrawError("Inventar er tomt.");
             }
             else
             {
@@ -40,7 +40,7 @@ namespace woz.Domain.Commands
                 foreach (Item item in player.Inventory.GetItems())
                 {
                     
-                    storyHandler._UI.DrawInfo($"* {item.ToString()}");
+                    storyHandler.UI.DrawInfo($"* {item.ToString()}");
                 }
             }
         }

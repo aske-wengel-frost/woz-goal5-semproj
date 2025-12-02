@@ -8,14 +8,6 @@ namespace UnitTests
 
     public class StoryTests
     {
-        //Inputs for tests
-        int Sceneinput = 0;
-        string SceneNameInput = "Køkken 1";
-        int ItemInput = 0;
-        string ItemNameInput = "mobil";
-        int AreaInput = 0;
-        string AreaNameInput = "værelse";
-
         //Variables that will be used for tests
         private Story story;
         private Item item;
@@ -95,7 +87,7 @@ namespace UnitTests
             //story.AddScene(scene);
 
             //ACT: Finds the scene by its ID
-            Scene result = story.FindScene<Scene>(Sceneinput);
+            Scene result = story.FindScene<Scene>(scene.Id);
 
             //ASSERT: Verifies that the found scene is the same as the one we added
             Assert.That(result, Is.EqualTo(scene));
@@ -110,7 +102,7 @@ namespace UnitTests
             //story.AddScene(scene);
 
             //ACT: Finds the scene by its name
-            Scene result = story.FindScene<Scene>(SceneNameInput);
+            Scene result = story.FindScene<Scene>(scene.Name);
 
             //ASSERT: Verifies that the found scene is the same as the one we added
             Assert.That(result, Is.EqualTo(scene));
@@ -128,7 +120,7 @@ namespace UnitTests
             //story.AddItem(item);
 
             //ACT: Finds the item by its ID
-            Item result = story.FindItem(ItemInput);
+            Item result = story.FindItem(item.Id);
 
             //ASSERT: Verifies that the found item is the same as the one we added
             Assert.That(result, Is.EqualTo(item));
@@ -143,7 +135,7 @@ namespace UnitTests
             //story.AddItem(item);
 
             //ACT: Finds the item by its Name
-            Item result = story.FindItem(ItemNameInput);
+            Item result = story.FindItem(item.Name);
 
             //ASSERT: Verifies that the found item is the same as the one we added
             Assert.That(result, Is.EqualTo(item));
@@ -161,7 +153,7 @@ namespace UnitTests
             //story.AddArea(area);
 
             //ACT: Finds the area by its ID
-            Area result = story.FindArea(AreaInput);
+            Area result = story.FindArea(area.Id);
 
             //ASSERT: Verifies that the found area is the same as the one we added
             Assert.That(result, Is.EqualTo(area));
@@ -176,7 +168,7 @@ namespace UnitTests
             //story.AddArea(area);
 
             //ACT: Finds the area by its Name
-            Area result = story.FindArea(AreaNameInput);
+            Area result = story.FindArea(area.Name);
 
             //ASSERT: Verifies that the found area is the same as the one we added
             Assert.That(result, Is.EqualTo(area));

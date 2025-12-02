@@ -50,6 +50,10 @@ namespace woz.Domain.Player
             return currentID++;
         }
 
+        /// <summary>
+        /// REsets the static ID counter to 0
+        /// It' used when restarting the game to ensure IDs start fresh.
+        /// </summary>
         public static void ResetIdCounter()
         {
             currentID = 0;
