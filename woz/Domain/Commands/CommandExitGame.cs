@@ -16,7 +16,7 @@ namespace woz.Domain.Commands
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             // If-statement to check if the player is at the end scene before allowing them to exit the game
-            if (storyHandler.isCurrentSceneOftype<EndScene>())
+            if (!storyHandler.isCurrentSceneOftype<EndScene>())
             {
                 storyHandler.UI.DrawError("Du kan kun afslutte spillet såfremt du er ved slutningen.");
                 return;
