@@ -29,12 +29,6 @@
             this.Y = y;
             this.Width = width;
             this.Height = height;
-            //this.Color = color;
-            // Set defaults
-
-            VerticalBorderChar = '|';
-            HorizontalBorderChar = '=';
-
         }
 
         public abstract void InsertIntoBuffer(MapChar[,] buffer);

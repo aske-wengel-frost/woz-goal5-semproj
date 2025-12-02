@@ -79,7 +79,7 @@
         }
 
         /// <summary>
-        /// Draw error method for printing errors in red
+        /// Draw error method, for printing errors in red
         /// </summary>
         /// <param name="errorMsg"></param>
         public void DrawError(string errorMsg)
@@ -185,7 +185,7 @@
             }
         }
 
-        // Helpers
+        // HELPERS
 
         /// <summary>
         /// Draws a contextscene
@@ -196,8 +196,7 @@
             Console.WriteLine(ConstructLine(contextScene.Area.Name));
 
             textDisplay.Display(contextScene.DialogueText, split: ConsoleViewCharLength, punctDelay: 7);
-
-            //Console.WriteLine(LineConstructor(contextScene.Area.Name, false));
+            
             Console.WriteLine(ConstructLine());
 
             Console.WriteLine();
@@ -257,7 +256,7 @@
         {
             string output = "";
 
-            // initiates a new stringbuilder, and passes in the result of the ConstructLine method to which this method is a overload
+            // Initiates a new stringbuilder, and passes in the result of the ConstructLine method to which this method is a overload
             StringBuilder sb = new StringBuilder(ConstructLine());
 
             // Added the brackets to each side of the title
@@ -266,13 +265,13 @@
             // Gets the index within the string which represents the line, of where to place the title to get it to be roughly in the center
             int titleStartIndexInLine = (ConsoleViewCharLength - newTitle.Length) / 2 ;
 
-            // adds the title to the line
+            // Adds the title to the line
             for(int i = 0; i < newTitle.Length; i++)
             {
                 sb[i + titleStartIndexInLine] = newTitle[i];
             }
             
-            // sets the output string and returns
+            // Sets the output string and returns
             output = sb.ToString();
             return output;
         }
@@ -313,7 +312,7 @@
                 curVal = maxVal;
             }
 
-            // percent the value is
+            // Percent the value is
             double Percent = (double)curVal / (double)maxVal;
 
             int numOfblockChars = (int)(BarCharLength * Percent);

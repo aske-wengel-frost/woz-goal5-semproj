@@ -17,7 +17,7 @@
         private string dataFilePath;
         public JsonDataProvider(string filePath = "./StoryDat.json")
         {
-            // Reset the Id counters before starting.
+            // Reset the Id counters before starting
             Area.ResetIdCounter();
             Item.ResetIdCounter();
             Scene.ResetIdCounter();
@@ -60,7 +60,6 @@
             {
                 // If it does not exist we generate it with a empty dictionary of scenes.
                 string dat = JsonSerializer.Serialize<Story>(Story);
-                //string dat = JsonSerializer.Serialize<Dictionary<int, Scene>>(this.Scenes);
 
                 // Creates the file and appends the json
                 File.AppendAllText(this.dataFilePath, dat);
@@ -70,13 +69,12 @@
             string tmpJsonStr = File.ReadAllText(this.dataFilePath);
 
             // We load the deserialized scenes into the scenes property
-            // Maby handle a null value here.
             Story = JsonSerializer.Deserialize<Story>(tmpJsonStr);
         }
 
         /// <summary>
-        /// Resolves all SceneChoice references by linking to their target Scene-objects.
-        /// This is needed, as a scene object may not exist when we want to assign the scene to the scene object within the Choices of the scene.
+        /// Resolves all SceneChoice references by linking to their target Scene-objects
+        /// This is needed, as a scene object may not exist when we want to assign the scene to the scene object within the Choices of the scene
         /// </summary>
         private void ResolveObjectLinks()
         {
@@ -86,7 +84,7 @@
 
         private void ResolveSceneLinks()
         {
-            // Loop through all scenes, use oftype parameterized method to only loop through contextscenes, as theese are the only ones with Areas and SceneChoice objects
+            // Loop through all scenes, use oftype parameterized method to only loop through contextscenes, as these are the only ones with Areas and SceneChoice objects
             foreach (ContextScene contextScene in Story.Scenes.Values.OfType<ContextScene>())
             {
                 // only if area object is not instanciated
@@ -98,18 +96,14 @@
                     }
                 }
 
-                // Loop through all scenechoices in theese scenes
+                // Loop through all scenechoices in these scenes
                 foreach (SceneChoice sceneChoice in contextScene.Choices)
                 {
 
                     // try to resolve the name of the scene with a scene object
                     if (Story.Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
                     {
-                        // this is cap
-                        //if (OutScene is ContextScene targetScene)
-                        //{
                         sceneChoice.SceneObj = OutScene;
-                        //}
                     }
 
                     // Resolves Key item object
@@ -124,7 +118,7 @@
 
         private void ResolveAreaLinks()
         {
-            // loop through all areas and link items
+            // Loop through all areas and link items
             foreach (Area area in Story.Areas.Values)
             {
                 foreach (int itemId in area.itemIds)
@@ -145,11 +139,7 @@
             // try to resolve the name of the scene with a scene object
             if (Story.Scenes.TryGetValue(sceneChoice.SceneId, out Scene OutScene))
             {
-                // this is cap
-                //if (OutScene is ContextScene targetScene)
-                //{
                     sceneChoice.SceneObj = OutScene;
-                //}
             }
 
             // Resolves Key item object

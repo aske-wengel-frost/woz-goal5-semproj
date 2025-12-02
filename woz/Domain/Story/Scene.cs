@@ -52,7 +52,7 @@ namespace woz.Domain.Story
             return false;
         }
 
-        // Helpers
+        // HELPERS
         private static int GetNextId()
         {
             return currentID++; 

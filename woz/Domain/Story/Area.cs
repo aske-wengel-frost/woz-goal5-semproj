@@ -76,7 +76,7 @@ namespace woz.Domain.Story
             return $"Area ID: {Id}, Name: {Name}";
         }
 
-        // Helpers
+        // HELPERS
         private static int GetNextId()
         {
             return currentID++;

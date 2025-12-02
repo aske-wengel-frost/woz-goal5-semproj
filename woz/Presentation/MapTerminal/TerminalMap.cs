@@ -34,12 +34,12 @@
 
         private void initBuffer()
         {
-            // populate array with chars
+            // Populate array with chars
             for (int i = 0; i < Buffer.GetLength(0); i++)
             {
                 for (int j = 0; j < Buffer.GetLength(1); j++)
                 {
-                    // sets default color to white for all chars in buffer
+                    // Sets default color to white for all chars in buffer
                     Buffer[i, j] = new MapChar(' ', ConsoleColor.White);
                 }
             }
@@ -59,22 +59,21 @@
             // Populates the buffer with elements from elements list
             foreach (MapElement element in Elements)
             {
-                // Insert the area into the  buffer
+                // Insert the area into the buffer
                 element.InsertIntoBuffer(this.Buffer);
             }
         }
 
         public void DrawMap()
         {
-            // loop over buffer and print
+            // Loop over buffer and print
             for (int row = 0; row < Buffer.GetLength(0); row++)
             {
                 // Draw the area on the map.
                 for (int col = 0; col < Buffer.GetLength(1); col++)
                 {
                     MapChar mapChar = Buffer[row, col];
-
-                    // Need to add some color defining stuff here
+                    
                     Console.ForegroundColor = mapChar.Color;            
                     Console.Write(mapChar.Char);
                     

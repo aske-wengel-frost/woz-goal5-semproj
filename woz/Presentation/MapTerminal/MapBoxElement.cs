@@ -14,7 +14,7 @@
 
         public override void InsertIntoBuffer(MapChar[,] buffer)
         {
-            // if the box exceeds the size of the buffer, return.
+            // If the box exceeds the size of the buffer, return.
             if (this.GuardInsert(buffer))
             {
                 return;
@@ -22,7 +22,7 @@
 
             for (int i = this.Y; i < this.Height + this.Y; i++)
             {
-                // if it is the top or bottom line we draw
+                // If it is the top or bottom line we draw
                 if (i == this.Y || i == this.Y + this.Height - 1)
                 {
                     for (int j = this.X; j < this.Width + this.X; j++)
