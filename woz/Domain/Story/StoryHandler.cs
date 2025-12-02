@@ -179,7 +179,7 @@ namespace woz.Domain.Story
             UI.WaitForKeypress();
 
             // Check if next scene has id.
-            if (cutScene.NextSceneId.HasValue)
+            if (!cutScene.NextSceneId.HasValue)
             {
                 throw new Exception("The cutscene does not link to a new scene");
             }
