@@ -35,13 +35,13 @@ namespace woz.Domain.Commands
             }
 
             // present list of commands
-            storyHandler._UI.DrawInfo("Commands:");
+            storyHandler.UI.DrawInfo("Commands:");
             foreach (string commandName in commandNames)
             {
                 string description = registry.GetCommand(commandName).GetDescription();
                 string lineToDraw = string.Format(" - {0,-" + max + "} " + description, commandName);
 
-                storyHandler._UI.DrawInfo(lineToDraw);
+                storyHandler.UI.DrawInfo(lineToDraw);
             }
         }
     }

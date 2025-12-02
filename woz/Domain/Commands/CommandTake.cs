@@ -17,7 +17,7 @@ namespace woz.Domain.Commands
             // Attempts to take the item with the specified name from the first parameter
             if (parameters.Length == 0)
             {
-                storyHandler._UI.DrawInfo("Brug: tag [genstand navn]");
+                storyHandler.UI.DrawInfo("Brug: tag [genstand navn]");
                 return;
             }
 
@@ -29,7 +29,7 @@ namespace woz.Domain.Commands
             // Check if the item exists
             if(item == null)
             {
-                storyHandler._UI.DrawError("Denne genstand findes vidst ikke...");
+                storyHandler.UI.DrawError("Denne genstand findes vidst ikke...");
                 return;
             }
 
@@ -42,15 +42,15 @@ namespace woz.Domain.Commands
                 ((ContextScene)storyHandler.GetCurrentScene()).Area.Items.Remove(item.Id);
 
                 // Notify player of picked up item
-                storyHandler._UI.DrawInfo($"Du opsamlede: {item.Name} - {item.Description}");
+                storyHandler.UI.DrawInfo($"Du opsamlede: {item.Name} - {item.Description}");
             }
             else
             {
                 //The inventory was full (MaxCapacity reached)
 
-                storyHandler._UI.DrawError("Dit inventar er fuldt! (Max 2 ting)");
+                storyHandler.UI.DrawError("Dit inventar er fuldt! (Max 2 ting)");
 
-                storyHandler._UI.DrawError("Brug 'Smid' kommandoen for at lave plads");
+                storyHandler.UI.DrawError("Brug 'Smid' kommandoen for at lave plads");
             }
         }
     }

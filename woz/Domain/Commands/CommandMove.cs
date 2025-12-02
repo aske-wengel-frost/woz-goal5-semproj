@@ -19,11 +19,20 @@
             if (GuardEq(parameters, 1))
             {
                 // We dont have 1 parameter!
-                storyHandler._UI.DrawError("For mange argumenter!");
+                storyHandler.UI.DrawError("For mange argumenter!");
                 return;
 
             }
-            storyHandler.PerformChoice(parameters[0]);
+
+            // If user input cannot be converted to int
+            bool isConverted = Int32.TryParse(parameters[0], out int usrInpValue);
+            if (!isConverted)
+            {
+                storyHandler.UI.DrawError("Ikke validt input!");
+                return;
+            }
+
+            storyHandler.PerformChoice(usrInpValue);
         }
     }
 }

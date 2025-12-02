@@ -23,11 +23,11 @@ namespace woz.Domain.Commands
             Scene sceneObj = storyHandler.Story.FindScene<Scene>("Endscene");
             if (sceneObj is EndScene endScene)
             {
-                storyHandler.HandleEndScene(endScene);
+                storyHandler.TransitionToScene(endScene);
             }
             else
             {
-                storyHandler._UI.DrawError("Endscene not found..."); // Debugging message if end scene is not found
+                storyHandler.UI.DrawError("Endscene not found..."); // Debugging message if end scene is not found
             }
         }
     }

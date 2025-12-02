@@ -18,7 +18,7 @@
         // Execute the DrawMap method from the UI handler
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
-            storyHandler._UI.DrawMap();
+            storyHandler.UI.DrawMap();
         }
     }
 }

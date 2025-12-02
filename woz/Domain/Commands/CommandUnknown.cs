@@ -14,7 +14,7 @@ namespace woz.Domain.Commands
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             // Draws this message to the UI when an unknown command is given
-            storyHandler._UI.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
+            storyHandler.UI.DrawError("Woopsie, forstår ikke '" + command + "' 😕");
         }
     }
 }

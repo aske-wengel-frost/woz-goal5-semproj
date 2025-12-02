@@ -24,23 +24,19 @@ namespace woz.Domain
             UITerminal UIHandler = new UITerminal();
 
             // Initializes an instance of JsonDataProvider 
-            // ONLY INIT ONE INSTANCE OF A DATAPROVIDER AS IT WILL FUCK UP IDS IF NOT!!
-            TestDataProvider tdp = new TestDataProvider(); // TDP = The class with the TestDataProvider
-            JsonDataProvider jsondp = new JsonDataProvider(); // JsonDP = The Class with the Json Data (And the one being used in the game)
+            //TestDataProvider tdp = new TestDataProvider(); // A class that builds and provides a test story
+            JsonDataProvider jsondp = new JsonDataProvider(); // A Class which loads the story data from a Json file
             
-            // Inits and sets the instance of StoryHandler
+            // Inits an instance of StoryHandler
             StoryHandler = new StoryHandler(UIHandler, jsondp);
 
-            // Inits and sets the instance of Registry 
+            // Inits an instance of the registry class
             Registry = new Registry(StoryHandler, fallback);
              
-            // Inits the map with the mapelements defined in the story loaded.
+            // Inits the map with the mapelements Areas contained in the Story object
             UIHandler.InitMap(StoryHandler.Story.Areas);
 
-            // We call the InitRegistry method
             InitRegistry();
-
-            //tdp.exportTestStory();
         }
 
         static void Main(string[] args)
@@ -63,7 +59,6 @@ namespace woz.Domain
             Console.Write("Indtast dit navn: ");
             string? playerName = Console.ReadLine();
             StoryHandler.Player = new Player.Player (playerName); //Create the player in storyHandler. 
-            //storyHandler.player.Name = Environment.UserName;
 
             // We start the story
             StoryHandler.StartStory();
@@ -76,12 +71,12 @@ namespace woz.Domain
 
                 Registry.Dispatch(line);
             }
-            Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
 
+            Console.WriteLine($"Spillet er nu slut, tak fordi du spillede {playerName}");
         }
 
         
-        /// Responsible for invoking commands possible in registry.
+        /// Responsible for intializing Command objects and adding them to registry object
         private static void InitRegistry()
         {
             Registry.Register(new [] {"hjælp"}, new CommandHelp(Registry));
@@ -91,7 +86,6 @@ namespace woz.Domain
             Registry.Register(new [] {"inventar", "inv"}, new CommandInventory());
             Registry.Register(new [] {"tag"}, new CommandTake());
             Registry.Register(new [] {"smid"}, new CommandDrop());
-            Registry.Register(new [] {"brug"}, new CommandUse());
             Registry.Register(new [] {"kort"}, new CommandMap());
             Registry.Register(new [] {"status"}, new CommandStatus());
             Registry.Register(new [] {"ja", "j"}, new CommandRestartGame());

@@ -19,7 +19,7 @@ namespace woz.Domain.Commands
         {
             if (parameters.Length == 0)
             {
-                storyHandler._UI.DrawInfo("Brug: smid [genstand navn]");
+                storyHandler.UI.DrawInfo("Brug: smid [genstand navn]");
                 return;
             }
             
@@ -35,7 +35,7 @@ namespace woz.Domain.Commands
             // Checker for if the item value is null
             if (item == null)
             {
-                storyHandler._UI.DrawError("Hov... Du har ikke denne genstand");
+                storyHandler.UI.DrawError("Hov... Du har ikke denne genstand");
             }
             
             // Check if user has item
@@ -48,7 +48,7 @@ namespace woz.Domain.Commands
                 storyHandler.Player.Inventory.RemoveItem(item);
 
                 // Inform the user with a feedback message
-                storyHandler._UI.DrawInfo($"Du smed: {itemName} [{item.Description}]");
+                storyHandler.UI.DrawInfo($"Du smed: {itemName} [{item.Description}]");
             }
 
         }

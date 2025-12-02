@@ -26,13 +26,13 @@ namespace woz.Domain.Commands
             
             Player player = storyHandler.GetPlayer();
                   
-            storyHandler._UI.DrawInfo("====[ Dit Inventar ]====");
+            storyHandler.UI.DrawInfo("====[ Dit Inventar ]====");
 
             // If-statement to check if the inventory is empty
             if (player.Inventory.IsEmpty())
             {
                 
-                storyHandler._UI.DrawError("Inventar er tomt.");
+                storyHandler.UI.DrawError("Inventar er tomt.");
             }
             else
             {
@@ -40,7 +40,7 @@ namespace woz.Domain.Commands
                 foreach (Item item in player.Inventory.GetItems())
                 {
                     
-                    storyHandler._UI.DrawInfo($"* {item.ToString()}");
+                    storyHandler.UI.DrawInfo($"* {item.ToString()}");
                 }
             }
         }

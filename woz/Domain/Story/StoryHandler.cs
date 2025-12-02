@@ -4,54 +4,67 @@ namespace woz.Domain.Story
     using woz.Persistance;
     using woz.Presentation;
 
-    using System.Xml.Linq;
-
     using static System.Formats.Asn1.AsnWriter;
 
     public class StoryHandler
     {
+        // flag for completion of story
         bool Done = false;
         public Story Story { get; private set; }
         private Scene? CurrentScene { get; set; }
-        public IUIHandler _UI { get; private set; }
-        public IDataProvider _Data { get; private set; }
+        public IUIHandler UI { get; private set; }
+        public IDataProvider Data { get; private set; }
         public Player Player { get; set; }
         public bool IsEndScene { get; private set; }
 
-        // New constructor with respect to our design. 
-        // With respect to dependency of our UIHandler.
-        // Godt eksempel på dependeny injection
+
+        // Dependency injection - the UIHandler and DataProvider is passed in as a parameter, as the story handler depends on them.
         public StoryHandler(IUIHandler uiHandler, IDataProvider dataProvider)
         {
             Player = new Player("");
-            _Data = dataProvider;
-            _UI = uiHandler;
-            this.Story = _Data.GetStory();
+            Data = dataProvider;
+            UI = uiHandler;
 
+            // The Injected dataprovider object supplies the story object
+            this.Story = Data.GetStory();
         }
 
         /// <summary>
-        /// Entry point for the story, this loads the scenes, gets the initial scene and draws the fi
+        /// Entry point for the story, this loads the scenes, gets the initial scene and draws the UI
         /// </summary>
         public void StartStory()
         {
-            // Sets the current scene
+            // Gets the inital scene object from Story
             Scene? initialScene = Story.GetInitialScene();
 
+            // Guard check if the scene was found
             if (initialScene is null)
             {
-                _UI.DrawError("Could not find a valid start scene!");
+                // This scenario is unrecoverable, so we throw an error
+                throw new Exception("No inital scene was found!"); // <------- SPØRG
+                //UI.DrawError("Could not find a valid start scene!");
                 return;
             }
             
             this.TransitionToScene(initialScene);
         }
 
+        public bool isCurrentSceneOftype<T>()
+        {
+            if(CurrentScene is T)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        // Helpers
+
         /// <summary>
-        /// Helper method for transitioning to a given scene
+        /// Transitions to a given scene
         /// </summary>
         /// <param name="scene">The scene to transition to</param>
-        private void TransitionToScene(Scene scene)
+        public void TransitionToScene(Scene scene)
         {
             // Sets the current scene
             CurrentScene = scene;
@@ -84,19 +97,12 @@ namespace woz.Domain.Story
         /// Checks wether userinput corresponds to any choice, and proceeeds if true, otherwise, DrawError is called.
         /// </summary>
         /// <param name="usrInp"></param>
-        public void PerformChoice(string usrInp)
+        public void PerformChoice(int sceneId)
         {
-            // If user input cannot be converted to int
-            bool isConverted = Int32.TryParse(usrInp, out int usrInpValue);
-            if (!isConverted)
-            {
-                _UI.DrawError("Ikke validt input!");
-                return;
-            }
-
+            // Guard check if currentScene is a context Scene, as only a contextScene contains chocies
             if (CurrentScene is not ContextScene)
             {
-                _UI.DrawError($"Den nuværende scene er ikke en context scene!");
+                UI.DrawError($"Dette valg kan du ikke tage på nuværende tidspunkt!");
                 return;
             }
 
@@ -104,22 +110,22 @@ namespace woz.Domain.Story
             ContextScene contextScene = (ContextScene)GetCurrentScene();
 
             // Try to find the contextscene in the list of contextscenes by index based on the users input.
-            if (contextScene.Choices.ElementAtOrDefault(usrInpValue - 1) == null)
+            if (contextScene.Choices.ElementAtOrDefault(sceneId - 1) == null)
             {
-                _UI.DrawError($"{usrInpValue} er ikke et gyldigt valg!");
+                UI.DrawError($"{sceneId} er ikke et gyldigt valg!");
                 return;
             }
 
             // Gets the scenechoice object
-            SceneChoice sceneChoice = contextScene.Choices[usrInpValue - 1];
+            SceneChoice sceneChoice = contextScene.Choices[sceneId - 1];
 
-            // GUARD CLAUSES
+            // Check if the sceneChoice is locked
             if (sceneChoice.IsLocked())
             {
                 // Try to unlock the sceneChoice
                 if (!sceneChoice.Unlock(Player.Inventory))
                 {
-                    _UI.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
+                    UI.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
                     return;
                 }
             }
@@ -133,7 +139,6 @@ namespace woz.Domain.Story
 
         public void MakeDone()
         {
-            if (!IsEndScene) return;
             Done = true;
         }
 
@@ -154,63 +159,13 @@ namespace woz.Domain.Story
             return Player;
         }
 
-        // Method to show end scene
-        public void HandleEndScene(EndScene endScene)
-        {
-            IsEndScene = true;
-            _UI.DrawScene(endScene, this.Player);
-
-        }
-
         /// <summary>
-        /// Tries to use an item in the current scene.
-        /// </summary>
-        /// <param name="item">The item to be used.</param>
-        /// <returns>True if the item was used successfully, false otherwise.</returns>
-        public bool UseItemInScene(Item item)
-        {
-            if (CurrentScene is not ContextScene contextScene)
-            {
-                return false;
-            }
-
-            // Finds a choice in the current scene that requires an item
-            foreach (SceneChoice choice in contextScene.Choices)
-            {
-                // Checks if the choice requires the specified item and if it's the right one
-                if (choice.IsLocked() && choice.KeyItemId == item.Id)
-                {
-                    // If TRUE, proceed to the next scene
-                    _UI.DrawInfo($"Du brugte: {item.Name}.");
-
-                    // Find the next scene based on the choice - almost like the PerformChoice method
-                    Scene? nextScene = Story.FindScene<Scene>(choice.SceneId);
-                    if (nextScene != null)
-                    {
-                        TransitionToScene(nextScene);
-                        return true; // True return if the Item was used successfully
-                    }
-                    else
-                    {
-                        // UI draws error if next scene could not be found (If scene is null)
-                        _UI.DrawError("Could not find the next scene");
-                        return false;
-                    }
-                }
-            }
-            
-            return false;
-        }
-
-        /// <summary>
-        /// Handles what to draw given a specific ContextScene.
-        /// And highlights the area related to the scene.
-        /// Where if mutliple cut scenes are linked to eachother, it calls recursively.
+        /// Handles the context scene
         /// </summary>
         private void HandleContextScene(ContextScene contextScene)
         {
-            _UI.HighlightArea(contextScene.AreaId);
-            _UI.DrawScene(contextScene, this.Player);
+            UI.HighlightArea(contextScene.AreaId);
+            UI.DrawScene(contextScene, this.Player);
         }
 
         /// <summary>
@@ -219,27 +174,37 @@ namespace woz.Domain.Story
         /// <param name="cutScene"></param>
         private void HandleCutScene(CutScene cutScene)
         {
-            _UI.DrawScene(cutScene, this.Player);
-            _UI.WaitForKeypress();
+            // Draws the cutcene
+            UI.DrawScene(cutScene, this.Player);
+            UI.WaitForKeypress();
 
             // Check if next scene has id.
             if (cutScene.NextSceneId.HasValue)
             {
-                Scene? nextScene = Story.FindScene<Scene>(cutScene.NextSceneId.Value);
-                if (nextScene != null)
-                {
-                    // Handle next scene.
-                    TransitionToScene(nextScene);
-                }
-                else
-                {
-                    MakeDone();
-                }
+                throw new Exception("The cutscene does not link to a new scene");
             }
-            else
+
+            // Tries to find the next scene
+            Scene? nextScene = Story.FindScene<Scene>(cutScene.NextSceneId.Value);
+
+            // Guard check if the next scene is null
+            if (nextScene == null)
             {
-                MakeDone();
+                throw new Exception("The next scene object could not be resolved");
             }
+
+            // Handle next scene.
+            TransitionToScene(nextScene);
+        }
+
+        /// <summary>
+        /// Handles the end scene
+        /// </summary>
+        /// <param name="endScene"></param>
+        private void HandleEndScene(EndScene endScene)
+        {
+            // Draws endscene
+            UI.DrawScene(endScene, this.Player);
         }
 
         /// <summary>
@@ -247,19 +212,15 @@ namespace woz.Domain.Story
         /// </summary>
         public void RestartGame()
         {
-            if (!IsEndScene) return;
             // Reset players score and inventory
             GetPlayer().ResetPlayerScore();
             GetPlayer().ResetParterAggression();
             GetPlayer().Inventory.RemoveAllItems();
 
             // Reset story
-            _Data.ReloadStory();
-            this.Story = _Data.GetStory();
+            Data.ReloadStory();
+            this.Story = Data.GetStory();
             StartStory();
-            IsEndScene = false;
-
         }
-
     }
 }
