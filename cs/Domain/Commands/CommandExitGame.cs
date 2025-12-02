@@ -16,7 +16,7 @@ namespace cs.Domain.Commands
         public void Execute(StoryHandler storyHandler, string command, string[] parameters)
         {
             // If-statement to check if the player is at the end scene before allowing them to exit the game
-            if (!storyHandler.isEndScene)
+            if (!storyHandler.IsEndScene)
             {
                 storyHandler._UI.DrawError("Du kan kun afslutte spillet såfremt du er ved slutningen.");
                 return;

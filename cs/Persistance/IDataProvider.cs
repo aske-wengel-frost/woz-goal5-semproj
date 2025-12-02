@@ -12,6 +12,6 @@
     {
         public Story GetStory();
         public void SetStory(Story story);
-        //public bool setStory();
+        public void ReloadStory();
     }
 }

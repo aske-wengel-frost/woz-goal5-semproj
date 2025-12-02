@@ -17,6 +17,11 @@
         private string dataFilePath;
         public JsonDataProvider(string filePath = "./StoryDat.json")
         {
+            // Reset the Id counters before starting.
+            Area.ResetIdCounter();
+            Item.ResetIdCounter();
+            Scene.ResetIdCounter();
+
             this.dataFilePath = filePath;
             Story = new Story();
         }
@@ -128,7 +133,7 @@
                     Item? item = Story.Items[itemId];
                     if (item != null)
                     {
-                        area.Items.Add(item.ID, item);
+                        area.Items.Add(item.Id, item);
                     }
                 }
 
@@ -153,7 +158,15 @@
                 sceneChoice.KeyItem = keyItem;
             }
         }
+        public void ReloadStory()
+        {
+            Area.ResetIdCounter();
+            Item.ResetIdCounter();
+            Scene.ResetIdCounter();
 
+            LoadStoryFromFile();
+            ResolveObjectLinks();
+        }
 
         private void ExportStoryToFile()
         {

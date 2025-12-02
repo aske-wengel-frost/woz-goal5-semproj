@@ -157,12 +157,12 @@
       "Choices": [
         {
           "Description": "Du gider ikke diskutere mere med din kæreste, så du vælger at tage et bad uden at låse døren.",
-          "SceneId": 3,
+          "SceneId": 19,
           "KeyItemId": -1
         },
         {
           "Description": "Du vil gerne have lidt tid alene så du låser døren og tager et bad.",
-          "SceneId": 5,
+          "SceneId": 19,
           "KeyItemId": 1
         }
       ]
@@ -238,13 +238,19 @@
         "Name": "Konsekvens 5"
       },
     "18": {
-        "$type": "cutScene",
-        "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer isolation og verbal aggression. Din partners trussel om at forlade dig er et forsøg på at isolere dig og ødelægge dit selvværd, på den måde får han dig til at blive i forholdet.\nHvis din partner bruger trusler om at forlade dig for at få sympati, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
-        "NextSceneId": 7,
-        "ID": 18,
-        "Name": "Konsekvens 6"
-      }
+      "$type": "cutScene",
+      "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer isolation og verbal aggression. Din partners trussel om at forlade dig er et forsøg på at isolere dig og ødelægge dit selvværd, på den måde får han dig til at blive i forholdet.\nHvis din partner bruger trusler om at forlade dig for at få sympati, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
+      "NextSceneId": 7,
+      "ID": 18,
+      "Name": "Konsekvens 6"
     },
+    "19": {
+      "$type": "endScene",
+      "ID": 19,
+      "Name": "endScene",
+      "EndSceneContent": "---------=======================================================================================---------\nTak fordi du spillede!\n\nDette spil er skabt for at skabe opmærksomhed omkring psykisk vold mod kvinder.\nVi håber, at du gennem disse valg og scenarier har fået indblik i,\nhvordan psykisk vold kan påvirke et menneske - både synligt og usynligt.\n\nHusk: Du er ikke alene. Der findes altid hjælp.\nHvis du kender nogle eller har selv oplevet lignende situationer,\nså tøv ikke med at række ud for støtte og hjælp.\nLev Uden Volds Hotline: 1888\n---------=======================================================================================---------\n\nVil du gerne prøve igen? (ja/nej)\n>"
+    } 
+  },
     "Areas": {
       "0": {
         "ID": 0,
