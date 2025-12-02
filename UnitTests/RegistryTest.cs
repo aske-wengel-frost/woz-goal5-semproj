@@ -6,7 +6,7 @@ using woz.Domain.Story;
 using woz.Domain.Commands;
 using woz.Presentation;
 using woz.Persistance;
-namespace UnitTests
+namespace UnitTests 
 {
     public class Tests
     {   

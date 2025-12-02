@@ -27,37 +27,46 @@ namespace UnitTests
         [Test]
         public void TestInitialization()
         {
-            int count1 = 0;
-            int count2 = 0;
-            int count3 = 0;
+            int countScenes = 0;
+            int countContext = 0;
+            int countCut = 0;
+            int countEnd = 0;
+            int countAreas = 0;
+            int countItems = 0;
 
             for (int i = 0; i <= story.Scenes.Count(); i++)
             {
                 if (story.Scenes.ContainsKey(i))
                 {
-                    count1++;
+                    countScenes++;
+                    if (story.Scenes[i] is ContextScene) { countContext++; continue; }
+                    if (story.Scenes[i] is CutScene) { countCut++; continue;}
+                    countEnd++;
                 }
             }
             for (int i = 0; i <= story.Areas.Count(); i++)
             {
                 if (story.Areas.ContainsKey(i))
                 {
-                    count2++;
+                    countAreas++;
                 }
             }
             for (int i = 0; i <= story.Items.Count(); i++)
             {
                 if (story.Items.ContainsKey(i))
                 {
-                    count3++;
+                    countItems++;
                 }
             }
 
             Assert.Multiple(() =>
             {
-                Assert.AreEqual(count1, 20, "Every Scenes are not loaded");
-                Assert.AreEqual(count2, 6, "Every Áreas are not loaded");
-                Assert.AreEqual(count3, 3, "Every Items are not loaded");
+                Assert.AreEqual(countScenes, 20, "Not every Scenes are loaded");
+                Assert.AreEqual(countContext, 7, "Not every ContextScens are loaded");
+                Assert.AreEqual(countCut, 12, "Not every CutScenes are loaded");
+                Assert.AreEqual(countEnd, 1, "Not every EndScenes are loaded");
+                Assert.AreEqual(countAreas, 6, "Not every Áreas are loaded");
+                Assert.AreEqual(countItems, 3, "Not every Items are loaded");
             });
         }
 
@@ -93,6 +102,29 @@ namespace UnitTests
                 }
             }
             Assert.AreEqual(count, story.Areas.Count(), "Not every areas have been assigned an Item");
+        }
+
+        public void TestLinkedSceneChoices()
+        {
+            bool Linked = true;
+            for (int i = 0; i < story.Scenes.Count(); i++)
+            {
+                if (story.Scenes[i] is not ContextScene)
+                {
+                    continue;
+                }
+
+                ContextScene contextScene = story.Scenes[i] as ContextScene;
+
+                for (int j = 0; j < contextScene.Choices.Count(); j++)   
+                {
+                    if (contextScene.Choices[i].SceneObj is not Scene)
+                    {
+                        Linked = false;
+                    }
+                }
+            }
+            Assert.IsTrue(Linked, "Not every ContextScenes have a SceneChoice object");
         }
     }
 }
