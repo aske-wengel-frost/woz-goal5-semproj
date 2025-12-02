@@ -235,7 +235,7 @@
     "13": {
         "$type": "cutScene",
         "ConditionInfo": "Det du lige har oplevet er en type af psykisk vold der indebærer emotionel afpresning og fastholdelse. Din partner bruger voldsomme følelsesmæssige udsagn, for at bevidst lægge et enormt pres på dig. Presset giver dig skyldfølelse og et ansvar for din partners velfærd, som hurtigt fastholder dig i forholdet.\nHvis din partners kærlighed føles som et redskab for hans kontrol, er det psykisk vold. Du kan søge anonym rådgivning på Lev Uden Volds Nationale Hotline på 1888 eller hos Danners døgnåbne rådgivning på 33 33 00 37.",
-        "NextSceneId": 6,
+        "NextSceneId": 4,
         "ID": 13,
         "Name": "Konsekvens 3"
       },
