@@ -87,14 +87,26 @@ namespace UnitTests
             // Setup a new story object
             JsonDataProvider data = new JsonDataProvider();
             Story story = data.GetStory();
+            
+            // Figure out which choice to choose by checking if they're locked
+            int commandInt = 1;
+            for (int i = 0 ; i < contextScene1.Choices.Count() ; i++)
+            {
+                if (contextScene1.Choices[i].IsLocked())
+                {
+                    continue;
+                }
+                commandInt = i;
+                break;
+            }
 
             // Find the second scene choice 
-            CutScene cutScene2 = contextScene1.Choices[3 - 1].SceneObj as CutScene;
+            CutScene cutScene2 = contextScene1.Choices[commandInt].SceneObj as CutScene;
             Scene scene2 = story.FindScene<Scene>(cutScene2.NextSceneId.Value);
-
+            
             // Insert the CommandMove into registry and execute
             registry.Register(commandNames, new CommandMove());
-            registry.Dispatch("bevæg 3");
+            registry.Dispatch("bevæg " + (commandInt+1));
 
             // Get the new current scene
             Scene scene3 = storyHandler.GetCurrentScene();

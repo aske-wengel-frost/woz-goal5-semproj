@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Collections;
 using woz;
 using woz.Domain;
 using woz.Domain.Story;
@@ -13,6 +14,15 @@ namespace UnitTests
     {   
         public JsonDataProvider data;
         public Story story;
+        
+        //Initialize variables to hold to the count of the amounts of objects
+        int countScenes = 0;
+        int countContext = 0;
+        int countCut = 0;
+        int countEnd = 0;
+        int countAreas = 0;
+        int countItems = 0;
+
 
         [SetUp]
         public void Setup()
@@ -27,18 +37,14 @@ namespace UnitTests
         [Test]
         public void TestInitialization()
         {
-            int countScenes = 0;
-            int countContext = 0;
-            int countCut = 0;
-            int countEnd = 0;
-            int countAreas = 0;
-            int countItems = 0;
-
+            //Iterate through the objects scenes in the dictionary in story
             for (int i = 0; i <= story.Scenes.Count(); i++)
             {
                 if (story.Scenes.ContainsKey(i))
                 {
+                    //+1 of the scene count
                     countScenes++;
+                    //Check if the scene is a ContextScene and 
                     if (story.Scenes[i] is ContextScene) { countContext++; continue; }
                     if (story.Scenes[i] is CutScene) { countCut++; continue;}
                     countEnd++;
@@ -83,25 +89,30 @@ namespace UnitTests
 
                 ContextScene contextScene = story.Scenes[i] as ContextScene;
 
-                if (contextScene.Area is Area && contextScene.Area != null)
+                if (contextScene.Area is Area && contextScene.Area == story.Areas[contextScene.AreaId])
                 {
                     count++;
                 }
             }
-            Assert.AreEqual(count, 7, "Not every scenes have been assigned an Area");
+            Assert.AreEqual(count, countContext, "Not every scenes have been assigned an Area");
         }
 
         public void TestLinkedAreaItem()
         {
             int count = 0;
+            Hashtable ht = new Hashtable();
             for (int i = 0; i < story.Areas.Count(); i++)
             {
-                if (story.Areas[i] is Item && story.Areas[i] != null)
+                if (story.Areas[i].Items.Count() > 0)
                 {
-                    count++;
+                    for (int j = 0 ; j < story.Areas[i].Items.Count() ; j++)
+                    {
+                        ht.Add(count.ToString(), story.Areas[i].Items[j].Id);
+                        count++;
+                    }
                 }
             }
-            Assert.AreEqual(count, story.Areas.Count(), "Not every areas have been assigned an Item");
+            Assert.AreEqual(countItems, ht.Cast<DictionaryEntry>().Count(), "Not every Items are loaded in an Area");
         }
 
         public void TestLinkedSceneChoices()
@@ -118,7 +129,7 @@ namespace UnitTests
 
                 for (int j = 0; j < contextScene.Choices.Count(); j++)   
                 {
-                    if (contextScene.Choices[i].SceneObj is not Scene)
+                    if (contextScene.Choices[i].SceneObj is not Scene && story.Scenes[contextScene.Choices[i].SceneId] != contextScene.Choices[i].SceneObj)
                     {
                         Linked = false;
                     }
