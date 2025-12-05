@@ -23,8 +23,8 @@ namespace woz.Domain
             // Initializes an instance of Terminal UI
             UITerminal UIHandler = new UITerminal();
 
-            // Initializes an instance of JsonDataProvider 
-            //TestDataProvider tdp = new TestDataProvider(); // A class that builds and provides a test story
+            // Initializes an instance of TestDataProvider and JsonDataProvider 
+            TestDataProvider tdp = new TestDataProvider(); // A class that builds and provides a test story
             JsonDataProvider jsondp = new JsonDataProvider(); // A Class which loads the story data from a Json file
             
             // Inits an instance of StoryHandler

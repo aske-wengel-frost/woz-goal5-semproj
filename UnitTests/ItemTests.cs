@@ -23,7 +23,7 @@ namespace UnitTests
             toiletNøgle = new Item("Toilet Nøgle", "En nøgle til toilettet");
         }
 
-        // TEST 1: Constructor
+        // TEST 1: Constructor (Change this test because it's redundant)
         // Verifying that the constructor sets all properties correctly
         [Test]
         public void Item_Constructor_SetsPropertiesCorrectly()
@@ -42,7 +42,7 @@ namespace UnitTests
             Assert.GreaterOrEqual(testItem.Id, 0, "Item ID should be 0 or greater.");
         }
 
-        // TEST 2: ToString Method
+        // TEST 2: ToString Method (Hardcoded string, Redundant test)
         // Verification that ToString() returns the correct format.
         //This test is Redundant because the string it checks, is hardcoded in the ToString method
         [Test]
