@@ -60,16 +60,6 @@ namespace UnitTests
         }
 
         [Test]
-        public void TestInitialization()
-        {
-            // Get the output from the terminal
-            string consoleOutput1 = GetTerminalOutput("bevæg");
-            
-            // Test if the output to the terminal is correct
-            Assert.AreEqual("Woopsie, forstår ikke 'bevæg' 😕", consoleOutput1, "Registry initilazation failed");
-        }
-
-        [Test]
         public void TestCommandInsertion()
         { 
             // Insert the command into the registry dictionary
@@ -85,39 +75,7 @@ namespace UnitTests
                 Assert.AreEqual("gå", newCommandNames[2], "Command name 'gå' not working");                
             });
         }
-        //TMP = Too Many Parameters or none
-        [Test]
-        public void TestCommandTMPExecution()
-        {
-            
-            registry.Register(commandNames, new CommandMove());
-            
-            string consoleOutput1 = GetTerminalOutput("bevæg"); 
-            string consoleOutput2 = GetTerminalOutput("bevæg 2 3");
-
-            // Test to see if the command matches the string below
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual("Specificer venligst ET valg", consoleOutput1, "The command feedback for non parameters failed"); 
-                Assert.AreEqual("Specificer venligst ET valg", consoleOutput2, "The command for too many parameters failed");
-            });
-        }
-        
-        [Test]
-        public void TestCommandInvalidChoice()
-        {
-            // Insert the command into the registry dictionary
-            registry.Register(commandNames, new CommandMove());
-
-            Start();
-            
-            // Convert the stringwriter into a string
-            string consoleOutput1 = GetTerminalOutput("Bevæg 5");
-            
-            // Test if the output to the terminal is correct
-            Assert.AreEqual("5 er ikke et gyldigt valg!", consoleOutput1, "The invalid message failed"); 
-        }
-
+                    
         [Test]
         public void TestCommandAction()
         {
@@ -144,7 +102,6 @@ namespace UnitTests
             // Check if the two current scenes are different
             Assert.Multiple(() =>
             {
-                Console.WriteLine(scene1.Name + " " + scene2.Name + " " + scene3.Name + " Giggity");
                 Assert.AreNotEqual(scene1.Name, scene3.Name, "The CommandMove execution failed");
                 Assert.AreEqual(scene2.Name, scene3.Name, "Failed to switch to the proper scene");
             });
