@@ -54,9 +54,13 @@ namespace UnitTests
         public void Start()
         {
             storyHandler.StartStory();
-            string simulatedInput = Environment.NewLine;
-            StringReader reader = new StringReader(simulatedInput);
-            Console.SetIn(reader);
+            // Check if the current scene is a cut scene and get through it by making the console press enter
+            if (storyHandler.GetCurrentScene() is CutScene)
+            {
+                string simulatedInput = Environment.NewLine;
+                StringReader reader = new StringReader(simulatedInput);
+                Console.SetIn(reader);
+            }
         }
 
         [Test]

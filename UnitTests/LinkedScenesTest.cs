@@ -37,19 +37,23 @@ namespace UnitTests
         [Test]
         public void TestInitialization()
         {
-            //Iterate through the objects scenes in the dictionary in story
+            // Iterate through the objects scenes in the dictionary in story
             for (int i = 0; i <= story.Scenes.Count(); i++)
             {
                 if (story.Scenes.ContainsKey(i))
                 {
-                    //+1 of the scene count
+                    // increment countScenes
                     countScenes++;
-                    //Check if the scene is a ContextScene and 
+                    // Check if the scene is a ContextScene and increment countContext
                     if (story.Scenes[i] is ContextScene) { countContext++; continue; }
+                    // Check if the scene is a Cutscene and increment countCut
                     if (story.Scenes[i] is CutScene) { countCut++; continue;}
+                    // If it's none of the above then increment the countEnd
                     countEnd++;
                 }
             }
+
+            // Iterate through object of areas and increment countAreas
             for (int i = 0; i <= story.Areas.Count(); i++)
             {
                 if (story.Areas.ContainsKey(i))
@@ -57,6 +61,8 @@ namespace UnitTests
                     countAreas++;
                 }
             }
+            
+            // Iterate through objects of Items and increment countItems
             for (int i = 0; i <= story.Items.Count(); i++)
             {
                 if (story.Items.ContainsKey(i))
@@ -67,6 +73,7 @@ namespace UnitTests
 
             Assert.Multiple(() =>
             {
+                // Check if the count of each objects matches the expected amount 'Spoiler it's very unreliable'
                 Assert.AreEqual(countScenes, 20, "Not every Scenes are loaded");
                 Assert.AreEqual(countContext, 7, "Not every ContextScens are loaded");
                 Assert.AreEqual(countCut, 12, "Not every CutScenes are loaded");
@@ -100,19 +107,17 @@ namespace UnitTests
         public void TestLinkedAreaItem()
         {
             int count = 0;
-            Hashtable ht = new Hashtable();
             for (int i = 0; i < story.Areas.Count(); i++)
             {
                 if (story.Areas[i].Items.Count() > 0)
                 {
                     for (int j = 0 ; j < story.Areas[i].Items.Count() ; j++)
                     {
-                        ht.Add(count.ToString(), story.Areas[i].Items[j].Id);
                         count++;
                     }
                 }
             }
-            Assert.AreEqual(countItems, ht.Cast<DictionaryEntry>().Count(), "Not every Items are loaded in an Area");
+            Assert.AreEqual(countItems, count, "Not every Items are loaded in an Area");
         }
 
         public void TestLinkedSceneChoices()
