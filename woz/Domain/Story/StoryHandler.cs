@@ -92,7 +92,6 @@ namespace woz.Domain.Story
             }
         }
 
-        // Måske flyt denne ind i gå command?
         /// <summary>
         /// Checks wether userinput corresponds to any choice, and proceeeds if true, otherwise, DrawError is called.
         /// </summary>
