@@ -33,7 +33,8 @@ namespace UnitTests
             //Initialize the Story object
             story = data.GetStory();
         }
-
+        
+        // Test if every expected scenes, areas and items are loaded into the story object
         [Test]
         public void TestInitialization()
         {
@@ -83,6 +84,7 @@ namespace UnitTests
             });
         }
 
+        // Test of if the contextScenes have an object Area and the correct one
         [Test]
         public void TestLinkedSceneAreas()
         {
@@ -108,7 +110,9 @@ namespace UnitTests
             // Test if every contextScene has an area object assigned to its parameter
             Assert.AreEqual(count, countContext, "Not every scenes have been assigned an Area");
         }
-
+        
+        // Test if every item is assigned to an area object
+        [Test]
         public void TestLinkedAreaItem()
         {
             int count = 0;
@@ -128,7 +132,9 @@ namespace UnitTests
             // Test if every item is in an Area
             Assert.AreEqual(countItems, count, "Not every Items are loaded in an Area");
         }
-
+        
+        // Test if every sceneChoices have a Scene object and the correct one
+        [Test]
         public void TestLinkedSceneChoices()
         {
             bool Linked = true;
@@ -148,7 +154,7 @@ namespace UnitTests
                 for (int j = 0; j < contextScene.Choices.Count(); j++)   
                 {
                     // Check if the sceneChoice has a scene obect assigned to its SceneObj parameter and if the Scene object is the correct scene. Otherwise make the linked bool false
-                    if (contextScene.Choices[i].SceneObj is not Scene && story.Scenes[contextScene.Choices[i].SceneId] != contextScene.Choices[i].SceneObj)
+                    if (contextScene.Choices[j].SceneObj is not Scene && story.Scenes[contextScene.Choices[j].SceneId] != contextScene.Choices[j].SceneObj)
                     {
                         Linked = false;
                     }

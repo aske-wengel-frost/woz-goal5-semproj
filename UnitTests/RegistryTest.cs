@@ -50,19 +50,8 @@ namespace UnitTests
             // Convert the stringwriter into a string
             return output1.ToString().Trim();
         }
-
-        public void Start()
-        {
-            storyHandler.StartStory();
-            // Check if the current scene is a cut scene and get through it by making the console press enter
-            if (storyHandler.GetCurrentScene() is CutScene)
-            {
-                string simulatedInput = Environment.NewLine;
-                StringReader reader = new StringReader(simulatedInput);
-                Console.SetIn(reader);
-            }
-        }
-
+        
+        // Test if the command get loaded into registry
         [Test]
         public void TestCommandInsertion()
         { 
@@ -79,12 +68,13 @@ namespace UnitTests
                 Assert.AreEqual("gå", newCommandNames[2], "Command name 'gå' not working");                
             });
         }
-                    
+        
+        // Test of the functionallity of the command "bevæg" and if it works
         [Test]
         public void TestCommandAction()
         {
-            // Start the story and get the current scene
-            Start();
+            // Start the story and get the first context scene
+            storyHandler.StartStory();
             Scene scene1 = storyHandler.GetCurrentScene();
             ContextScene contextScene1 = scene1 as ContextScene;       
             
@@ -118,6 +108,7 @@ namespace UnitTests
             // Check if the two current scenes are different
             Assert.Multiple(() =>
             {
+                Console.WriteLine(scene1.Name + " " + scene2.Name + " " + scene3.Name);
                 Assert.AreNotEqual(scene1.Name, scene3.Name, "The CommandMove execution failed");
                 Assert.AreEqual(scene2.Name, scene3.Name, "Failed to switch to the proper scene");
             });
