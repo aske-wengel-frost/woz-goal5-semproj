@@ -1,5 +1,3 @@
-/* Baseclass for commands
- */
 namespace woz.Domain.Commands
 {
 
