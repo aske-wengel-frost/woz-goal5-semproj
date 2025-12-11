@@ -51,7 +51,7 @@ namespace UnitTests
         public void AddSceneTest()
         {
             //ASSERT: Verifies that the scene was added to the Scenes dictionary
-            Assert.That(story.Scenes.ContainsValue(scene));
+            Assert.That(story.Scenes.ContainsValue(scene), "Scene wasn't added correctly");
         }
 
         //TEST 2: Adding Area
@@ -60,7 +60,7 @@ namespace UnitTests
         public void AddAreaTest()
         {
             //ASSERT: Verifies that the area was added to the Areas dictionary
-            Assert.That(story.Areas.ContainsValue(area));
+            Assert.That(story.Areas.ContainsValue(area), "Area wasn't added correctly");
         }
 
         //TEST 3: Adding Item
@@ -72,7 +72,7 @@ namespace UnitTests
             //story.AddItem(item);
 
             //ASSERT: Verifies that the item was added to the Items dictionary
-            Assert.That(story.Items.ContainsValue(item));
+            Assert.That(story.Items.ContainsValue(item), "Item wasn't added correctly");
         }
         #endregion
 
@@ -90,7 +90,7 @@ namespace UnitTests
             Scene result = story.FindScene<Scene>(scene.Id);
 
             //ASSERT: Verifies that the found scene is the same as the one we added
-            Assert.That(result, Is.EqualTo(scene));
+            Assert.That(result, Is.EqualTo(scene), "Result is not the scene we searched for");
         }
 
         //TEST 5: Finding Scene by Name
@@ -105,7 +105,7 @@ namespace UnitTests
             Scene result = story.FindScene<Scene>(scene.Name);
 
             //ASSERT: Verifies that the found scene is the same as the one we added
-            Assert.That(result, Is.EqualTo(scene));
+            Assert.That(result, Is.EqualTo(scene), "Result is not the scene we searched for");
         }
         #endregion
 
@@ -123,7 +123,7 @@ namespace UnitTests
             Item result = story.FindItem(item.Id);
 
             //ASSERT: Verifies that the found item is the same as the one we added
-            Assert.That(result, Is.EqualTo(item));
+            Assert.That(result, Is.EqualTo(item), "Result is not the item we searched for");
         }
 
         //TEST 7: Finding Item by Name
@@ -138,7 +138,7 @@ namespace UnitTests
             Item result = story.FindItem(item.Name);
 
             //ASSERT: Verifies that the found item is the same as the one we added
-            Assert.That(result, Is.EqualTo(item));
+            Assert.That(result, Is.EqualTo(item), "Result is not the item we searched for");
         }
         #endregion
 
@@ -156,7 +156,7 @@ namespace UnitTests
             Area result = story.FindArea(area.Id);
 
             //ASSERT: Verifies that the found area is the same as the one we added
-            Assert.That(result, Is.EqualTo(area));
+            Assert.That(result, Is.EqualTo(area), "Result is not the area we searched for");
         }
 
         //TEST 9: Finding Area by Name
@@ -171,7 +171,7 @@ namespace UnitTests
             Area result = story.FindArea(area.Name);
 
             //ASSERT: Verifies that the found area is the same as the one we added
-            Assert.That(result, Is.EqualTo(area));
+            Assert.That(result, Is.EqualTo(area), "Result is not the area we searched for");
         }
         #endregion
         #endregion
