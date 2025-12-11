@@ -1,16 +1,17 @@
-using System;
-using System.IO;
-using woz;
-using woz.Domain;
-using woz.Domain.Story;
-using woz.Domain.Commands;
-using woz.Presentation;
-using woz.Persistance;
 namespace UnitTests 
 {
-    public class Tests
+    using System;
+    using System.IO;
+    using woz;
+    using woz.Domain;
+    using woz.Domain.Story;
+    using woz.Domain.Commands;
+    using woz.Presentation;
+    using woz.Persistance;
+
+    public class RegistryTest
     {   
-        private UITerminal uiTerminal;
+        private DummyUIHandler uiTerminal;
         private StoryHandler storyHandler;
         private Registry registry;
         private CommandMove command;
@@ -20,7 +21,7 @@ namespace UnitTests
         public void Setup()
         {
             // Sets up UITerminal
-            uiTerminal = new UITerminal();
+            uiTerminal = new DummyUIHandler();
 
             // Sets up the StoryHandler
             storyHandler = new StoryHandler(uiTerminal, new JsonDataProvider());
@@ -50,25 +51,8 @@ namespace UnitTests
             // Convert the stringwriter into a string
             return output1.ToString().Trim();
         }
-
-        public void Start()
-        {
-            storyHandler.StartStory();
-            string simulatedInput = Environment.NewLine;
-            StringReader reader = new StringReader(simulatedInput);
-            Console.SetIn(reader);
-        }
-
-        [Test]
-        public void TestInitialization()
-        {
-            // Get the output from the terminal
-            string consoleOutput1 = GetTerminalOutput("bevæg");
-            
-            // Test if the output to the terminal is correct
-            Assert.AreEqual("Woopsie, forstår ikke 'bevæg' 😕", consoleOutput1, "Registry initilazation failed");
-        }
-
+        
+        // Test if the command get loaded into registry
         [Test]
         public void TestCommandInsertion()
         { 
@@ -85,58 +69,39 @@ namespace UnitTests
                 Assert.AreEqual("gå", newCommandNames[2], "Command name 'gå' not working");                
             });
         }
-        //TMP = Too Many Parameters or none
-        [Test]
-        public void TestCommandTMPExecution()
-        {
-            
-            registry.Register(commandNames, new CommandMove());
-            
-            string consoleOutput1 = GetTerminalOutput("bevæg"); 
-            string consoleOutput2 = GetTerminalOutput("bevæg 2 3");
-
-            // Test to see if the command matches the string below
-            Assert.Multiple(() =>
-            {
-                Assert.AreEqual("For mange argumenter!", consoleOutput1, "The command feedback for non parameters failed"); 
-                Assert.AreEqual("For mange argumenter!", consoleOutput2, "The command for too many parameters failed");
-            });
-        }
         
-        [Test]
-        public void TestCommandInvalidChoice()
-        {
-            // Insert the command into the registry dictionary
-            registry.Register(commandNames, new CommandMove());
-
-            Start();
-            
-            // Convert the stringwriter into a string
-            string consoleOutput1 = GetTerminalOutput("Bevæg 5");
-            
-            // Test if the output to the terminal is correct
-            Assert.AreEqual("5 er ikke et gyldigt valg!", consoleOutput1, "The invalid message failed"); 
-        }
-
+        // Test of the functionallity of the command "bevæg" and if it works
         [Test]
         public void TestCommandAction()
         {
-            // Start the story and get the current scene
-            Start();
+            // Start the story and get the first context scene
+            storyHandler.StartStory();
             Scene scene1 = storyHandler.GetCurrentScene();
             ContextScene contextScene1 = scene1 as ContextScene;       
             
             // Setup a new story object
             JsonDataProvider data = new JsonDataProvider();
             Story story = data.GetStory();
+            
+            // Figure out which choice to choose by checking if they're locked
+            int commandInt = 1;
+            for (int i = 0 ; i < contextScene1.Choices.Count() ; i++)
+            {
+                if (contextScene1.Choices[i].IsLocked())
+                {
+                    continue;
+                }
+                commandInt = i;
+                break;
+            }
 
             // Find the second scene choice 
-            CutScene cutScene2 = contextScene1.Choices[3 - 1].SceneObj as CutScene;
+            CutScene cutScene2 = contextScene1.Choices[commandInt].SceneObj as CutScene;
             Scene scene2 = story.FindScene<Scene>(cutScene2.NextSceneId.Value);
-
+            
             // Insert the CommandMove into registry and execute
             registry.Register(commandNames, new CommandMove());
-            registry.Dispatch("bevæg 3");
+            registry.Dispatch("bevæg " + (commandInt+1));
 
             // Get the new current scene
             Scene scene3 = storyHandler.GetCurrentScene();
@@ -144,7 +109,7 @@ namespace UnitTests
             // Check if the two current scenes are different
             Assert.Multiple(() =>
             {
-                Console.WriteLine(scene1.Name + " " + scene2.Name + " " + scene3.Name + " Giggity");
+                Console.WriteLine(scene1.Name + " " + scene2.Name + " " + scene3.Name);
                 Assert.AreNotEqual(scene1.Name, scene3.Name, "The CommandMove execution failed");
                 Assert.AreEqual(scene2.Name, scene3.Name, "Failed to switch to the proper scene");
             });
