@@ -60,7 +60,7 @@ namespace woz.Domain.Player
         // Used when restarting the game to put partner aggression back to 0
         public void ResetParterAggression()
         {
-            PartnerAggression = 0;
+            PartnerAggression = 30;
         }
     }
 }
