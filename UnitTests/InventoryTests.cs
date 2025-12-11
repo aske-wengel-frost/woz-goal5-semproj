@@ -64,7 +64,7 @@ namespace UnitTests
             // 2. The count should STILL be 2, not 3
             Assert.AreEqual(2, inventory.GetItems().Count, "Inventory count should remain at 2.");
 
-            // 3. Verify that the potion is NOT in the list
+            // 3. Verify that the toilet nøgle is NOT in the list
             // (The IsFalse check means: "It is false that the list contains the toilet nøgle")
             Assert.IsFalse(inventory.GetItems().Contains(toiletNøgle), "The toilet nøgle should not have been added.");
         }

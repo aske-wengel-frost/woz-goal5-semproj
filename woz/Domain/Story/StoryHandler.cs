@@ -29,13 +29,6 @@ namespace woz.Domain.Story
             this.Story = Data.GetStory();
         }
 
-        // Make sure there is a console to write to 
-        static bool HasInteractiveConsole =>
-            !Console.IsOutputRedirected &&
-            !Console.IsErrorRedirected &&
-            !Console.IsInputRedirected;
-
-
         /// <summary>
         /// Entry point for the story, this loads the scenes, gets the initial scene and draws the UI
         /// </summary>
@@ -106,7 +99,7 @@ namespace woz.Domain.Story
         public void PerformChoice(int sceneId)
         {
             // Guard check if currentScene is a context Scene, as only a contextScene contains chocies
-            if (CurrentScene is not ContextScene && HasInteractiveConsole)
+            if (CurrentScene is not ContextScene)
             {
                 UI.DrawError($"Dette valg kan du ikke tage på nuværende tidspunkt!");
                 return;
@@ -116,7 +109,7 @@ namespace woz.Domain.Story
             ContextScene contextScene = (ContextScene)GetCurrentScene();
 
             // Try to find the contextscene in the list of contextscenes by index based on the users input.
-            if (contextScene.Choices.ElementAtOrDefault(sceneId - 1) == null && HasInteractiveConsole)
+            if (contextScene.Choices.ElementAtOrDefault(sceneId - 1) == null)
             {
                 UI.DrawError($"{sceneId} er ikke et gyldigt valg!");
                 return;
@@ -129,7 +122,7 @@ namespace woz.Domain.Story
             if (sceneChoice.IsLocked())
             {
                 // Try to unlock the sceneChoice
-                if (!sceneChoice.Unlock(Player.Inventory) && HasInteractiveConsole)
+                if (!sceneChoice.Unlock(Player.Inventory))
                 {
                     UI.DrawError($"Du kan ikke gå hertil, du mangler vidst {sceneChoice.KeyItem.Name}");
                     return;
@@ -170,11 +163,8 @@ namespace woz.Domain.Story
         /// </summary>
         private void HandleContextScene(ContextScene contextScene)
         {
-            if (HasInteractiveConsole)
-            {
-                UI.HighlightArea(contextScene.AreaId);
-                UI.DrawScene(contextScene, this.Player);
-            }
+            UI.HighlightArea(contextScene.AreaId);
+            UI.DrawScene(contextScene, this.Player);
         }
 
         /// <summary>
@@ -184,11 +174,8 @@ namespace woz.Domain.Story
         private void HandleCutScene(CutScene cutScene)
         {
             // Draws the cutcene
-            if (HasInteractiveConsole)
-            {
-                UI.DrawScene(cutScene, this.Player);
-                UI.WaitForKeypress();
-            }
+            UI.DrawScene(cutScene, this.Player);
+            UI.WaitForKeypress();
 
             // Check if next scene has id.
             if (!cutScene.NextSceneId.HasValue)
@@ -216,10 +203,7 @@ namespace woz.Domain.Story
         private void HandleEndScene(EndScene endScene)
         {
             // Draws endscene
-            if (HasInteractiveConsole)
-            {
             UI.DrawScene(endScene, this.Player);
-            }
         }
 
         /// <summary>

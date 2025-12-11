@@ -10,7 +10,7 @@ namespace UnitTests
 {
     public class Tests
     {   
-        private UITerminal uiTerminal;
+        private DummyUIHandler dummyUIHandler;
         private StoryHandler storyHandler;
         private Registry registry;
         private CommandMove command;
@@ -20,10 +20,10 @@ namespace UnitTests
         public void Setup()
         {
             // Sets up UITerminal
-            uiTerminal = new UITerminal();
+            dummyUIHandler = new DummyUIHandler();
 
             // Sets up the StoryHandler
-            storyHandler = new StoryHandler(uiTerminal, new JsonDataProvider());
+            storyHandler = new StoryHandler(dummyUIHandler, new JsonDataProvider());
 
             // Sets the player object to the storyHandler player
             //storyHandler.player = new cs.Domain.Player.Player("Name");
