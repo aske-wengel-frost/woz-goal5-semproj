@@ -1,16 +1,17 @@
-using System;
-using System.IO;
-using woz;
-using woz.Domain;
-using woz.Domain.Story;
-using woz.Domain.Commands;
-using woz.Presentation;
-using woz.Persistance;
 namespace UnitTests 
 {
-    public class Tests
+    using System;
+    using System.IO;
+    using woz;
+    using woz.Domain;
+    using woz.Domain.Story;
+    using woz.Domain.Commands;
+    using woz.Presentation;
+    using woz.Persistance;
+
+    public class RegistryTest
     {   
-        private DummyUIHandler dummyUIHandler;
+        private DummyUIHandler uiTerminal;
         private StoryHandler storyHandler;
         private Registry registry;
         private CommandMove command;
@@ -20,10 +21,10 @@ namespace UnitTests
         public void Setup()
         {
             // Sets up UITerminal
-            dummyUIHandler = new DummyUIHandler();
+            uiTerminal = new DummyUIHandler();
 
             // Sets up the StoryHandler
-            storyHandler = new StoryHandler(dummyUIHandler, new JsonDataProvider());
+            storyHandler = new StoryHandler(uiTerminal, new JsonDataProvider());
 
             // Sets the player object to the storyHandler player
             //storyHandler.player = new cs.Domain.Player.Player("Name");
